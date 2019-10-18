@@ -14,8 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package hesml.measures.impl;
 
+import hesml.measures.IPretrainedWordEmbedding;
 import hesml.measures.IWordSimilarityMeasure;
 import hesml.measures.SimilarityMeasureClass;
 import hesml.measures.SimilarityMeasureType;
@@ -49,7 +51,8 @@ import java.util.HashSet;
  * @author j.lastra
  */
 
-class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
+class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure,
+        IPretrainedWordEmbedding
 {
     /**
      * This file contains the word vectors provided by the pre-trained
@@ -149,8 +152,6 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
         
         reader.close();
         
-        Float[] vector = getWordVector("the");
-        
         // We measure the elapsed time to run the experiments
 
         long endTime = System.currentTimeMillis();
@@ -167,7 +168,8 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
      * @throws IOException 
      */
     
-    public Float[] getWordVector(
+    @Override
+    public double[] getWordVector(
             String  strWord) throws IOException
     {
         // We scan the sense vector file to retrieve all senses at the same time
@@ -176,7 +178,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
         
         // We create the output vector
         
-        Float[] vector = new Float[m_VectorDimension];
+        double[] vector = new double[m_VectorDimension];
         
         // We get te word vector offset
         
@@ -203,7 +205,6 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
             for (int i = 0, j = 0; i < m_VectorDimension; i++, j += 4)
             {
                 vector[i] = buffer.getFloat(j);
-                System.out.println(vector[i]);
             }
         }
         
@@ -323,8 +324,8 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
         
         // We get vectors representing both words
         
-        Float[] word1 = getWordVector(strWord1);
-        Float[] word2 = getWordVector(strWord2);
+        double[] word1 = getWordVector(strWord1);
+        double[] word2 = getWordVector(strWord2);
         
         // We check the validity of the word vectors. They could be null if
         // any word is not contained in the vocabulary of the embedding.
@@ -356,7 +357,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
      */
     
     private double getVectorNorm(
-        Float[]    vector)
+        double[]    vector)
     {
         double norm = 0.0;  // Returned value
         
@@ -387,5 +388,27 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure
     public double getNullSimilarityValue()
     {
         return (0.0);
+    }
+    
+    /**
+     * This function checks the existence of the word in the model.
+     * @param strWord
+     * @return 
+     */
+    
+    @Override
+    public boolean ContainsWord(String strWord)
+    {
+        return (m_WordOffsetsInFile.containsKey(strWord));
+    }
+    
+    /**
+     * This function returns the dimensions of the vectors in the model.
+     * @return 
+     */
+    
+    public int getVectorDimension()
+    {
+        return (m_VectorDimension);
     }
 }

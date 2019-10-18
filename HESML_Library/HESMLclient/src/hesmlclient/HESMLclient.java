@@ -161,11 +161,15 @@ public class HESMLclient
         
         // We print the HESML version
         
-        System.out.println("Running HESMLClient V1R4 (1.4.0.0, January 2018) based on "
+        System.out.println("Running HESMLClient V2R1 (2.1.0.0, October 2019) based on "
                 + HESMLversion.getReleaseName() + " " + HESMLversion.getVersionCode());
         
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
+        
+        String strBioWordVecfile = "D:\\Basura\\bio_embedding_intrinsic";
+        
+        IWordSimilarityMeasure measure = MeasureFactory.getBioWordVecWordEmbeddingModel(strBioWordVecfile);
         
         // We read the incoming parameters and load the reproducible
         // experiments defined by the user in a XML-based file.
