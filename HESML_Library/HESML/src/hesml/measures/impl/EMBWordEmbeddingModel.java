@@ -69,7 +69,7 @@ class EMBWordEmbeddingModel implements IWordSimilarityMeasure
         m_strRawPretrainedEmbeddingFilename = strVectorFilename;
         m_bufferedWordVectors = new HashMap<>();
         
-        // We loand only those word vectors to be evaluated
+        // We only load those word vectors to be evaluated
         
         loadBufferedWordVectors(words);
     }

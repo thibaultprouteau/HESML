@@ -386,7 +386,21 @@ public class MeasureFactory
     {
         return (new EMBWordEmbeddingModel(strRawVectorFile, strWords));
     }
+
+        /**
+     * This function loads a BioWordVec word embedding model implementing
+     * a word similarity measure. Current measure reads a BioWordVec binary file.
+     * @param strRawVectorFile
+     * @param words
+     * @return 
+     */
     
+    public static IWordSimilarityMeasure getBioWordVecWordEmbeddingModel(
+            String  strRawVectorFile) throws IOException, ParseException
+    {
+        return (new BioWordVecBinaryWordEmbeddingModel(strRawVectorFile));
+    }
+
     /**
      * This function loads a UKB (ppv) word embedding model implementing
      * a word similarity measure.
