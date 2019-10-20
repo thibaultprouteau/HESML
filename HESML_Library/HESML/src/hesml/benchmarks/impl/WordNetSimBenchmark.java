@@ -26,11 +26,9 @@ package hesml.benchmarks.impl;
 import hesml.taxonomyreaders.wordnet.IWordNetSynset;
 import hesml.taxonomyreaders.wordnet.IWordNetDB;
 import hesml.benchmarks.CorrelationOutputMetrics;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
 
 // HESML references
 
@@ -40,7 +38,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * This class implements the common functions for all the word similarity
