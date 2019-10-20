@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Universidad Nacional de Educación a Distancia (UNED)
+ * Copyright (C) 2016-2020 Universidad Nacional de Educación a Distancia (UNED)
  *
  * This program is free software for non-commercial use:
  * you can redistribute it and/or modify it under the terms of the
@@ -166,10 +166,6 @@ public class HESMLclient
         
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
-        
-        String strBioWordVecfile = "D:\\Basura\\bio_embedding_intrinsic";
-        
-        IWordSimilarityMeasure measure = MeasureFactory.getBioWordVecWordEmbeddingModel(strBioWordVecfile);
         
         // We read the incoming parameters and load the reproducible
         // experiments defined by the user in a XML-based file.
