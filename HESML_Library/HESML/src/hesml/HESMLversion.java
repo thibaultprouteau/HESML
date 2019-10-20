@@ -60,7 +60,7 @@ public class HESMLversion
     
     public static String getReleaseName()
     {
-        return ("HESML V1R4");
+        return ("HESML V2R1");
     }
     
     /**
@@ -70,6 +70,6 @@ public class HESMLversion
     
     public static String getVersionCode()
     {
-        return ("(1.4.0.0)");
+        return ("(2.1.0.0)");
     }
 }
