@@ -143,7 +143,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
         
         // We extract all word vectors
         
-        for (int iWord = 0; iWord < 1; iWord++)
+        for (int iWord = 0; iWord < wordCount; iWord++)
         {
             // We get the word of the line
             
