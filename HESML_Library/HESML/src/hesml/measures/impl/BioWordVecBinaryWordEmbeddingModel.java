@@ -51,8 +51,7 @@ import java.util.HashMap;
  * @author j.lastra
  */
 
-class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure,
-        IPretrainedWordEmbedding
+class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
 {
     /**
      * This file contains the word vectors provided by the pre-trained
@@ -354,39 +353,12 @@ class BioWordVecBinaryWordEmbeddingModel implements IWordSimilarityMeasure,
             
             // We divide by the vector norms
             
-            similarity /= (getVectorNorm(word1) * getVectorNorm(word2));
+            similarity /= (MeasureFactory.getVectorNorm(word1) * MeasureFactory.getVectorNorm(word2));
         }
         
         // We return the result
         
         return (similarity);
-    }
-    
-    /**
-     * This function computes the Euclidean norm of the input vector
-     * @param vector
-     * @return 
-     */
-    
-    private double getVectorNorm(
-        double[]    vector)
-    {
-        double norm = 0.0;  // Returned value
-        
-        // We compute the acumulated square-coordinates
-        
-        for (int i = 0; i < vector.length; i++)
-        {
-            norm += vector[i] * vector[i];
-        }
-        
-        // Finally, we compute the square root
-        
-        norm = Math.sqrt(norm);
-        
-        // We return the result
-        
-        return (norm);
     }
     
     /**

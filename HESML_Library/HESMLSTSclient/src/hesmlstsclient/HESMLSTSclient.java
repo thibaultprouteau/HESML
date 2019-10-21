@@ -22,8 +22,11 @@
 package hesmlstsclient;
 
 import hesml.HESMLversion;
-import hesml.measures.IWordSimilarityMeasure;
-import hesml.measures.impl.MeasureFactory;
+import hesml.measures.WordEmbeddingFileType;
+import hesml.sts.measures.ISentenceSimilarityMeasure;
+import hesml.sts.measures.SWEMpoolingMethod;
+import hesml.sts.measures.impl.SentenceSimilarityFactory;
+import hesml.tokenizers.WordTokenizerMethod;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -61,6 +64,12 @@ public class HESMLSTSclient
     
         String strBioWordVecfile = "D:\\Basura\\bio_embedding_intrinsic";
         
-        IWordSimilarityMeasure measure = MeasureFactory.getBioWordVecWordEmbeddingModel(strBioWordVecfile);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
+                    SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
+                    WordTokenizerMethod.DefaultJava, true, strBioWordVecfile);
+        
+        double simScore = measure.getSimilarityValue(
+                            "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
+                            "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.");
     }
 }

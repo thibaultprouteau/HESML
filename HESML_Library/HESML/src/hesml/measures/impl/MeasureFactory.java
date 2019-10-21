@@ -63,6 +63,33 @@ public class MeasureFactory
     }
 
     /**
+     * This function computes the Euclidean norm of the input vector
+     * @param vector
+     * @return 
+     */
+    
+    public static double getVectorNorm(
+        double[]    vector)
+    {
+        double norm = 0.0;  // Returned value
+        
+        // We compute the acumulated square-coordinates
+        
+        for (int i = 0; i < vector.length; i++)
+        {
+            norm += vector[i] * vector[i];
+        }
+        
+        // Finally, we compute the square root
+        
+        norm = Math.sqrt(norm);
+        
+        // We return the result
+        
+        return (norm);
+    }
+    
+    /**
      * This function creates an instance of an specific similarity measure.
      * @param taxonomy
      * @param measureType
@@ -388,15 +415,16 @@ public class MeasureFactory
     }
 
         /**
-     * This function loads a BioWordVec word embedding model implementing
-     * a word similarity measure. Current measure reads a BioWordVec binary file.
+     * This function loads a word embedding model implementing
+     * a word similarity measure.
      * @param strRawVectorFile
      * @param words
      * @return 
      */
     
-    public static IWordSimilarityMeasure getBioWordVecWordEmbeddingModel(
-            String  strRawVectorFile) throws IOException, ParseException
+    public static IPretrainedWordEmbedding getWordEmbeddingModel(
+            WordEmbeddingFileType   embeddingType,
+            String                  strRawVectorFile) throws IOException, ParseException
     {
         return (new BioWordVecBinaryWordEmbeddingModel(strRawVectorFile));
     }

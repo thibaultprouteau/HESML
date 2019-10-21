@@ -29,7 +29,7 @@ import java.io.IOException;
  * @author j.lastra
  */
 
-public interface IPretrainedWordEmbedding
+public interface IPretrainedWordEmbedding extends IWordSimilarityMeasure
 {
     /**
      * This function returns the type of pre-trained file managed by the
