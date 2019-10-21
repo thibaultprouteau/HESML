@@ -33,7 +33,7 @@ class DefaultJavaWordTokenizer implements IWordTokenizer
      * Default delimitors
      */
     
-    private String  m_Delimitors;
+    private final String  m_Delimitors;
     
     /**
      * Constructor
@@ -41,14 +41,15 @@ class DefaultJavaWordTokenizer implements IWordTokenizer
     
     DefaultJavaWordTokenizer()
     {
-        m_Delimitors = " ,.;[]?()/:-!\t\n\r\f";
+        m_Delimitors = " ,.;[]?()/:|!\t";
     }
     
     /**
-     * This fucntion returns the method implemented by current object.
+     * This function returns the method implemented by current object.
      * @return 
      */
     
+    @Override
     public WordTokenizerMethod getMethod()
     {
         return (WordTokenizerMethod.DefaultJava);
@@ -61,24 +62,12 @@ class DefaultJavaWordTokenizer implements IWordTokenizer
      * @return 
      */
     
+    @Override
     public String[] getWordTokens(String strRawSentence)
     {
-        // We create the tokenizer
+        // We split the input sentences into tokens
         
-        StringTokenizer tokenizer = new StringTokenizer(strRawSentence, m_Delimitors);
-
-        // We create the token vector
-        
-        String[] strTokens = new String[tokenizer.countTokens()];
-        
-        // We extract the tokens from the raw input text
-        
-        int i = 0;
-        
-        while (tokenizer.hasMoreTokens())
-        {
-            strTokens[i++] = tokenizer.nextToken();
-        }
+        String[] strTokens = strRawSentence.split(" ");
         
         // We return the result
         
