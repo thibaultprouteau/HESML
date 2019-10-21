@@ -62,7 +62,7 @@ public class HESMLSTSclient
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
     
-        String strBioWordVecfile = "D:\\Basura\\bio_embedding_intrinsic";
+        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
                     SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,

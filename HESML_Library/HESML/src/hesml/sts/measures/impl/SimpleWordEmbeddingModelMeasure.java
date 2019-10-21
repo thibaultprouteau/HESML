@@ -181,7 +181,7 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
         
         // We return the result
         
-        return (0.0);
+        return (similarity);
     }
     
     /**
