@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 /**
- * This class builds the senetence similarity measures
+ * This class builds the sentence similarity measures
  * @author j.lastra
  */
 
@@ -35,9 +35,14 @@ public class SentenceSimilarityFactory
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
      * pre-traiend WE file.
-     * @param method
+     * @param poolingMethod
+     * @param embeddingType
      * @param strPretrainedWEFilename
+     * @param tokenizer
+     * @param lowercaseNormalization
      * @return 
+     * @throws java.io.IOException 
+     * @throws java.text.ParseException 
      */
     
     public static ISentenceSimilarityMeasure getSWEMMeasure(
@@ -50,5 +55,19 @@ public class SentenceSimilarityFactory
         return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
                 embeddingType, tokenizer, lowercaseNormalization,
                 strPretrainedWEFilename));
+    }
+    
+    /**
+     *  This function creates a Jaccard measure object for sentence similarity
+     * @param tokenizer
+     * @param lowercaseNormalization
+     * @return
+     */
+    public static ISentenceSimilarityMeasure getJaccardMeasure(
+            WordTokenizerMethod     tokenizer,
+            boolean                 lowercaseNormalization
+    )
+    {
+        return (new JaccardMeasure(tokenizer, lowercaseNormalization));
     }
 }

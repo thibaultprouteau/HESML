@@ -24,5 +24,9 @@ package hesml.tokenizers;
 
 public enum WordTokenizerMethod
 {
+
+    /**
+     *
+     */
     DefaultJava
 }

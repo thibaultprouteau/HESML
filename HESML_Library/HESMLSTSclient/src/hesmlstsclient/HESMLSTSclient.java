@@ -48,6 +48,8 @@ public class HESMLSTSclient
      * This function loads an input XML file detailing a
      * set of reproducible experiments on sentence similarity.
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
     
     public static void main(String[] args) throws IOException, ParseException
@@ -62,14 +64,55 @@ public class HESMLSTSclient
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
     
-        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
+        // Init of testing functions
         
+        String sentence1 = "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.";
+        String sentence2 = "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.";
+//        String sentence1 = "My brother has a dog with four legs.";
+//        String sentence2 = "My brother has four legs.";
+
+        testSWEMMeasure(sentence1, sentence2);
+        testJaccardMeasure(sentence1, sentence2);
+
+    }
+    
+    /**
+     * Test function for SWEM Measure
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testSWEMMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        String strBioWordVecfile = "/home/alicia/HESML/HESML_Library/BioWordVec_models/bio_embedding_intrinsic";
+
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
-                    SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
-                    WordTokenizerMethod.DefaultJava, true, strBioWordVecfile);
-        
-        double simScore = measure.getSimilarityValue(
-                            "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
-                            "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.");
+                SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
+                WordTokenizerMethod.DefaultJava, true, strBioWordVecfile);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+
+        System.out.println("Score: " + simScore);
+    }
+    
+    /**
+     * Test function for Jaccard Measure
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testJaccardMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(
+                    WordTokenizerMethod.DefaultJava, true);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score: " + simScore);
     }
 }

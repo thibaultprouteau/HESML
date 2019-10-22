@@ -18,14 +18,24 @@
 package hesml.sts.measures;
 
 /**
- * Tyupes of sentence similarity methods
+ * Types of sentence similarity methods
  * @author j.lastra
  */
 
 public enum SentenceSimilarityMethod
 {
+    /**
+     * Simple Word Embedding Model Measures
+     */
+    
     SWEM_AveragePooling,
     SWEM_MaxPooling,
     SWEM_MinPooling,
-    SWEM_SumPooling
+    SWEM_SumPooling,
+    
+    /**
+     * String-based similarity measures
+     */
+    
+    Jaccard
 }

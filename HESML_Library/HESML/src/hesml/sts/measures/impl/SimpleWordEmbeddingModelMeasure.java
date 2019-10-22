@@ -259,7 +259,7 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
             }
         }
         
-        // For the case of avergae pooling, we divde by the vector count
+        // For the case of avergae pooling, we divde by the vector count @alicia: if (m_PoolingMethod == Average)¿?
         
         for (int i = 0; i < sentenceVector.length; i++)
         {
