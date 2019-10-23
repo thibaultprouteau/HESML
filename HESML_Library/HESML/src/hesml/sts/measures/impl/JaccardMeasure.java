@@ -32,7 +32,8 @@ import java.util.Set;
  * 
  * @author alicia
  */
-public class JaccardMeasure implements ISentenceSimilarityMeasure
+
+class JaccardMeasure implements ISentenceSimilarityMeasure
 {
 
     /**

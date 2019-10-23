@@ -89,6 +89,7 @@ public class HESMLSTSclient
             String sentence2) throws IOException, ParseException
     {
         String strBioWordVecfile = "/home/alicia/HESML/HESML_Library/BioWordVec_models/bio_embedding_intrinsic";
+//        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
 
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
                 SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,

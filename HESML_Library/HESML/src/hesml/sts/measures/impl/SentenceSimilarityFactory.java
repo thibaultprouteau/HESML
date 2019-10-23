@@ -19,7 +19,6 @@ package hesml.sts.measures.impl;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
-import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.tokenizers.WordTokenizerMethod;
 import java.io.IOException;
 import java.text.ParseException;
@@ -65,8 +64,7 @@ public class SentenceSimilarityFactory
      */
     public static ISentenceSimilarityMeasure getJaccardMeasure(
             WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization
-    )
+            boolean                 lowercaseNormalization)
     {
         return (new JaccardMeasure(tokenizer, lowercaseNormalization));
     }
