@@ -73,10 +73,10 @@ public class HESMLSTSclient
 //        String sentence1 = "My brother has a dog with four legs.";
 //        String sentence2 = "My brother has four legs.";
 
-        testSWEMMeasure(sentence1, sentence2);
+//        testSWEMMeasure(sentence1, sentence2);
         testJaccardMeasure(sentence1, sentence2);
         testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
-        testJaccardMeasureCustomTokenizer(sentence1, sentence2);
+        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
     }
     
     /**
@@ -91,7 +91,7 @@ public class HESMLSTSclient
             String sentence1, 
             String sentence2) throws IOException, ParseException
     {
-        String strBioWordVecfile = "/home/alicia/HESML/HESML_Library/BioWordVec_models/bio_embedding_intrinsic";
+        String strBioWordVecfile = "../BioWordVec_models/bio_embedding_intrinsic";
 //        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
 
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
@@ -152,7 +152,7 @@ public class HESMLSTSclient
      * @throws ParseException 
      */
     
-    private static void testJaccardMeasureCustomTokenizer(
+    private static void testJaccardMeasureCustomPreprocess(
             String sentence1, 
             String sentence2) throws IOException, ParseException
     {
