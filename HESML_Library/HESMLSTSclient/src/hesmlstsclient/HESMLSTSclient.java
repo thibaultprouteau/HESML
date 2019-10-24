@@ -26,7 +26,9 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
-import hesml.tokenizers.WordTokenizerMethod;
+import hesml.sts.preprocess.IWordProcessing;
+import hesml.sts.preprocess.PreprocessType;
+import hesml.sts.preprocess.impl.PreprocessFactory;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -73,7 +75,8 @@ public class HESMLSTSclient
 
         testSWEMMeasure(sentence1, sentence2);
         testJaccardMeasure(sentence1, sentence2);
-
+        testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
+        testJaccardMeasureCustomTokenizer(sentence1, sentence2);
     }
     
     /**
@@ -91,9 +94,11 @@ public class HESMLSTSclient
         String strBioWordVecfile = "/home/alicia/HESML/HESML_Library/BioWordVec_models/bio_embedding_intrinsic";
 //        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
 
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
                 SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
-                WordTokenizerMethod.DefaultJava, true, strBioWordVecfile);
+                preprocess, strBioWordVecfile);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
 
         System.out.println("Score: " + simScore);
@@ -101,6 +106,8 @@ public class HESMLSTSclient
     
     /**
      * Test function for Jaccard Measure
+     * 
+     * Important: In BIOSSES2017 lowercaseNormalization has to be true.
      * @param sentence1
      * @param sentence2
      * @throws IOException
@@ -111,8 +118,51 @@ public class HESMLSTSclient
             String sentence1, 
             String sentence2) throws IOException, ParseException
     {
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(
-                    WordTokenizerMethod.DefaultJava, true);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score: " + simScore);
+    }
+    
+    
+    /**
+     * Test function for Jaccard Measure using BIOSSES tokenizer
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testJaccardMeasureBiossesTokenizer(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score: " + simScore);
+    }
+    
+        /**
+     * Test function for Jaccard Measure using a custom tokenizer
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testJaccardMeasureCustomTokenizer(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                true, 
+                hesml.sts.preprocess.TokenizerType.WhiteSpace,
+                "../StopWordsFiles/Biosses2017StopWords.txt",
+                hesml.sts.preprocess.CharFilteringType.DefaultJava);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
         System.out.println("Score: " + simScore);
     }

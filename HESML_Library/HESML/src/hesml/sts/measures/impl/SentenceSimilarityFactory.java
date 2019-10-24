@@ -19,7 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
-import hesml.tokenizers.WordTokenizerMethod;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -36,9 +36,8 @@ public class SentenceSimilarityFactory
      * pre-traiend WE file.
      * @param poolingMethod
      * @param embeddingType
+     * @param preprocesser
      * @param strPretrainedWEFilename
-     * @param tokenizer
-     * @param lowercaseNormalization
      * @return 
      * @throws java.io.IOException 
      * @throws java.text.ParseException 
@@ -47,25 +46,22 @@ public class SentenceSimilarityFactory
     public static ISentenceSimilarityMeasure getSWEMMeasure(
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
-            WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization,
+            IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) throws IOException, ParseException
     {
-        return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
-                embeddingType, tokenizer, lowercaseNormalization,
-                strPretrainedWEFilename));
+        return (new SimpleWordEmbeddingModelMeasure(poolingMethod, embeddingType, preprocesser, strPretrainedWEFilename));
     }
     
     /**
      *  This function creates a Jaccard measure object for sentence similarity
-     * @param tokenizer
-     * @param lowercaseNormalization
+     * @param preprocesser
      * @return
+     * @throws java.io.IOException
      */
+    
     public static ISentenceSimilarityMeasure getJaccardMeasure(
-            WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization)
+            IWordProcessing     preprocesser) throws IOException
     {
-        return (new JaccardMeasure(tokenizer, lowercaseNormalization));
+        return (new JaccardMeasure(preprocesser));
     }
 }

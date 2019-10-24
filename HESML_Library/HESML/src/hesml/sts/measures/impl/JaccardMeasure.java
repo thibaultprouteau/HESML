@@ -18,17 +18,14 @@ package hesml.sts.measures.impl;
 
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.tokenizers.IWordTokenizer;
-import hesml.tokenizers.WordTokenizerMethod;
-import hesml.tokenizers.impl.TokenizerFactory;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- *  This function implements the Jaccard similarity between two sentences proposed by
- * 
+ *  This function implements the Jaccard similarity between two sentences 
  * 
  * @author alicia
  */
@@ -37,32 +34,23 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
 {
 
     /**
-     * Word tokenizer used to convert the sentence into a string
+     * Word preprocesser used to convert the sentence into a string
      * of words.
      */
     
-    private final IWordTokenizer  m_WordTokenizer;
-    
-    /**
-     * This flag sets the enabling of lowercase normalization.
-     */
-    
-    private final boolean m_lowercaseNormalization;
-    
+    private IWordProcessing  m_Preprocesser;
     
     /**
      * Constructor
-     * @param tokenizer Word tokenizer method
-     * @param lowercaseNormalization true if text will lowercase
+     * @param preprocesser 
      */
     
-    JaccardMeasure(
-            WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization)
+    public JaccardMeasure(
+            IWordProcessing preprocesser)
     {
-        m_WordTokenizer = TokenizerFactory.getWordTokenizer(tokenizer);
-        m_lowercaseNormalization = lowercaseNormalization;
+        m_Preprocesser = preprocesser;
     }
+
     
     /**
      * This function returns the type of method implemented by the current
@@ -100,16 +88,16 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
 
         double similarity = 0.0;
         
-        // We obtain the words in the input sentences
-        
-        String[] strWordsSentence1 = m_WordTokenizer.getWordTokens(strRawSentence1); 
-        String[] strWordsSentence2 = m_WordTokenizer.getWordTokens(strRawSentence2); 
+        // Get the tokens for each sentence
+
+        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
         
         // Convert the lists to set objects
         // HashSet is a set where the elements are not sorted or ordered.
         
-        Set<String> setWordsSentence1 = new HashSet<>(Arrays.asList(strWordsSentence1)); 
-        Set<String> setWordsSentence2 = new HashSet<>(Arrays.asList(strWordsSentence2)); 
+        Set<String> setWordsSentence1 = new HashSet<>(Arrays.asList(lstWordsSentence1)); 
+        Set<String> setWordsSentence2 = new HashSet<>(Arrays.asList(lstWordsSentence2)); 
 
         // If both sets are empty, the similarity is 1
         
@@ -147,5 +135,4 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
         intersection.retainAll(s2);
         return intersection;
     }
-    
 }
