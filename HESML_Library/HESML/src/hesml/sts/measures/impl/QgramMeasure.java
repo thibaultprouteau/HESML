@@ -21,13 +21,10 @@ import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  *  This function implements the Qgram similarity between two sentences 
@@ -151,7 +148,7 @@ class QgramMeasure implements ISentenceSimilarityMeasure
      * @return 
      */
     
-    public final Map<String, Integer> qGramsWithPadding(String[] strings, int padding) 
+    private Map<String, Integer> qGramsWithPadding(String[] strings, int padding) 
     {
         HashMap<String, Integer> mapQgrams = new HashMap<>();
 

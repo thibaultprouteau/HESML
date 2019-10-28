@@ -77,4 +77,18 @@ public class SentenceSimilarityFactory
     {
         return (new QgramMeasure(preprocesser));
     }
+    
+    /**
+     *  This function creates a Block distance similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getBlockDistanceMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new BlockDistanceMeasure(preprocesser));
+    }
 }
