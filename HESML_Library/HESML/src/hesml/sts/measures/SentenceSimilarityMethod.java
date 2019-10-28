@@ -39,5 +39,6 @@ public enum SentenceSimilarityMethod
     
     Jaccard,
     Qgram,
-    BlockDistance
+    BlockDistance,
+    OverlapCoefficient
 }

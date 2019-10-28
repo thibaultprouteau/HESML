@@ -77,9 +77,11 @@ public class HESMLSTSclient
         testJaccardMeasure(sentence1, sentence2);
         testQgramMeasure(sentence1, sentence2);
         testBlockDistanceMeasure(sentence1, sentence2);
+        testOverlapCoefficientMeasure(sentence1, sentence2);
         testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
         testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
         testJaccardMeasureCustomPreprocess(sentence1, sentence2);
+        
     }
     
     /**
@@ -170,6 +172,26 @@ public class HESMLSTSclient
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
         System.out.println("Score for BlockDistanceMeasure: " + simScore);
     }
+
+    /**
+     * Test function for Overlap coefficient Measure 
+     * 
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testOverlapCoefficientMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getOverlapCoefficientMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score for OverlapCoefficientMeasure: " + simScore);
+    }    
+    
     
     /**
      * Test function for Jaccard Measure using BIOSSES tokenizer

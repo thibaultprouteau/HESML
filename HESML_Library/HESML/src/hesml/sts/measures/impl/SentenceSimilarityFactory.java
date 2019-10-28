@@ -91,4 +91,18 @@ public class SentenceSimilarityFactory
     {
         return (new BlockDistanceMeasure(preprocesser));
     }
+    
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getOverlapCoefficientMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new OverlapCoefficientMeasure(preprocesser));
+    }
 }
