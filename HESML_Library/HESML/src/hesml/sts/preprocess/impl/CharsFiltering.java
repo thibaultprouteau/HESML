@@ -73,7 +73,10 @@ public class CharsFiltering implements ICharsFiltering
                 break;
                 
             case BIOSSES2017:
-                strFilteredSentence = replacePunctuations(strRawSentence);
+                strFilteredSentence = replacePunctuationsBIOSSES2017(strRawSentence);
+                break;
+            case Blagec2019:
+                strFilteredSentence = replacePunctuationsBlagec2019(strRawSentence);
                 break;
         }
             
@@ -87,7 +90,7 @@ public class CharsFiltering implements ICharsFiltering
      * @return 
      */
     
-    public static String replacePunctuations(String strRawSentence)
+    public static String replacePunctuationsBIOSSES2017(String strRawSentence)
     {
         strRawSentence = strRawSentence.trim();
         strRawSentence = strRawSentence.replaceAll("\\.","");
@@ -105,7 +108,28 @@ public class CharsFiltering implements ICharsFiltering
         strRawSentence = strRawSentence.replaceAll("\\*", "");
         strRawSentence = strRawSentence.replaceAll("/", "");
         strRawSentence = strRawSentence.replaceAll("\\?", "");
-        return strRawSentence.toLowerCase();
+        return strRawSentence;
+    }
+    
+    /**
+     * Replace the punctuation marks as the Blagec2019 does.
+     * @param strRawSentence
+     * @return 
+     */
+    
+    public static String replacePunctuationsBlagec2019(String strRawSentence)
+    {
+        strRawSentence = strRawSentence.trim();
+        strRawSentence = strRawSentence.replaceAll("\\.","");
+        strRawSentence = strRawSentence.replaceAll(",","");
+        strRawSentence = strRawSentence.replaceAll(":","");
+        strRawSentence = strRawSentence.replaceAll(";","");
+        strRawSentence = strRawSentence.replaceAll("\\?", "");
+        strRawSentence = strRawSentence.replaceAll("!", "");
+        strRawSentence = strRawSentence.replaceAll("/", "");     
+        strRawSentence = strRawSentence.replaceAll("-","");
+
+        return strRawSentence;
     }
     
     /**

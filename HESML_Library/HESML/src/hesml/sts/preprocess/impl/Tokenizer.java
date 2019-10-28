@@ -19,6 +19,9 @@ package hesml.sts.preprocess.impl;
 import hesml.sts.preprocess.ITokenizer;
 import hesml.sts.preprocess.TokenizerType;
 
+import edu.stanford.nlp.simple.*;
+
+
 /**
  *  Implementation of the tokenization methods
  * @author alicia
@@ -70,10 +73,17 @@ class Tokenizer implements ITokenizer
         switch (m_tokenizerType)
         {
             case WhiteSpace:
+                
+                // Split words by whitespace.
+                
                 tokens = strRawSentence.split("\\s+");
                 break;
-            case StanfordCoreNLP:
-//                @todo implement
+            case StanfordCoreNLPv3_9_1:
+                
+                // convert to a corenlp sentence and get the tokens.
+                
+                Sentence sent = new Sentence(strRawSentence);
+                tokens = sent.words().toArray(new String[0]); 
                 break;
         }
             
@@ -90,5 +100,7 @@ class Tokenizer implements ITokenizer
     {
         m_tokenizerType = tokenizerType;
     }
+    
+
     
 }

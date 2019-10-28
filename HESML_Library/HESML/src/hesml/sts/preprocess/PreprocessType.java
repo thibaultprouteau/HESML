@@ -40,6 +40,16 @@ public enum PreprocessType {
     
     Biosses2017,
     
+    /**
+     *  Preprocessing as described in Blagec2019:
+     * 
+     * Blagec, Kathrin, Hong Xu, Asan Agibetov, and Matthias Samwald. 2019. 
+     * “Neural Sentence Embedding Models for Semantic Similarity 
+     * Estimation in the Biomedical Domain.” BMC Bioinformatics 20 (1): 178.
+     */
+    
+    Blagec2019
+    
 
     
 }

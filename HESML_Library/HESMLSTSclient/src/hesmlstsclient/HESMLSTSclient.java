@@ -76,7 +76,8 @@ public class HESMLSTSclient
 //        testSWEMMeasure(sentence1, sentence2);
         testJaccardMeasure(sentence1, sentence2);
         testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
-        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
+        testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
+//        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
     }
     
     /**
@@ -139,6 +140,24 @@ public class HESMLSTSclient
     {
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017);
         
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score: " + simScore);
+    }
+    
+    /**
+     * Test function for Jaccard Measure using Blagec2019 preprocessing
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testJaccardMeasureBlagec2019Preprocess(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
         System.out.println("Score: " + simScore);

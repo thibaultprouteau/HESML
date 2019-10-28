@@ -24,20 +24,28 @@ package hesml.sts.preprocess;
 public enum CharFilteringType
 {
     /**
-     * There is no filter method
+     * There is no filter method.
      */
     
     None,
     
     /**
-     * Filter all the punctuation marks using a standard Java regex
+     * Filter all the punctuation marks using a standard Java regex.
      */
     
     DefaultJava,
     
     /**
-     * Filter punctuation marks using the BIOSSES2017 approximation
+     * Filter punctuation marks using the BIOSSES2017 implementation.
      */
     
-    BIOSSES2017
+    BIOSSES2017,
+    
+    /**
+     * Filter punctuation marks using Blagec2019 approximation.
+     *  Filter full stop, comma, colon, semicolon, question mark, 
+     * exclamation mark slash, dash
+     */
+    
+    Blagec2019
 }

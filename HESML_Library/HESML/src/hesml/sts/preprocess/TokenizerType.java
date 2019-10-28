@@ -34,5 +34,5 @@ public enum TokenizerType
      * Tokenize a text using the external Stanford CoreNLP library
      */
     
-    StanfordCoreNLP
+    StanfordCoreNLPv3_9_1
 }

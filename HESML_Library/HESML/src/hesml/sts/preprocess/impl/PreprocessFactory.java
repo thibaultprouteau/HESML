@@ -68,6 +68,12 @@ public class PreprocessFactory {
                 processed.setCharFilteringType(CharFilteringType.BIOSSES2017);
                 stopWordFileName = "../StopWordsFiles/Biosses2017StopWords.txt";
                 break;
+            case Blagec2019:
+                processed.setLowercaseNormalization(Boolean.FALSE);
+                processed.setCharFilteringType(CharFilteringType.Blagec2019);
+                stopWordFileName = "../StopWordsFiles/Biosses2017StopWords.txt";
+                processed.setTokenizerType(TokenizerType.StanfordCoreNLPv3_9_1);
+                break;
         }
         
         processed.setStrStopWordsFileName(stopWordFileName);
