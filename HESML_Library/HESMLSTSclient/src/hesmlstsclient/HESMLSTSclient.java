@@ -76,9 +76,10 @@ public class HESMLSTSclient
 //        testSWEMMeasure(sentence1, sentence2);
         testJaccardMeasure(sentence1, sentence2);
         testQgramMeasure(sentence1, sentence2);
-//        testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
-//        testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
-//        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
+        testBlockDistanceMeasure(sentence1, sentence2);
+        testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
+        testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
+        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
     }
     
     /**
@@ -103,7 +104,7 @@ public class HESMLSTSclient
                 preprocess, strBioWordVecfile);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
 
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for SWEMMeasure: " + simScore);
     }
     
     /**
@@ -125,7 +126,7 @@ public class HESMLSTSclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for JaccardMeasure: " + simScore);
     }
     
     /**
@@ -148,9 +149,27 @@ public class HESMLSTSclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getQgramMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for QgramMeasure: " + simScore);
     }
     
+    /**
+     * Test function for Block distance Measure 
+     * 
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testBlockDistanceMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBlockDistanceMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score for BlockDistanceMeasure: " + simScore);
+    }
     
     /**
      * Test function for Jaccard Measure using BIOSSES tokenizer
@@ -168,7 +187,7 @@ public class HESMLSTSclient
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for JaccardMeasureBiossesTokenizer: " + simScore);
     }
     
     /**
@@ -186,7 +205,7 @@ public class HESMLSTSclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for JaccardMeasureBlagec2019Preprocess: " + simScore);
     }
     
         /**
@@ -209,6 +228,6 @@ public class HESMLSTSclient
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
-        System.out.println("Score: " + simScore);
+        System.out.println("Score for JaccardMeasureCustomPreprocess: " + simScore);
     }
 }
