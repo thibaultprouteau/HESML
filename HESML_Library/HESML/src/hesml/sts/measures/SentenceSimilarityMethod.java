@@ -17,6 +17,7 @@
 
 package hesml.sts.measures;
 
+
 /**
  * Types of sentence similarity methods
  * @author j.lastra
@@ -40,5 +41,6 @@ public enum SentenceSimilarityMethod
     Jaccard,
     Qgram,
     BlockDistance,
-    OverlapCoefficient
+    OverlapCoefficient,
+    Levenshtein
 }

@@ -26,10 +26,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
+ *  This class implements the Block Distance Measure
  * @author alicia
  */
-public class BlockDistanceMeasure implements ISentenceSimilarityMeasure
+
+class BlockDistanceMeasure implements ISentenceSimilarityMeasure
 {
     /**
      * Word preprocesser used to convert the sentence into a string

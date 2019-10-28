@@ -105,4 +105,18 @@ public class SentenceSimilarityFactory
     {
         return (new OverlapCoefficientMeasure(preprocesser));
     }
+    
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getLevenshteinMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new LevenshteinMeasure(preprocesser));
+    }
 }

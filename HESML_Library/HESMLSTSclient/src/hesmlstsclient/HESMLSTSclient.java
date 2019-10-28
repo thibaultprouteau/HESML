@@ -78,6 +78,7 @@ public class HESMLSTSclient
         testQgramMeasure(sentence1, sentence2);
         testBlockDistanceMeasure(sentence1, sentence2);
         testOverlapCoefficientMeasure(sentence1, sentence2);
+        testLevenshteinMeasure(sentence1, sentence2);
         testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
         testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
         testJaccardMeasureCustomPreprocess(sentence1, sentence2);
@@ -191,6 +192,25 @@ public class HESMLSTSclient
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
         System.out.println("Score for OverlapCoefficientMeasure: " + simScore);
     }    
+    
+    /**
+     * Test function for Levenshtein Measure 
+     * 
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testLevenshteinMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getLevenshteinMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score for LevenshteinMeasure: " + simScore);
+    }   
     
     
     /**
