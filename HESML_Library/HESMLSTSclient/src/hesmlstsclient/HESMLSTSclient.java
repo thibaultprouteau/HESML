@@ -75,8 +75,9 @@ public class HESMLSTSclient
 
 //        testSWEMMeasure(sentence1, sentence2);
         testJaccardMeasure(sentence1, sentence2);
-        testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
-        testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
+        testQgramMeasure(sentence1, sentence2);
+//        testJaccardMeasureBiossesTokenizer(sentence1, sentence2);
+//        testJaccardMeasureBlagec2019Preprocess(sentence1, sentence2);
 //        testJaccardMeasureCustomPreprocess(sentence1, sentence2);
     }
     
@@ -106,9 +107,11 @@ public class HESMLSTSclient
     }
     
     /**
-     * Test function for Jaccard Measure
+     * Test function for Jaccard Measure 
      * 
      * Important: In BIOSSES2017 lowercaseNormalization has to be true.
+     *              BIOSSES2017 implementation do NOT remove the stop words!.
+     * 
      * @param sentence1
      * @param sentence2
      * @throws IOException
@@ -119,8 +122,31 @@ public class HESMLSTSclient
             String sentence1, 
             String sentence2) throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        double simScore = measure.getSimilarityValue(sentence1, sentence2);
+        System.out.println("Score: " + simScore);
+    }
+    
+    /**
+     * Test function for Qgram Measure 
+     * 
+     * Important: 
+     *      In BIOSSES2017 lowercaseNormalization has to be true.
+     *      BIOSSES2017 implementation do NOT remove the stop words!.
+     * 
+     * @param sentence1
+     * @param sentence2
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static void testQgramMeasure(
+            String sentence1, 
+            String sentence2) throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getQgramMeasure(preprocess);
         double simScore = measure.getSimilarityValue(sentence1, sentence2);
         System.out.println("Score: " + simScore);
     }

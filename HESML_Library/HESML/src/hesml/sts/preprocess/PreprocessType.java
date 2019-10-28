@@ -41,6 +41,19 @@ public enum PreprocessType {
     Biosses2017,
     
     /**
+     * Preprocessing described in BIOSSES2017 *:
+     * 
+     * Sogancioglu, Gizem, Hakime Öztürk, and Arzucan Özgür. 2017. 
+     * “BIOSSES: A Semantic Sentence Similarity Estimation System 
+     * for the Biomedical Domain.” Bioinformatics  33 (14): i49–58.
+     * 
+     * * Preprocessing from the original code - evaluation tasks: They do NOT
+     * remove the stop words
+     */
+    
+    Biosses2017_withStopWords,
+    
+    /**
      *  Preprocessing as described in Blagec2019:
      * 
      * Blagec, Kathrin, Hong Xu, Asan Agibetov, and Matthias Samwald. 2019. 

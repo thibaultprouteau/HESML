@@ -64,4 +64,17 @@ public class SentenceSimilarityFactory
     {
         return (new JaccardMeasure(preprocesser));
     }
+    
+    /**
+     *  This function creates a Qgram measure object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getQgramMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new QgramMeasure(preprocesser));
+    }
 }

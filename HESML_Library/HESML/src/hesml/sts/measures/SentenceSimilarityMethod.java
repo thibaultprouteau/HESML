@@ -37,5 +37,7 @@ public enum SentenceSimilarityMethod
      * String-based similarity measures
      */
     
-    Jaccard
+    Jaccard,
+    Qgram,
+    BlockDistance
 }
