@@ -52,10 +52,7 @@ class Tokenizer implements ITokenizer
      */
     
     @Override
-    public TokenizerType getTokenizerType()
-    {
-        return m_tokenizerType;
-    }
+    public TokenizerType getTokenizerType(){return m_tokenizerType;}
 
     /**
      * Get the tokens from a sentence
@@ -64,7 +61,8 @@ class Tokenizer implements ITokenizer
      */
     
     @Override
-    public String[] getTokens(String strRawSentence)
+    public String[] getTokens(
+            String strRawSentence)
     {
         String[] tokens = null; // Returned value
         
@@ -73,10 +71,7 @@ class Tokenizer implements ITokenizer
         switch (m_tokenizerType)
         {
             case WhiteSpace:
-                
-                // Split words by whitespace.
-                
-                tokens = strRawSentence.split("\\s+");
+                tokens = strRawSentence.split("\\s+"); // Split words by whitespace.
                 break;
             case StanfordCoreNLPv3_9_1:
                 
@@ -96,7 +91,8 @@ class Tokenizer implements ITokenizer
      */
     
     @Override
-    public void setTokenizerType(TokenizerType tokenizerType)
+    public void setTokenizerType(
+            TokenizerType tokenizerType)
     {
         m_tokenizerType = tokenizerType;
     }

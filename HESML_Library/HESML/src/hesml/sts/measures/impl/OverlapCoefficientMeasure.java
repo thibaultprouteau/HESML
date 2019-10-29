@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *  This function implements the Jaccard similarity between two sentences 
+ *  This function implements the Overlap coefficient similarity between two sentences 
  * 
  * @author alicia
  */
@@ -33,10 +33,7 @@ import java.util.Set;
 class OverlapCoefficientMeasure implements ISentenceSimilarityMeasure
 {
 
-    /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     */
+    // Word preprocesser used to convert the sentence into a string of words.
     
     private final IWordProcessing  m_Preprocesser;
     
@@ -80,9 +77,8 @@ class OverlapCoefficientMeasure implements ISentenceSimilarityMeasure
             String strRawSentence1, 
             String strRawSentence2) throws IOException 
     {
-        // We initialize the output
-
-        double similarity = 0.0;
+        
+        double similarity = 0.0; // We initialize the output
         
         // Get the tokens for each sentence
 

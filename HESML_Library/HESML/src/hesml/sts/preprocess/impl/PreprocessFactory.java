@@ -48,10 +48,8 @@ public class PreprocessFactory {
         // Initialize de preprocessing object
         
         IWordProcessing processed = new WordProcessing(); // Returned value
-        
-        // Initialize the stop words file
-        
-        String stopWordFileName = "";
+  
+        String stopWordFileName = ""; // Initialize the stop words file
 
         // Configure each method
         
@@ -94,15 +92,16 @@ public class PreprocessFactory {
      * @param tokenizerType
      * @param lowercaseNormalization
      * @param stopWordFileName
+     * @param charFilteringType
      * @return 
      * @throws java.io.IOException
      */
     
     public static IWordProcessing getPreprocessPipeline(
-            boolean lowercaseNormalization,
-            TokenizerType tokenizerType,
-            String stopWordFileName,
-            CharFilteringType charFilteringType) throws IOException
+            boolean             lowercaseNormalization,
+            TokenizerType       tokenizerType,
+            String              stopWordFileName,
+            CharFilteringType   charFilteringType) throws IOException
     {   
         
         // Initialize de preprocessing object

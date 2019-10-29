@@ -37,7 +37,8 @@ public interface ITokenizer
      * @param tokenizerType
      */
     
-    void setTokenizerType(TokenizerType tokenizerType);
+    void setTokenizerType(
+            TokenizerType tokenizerType);
     
     /**
      *  Given a sentence, get the tokens using the method selected.
@@ -45,5 +46,6 @@ public interface ITokenizer
      * @return
      */
     
-    String[] getTokens(String strRawSentence);
+    String[] getTokens(
+            String strRawSentence);
 }

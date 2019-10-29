@@ -38,7 +38,7 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
      * of words.
      */
     
-    private IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_Preprocesser;
     
     /**
      * Constructor
@@ -63,8 +63,8 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
 
     /**
      * This function returns the similarity value (score) between two
-     * raw sentences.Any sentence pre-processing is made by the underlying 
-     * methods, such as lowercase normalization, tokenization, etc. 
+     * raw sentences. 
+     * 
      * The Jaccard similarity measures the similarity between two sets and is
      * computed as the number of common terms over the number of unique terms 
      * in both sets.
@@ -84,9 +84,8 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
             String strRawSentence1, 
             String strRawSentence2) throws IOException 
     {
-        // We initialize the output
-
-        double similarity = 0.0;
+        
+        double similarity = 0.0; // We initialize the output
         
         // Get the tokens for each sentence
 
@@ -113,7 +112,7 @@ class JaccardMeasure implements ISentenceSimilarityMeasure
         // Implementation note: The size of the union of two sets is equal to
         // the size of both sets minus the duplicate elements.
         
-        similarity = intersection / (float) (setWordsSentence1.size() + setWordsSentence2.size() - intersection);
+        similarity = intersection / (setWordsSentence1.size() + setWordsSentence2.size() - intersection);
         
         return similarity;
 

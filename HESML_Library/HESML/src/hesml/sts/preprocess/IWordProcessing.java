@@ -34,9 +34,11 @@ public interface IWordProcessing
      * the raw input sentence.
      * @param strRawSentence
      * @return 
+     * @throws java.io.FileNotFoundException 
      */
     
-    String[] getWordTokens(String strRawSentence)  throws FileNotFoundException;
+    String[] getWordTokens(
+            String strRawSentence)  throws FileNotFoundException;
     
     /**
      * Get the tokenizer method
@@ -50,7 +52,8 @@ public interface IWordProcessing
      * @param tokenizerType
      */
     
-    void setTokenizerType(TokenizerType tokenizerType);
+    void setTokenizerType(
+            TokenizerType tokenizerType);
     
     /**
      *  Get if the preprocess normalizes as lowercase
@@ -64,7 +67,8 @@ public interface IWordProcessing
      * @param lowercaseNormalization
      */
     
-    void setLowercaseNormalization(boolean lowercaseNormalization);
+    void setLowercaseNormalization(
+            boolean lowercaseNormalization);
     
     /**
      * Set the stopWords file name
@@ -78,7 +82,8 @@ public interface IWordProcessing
      * @param strStopWordsFileName
      */
     
-    void setStrStopWordsFileName(String strStopWordsFileName);
+    void setStrStopWordsFileName(
+            String strStopWordsFileName);
     
     /**
      * Remove the stop words
@@ -87,7 +92,9 @@ public interface IWordProcessing
      * @return 
      */
     
-    String removeStopwords(String strRawSentence, HashSet<String> m_stopWords);
+    String removeStopwords(
+            String          strRawSentence, 
+            HashSet<String> m_stopWords);
     
     /**
      * Read the stop words file name
@@ -109,6 +116,7 @@ public interface IWordProcessing
      * @param charFilteringType
      */
     
-    void setCharFilteringType(CharFilteringType charFilteringType);
+    void setCharFilteringType(
+            CharFilteringType charFilteringType);
     
 }

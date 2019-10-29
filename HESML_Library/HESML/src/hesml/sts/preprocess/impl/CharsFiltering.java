@@ -38,7 +38,8 @@ public class CharsFiltering implements ICharsFiltering
      * @param charFilteringType
      */
     
-    public CharsFiltering(CharFilteringType charFilteringType)
+    public CharsFiltering(
+            CharFilteringType charFilteringType)
     {
         m_charFilteringType = charFilteringType;
     }
@@ -50,7 +51,8 @@ public class CharsFiltering implements ICharsFiltering
      */
     
     @Override
-    public String filter(String strRawSentence)
+    public String filter(
+            String strRawSentence)
     {
         String strFilteredSentence = null; // Returned value
         
@@ -59,10 +61,7 @@ public class CharsFiltering implements ICharsFiltering
         switch (m_charFilteringType)
         {
             case None:
-                
-                // Skip the filtering 
-                
-                strFilteredSentence = strRawSentence;
+                strFilteredSentence = strRawSentence; // Skip the filtering 
                 break;
                 
             case DefaultJava:
@@ -90,7 +89,8 @@ public class CharsFiltering implements ICharsFiltering
      * @return 
      */
     
-    public static String replacePunctuationsBIOSSES2017(String strRawSentence)
+    public static String replacePunctuationsBIOSSES2017(
+            String strRawSentence)
     {
         strRawSentence = strRawSentence.trim();
         strRawSentence = strRawSentence.replaceAll("\\.","");
@@ -112,12 +112,13 @@ public class CharsFiltering implements ICharsFiltering
     }
     
     /**
-     * Replace the punctuation marks as the Blagec2019 does.
+     * Replace the punctuation marks for string measures described in Blagec2019.
      * @param strRawSentence
      * @return 
      */
     
-    public static String replacePunctuationsBlagec2019(String strRawSentence)
+    public static String replacePunctuationsBlagec2019(
+            String strRawSentence)
     {
         strRawSentence = strRawSentence.trim();
         strRawSentence = strRawSentence.replaceAll("\\.","");
@@ -138,13 +139,11 @@ public class CharsFiltering implements ICharsFiltering
      */
     
     @Override
-    public CharFilteringType getCharFilteringType()
-    {
-        return m_charFilteringType;
-    }
+    public CharFilteringType getCharFilteringType(){return m_charFilteringType;}
 
     @Override
-    public void setCharFilteringType(CharFilteringType charFilteringType)
+    public void setCharFilteringType(
+            CharFilteringType charFilteringType)
     {
         m_charFilteringType = charFilteringType;
     }

@@ -37,30 +37,18 @@ import java.util.logging.Logger;
 
 class WordProcessing implements IWordProcessing
 {
-    /**
-     * Configure if the text would be lowercased.
-     */
+
+    private boolean m_lowercaseNormalization; // Configure if the text would be lowercased.
+
+    private TokenizerType m_tokenizerType; // Set the tokenization method
     
-    private boolean m_lowercaseNormalization;
-    
-    /**
-     * Set the tokenization method
-     */
-    
-    private TokenizerType m_tokenizerType;
-    
-    /**
-     * Set the filtering method
-     */
-    
-    private CharFilteringType m_charFilteringType;
-    
-    /**
-     * Set the stopwords filename. If empty, there's not a stopwords preprocessing.
-     */
+    private CharFilteringType m_charFilteringType; // Set the filtering method
+
+    // Set the stopwords filename and hashset. 
+    // If empty, there's not a stopwords preprocessing.
     
     private String m_strStopWordsFileName;
-    private HashSet<String> m_stopWordsHashSet;
+    private HashSet<String> m_stopWordsSet;
 
     /**
      * Constructor by default
@@ -84,14 +72,14 @@ class WordProcessing implements IWordProcessing
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
         m_charFilteringType = charFilteringType;
-        HashSet<String> m_stopWordsHashSet = null;
+        HashSet<String> m_stopWordsSet = new HashSet<>();
         
         // If the file name of stop words is set, get the stop words
         
         if(m_strStopWordsFileName.length() > 0 
                 && Files.exists(Paths.get(m_strStopWordsFileName)))
         {
-            m_stopWordsHashSet = getStopWords();
+            m_stopWordsSet = getStopWords();
         }
         
     }
@@ -119,10 +107,9 @@ class WordProcessing implements IWordProcessing
         strRawSentence = filtering.filter(strRawSentence);
         
         // Remove stop words if there are stop words
-        if(m_stopWordsHashSet != null && !m_stopWordsHashSet.isEmpty()) strRawSentence = removeStopwords(strRawSentence, m_stopWordsHashSet);
         
-        // Filter the punctuation marks
-        
+        if(m_stopWordsSet != null && !m_stopWordsSet.isEmpty()) 
+            strRawSentence = removeStopwords(strRawSentence, m_stopWordsSet);
 
         // Tokenize the text
         
@@ -142,7 +129,7 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public HashSet<String> getStopWords() throws FileNotFoundException, IOException
+    public final HashSet<String> getStopWords() throws FileNotFoundException, IOException
     {
         // Initialize the hash set for stop words
         
@@ -170,9 +157,8 @@ class WordProcessing implements IWordProcessing
     @Override
     public String removeStopwords(String strRawSentence, HashSet<String> m_stopWords)
     {
-        // Split the sentence into words
-        
-        String [] splitArray = strRawSentence.split("\\s+");
+
+        String [] splitArray = strRawSentence.split("\\s+"); // Split the sentence into words
         
         // Create the new string
         
@@ -180,9 +166,11 @@ class WordProcessing implements IWordProcessing
         
         // Remove the words that are a stop word from the list.
         
-        for(int i=0; i< splitArray.length;i++){
-            if(!m_stopWords.contains(splitArray[i])){
-                    sentenceString = sentenceString + splitArray[i]+ " ";
+        for (String strWord : splitArray)
+        {
+            if (!m_stopWords.contains(strWord))
+            {
+                sentenceString = sentenceString + strWord + " ";
             }
         }
         return sentenceString;
@@ -211,13 +199,15 @@ class WordProcessing implements IWordProcessing
     public String getStrStopWordsFileName(){return m_strStopWordsFileName;}
 
     @Override
-    public void setStrStopWordsFileName(String strStopWordsFileName){
+    public void setStrStopWordsFileName(String strStopWordsFileName)
+    {
         m_strStopWordsFileName = strStopWordsFileName;
+        
         if(m_strStopWordsFileName.length() > 0 && Files.exists(Paths.get(m_strStopWordsFileName)))
         {
             try
             {
-                m_stopWordsHashSet = getStopWords();
+                m_stopWordsSet = getStopWords();
             } catch (IOException ex)
             {
                 Logger.getLogger(WordProcessing.class.getName()).log(Level.SEVERE, null, ex);

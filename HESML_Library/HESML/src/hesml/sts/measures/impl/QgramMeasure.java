@@ -35,10 +35,7 @@ import java.util.Set;
 class QgramMeasure implements ISentenceSimilarityMeasure
 {
 
-    /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     */
+    // Word preprocesser used to convert the sentence into a string of words.
     
     private final IWordProcessing  m_Preprocesser;
     
@@ -85,9 +82,7 @@ class QgramMeasure implements ISentenceSimilarityMeasure
         double similarity = 0.0;
         double distance = 0.0;
         
-        // The default padding is 3 
-        
-        int padding = 3;
+        int padding = 3; // The default padding in the original code (BIOSSES2017) is 3 
         
         // Get the tokens for each sentence
 
@@ -148,15 +143,17 @@ class QgramMeasure implements ISentenceSimilarityMeasure
      * @return 
      */
     
-    private Map<String, Integer> qGramsWithPadding(String[] strings, int padding) 
+    private Map<String, Integer> qGramsWithPadding(
+            String[]    strings, 
+            int         padding) 
     {
         HashMap<String, Integer> mapQgrams = new HashMap<>();
 
-        String string_no_space = "##" + String.join(" ", strings) + "##";
+        String strSentence = "##" + String.join(" ", strings) + "##";
 
-        for (int i = 0; i < (string_no_space.length() - padding + 1); i++) 
+        for (int i = 0; i < (strSentence.length() - padding + 1); i++) 
         {
-            String strSubstring = string_no_space.substring(i, i + padding);
+            String strSubstring = strSentence.substring(i, i + padding);
             Integer aux = mapQgrams.get(strSubstring);
             if (aux != null) 
             {
@@ -167,7 +164,6 @@ class QgramMeasure implements ISentenceSimilarityMeasure
                 mapQgrams.put(strSubstring, 1);
             }
         }
-
         return mapQgrams;
     }
 

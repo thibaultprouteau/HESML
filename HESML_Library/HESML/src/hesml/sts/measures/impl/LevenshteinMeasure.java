@@ -20,23 +20,29 @@ import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *  This class implements the Levenshtein Measure
+ * 
  * @author alicia
  */
+
 class LevenshteinMeasure implements ISentenceSimilarityMeasure
 {
+    
+    // Internal variables used in the method by the original code (BIOSSES2017).
+    // @param insertDelete: positive non-zero cost of an insert or deletion operation
+    // @param substitute: positive cost of a substitute operation
+    // @param maxCost: max(insertDelete, substitute)
+    
     private final float insertDelete;
     private final float substitute;
     private float maxCost;
+    
     /**
      * Word preprocesser used to convert the sentence into a string
      * of words.
+     * 
      */
     
     private final IWordProcessing  m_Preprocesser;
@@ -51,19 +57,36 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
     {
         m_Preprocesser = preprocesser;
         
-        // Initialize internal variables 
+        // Initialize internal variables
+        // The cost of inserts and subtitutions are 1 (equal costs)
         
-        insertDelete = 1;
-        substitute = 1;
-        maxCost = 1;
+        this.insertDelete = 1;
+        this.substitute = 1;
+        this.maxCost = max(this.insertDelete, this.substitute);
     }
     
+    /**
+     * Get the method used 
+     * @return 
+     */
     
     @Override
     public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.Levenshtein;}
 
+    /**
+     * Get the similarity value for the Levenshtein distance.
+     * 
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException 
+     */
+    
     @Override
-    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException
+    public double getSimilarityValue(
+            String strRawSentence1, 
+            String strRawSentence2) throws IOException
     {
         // We initialize the output
 
@@ -82,7 +105,10 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
         
         distance = distance(sentence1, sentence2);
 
-        this.maxCost = max(insertDelete, substitute);
+        this.maxCost = max(this.insertDelete, this.substitute);
+        
+        // Calculate the similarity
+        
 	similarity = 1.0f - (distance / (this.maxCost * max(sentence1.length(), sentence2.length())));
         
         return similarity;
@@ -98,43 +124,53 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
      * @return
      */
     
-    private float distance(final String s, final String t) {
+    private float distance(
+            final String strSentence1, 
+            final String strSentence2) {
 
-        if (s.isEmpty())
-                return t.length();
-        if (t.isEmpty())
-                return s.length();
-        if (s.equals(t))
+        // if there is an empty sentence, the total cost will be the other sentence lenght.
+        
+        if (strSentence1.isEmpty())
+                return strSentence2.length();
+        if (strSentence2.isEmpty())
+                return strSentence1.length();
+        
+        // If the sentences are equal, there is no cost and the distance will be zero.
+        
+        if (strSentence1.equals(strSentence2))
                 return 0;
 
-        final int tLength = t.length();
-        final int sLength = s.length();
-
+        final int sentence1Length = strSentence1.length(); 
+        final int sentence2Length = strSentence2.length();
+ 
+        // Initialize the vectors cost
+        
         float[] swap;
-        float[] v0 = new float[tLength + 1];
-        float[] v1 = new float[tLength + 1];
+        float[] v0 = new float[sentence2Length + 1];
+        float[] v1 = new float[sentence2Length + 1];
 
         // initialize v0 (the previous row of distances)
         // this row is A[0][i]: edit distance for an empty s
         // the distance is just the number of characters to delete from t
         
-        for (int i = 0; i < v0.length; i++) {
+        for (int i = 0; i < v0.length; i++) 
+        {
                 v0[i] = i * this.insertDelete;
         }
 
-        for (int i = 0; i < sLength; i++) {
-
+        for (int i = 0; i < sentence1Length; i++) 
+        {
+            
                 // first element of v1 is A[i+1][0]
                 // edit distance is delete (i+1) chars from s to match empty t
                 
                 v1[0] = (i + 1) * this.insertDelete;
 
-                for (int j = 0; j < tLength; j++) {
-                        v1[j + 1] = min(v1[j] + this.insertDelete,
-                                        v0[j + 1] + this.insertDelete,
-                                        v0[j]
-                                                        + (s.charAt(i) == t.charAt(j) ? 0.0f
-                                                                        : this.substitute));
+                for (int j = 0; j < sentence2Length; j++) 
+                {
+                    v1[j + 1] = min(v1[j] + this.insertDelete,
+                                v0[j + 1] + this.insertDelete,
+                                v0[j] + (strSentence1.charAt(i) == strSentence2.charAt(j) ? 0.0f: this.substitute));
                 }
 
                 swap = v0;
@@ -143,7 +179,8 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
         }
 
         // latest results was in v1 which was swapped with v0
-        return v0[tLength];
+        
+        return v0[sentence2Length];
     }
     
     /**
@@ -154,7 +191,10 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
      * @return 
      */
     
-    private static float min(float a, float b, float c) {
+    private static float min(
+            float a, 
+            float b, 
+            float c) {
         return java.lang.Math.min(java.lang.Math.min(a, b), c);
     }
     
@@ -165,7 +205,9 @@ class LevenshteinMeasure implements ISentenceSimilarityMeasure
      * @return 
      */
     
-    private static float max(float a, float b) {
+    private static float max(
+            float a, 
+            float b) {
         return java.lang.Math.max(a, b);
     }
 

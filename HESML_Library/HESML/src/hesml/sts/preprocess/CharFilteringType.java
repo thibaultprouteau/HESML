@@ -24,7 +24,7 @@ package hesml.sts.preprocess;
 public enum CharFilteringType
 {
     /**
-     * There is no filter method.
+     * Use no filter method.
      */
     
     None,
@@ -44,7 +44,7 @@ public enum CharFilteringType
     /**
      * Filter punctuation marks using Blagec2019 approximation.
      *  Filter full stop, comma, colon, semicolon, question mark, 
-     * exclamation mark slash, dash
+     * exclamation mark slash, dash.
      */
     
     Blagec2019

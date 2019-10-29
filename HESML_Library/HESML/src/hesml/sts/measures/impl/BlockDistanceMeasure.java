@@ -32,15 +32,13 @@ import java.util.Set;
 
 class BlockDistanceMeasure implements ISentenceSimilarityMeasure
 {
-    /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     */
+
+    // Word preprocesser used to convert the sentence into a string of words.
     
     private final IWordProcessing  m_Preprocesser;
     
     /**
-     * Constructor
+     * Constructor with parameters
      * @param preprocesser 
      */
     
@@ -50,12 +48,18 @@ class BlockDistanceMeasure implements ISentenceSimilarityMeasure
         m_Preprocesser = preprocesser;
     }
     
+    /**
+     * Return the similarity method
+     * @return 
+     */
     
     @Override
     public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.BlockDistance;}
 
     @Override
-    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException
+    public double getSimilarityValue(
+            String strRawSentence1, 
+            String strRawSentence2) throws IOException
     {
         // We initialize the output
 
@@ -72,7 +76,7 @@ class BlockDistanceMeasure implements ISentenceSimilarityMeasure
         Map<String, Integer> mapOccurrencesSentence1 = getStringOccurrences(lstWordsSentence1);
         Map<String, Integer> mapOccurrencesSentence2 = getStringOccurrences(lstWordsSentence2);
         
-        // Count the total of items in each sentence
+        // Count the total of items in each sentence (sum of the map values)
         
         int totalWordsS1 = mapOccurrencesSentence1.values().stream().mapToInt(Integer::intValue).sum();
         int totalWordsS2 = mapOccurrencesSentence2.values().stream().mapToInt(Integer::intValue).sum();
@@ -93,16 +97,19 @@ class BlockDistanceMeasure implements ISentenceSimilarityMeasure
         {
             int v1 = 0;
             int v2 = 0;
+            
             Integer iv1 = mapOccurrencesSentence1.get(word);
             if (iv1 != null) 
             {
                 v1 = iv1;
             }
+            
             Integer iv2 = mapOccurrencesSentence2.get(word);
             if (iv2 != null) 
             {
                 v2 = iv2;
             }
+            
             distance += Math.abs(v1 - v2);
         }
 
@@ -115,11 +122,17 @@ class BlockDistanceMeasure implements ISentenceSimilarityMeasure
     
     /**
      * Get a HashMap with the number of occurrences for each word in the sentence.
+     * 
+     * For example: "this words this ..."
+     * 
+     * {{"this", 2}, {"word", 1}, ...}
+     * 
      * @param setWordsSentence
      * @return 
      */
     
-    private Map<String, Integer> getStringOccurrences(String[] lstWordsSentence)
+    private Map<String, Integer> getStringOccurrences(
+            String[] lstWordsSentence)
     {
         // Initialize the output
         

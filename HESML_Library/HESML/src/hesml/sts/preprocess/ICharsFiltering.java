@@ -35,7 +35,8 @@ public interface ICharsFiltering
      * @param charFilteringType
      */
     
-    void setCharFilteringType(CharFilteringType charFilteringType);
+    void setCharFilteringType(
+            CharFilteringType charFilteringType);
     
     /**
      *  Given a sentence, filter the chars using the method selected.
@@ -43,5 +44,6 @@ public interface ICharsFiltering
      * @return
      */
     
-    String filter(String strRawSentence);
+    String filter(
+            String strRawSentence);
 }
