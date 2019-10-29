@@ -36,12 +36,13 @@ public interface ISentenceSimilarityMeasure
     SentenceSimilarityMethod getMethod();
     
     /**
-     * This fucntion returns the similarity value (score) between two
-     * raw sentences. Any sentence pre-processing is made by the underlying
+     * This function returns the similarity value (score) between two
+     * raw sentences.Any sentence pre-processing is made by the underlying 
      * methods, such as lowercase normalziation, tokenization, etc.
      * @param strRawSentence1
      * @param strRawSentence2
      * @return 
+     * @throws java.io.IOException 
      */
     
     double getSimilarityValue(

@@ -19,13 +19,12 @@ package hesml.sts.measures.impl;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
-import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.tokenizers.WordTokenizerMethod;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.text.ParseException;
 
 /**
- * This class builds the senetence similarity measures
+ * This class builds the sentence similarity measures
  * @author j.lastra
  */
 
@@ -35,20 +34,89 @@ public class SentenceSimilarityFactory
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
      * pre-traiend WE file.
-     * @param method
+     * @param poolingMethod
+     * @param embeddingType
+     * @param preprocesser
      * @param strPretrainedWEFilename
      * @return 
+     * @throws java.io.IOException 
+     * @throws java.text.ParseException 
      */
     
     public static ISentenceSimilarityMeasure getSWEMMeasure(
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
-            WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization,
+            IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) throws IOException, ParseException
     {
-        return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
-                embeddingType, tokenizer, lowercaseNormalization,
-                strPretrainedWEFilename));
+        return (new SimpleWordEmbeddingModelMeasure(poolingMethod, embeddingType, preprocesser, strPretrainedWEFilename));
+    }
+    
+    /**
+     *  This function creates a Jaccard measure object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getJaccardMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new JaccardMeasure(preprocesser));
+    }
+    
+    /**
+     *  This function creates a Qgram measure object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getQgramMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new QgramMeasure(preprocesser));
+    }
+    
+    /**
+     *  This function creates a Block distance similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getBlockDistanceMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new BlockDistanceMeasure(preprocesser));
+    }
+    
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getOverlapCoefficientMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new OverlapCoefficientMeasure(preprocesser));
+    }
+    
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getLevenshteinMeasure(
+            IWordProcessing     preprocesser) throws IOException
+    {
+        return (new LevenshteinMeasure(preprocesser));
     }
 }

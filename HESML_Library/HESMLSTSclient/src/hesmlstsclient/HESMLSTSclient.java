@@ -26,9 +26,13 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
-import hesml.tokenizers.WordTokenizerMethod;
+import hesml.sts.preprocess.IWordProcessing;
+import hesml.sts.preprocess.PreprocessType;
+import hesml.sts.preprocess.impl.PreprocessFactory;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -48,6 +52,8 @@ public class HESMLSTSclient
      * This function loads an input XML file detailing a
      * set of reproducible experiments on sentence similarity.
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.text.ParseException
      */
     
     public static void main(String[] args) throws IOException, ParseException
@@ -61,15 +67,184 @@ public class HESMLSTSclient
         
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
+        
+        // Initialize the sentences to be tested.
+        
+        String sentence1 = "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.";
+        String sentence2 = "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.";
+
+//        String sentence1 = "My brother has a dog with four legs.";
+//        String sentence2 = "My brother has four legs.";
+
+        // Init of testing functions
+        
+        // Create a hashmap to include the testing methods.
+        
+        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
+        
+//        tests.put("SWEMMeasure", testSWEMMeasure(sentence1, sentence2));
+        tests.put("Jaccard Measure", testJaccardMeasure());
+        tests.put("Qgram Measure", testQgramMeasure());
+        tests.put("Block Distance Measure", testBlockDistanceMeasure());
+        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
+        tests.put("Levenshtein Measure", testLevenshteinMeasure());
+        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
+        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
+        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
+        
+
+        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
+        {
+            String strMeasureName = testMeasure.getKey();
+            ISentenceSimilarityMeasure measure = testMeasure.getValue();
+            double simScore = measure.getSimilarityValue(sentence1, sentence2);
+            System.out.println("Score for " + strMeasureName + ": " + simScore);
+        }
+        
+    }
     
-        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
+    /**
+     * Test function for SWEM Measure
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testSWEMMeasure() throws IOException, ParseException
+    {
+        String strBioWordVecfile = "../BioWordVec_models/bio_embedding_intrinsic";
+//        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
+
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
-                    SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
-                    WordTokenizerMethod.DefaultJava, true, strBioWordVecfile);
+                SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
+                preprocess, strBioWordVecfile);
+        return measure;
+    }
+    
+    /**
+     * Test function for Jaccard Measure 
+     * 
+     * Important: In BIOSSES2017 lowercaseNormalization has to be true.
+     *              BIOSSES2017 implementation do NOT remove the stop words for the evaluation!.
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testJaccardMeasure() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        return measure;
+    }
+    
+    /**
+     * Test function for Qgram Measure 
+     * 
+     * Important: 
+     *      In BIOSSES2017 lowercaseNormalization has to be true.
+     *      BIOSSES2017 implementation do NOT remove the stop words for the evaluation!.
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testQgramMeasure() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getQgramMeasure(preprocess);
+        return measure;
+    }
+    
+    /**
+     * Test function for Block distance Measure 
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testBlockDistanceMeasure() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBlockDistanceMeasure(preprocess);
+        return measure;
+    }
+
+    /**
+     * Test function for Overlap coefficient Measure 
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testOverlapCoefficientMeasure() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getOverlapCoefficientMeasure(preprocess);
+        return measure;
+    }    
+    
+    /**
+     * Test function for Levenshtein Measure 
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testLevenshteinMeasure() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getLevenshteinMeasure(preprocess);
+        return measure;
+    }   
+    
+    
+    /**
+     * Test function for Jaccard Measure using BIOSSES tokenizer
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testJaccardMeasureBiossesTokenizer() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017);
         
-        double simScore = measure.getSimilarityValue(
-                            "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
-                            "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.");
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        return measure;
+    }
+    
+    /**
+     * Test function for Jaccard Measure using Blagec2019 preprocessing
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testJaccardMeasureBlagec2019Preprocess() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        return measure;
+    }
+    
+    /**
+     * Test function for Jaccard Measure using a custom tokenizer
+     * 
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testJaccardMeasureCustomPreprocess() throws IOException, ParseException
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                true, 
+                hesml.sts.preprocess.TokenizerType.WhiteSpace,
+                "../StopWordsFiles/Biosses2017StopWords.txt",
+                hesml.sts.preprocess.CharFilteringType.DefaultJava);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        return measure;
     }
 }

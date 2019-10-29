@@ -24,8 +24,24 @@ package hesml.sts.measures;
 
 public enum SWEMpoolingMethod
 {
+
+    /**
+     *  Average pooling method
+     */
     Average,
+
+    /**
+     *  Max pooling method
+     */
     Max,
+
+    /**
+     *  Min pooling method
+     */
     Min,
+
+    /**
+     *  Sum pooling method
+     */
     Sum
 }

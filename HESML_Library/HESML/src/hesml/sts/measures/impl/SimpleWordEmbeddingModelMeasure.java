@@ -23,9 +23,7 @@ import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.tokenizers.IWordTokenizer;
-import hesml.tokenizers.WordTokenizerMethod;
-import hesml.tokenizers.impl.TokenizerFactory;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -48,26 +46,21 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
      * Word emebedding model
      */
     
-    private IPretrainedWordEmbedding    m_WordEmbedding;
+    private final IPretrainedWordEmbedding    m_WordEmbedding;
     
     /**
      * Specific method implemented
      */
     
-    private SWEMpoolingMethod    m_PoolingMethod;
+    private final SWEMpoolingMethod    m_PoolingMethod;
     
     /**
-     * Word tokenizer used to convert the sentence into a string
+     * Word preprocesser used to convert the sentence into a string
      * of words.
      */
     
-    private IWordTokenizer  m_WordTokenizer;
-    
-    /**
-     * This flag sets the enabling of lowercase normalziation.
-     */
-    
-    private boolean m_lowercaseNormalization;
+    private final IWordProcessing  m_Preprocesser;
+
     
     /**
      * Constructor
@@ -78,15 +71,13 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
     SimpleWordEmbeddingModelMeasure(
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
-            WordTokenizerMethod     tokenizer,
-            boolean                 lowercaseNormalization,
+            IWordProcessing         preprocesser,
             String                  strPretrainedModelFilename) throws IOException, ParseException
     {
         // We initializer the object
         
         m_PoolingMethod = poolingMethod;
-        m_WordTokenizer = TokenizerFactory.getWordTokenizer(tokenizer);
-        m_lowercaseNormalization = lowercaseNormalization;
+        m_Preprocesser = preprocesser;
         m_WordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
                             strPretrainedModelFilename);
     }
@@ -198,7 +189,7 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
     {
         // We obtain the words in the input sentence
         
-        String[] strWords = m_WordTokenizer.getWordTokens(strRawSentence);        
+        String[] strWords = m_Preprocesser.getWordTokens(strRawSentence);        
 
         // We initialize the accumulated word vector
         
@@ -213,10 +204,6 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
             // We get the next word
             
             String strWord = strWords[iWord];
-            
-            // We normalize the word before to retrieve its vector
-            
-            if (m_lowercaseNormalization) strWord = strWord.toLowerCase();
             
             // We extract the word vector from the pre-trained embedding
             
@@ -259,7 +246,7 @@ class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
             }
         }
         
-        // For the case of avergae pooling, we divde by the vector count
+        // For the case of avergae pooling, we divde by the vector count @alicia: if (m_PoolingMethod == Average)¿?
         
         for (int i = 0; i < sentenceVector.length; i++)
         {

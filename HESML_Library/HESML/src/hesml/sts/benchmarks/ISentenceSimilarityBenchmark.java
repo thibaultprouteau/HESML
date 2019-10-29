@@ -40,7 +40,6 @@ public interface ISentenceSimilarityBenchmark
     /**
      * This function executes the test and save the raw similarity values into
      * the output CSV file.
-     * @param strMatrixResultsFile CSV file path containing the results
      * @param showDebugInfo The benchmark shows the count of the current sentence pair being evaluated.
      * @throws java.lang.Exception 
      */
