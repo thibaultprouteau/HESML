@@ -29,10 +29,18 @@ import hesml.sts.measures.impl.SentenceSimilarityFactory;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.PreprocessType;
 import hesml.sts.preprocess.impl.PreprocessFactory;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -53,10 +61,10 @@ public class HESMLSTSclient
      * set of reproducible experiments on sentence similarity.
      * @param args the command line arguments
      * @throws java.io.IOException
-     * @throws java.text.ParseException
+     * @throws java.lang.InterruptedException
      */
     
-    public static void main(String[] args) throws IOException, ParseException
+    public static void main(String[] args) throws IOException, InterruptedException, Exception
     {
         boolean   showUsage = false;  // Show usage
         
@@ -82,15 +90,16 @@ public class HESMLSTSclient
         
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
-//        tests.put("SWEMMeasure", testSWEMMeasure(sentence1, sentence2));
-        tests.put("Jaccard Measure", testJaccardMeasure());
-        tests.put("Qgram Measure", testQgramMeasure());
-        tests.put("Block Distance Measure", testBlockDistanceMeasure());
-        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
-        tests.put("Levenshtein Measure", testLevenshteinMeasure());
-        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
-        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
-        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
+//        tests.put("SWEMMeasure", testSWEMMeasure());
+        tests.put("Bert Embedding Model Measure", testBertEmbeddingModelMeasure());
+//        tests.put("Jaccard Measure", testJaccardMeasure());
+//        tests.put("Qgram Measure", testQgramMeasure());
+//        tests.put("Block Distance Measure", testBlockDistanceMeasure());
+//        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
+//        tests.put("Levenshtein Measure", testLevenshteinMeasure());
+//        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
+//        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
+//        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
         
 
         for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
@@ -119,6 +128,25 @@ public class HESMLSTSclient
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
                 SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
                 preprocess, strBioWordVecfile);
+        return measure;
+    }
+
+    /**
+     * Test function for SWEM Measure
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure() throws IOException, InterruptedException, Exception
+    {
+        PreprocessDatasets();
+        
+        String strModelDirPath = "../BertPretrainedModels/NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12";
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
+                strModelDirPath,
+                preprocess);
         return measure;
     }
     
@@ -246,5 +274,26 @@ public class HESMLSTSclient
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
+    }
+    
+    private static void PreprocessDatasets() throws Exception
+    {
+        List<File> filesInFolder = Files.walk(Paths.get("../SentenceSimDatasets"))
+                                .filter(Files::isRegularFile)
+                                .map(Path::toFile)
+                                .collect(Collectors.toList());
+        
+        for(File file : filesInFolder)
+        {
+            String fileName = file.getName();
+            if(!fileName.contains("CTRNormalized_3scores"))
+            {
+                String strInputDatasetPath = "../SentenceSimDatasets/" + fileName;
+                String strOutputDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/" + fileName;
+                PreprocessFactory.preprocessDataset(PreprocessType.DefaultJava, strInputDatasetPath, strOutputDatasetPath);     
+            }
+
+        }
+
     }
 }

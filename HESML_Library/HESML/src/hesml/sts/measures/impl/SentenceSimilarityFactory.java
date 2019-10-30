@@ -119,4 +119,22 @@ public class SentenceSimilarityFactory
     {
         return (new LevenshteinMeasure(preprocesser));
     }
+    
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param strModelDirPath
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     */
+    
+    public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
+            String strModelDirPath,
+            IWordProcessing     preprocesser) throws IOException, InterruptedException
+    {
+        return (new BertEmbeddingModelMeasure(strModelDirPath, preprocesser));
+    }
+    
 }

@@ -84,5 +84,7 @@ public enum SentenceSimilarityMethod
      * In Soviet Physics Doklady, 10:707–10. nymity.ch.
      */
     
-    Levenshtein
+    Levenshtein,
+    
+    BertEmbeddingModelMeasure
 }
