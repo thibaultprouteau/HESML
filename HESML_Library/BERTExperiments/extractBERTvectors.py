@@ -41,8 +41,8 @@ for model in models:
     args = get_args_parser().parse_args(['-model_dir', model_path,
                                          '-port', '5555',
                                          '-port_out', '5556',
-                                         '-max_seq_len', 'NONE',
-                                         '-mask_cls_sep',
+                                        # '-max_seq_len', 'NONE',
+                                        # '-mask_cls_sep',
                                          '-cpu'])
     server = BertServer(args)
     server.start()

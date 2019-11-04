@@ -36,11 +36,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -66,6 +64,7 @@ public class HESMLSTSclient
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception
     {
+        
         boolean   showUsage = false;  // Show usage
         
         // We print the HESML version
@@ -87,21 +86,24 @@ public class HESMLSTSclient
         // Init of testing functions
         
         // Create a hashmap to include the testing methods.
-        
+
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
 //        tests.put("SWEMMeasure", testSWEMMeasure());
-        tests.put("Bert Embedding Model Measure", testBertEmbeddingModelMeasure());
-//        tests.put("Jaccard Measure", testJaccardMeasure());
-//        tests.put("Qgram Measure", testQgramMeasure());
-//        tests.put("Block Distance Measure", testBlockDistanceMeasure());
-//        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
-//        tests.put("Levenshtein Measure", testLevenshteinMeasure());
+        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
+        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
+        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
+        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
+
+        tests.put("Jaccard Measure", testJaccardMeasure());
+        tests.put("Qgram Measure", testQgramMeasure());
+        tests.put("Block Distance Measure", testBlockDistanceMeasure());
+        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
+        tests.put("Levenshtein Measure", testLevenshteinMeasure());
 //        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
 //        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
 //        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
         
-
         for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
         {
             String strMeasureName = testMeasure.getKey();
@@ -137,15 +139,17 @@ public class HESMLSTSclient
      * @throws ParseException 
      */
     
-    private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure() throws IOException, InterruptedException, Exception
+    private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure(String model) throws IOException, InterruptedException, Exception
     {
-        PreprocessDatasets();
+//        PreprocessDatasets();
         
-        String m_strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/embeddings.json";
+        String strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/" + model + "/embeddings.json";
+        String  strPreprocessedDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/BIOSSESNormalized.tsv";
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
-                m_strEmbeddingsDirPath,
+                strEmbeddingsDirPath,
+                strPreprocessedDatasetPath,
                 preprocess);
         return measure;
     }
