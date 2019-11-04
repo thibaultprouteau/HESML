@@ -141,11 +141,11 @@ public class HESMLSTSclient
     {
         PreprocessDatasets();
         
-        String strModelDirPath = "../BertPretrainedModels/NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12";
+        String m_strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/embeddings.json";
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
-                strModelDirPath,
+                m_strEmbeddingsDirPath,
                 preprocess);
         return measure;
     }

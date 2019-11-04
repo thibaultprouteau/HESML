@@ -20,14 +20,16 @@ import hesml.measures.IPretrainedWordEmbedding;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
-import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import static java.lang.String.format;
-import static java.lang.String.join;
-import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 /**
  *  Read and evaluate BERT embedding pretrained models
  * @author alicia
@@ -36,13 +38,9 @@ import java.util.concurrent.TimeUnit;
 class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
 {
     
-    private final String m_strModelDirPath;
-    private IWordProcessing m_preprocesser;
-    /**
-     * Word emebedding model
-     */
-    
-    private final IPretrainedWordEmbedding    m_WordEmbedding;
+    private final String m_strEmbeddingsDirPath;
+    private final IWordProcessing m_preprocesser;
+
     
     /**
      * Constructor
@@ -51,12 +49,11 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
      */
     
     BertEmbeddingModelMeasure(
-            String              strModelDirPath,
+            String              strEmbeddingsDirPath,
             IWordProcessing     preprocesser) throws InterruptedException
     {
-        m_strModelDirPath = strModelDirPath;
+        m_strEmbeddingsDirPath = strEmbeddingsDirPath;
         m_preprocesser = preprocesser;
-        m_WordEmbedding = null;
     }
 
     /**
@@ -80,7 +77,11 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
         double similarity = 0;
         
         
-        
+        try {
+            this.getSentenceEmbeddings(m_strEmbeddingsDirPath);
+        } catch (ParseException ex) {
+            Logger.getLogger(BertEmbeddingModelMeasure.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return 0;
     }
     
@@ -95,25 +96,41 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
      */
     
     private double[] getSentenceEmbeddings(
-        String  strRawSentence) throws IOException
+        String  strDatasetEmbeddingsFile) throws IOException, ParseException
     {
-        // We obtain the words in the input sentence
-        
-        String[] strWords = m_preprocesser.getWordTokens(strRawSentence);        
-
         // We initialize the vector
         
         double[] sentenceVector = null;
         
- 
+//        DataInputStream  reader = new DataInputStream(new FileInputStream(strDatasetEmbeddingsFile));
+        JSONParser parser = new JSONParser();
+        Object a = parser.parse(new FileReader(strDatasetEmbeddingsFile));
+//        for (Object o : a)
+//        {
+//          JSONObject person = (JSONObject) o;
+//
+////          String name = (String) person.get("name");
+////          System.out.println(name);
+////
+////          String city = (String) person.get("city");
+////          System.out.println(city);
+////
+////          String job = (String) person.get("job");
+////          System.out.println(job);
+////
+////          JSONArray cars = (JSONArray) person.get("cars");
+//
+////          for (Object c : cars)
+////          {
+////            System.out.println(c+"");
+////          }
+            System.out.println("debug");
+//        }
         
         // We return the result
         
         return (sentenceVector);
     }
-  
-    
-    
     
  
     
