@@ -20,7 +20,6 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.preprocess.IWordProcessing;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -124,22 +123,18 @@ public class SentenceSimilarityFactory
     /**
      *  This function creates a Overlap coefficient similarity measure 
      * object for sentence similarity
-     * @param strEmbeddingsDirPath
-     * @param strPreprocessedDatasetPath
+     * @param strModelDirPath
      * @param preprocesser
      * @return
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
-     * @throws java.io.FileNotFoundException
-     * @throws org.json.simple.parser.ParseException
      */
     
     public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
-            String              strEmbeddingsDirPath,
-            String              strPreprocessedDatasetPath,
-            IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, FileNotFoundException, org.json.simple.parser.ParseException
+            String strModelDirPath,
+            IWordProcessing     preprocesser) throws IOException, InterruptedException
     {
-        return (new BertEmbeddingModelMeasure(strEmbeddingsDirPath, strPreprocessedDatasetPath, preprocesser));
+        return (new BertEmbeddingModelMeasure(strModelDirPath, preprocesser));
     }
     
 }

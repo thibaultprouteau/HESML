@@ -66,7 +66,6 @@ public class HESMLSTSclient
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception
     {
-        
         boolean   showUsage = false;  // Show usage
         
         // We print the HESML version
@@ -88,20 +87,21 @@ public class HESMLSTSclient
         // Init of testing functions
         
         // Create a hashmap to include the testing methods.
-
+        
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
 //        tests.put("SWEMMeasure", testSWEMMeasure());
         tests.put("Bert Embedding Model Measure", testBertEmbeddingModelMeasure());
-        tests.put("Jaccard Measure", testJaccardMeasure());
-        tests.put("Qgram Measure", testQgramMeasure());
-        tests.put("Block Distance Measure", testBlockDistanceMeasure());
-        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
-        tests.put("Levenshtein Measure", testLevenshteinMeasure());
+//        tests.put("Jaccard Measure", testJaccardMeasure());
+//        tests.put("Qgram Measure", testQgramMeasure());
+//        tests.put("Block Distance Measure", testBlockDistanceMeasure());
+//        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
+//        tests.put("Levenshtein Measure", testLevenshteinMeasure());
 //        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
 //        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
 //        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
         
+
         for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
         {
             String strMeasureName = testMeasure.getKey();
@@ -139,15 +139,13 @@ public class HESMLSTSclient
     
     private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure() throws IOException, InterruptedException, Exception
     {
-//        PreprocessDatasets();
+        PreprocessDatasets();
         
-        String strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/embeddings.json";
-        String  strPreprocessedDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/BIOSSESNormalized.tsv";
+        String m_strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/embeddings.json";
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
-                strEmbeddingsDirPath,
-                strPreprocessedDatasetPath,
+                m_strEmbeddingsDirPath,
                 preprocess);
         return measure;
     }

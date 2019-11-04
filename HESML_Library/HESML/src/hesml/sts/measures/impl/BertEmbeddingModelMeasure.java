@@ -16,24 +16,20 @@
  */
 package hesml.sts.measures.impl;
 
-import hesml.measures.impl.MeasureFactory;
+import hesml.measures.IPretrainedWordEmbedding;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 /**
  *  Read and evaluate BERT embedding pretrained models
  * @author alicia
@@ -43,9 +39,8 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
 {
     
     private final String m_strEmbeddingsDirPath;
-    private final String m_strPreprocessedDatasetPath;
     private final IWordProcessing m_preprocesser;
-    private JSONObject m_embeddings;
+
     
     /**
      * Constructor
@@ -55,21 +50,16 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
     
     BertEmbeddingModelMeasure(
             String              strEmbeddingsDirPath,
-            String              strPreprocessedDatasetPath,
-            IWordProcessing     preprocesser) throws InterruptedException, IOException, FileNotFoundException, ParseException
+            IWordProcessing     preprocesser) throws InterruptedException
     {
         m_strEmbeddingsDirPath = strEmbeddingsDirPath;
         m_preprocesser = preprocesser;
-        m_embeddings = null;
-        m_strPreprocessedDatasetPath = strPreprocessedDatasetPath;
-        this.loadEmbeddings();
     }
 
     /**
      * Get the actual method
      * @return 
      */
-    
     @Override
     public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.BertEmbeddingModelMeasure;}
 
@@ -82,68 +72,66 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws FileNotFoundException, IOException
+    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException
     {
         double similarity = 0;
         
-        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
         
-        String preprocessedSentence1 = String.join(" ", lstWordsSentence1);
-        String preprocessedSentence2 = String.join(" ", lstWordsSentence2);
-
-        double[] sentence1Vector = this.getEmbedding(preprocessedSentence1);
-        double[] sentence2Vector = this.getEmbedding(preprocessedSentence2);
-        
-        // We check the validity of the word vectors. They could be null if
-        // any word is not contained in the vocabulary of the embedding.
-        
-        if ((sentence1Vector != null) && (sentence2Vector != null))
-        {
-            // We compute the cosine similarity function (dot product)
-            
-            for (int i = 0; i < sentence1Vector.length; i++)
-            {
-                similarity += sentence1Vector[i] * sentence2Vector[i];
-            }
-            
-            // We divide by the vector norms
-            
-            similarity /= (MeasureFactory.getVectorNorm(sentence1Vector)
-                        * MeasureFactory.getVectorNorm(sentence2Vector));
+        try {
+            this.getSentenceEmbeddings(m_strEmbeddingsDirPath);
+        } catch (ParseException ex) {
+            Logger.getLogger(BertEmbeddingModelMeasure.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return 0;
+    }
+    
+
+    /**
+     * This function returns the vector representation of the input sentence
+     * which is based on a combination of the vectors corresponding to the words
+     * in the sentence..
+     * @param strRawSentence
+     * @return
+     * @throws IOException 
+     */
+    
+    private double[] getSentenceEmbeddings(
+        String  strDatasetEmbeddingsFile) throws IOException, ParseException
+    {
+        // We initialize the vector
+        
+        double[] sentenceVector = null;
+        
+//        DataInputStream  reader = new DataInputStream(new FileInputStream(strDatasetEmbeddingsFile));
+        JSONParser parser = new JSONParser();
+        Object a = parser.parse(new FileReader(strDatasetEmbeddingsFile));
+//        for (Object o : a)
+//        {
+//          JSONObject person = (JSONObject) o;
+//
+////          String name = (String) person.get("name");
+////          System.out.println(name);
+////
+////          String city = (String) person.get("city");
+////          System.out.println(city);
+////
+////          String job = (String) person.get("job");
+////          System.out.println(job);
+////
+////          JSONArray cars = (JSONArray) person.get("cars");
+//
+////          for (Object c : cars)
+////          {
+////            System.out.println(c+"");
+////          }
+            System.out.println("debug");
+//        }
         
         // We return the result
         
-        return (similarity);
-        
+        return (sentenceVector);
     }
     
-    private double[] getEmbedding(String preprocessedSentence)
-    {   
-        JSONArray jsonArray = (JSONArray) m_embeddings.get(preprocessedSentence);
-        double[] embedding = new double[jsonArray.size()];
-        for (int i = 0; i < jsonArray.size(); i++) {
-           embedding[i] = (Double) jsonArray.get(i);
-        }
-        return embedding;
-    }
+ 
     
-    
-    
-    /**
-     * Load the sentence embeddings into a JSON object.
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private void loadEmbeddings() throws FileNotFoundException, IOException, ParseException
-    {
-        // Init the parser and get the embeddings.
-        
-        JSONParser parser = new JSONParser();
-        JSONObject embeddings = (JSONObject) parser.parse(new FileReader(m_strEmbeddingsDirPath));
-        m_embeddings = embeddings;
-    }   
 }
