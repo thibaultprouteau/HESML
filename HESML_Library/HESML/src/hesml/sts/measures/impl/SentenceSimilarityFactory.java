@@ -108,7 +108,7 @@ public class SentenceSimilarityFactory
     }
     
     /**
-     *  This function creates a Overlap coefficient similarity measure 
+     *  This function creates a Levenshtein similarity measure 
      * object for sentence similarity
      * @param preprocesser
      * @return
@@ -122,7 +122,7 @@ public class SentenceSimilarityFactory
     }
     
     /**
-     *  This function creates a Overlap coefficient similarity measure 
+     *  This function creates a Bert Embedding similarity measure 
      * object for sentence similarity
      * @param strEmbeddingsDirPath
      * @param preprocesser
@@ -141,7 +141,7 @@ public class SentenceSimilarityFactory
     }
     
     /**
-     *  This function creates a Overlap coefficient similarity measure 
+     *  This function creates a Paragraph Vector similarity measure 
      * object for sentence similarity
      * @param strModelDirPath
      * @param preprocesser

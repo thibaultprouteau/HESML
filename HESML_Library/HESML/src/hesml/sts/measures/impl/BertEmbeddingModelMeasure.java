@@ -111,6 +111,13 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
         
     }
     
+    /**
+     * Get the embedding vector from a sentence
+     * 
+     * @param preprocessedSentence
+     * @return 
+     */
+    
     private double[] getEmbedding(String preprocessedSentence)
     {   
         JSONArray jsonArray = (JSONArray) m_embeddings.get(preprocessedSentence);

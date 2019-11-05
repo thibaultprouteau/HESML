@@ -59,6 +59,8 @@ public class HESMLSTSTrainningclient
         
         // Test functions
         
+        // @todo create automatically the 
+        
         String strTrainningInputDocumentPath = "../BioCCorpus/BioC_sentencesSplitted_D0/allSentencesInAFile.txt";
         String strTrainningOutputDocumentPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDM/vectors.zip";
         
@@ -69,7 +71,7 @@ public class HESMLSTSTrainningclient
     }
     
     /**
-     * Test function for SWEM Measure
+     * Test function for train the paragraph vector example
      * @throws IOException
      * @throws ParseException 
      */
@@ -78,6 +80,9 @@ public class HESMLSTSTrainningclient
             String strTrainningInputDocumentPath,
             String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException
     {
+        
+        // Create the paragraph vector model and execute the training.
+        
         ILanguageModel model = LanguageModelFactory.executeTraining(
                 LanguageModelMethod.ParagraphVectorDM,
                 strTrainningInputDocumentPath, 

@@ -22,7 +22,25 @@ package hesml.sts.languagemodels;
  */
 public enum LanguageModelMethod
 {
+    /**
+     * Paragraph vector DBOW approximation
+     * 
+     * Le, Quoc, and Tomas Mikolov. 2014. 
+     * “Distributed Representations of Sentences and Documents.” 
+     * In International Conference on Machine Learning, 1188–96. jmlr.org.
+     * 
+     */
     
     ParagraphVectorDBOW,
+    
+    /**
+     * Paragraph vector DBOW approximation
+     * 
+     * Le, Quoc, and Tomas Mikolov. 2014. 
+     * “Distributed Representations of Sentences and Documents.” 
+     * In International Conference on Machine Learning, 1188–96. jmlr.org.
+     * 
+     */
+    
     ParagraphVectorDM
 }

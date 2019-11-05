@@ -20,22 +20,24 @@ import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
-import hesml.sts.languagemodels.LanguageModelMethod;
 import hesml.sts.languagemodels.impl.LanguageModelFactory;
-import java.io.IOException;
-import org.nd4j.linalg.api.ndarray.INDArray;
 import hesml.sts.languagemodels.ILanguageModel;
+
+import java.io.IOException;
+
 
 
 /**
- *
+ *   This class implements the Paragraph Vector model measure.
+ * 
  * @author alicia
  */
+
 class ParagraphVectorMeasure implements ISentenceSimilarityMeasure
 {
-    private final String m_strModelDirPath;
-    private final IWordProcessing m_preprocesser;
-    private ILanguageModel m_model;
+    private final String m_strModelDirPath; // Path to the trained model (.zip file)
+    private final IWordProcessing m_preprocesser; // Preprocessed configured object
+    private final ILanguageModel m_model; // Language Model 
     
     /**
      * Constructor with parameters
@@ -49,7 +51,10 @@ class ParagraphVectorMeasure implements ISentenceSimilarityMeasure
     {
         m_strModelDirPath = strModelDirPath;
         m_preprocesser = preprocesser;
-        m_model = null;
+        
+        // Load the model
+        
+        m_model = LanguageModelFactory.loadModel(m_strModelDirPath);
     }
 
     @Override
@@ -64,10 +69,9 @@ class ParagraphVectorMeasure implements ISentenceSimilarityMeasure
 
         String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
         String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
-        ILanguageModel model = LanguageModelFactory.loadModel(m_strModelDirPath);
-        
-        double[] sentence1Vector = model.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
-        double[] sentence2Vector = model.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
+       
+        double[] sentence1Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
+        double[] sentence2Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
 
         // We check the validity of the word vectors. They could be null if
         // any word is not contained in the vocabulary of the embedding.

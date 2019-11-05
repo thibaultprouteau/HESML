@@ -79,7 +79,7 @@ public class HESMLSTSclient
         // Preprocess the datasets before the testing. 
         // Only for BERT similarity calculation.
         
-//         PreprocessDatasets();
+        // PreprocessDatasets();
         
         // Initialize the sentences to be tested.
         
@@ -90,13 +90,12 @@ public class HESMLSTSclient
 //        String sentence2 = "My brother has four legs.";
 
         // Init of testing functions
-        
         // Create a hashmap to include the testing methods.
 
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
 //        tests.put("SWEMMeasure", testSWEMMeasure());
-        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorModelMeasure());
+        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorDMModelMeasure());
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
@@ -160,16 +159,15 @@ public class HESMLSTSclient
     }
     
     /**
-     * Test function for SWEM Measure
+     * Test function for Paragraph Vector DM measure
      * @throws IOException
      * @throws ParseException 
      */
     
-    private static ISentenceSimilarityMeasure testParagraphVectorModelMeasure() throws IOException, InterruptedException, Exception
+    private static ISentenceSimilarityMeasure testParagraphVectorDMModelMeasure() throws IOException, InterruptedException, Exception
     {
 
-        String strModelDirPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDBOW/vectors.zip";
-//        String  strPreprocessedDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/BIOSSESNormalized.tsv";
+        String strModelDirPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDM/vectors.zip";
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getParagraphVectorModelMeasure(
@@ -303,6 +301,11 @@ public class HESMLSTSclient
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
     }
+    
+    /**
+     * Preprocess the datasets for evaluate BERT models.
+     * @throws Exception 
+     */
     
     private static void PreprocessDatasets() throws Exception
     {

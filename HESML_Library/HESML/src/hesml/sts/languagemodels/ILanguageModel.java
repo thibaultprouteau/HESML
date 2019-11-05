@@ -18,11 +18,11 @@ package hesml.sts.languagemodels;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
-import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
- *
+ * This class creates an interface to train and load language models.
  * @author alicia
  */
 
@@ -48,11 +48,32 @@ public interface ILanguageModel
             String strTrainningInputDocumentPath,
             String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException;
     
+    /**
+     * This function loads the vectors from a model path
+     * 
+     * Important: In the future, the output will differ.
+     * 
+     * @param strParagraphVectorModelPath
+     * @return
+     * @throws IOException 
+     */
+    
     ParagraphVectors loadVectors(
             String strParagraphVectorModelPath) throws IOException;
     
+    /**
+     * This function returns the vector for a sentence.
+     * @param strSentence
+     * @return 
+     */
+    
     double[] getVectorFromStrSentence(
             String strSentence);
+    
+    /**
+     * This function set the training method.
+     * @param method 
+     */
     
     void setTrainingMethod(LanguageModelMethod method);
 }
