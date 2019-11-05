@@ -75,6 +75,12 @@ public class HESMLSTSclient
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
         
+        
+        // Preprocess the datasets before the testing. 
+        // Only for BERT similarity calculation.
+        
+//         PreprocessDatasets();
+        
         // Initialize the sentences to be tested.
         
         String sentence1 = "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.";
@@ -90,16 +96,17 @@ public class HESMLSTSclient
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
 //        tests.put("SWEMMeasure", testSWEMMeasure());
-        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
-        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
-        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
-        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
-
-        tests.put("Jaccard Measure", testJaccardMeasure());
-        tests.put("Qgram Measure", testQgramMeasure());
-        tests.put("Block Distance Measure", testBlockDistanceMeasure());
-        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
-        tests.put("Levenshtein Measure", testLevenshteinMeasure());
+        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorModelMeasure());
+//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
+//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
+//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
+//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("vectors_NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
+//
+//        tests.put("Jaccard Measure", testJaccardMeasure());
+//        tests.put("Qgram Measure", testQgramMeasure());
+//        tests.put("Block Distance Measure", testBlockDistanceMeasure());
+//        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
+//        tests.put("Levenshtein Measure", testLevenshteinMeasure());
 //        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
 //        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
 //        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
@@ -141,14 +148,32 @@ public class HESMLSTSclient
     
     private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure(String model) throws IOException, InterruptedException, Exception
     {
-//        PreprocessDatasets();
-        
+
         String strEmbeddingsDirPath = "../BERTExperiments/generatedEmbeddings/BIOSSESNormalizedtsv/" + model + "/embeddings.json";
         String  strPreprocessedDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/BIOSSESNormalized.tsv";
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
                 strEmbeddingsDirPath,
+                preprocess);
+        return measure;
+    }
+    
+    /**
+     * Test function for SWEM Measure
+     * @throws IOException
+     * @throws ParseException 
+     */
+    
+    private static ISentenceSimilarityMeasure testParagraphVectorModelMeasure() throws IOException, InterruptedException, Exception
+    {
+
+        String strModelDirPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDBOW/vectors.zip";
+//        String  strPreprocessedDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/BIOSSESNormalized.tsv";
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getParagraphVectorModelMeasure(
+                strModelDirPath, 
                 preprocess);
         return measure;
     }

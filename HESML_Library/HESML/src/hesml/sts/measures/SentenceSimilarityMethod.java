@@ -93,5 +93,12 @@ public enum SentenceSimilarityMethod
      * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1906.05474.
      */
     
-    BertEmbeddingModelMeasure
+    BertEmbeddingModelMeasure,
+    
+    
+    /**
+     * 
+     */
+    
+    ParagraphVector
 }

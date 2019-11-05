@@ -125,7 +125,6 @@ public class SentenceSimilarityFactory
      *  This function creates a Overlap coefficient similarity measure 
      * object for sentence similarity
      * @param strEmbeddingsDirPath
-     * @param strPreprocessedDatasetPath
      * @param preprocesser
      * @return
      * @throws java.io.IOException
@@ -141,4 +140,19 @@ public class SentenceSimilarityFactory
         return (new BertEmbeddingModelMeasure(strEmbeddingsDirPath, preprocesser));
     }
     
+    /**
+     *  This function creates a Overlap coefficient similarity measure 
+     * object for sentence similarity
+     * @param strModelDirPath
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getParagraphVectorModelMeasure(
+            String    strModelDirPath,
+            IWordProcessing             preprocesser) throws IOException 
+    {
+        return (new ParagraphVectorMeasure(strModelDirPath, preprocesser));
+    }
 }

@@ -20,16 +20,10 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.PreprocessType;
 import hesml.sts.preprocess.TokenizerType;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
