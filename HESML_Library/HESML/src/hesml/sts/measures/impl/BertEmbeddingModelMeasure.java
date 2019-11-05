@@ -38,7 +38,6 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
 {
     
     private final String m_strEmbeddingsDirPath;
-    private final String m_strPreprocessedDatasetPath;
     private final IWordProcessing m_preprocesser;
     private JSONObject m_embeddings;
     
@@ -50,13 +49,11 @@ class BertEmbeddingModelMeasure implements ISentenceSimilarityMeasure
     
     BertEmbeddingModelMeasure(
             String              strEmbeddingsDirPath,
-            String              strPreprocessedDatasetPath,
             IWordProcessing     preprocesser) throws InterruptedException, IOException, FileNotFoundException, ParseException
     {
         m_strEmbeddingsDirPath = strEmbeddingsDirPath;
         m_preprocesser = preprocesser;
         m_embeddings = null;
-        m_strPreprocessedDatasetPath = strPreprocessedDatasetPath;
         this.loadEmbeddings();
     }
 

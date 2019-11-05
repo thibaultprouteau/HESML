@@ -149,7 +149,6 @@ public class HESMLSTSclient
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
                 strEmbeddingsDirPath,
-                strPreprocessedDatasetPath,
                 preprocess);
         return measure;
     }

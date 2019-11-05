@@ -136,10 +136,9 @@ public class SentenceSimilarityFactory
     
     public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
             String              strEmbeddingsDirPath,
-            String              strPreprocessedDatasetPath,
             IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, FileNotFoundException, org.json.simple.parser.ParseException
     {
-        return (new BertEmbeddingModelMeasure(strEmbeddingsDirPath, strPreprocessedDatasetPath, preprocesser));
+        return (new BertEmbeddingModelMeasure(strEmbeddingsDirPath, preprocesser));
     }
     
 }
