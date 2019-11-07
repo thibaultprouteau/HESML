@@ -20,6 +20,9 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.PreprocessType;
 import hesml.sts.preprocess.TokenizerType;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -114,5 +117,35 @@ public class PreprocessFactory {
         processed.setCharFilteringType(charFilteringType);
 
         return processed;
+    }
+    
+    
+    public static void preprocessDataset(
+            PreprocessType    method,
+            String strInputDatasetPath,
+            String strOutputDatasetPath) throws IOException, Exception
+    {
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(method);
+
+        System.out.println("Loading raw dataset from " + strInputDatasetPath);
+        
+        SentenceSimilarityDataset dataset = new SentenceSimilarityDataset(strInputDatasetPath);
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(strOutputDatasetPath)));
+  
+                
+        for (int i = 0; i < dataset.getNumerSentences(); i++)
+        {
+            String[] pair = dataset.getSentencePairAt(i);
+            String[] sentence1Processed = preprocess.getWordTokens(pair[0]);
+            String[] sentence2Processed = preprocess.getWordTokens(pair[1]);
+            
+            String preprocessedSentences = String.join(" ", sentence1Processed) + "\t" + String.join(" ", sentence2Processed) + "\n";
+            writer.write(preprocessedSentences);
+        }
+
+        writer.close();
+
+        System.out.println("Loaded preprocessed dataset in: " + strOutputDatasetPath);
     }
 }

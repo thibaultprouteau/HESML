@@ -30,7 +30,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class JaccardMeasure implements ISentenceSimilarityMeasure
+class JaccardMeasure extends SentenceSimilarityMeasure
 {
 
     /**

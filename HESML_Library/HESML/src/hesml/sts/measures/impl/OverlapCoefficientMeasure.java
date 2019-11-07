@@ -30,7 +30,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class OverlapCoefficientMeasure implements ISentenceSimilarityMeasure
+class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
 {
 
     // Word preprocesser used to convert the sentence into a string of words.

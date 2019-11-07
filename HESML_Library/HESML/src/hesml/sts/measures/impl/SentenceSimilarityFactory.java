@@ -20,6 +20,7 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -107,7 +108,7 @@ public class SentenceSimilarityFactory
     }
     
     /**
-     *  This function creates a Overlap coefficient similarity measure 
+     *  This function creates a Levenshtein similarity measure 
      * object for sentence similarity
      * @param preprocesser
      * @return
@@ -118,5 +119,40 @@ public class SentenceSimilarityFactory
             IWordProcessing     preprocesser) throws IOException
     {
         return (new LevenshteinMeasure(preprocesser));
+    }
+    
+    /**
+     *  This function creates a Bert Embedding similarity measure 
+     * object for sentence similarity
+     * @param strEmbeddingsDirPath
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     * @throws java.io.FileNotFoundException
+     * @throws org.json.simple.parser.ParseException
+     */
+    
+    public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
+            String              modelDirPath,
+            IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, org.json.simple.parser.ParseException
+    {
+        return (new BertEmbeddingModelMeasure(modelDirPath, preprocesser));
+    }
+    
+    /**
+     *  This function creates a Paragraph Vector similarity measure 
+     * object for sentence similarity
+     * @param strModelDirPath
+     * @param preprocesser
+     * @return
+     * @throws java.io.IOException
+     */
+    
+    public static ISentenceSimilarityMeasure getParagraphVectorModelMeasure(
+            String    strModelDirPath,
+            IWordProcessing             preprocesser) throws IOException 
+    {
+        return (new ParagraphVectorMeasure(strModelDirPath, preprocesser));
     }
 }

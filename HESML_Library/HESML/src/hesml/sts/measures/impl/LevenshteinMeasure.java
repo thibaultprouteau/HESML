@@ -27,7 +27,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure implements ISentenceSimilarityMeasure
+class LevenshteinMeasure extends SentenceSimilarityMeasure
 {
     
     // Internal variables used in the method by the original code (BIOSSES2017).

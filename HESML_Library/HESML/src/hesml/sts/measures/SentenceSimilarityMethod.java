@@ -84,5 +84,23 @@ public enum SentenceSimilarityMethod
      * In Soviet Physics Doklady, 10:707–10. nymity.ch.
      */
     
-    Levenshtein
+    Levenshtein,
+    
+    /**
+     * Peng, Yifan, Shankai Yan, and Zhiyong Lu. 2019. 
+     * “Transfer Learning in Biomedical Natural Language Processing: 
+     * An Evaluation of BERT and ELMo on Ten Benchmarking Datasets.” 
+     * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1906.05474.
+     */
+    
+    BertEmbeddingModelMeasure,
+    
+    
+    /**
+     * Le, Quoc, and Tomas Mikolov. 2014. 
+     * “Distributed Representations of Sentences and Documents.” 
+     * In International Conference on Machine Learning, 1188–96. jmlr.org.
+     */
+    
+    ParagraphVector
 }
