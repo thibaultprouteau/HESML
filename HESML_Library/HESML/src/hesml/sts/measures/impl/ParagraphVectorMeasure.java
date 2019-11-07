@@ -33,7 +33,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class ParagraphVectorMeasure implements ISentenceSimilarityMeasure
+class ParagraphVectorMeasure extends SentenceSimilarityMeasure
 {
     private final String m_strModelDirPath; // Path to the trained model (.zip file)
     private final IWordProcessing m_preprocesser; // Preprocessed configured object

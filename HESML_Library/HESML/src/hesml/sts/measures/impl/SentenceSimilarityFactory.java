@@ -134,10 +134,10 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
-            String              strEmbeddingsDirPath,
-            IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, FileNotFoundException, org.json.simple.parser.ParseException
+            String              modelDirPath,
+            IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, org.json.simple.parser.ParseException
     {
-        return (new BertEmbeddingModelMeasure(strEmbeddingsDirPath, preprocesser));
+        return (new BertEmbeddingModelMeasure(modelDirPath, preprocesser));
     }
     
     /**

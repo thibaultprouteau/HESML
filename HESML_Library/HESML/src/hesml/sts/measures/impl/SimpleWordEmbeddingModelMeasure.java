@@ -40,7 +40,7 @@ import java.text.ParseException;
  * @author j.lastra
  */
 
-class SimpleWordEmbeddingModelMeasure implements ISentenceSimilarityMeasure
+class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
     /**
      * Word emebedding model

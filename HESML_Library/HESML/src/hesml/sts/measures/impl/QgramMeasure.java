@@ -32,7 +32,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class QgramMeasure implements ISentenceSimilarityMeasure
+class QgramMeasure extends SentenceSimilarityMeasure
 {
 
     // Word preprocesser used to convert the sentence into a string of words.

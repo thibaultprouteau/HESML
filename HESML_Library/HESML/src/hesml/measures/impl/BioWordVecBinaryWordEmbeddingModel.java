@@ -391,6 +391,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
      * @return 
      */
     
+    @Override
     public int getVectorDimension()
     {
         return (m_VectorDimension);

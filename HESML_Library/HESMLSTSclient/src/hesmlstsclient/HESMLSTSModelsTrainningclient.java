@@ -34,7 +34,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-public class HESMLSTSTrainningclient
+public class HESMLSTSModelsTrainningclient
 {
     /**
      * Test function.

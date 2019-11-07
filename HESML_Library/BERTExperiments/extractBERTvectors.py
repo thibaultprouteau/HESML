@@ -86,7 +86,6 @@ for model in models:
                 v1 = doc_vecs[0]
                 v2 = doc_vecs[1]
 
-
                 # convert vectors to strings
 
                 # str_v1 = np.array2string(v1, separator=',', threshold=1000000)
