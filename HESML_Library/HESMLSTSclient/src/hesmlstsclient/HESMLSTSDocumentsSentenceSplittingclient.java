@@ -64,7 +64,6 @@ public class HESMLSTSDocumentsSentenceSplittingclient
         // experiments defined by the user in a XML-based file.
         
         testD0();
-        
     }
     
     /**
@@ -116,5 +115,4 @@ public class HESMLSTSDocumentsSentenceSplittingclient
         Duration interval = Duration.between(start, end);
         System.out.println("Execution time in seconds: " + interval.getSeconds());
     } 
-    
 }

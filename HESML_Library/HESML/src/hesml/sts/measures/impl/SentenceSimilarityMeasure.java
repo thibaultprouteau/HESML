@@ -28,12 +28,28 @@ import java.io.IOException;
 public class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
 {
 
+    /**
+     * Get the current method.
+     * @return 
+     */
+    
     @Override
     public SentenceSimilarityMethod getMethod()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the similarity value of two sentences.
+     * Each measure implements its own method.
+     * BERTEmbeddingModelMeasure does not implement this method.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException 
+     */
+    
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
@@ -42,6 +58,16 @@ public class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the similarity value between a list of pairs of sentences.
+     * 
+     * @param lstSentences1
+     * @param lstSentences2
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    
     @Override
     public double[] getSimilarityValues(
             String[] lstSentences1, 
@@ -64,7 +90,5 @@ public class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
         }
         
         return scores;
-        
     }
-    
 }

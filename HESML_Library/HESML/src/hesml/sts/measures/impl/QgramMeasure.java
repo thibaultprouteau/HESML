@@ -16,7 +16,6 @@
  */
 package hesml.sts.measures.impl;
 
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -132,7 +131,6 @@ class QgramMeasure extends SentenceSimilarityMeasure
         similarity = 1.0f - distance / (totalQgramsS1 + totalQgramsS2);
         
         return similarity;
-
     }
     
     /**
@@ -166,5 +164,4 @@ class QgramMeasure extends SentenceSimilarityMeasure
         }
         return mapQgrams;
     }
-
 }

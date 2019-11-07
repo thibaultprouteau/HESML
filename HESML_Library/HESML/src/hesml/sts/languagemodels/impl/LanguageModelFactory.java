@@ -22,9 +22,11 @@ import java.io.IOException;
 import hesml.sts.languagemodels.ILanguageModel;
 
 /**
- *
+ *  This class encapsulates the creation of language model objects.
+ * 
  * @author alicia
  */
+
 public class LanguageModelFactory
 {
     /**
@@ -50,6 +52,14 @@ public class LanguageModelFactory
         trainingModel.train(strTrainningInputDocumentPath, strTrainningOutputDocumentPath);
         return trainingModel;
     }
+    
+    /**
+     * This function loads a model and return a ILanguageModel object.
+     * 
+     * @param strTrainedModelDirPath
+     * @return
+     * @throws IOException 
+     */
     
     public static ILanguageModel loadModel(
             String strTrainedModelDirPath) throws IOException

@@ -48,7 +48,7 @@ public interface IWordProcessing
     TokenizerType getTokenizerType();
 
     /**
-     *  Set the tokenizer method
+     * Set the tokenizer method
      * @param tokenizerType
      */
     
@@ -56,14 +56,14 @@ public interface IWordProcessing
             TokenizerType tokenizerType);
     
     /**
-     *  Get if the preprocess normalizes as lowercase
+     * Get if the preprocess normalizes as lowercase
      * @return
      */
     
     boolean getLowercaseNormalization();
 
     /**
-     *  Set the lowercase normalization
+     * Set the lowercase normalization
      * @param lowercaseNormalization
      */
     
@@ -105,14 +105,14 @@ public interface IWordProcessing
     HashSet<String> getStopWords() throws FileNotFoundException, IOException;
     
     /**
-     *  Get the char filtering method
+     * Get the char filtering method
      * @return
      */
     
     CharFilteringType getCharFilteringType();
     
     /**
-     *  Set the char filtering method
+     * Set the char filtering method
      * @param charFilteringType
      */
     

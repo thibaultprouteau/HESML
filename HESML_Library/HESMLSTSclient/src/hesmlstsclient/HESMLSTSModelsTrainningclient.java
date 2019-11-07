@@ -67,7 +67,6 @@ public class HESMLSTSModelsTrainningclient
         ILanguageModel model = testParagraphVectorDMModelTraining(
                 strTrainningInputDocumentPath, 
                 strTrainningOutputDocumentPath);
-
     }
     
     /**
@@ -89,7 +88,4 @@ public class HESMLSTSModelsTrainningclient
                 strTrainningOutputDocumentPath);
         return model;
     }
-    
-    
-    
 }

@@ -124,7 +124,7 @@ public class SentenceSimilarityFactory
     /**
      *  This function creates a Bert Embedding similarity measure 
      * object for sentence similarity
-     * @param strEmbeddingsDirPath
+     * @param modelDirPath
      * @param preprocesser
      * @return
      * @throws java.io.IOException

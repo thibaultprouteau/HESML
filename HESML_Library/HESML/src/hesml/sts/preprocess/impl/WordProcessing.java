@@ -81,7 +81,6 @@ class WordProcessing implements IWordProcessing
         {
             m_stopWordsSet = getStopWords();
         }
-        
     }
 
     /**

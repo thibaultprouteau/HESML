@@ -17,15 +17,12 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.languagemodels.impl.LanguageModelFactory;
 import hesml.sts.languagemodels.ILanguageModel;
 
 import java.io.IOException;
-
-
 
 /**
  *   This class implements the Paragraph Vector model measure.
@@ -57,9 +54,23 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         m_model = LanguageModelFactory.loadModel(m_strModelDirPath);
     }
 
+    /**
+     * Get the current method.
+     * @return 
+     */
+    
     @Override
     public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.ParagraphVector;}
 
+    /**
+     * Given two sentences, a model loaded and a preprocessed object, give the measure of two sentences.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException 
+     */
+    
     @Override
     public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException
     {
@@ -94,8 +105,5 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         // We return the result
         
         return (similarity);
-    
     }
-    
-   
 }

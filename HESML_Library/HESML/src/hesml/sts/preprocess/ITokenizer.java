@@ -26,7 +26,7 @@ public interface ITokenizer
 {
     
     /**
-     *  Get the tokenizer method
+     * Get the tokenizer method
      * @return
      */
     
@@ -41,7 +41,7 @@ public interface ITokenizer
             TokenizerType tokenizerType);
     
     /**
-     *  Given a sentence, get the tokens using the method selected.
+     * Given a sentence, get the tokens using the method selected.
      * @param strRawSentence
      * @return
      */

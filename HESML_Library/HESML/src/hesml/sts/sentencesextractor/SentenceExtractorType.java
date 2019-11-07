@@ -38,5 +38,4 @@ public enum SentenceExtractorType {
      */
     
     D1
-    
 }

@@ -96,7 +96,4 @@ class Tokenizer implements ITokenizer
     {
         m_tokenizerType = tokenizerType;
     }
-    
-
-    
 }

@@ -43,6 +43,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final File m_tempFileSentences;
     private final File m_tempFileVectors;
     private ArrayList<ArrayList<double[]> > m_vectors;
+    
     /**
      * Constructor
      * @param strModelDirPath
@@ -157,7 +158,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         removeTempFile(m_tempFileSentences);
         
         return scores;
-        
     }
    
     /**
@@ -211,8 +211,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void getVectorsFromTemporalFile() throws IOException, InterruptedException
     {
-
         // Read the vectors from the temporal file
+        
         FileReader fileReader = new FileReader(m_tempFileVectors);
         BufferedReader reader = new BufferedReader(fileReader);
        

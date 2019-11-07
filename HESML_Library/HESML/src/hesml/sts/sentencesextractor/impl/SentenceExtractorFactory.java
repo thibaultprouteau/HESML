@@ -39,15 +39,6 @@ import hesml.sts.documentreader.HSTSIDocument;
  */
 
 public class SentenceExtractorFactory {
-
-    /**
-     *  Constructor of the preprocess pipeline factory
-     */
-    
-    public SentenceExtractorFactory()
-    {
-        
-    }
     
     /**
      * This function preprocess file-by-file.For each file in the directory:
@@ -138,14 +129,15 @@ public class SentenceExtractorFactory {
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
                 }
-                
-
-
             }
         }
-        
-        
     }
+    
+    /**
+     * Automatically create the output directories.
+     * @param subdirectory
+     * @param strDocumentsPathOutput 
+     */
     
     public static void createOutputDirectoryStructure(File subdirectory, String strDocumentsPathOutput) 
     {
@@ -158,7 +150,5 @@ public class SentenceExtractorFactory {
             // If you require it to make the entire directory path including parents,
             // use directory.mkdirs(); here instead.
         }
-
     }
-
 }

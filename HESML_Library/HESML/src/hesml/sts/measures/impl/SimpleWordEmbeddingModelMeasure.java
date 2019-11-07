@@ -20,7 +20,6 @@ package hesml.sts.measures.impl;
 import hesml.measures.IPretrainedWordEmbedding;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.measures.impl.MeasureFactory;
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;

@@ -29,16 +29,10 @@ import hesml.sts.measures.impl.SentenceSimilarityFactory;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.PreprocessType;
 import hesml.sts.preprocess.impl.PreprocessFactory;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -75,12 +69,6 @@ public class HESMLSTSMeasuresEvaluatorclient
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
         
-        
-        // Preprocess the datasets before the testing. 
-        // Only for BERT similarity calculation.
-        
-//         PreprocessDatasets();
-        
         // Initialize the sentences to be tested.
         
         String[] sentences1 = {"It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
@@ -98,7 +86,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         
 //        tests.put("SWEMMeasure", testSWEMMeasure());
 //        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorDMModelMeasure());
-        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
+//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
 //        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
@@ -124,7 +112,6 @@ public class HESMLSTSMeasuresEvaluatorclient
                 System.out.println("---- Sentence " + i + " : " + score);
             }
         }
-        
     }
     
     /**
@@ -307,31 +294,5 @@ public class HESMLSTSMeasuresEvaluatorclient
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
-    }
-    
-    /**
-     * Preprocess the datasets for evaluate BERT models.
-     * @throws Exception 
-     */
-    
-    private static void PreprocessDatasets() throws Exception
-    {
-        List<File> filesInFolder = Files.walk(Paths.get("../SentenceSimDatasets"))
-                                .filter(Files::isRegularFile)
-                                .map(Path::toFile)
-                                .collect(Collectors.toList());
-        
-        for(File file : filesInFolder)
-        {
-            String fileName = file.getName();
-            if(!fileName.contains("CTRNormalized_3scores"))
-            {
-                String strInputDatasetPath = "../SentenceSimDatasets/" + fileName;
-                String strOutputDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/" + fileName;
-                PreprocessFactory.preprocessDataset(PreprocessType.DefaultJava, strInputDatasetPath, strOutputDatasetPath);     
-            }
-
-        }
-
     }
 }
