@@ -17,9 +17,6 @@
 
 package hesml.sts.measures;
 
-import hesml.sts.measures.impl.WBSMMeasure;
-
-
 /**
  * Types of sentence similarity methods
  * @author j.lastra
@@ -36,16 +33,19 @@ public enum SentenceSimilarityMethod
     /**
      * Simple Word Embedding Model Measure by MaxPooling
      */
+    
     SWEM_MaxPooling,
 
     /**
      * Simple Word Embedding Model Measure by MinPooling
      */
+    
     SWEM_MinPooling,
 
     /**
      * Simple Word Embedding Model Measure by SumPooling
      */
+    
     SWEM_SumPooling,
     
     /**
@@ -97,7 +97,6 @@ public enum SentenceSimilarityMethod
     
     BertEmbeddingModelMeasure,
     
-    
     /**
      * Le, Quoc, and Tomas Mikolov. 2014. 
      * “Distributed Representations of Sentences and Documents.” 
@@ -112,5 +111,5 @@ public enum SentenceSimilarityMethod
      * for the Biomedical Domain.” Bioinformatics  33 (14): i49–58.
      */
     
-    WBSMMeasure,
+    WBSMMeasure
 }

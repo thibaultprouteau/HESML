@@ -16,6 +16,8 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.ISentenceSimilarityMeasure;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -70,8 +72,22 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.Levenshtein;}
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.Levenshtein;
+    }
 
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.String);
+    }
+    
     /**
      * Get the similarity value for the Levenshtein distance.
      * 

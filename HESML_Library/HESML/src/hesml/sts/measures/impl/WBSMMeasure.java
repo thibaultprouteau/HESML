@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
@@ -37,9 +38,8 @@ import java.util.Set;
  * @author alicia
  */
 
-public class WBSMMeasure extends SentenceSimilarityMeasure
+class WBSMMeasure extends SentenceSimilarityMeasure
 {
-    
     // Word preprocesser used to convert the sentence into a string
     
     private final IWordProcessing  m_preprocesser;
@@ -58,8 +58,7 @@ public class WBSMMeasure extends SentenceSimilarityMeasure
      * @param preprocesser 
      */
     
-    WBSMMeasure(
-            IWordProcessing  preprocesser)
+    WBSMMeasure(IWordProcessing  preprocesser)
     {
         m_preprocesser = preprocesser;
         
@@ -74,8 +73,22 @@ public class WBSMMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.WBSMMeasure;}
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.WBSMMeasure;
+    }
 
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.OntologyBased);
+    }
+    
     /**
      * The method
      * @param strRawSentence1

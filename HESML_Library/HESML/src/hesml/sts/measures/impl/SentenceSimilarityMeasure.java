@@ -21,11 +21,12 @@ import hesml.sts.measures.SentenceSimilarityMethod;
 import java.io.IOException;
 
 /**
- *  This class implements the general methods for calculating measures scores.
- * 
+ * This class implements the general methods for calculating measures scores.
+ * It is the abstract base class for all sentence similarity measures.
  * @author alicia
  */
-public class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
+
+abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
 {
 
     /**

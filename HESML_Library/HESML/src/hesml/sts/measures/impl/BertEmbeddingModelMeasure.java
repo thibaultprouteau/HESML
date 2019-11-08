@@ -17,6 +17,7 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.BufferedReader;
@@ -52,7 +53,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     BertEmbeddingModelMeasure(
             String              modelDirPath,
-            IWordProcessing     preprocesser) throws InterruptedException, IOException, FileNotFoundException, ParseException
+            IWordProcessing     preprocesser) throws InterruptedException,
+            IOException, FileNotFoundException, ParseException
     {
         m_preprocesser = preprocesser;
         m_modelDirPath = modelDirPath;
@@ -71,8 +73,21 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.BertEmbeddingModelMeasure;}
-
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.BertEmbeddingModelMeasure;
+    }
+    
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.SentenceEmbedding);
+    }
     
     /**
      * Get the similarity value between two vectors

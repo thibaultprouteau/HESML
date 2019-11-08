@@ -19,6 +19,8 @@ package hesml.sts.measures.impl;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
+import hesml.sts.measures.SentenceEmbeddingMethod;
+import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,109 +52,99 @@ public class SentenceSimilarityFactory
             IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) throws IOException, ParseException
     {
-        return (new SimpleWordEmbeddingModelMeasure(poolingMethod, embeddingType, preprocesser, strPretrainedWEFilename));
+        return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
+                embeddingType, preprocesser, strPretrainedWEFilename));
     }
     
     /**
-     *  This function creates a Jaccard measure object for sentence similarity
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
+     * This function creates a string-based sentence similarity measure.
+     * @return 
      */
     
-    public static ISentenceSimilarityMeasure getJaccardMeasure(
-            IWordProcessing     preprocesser) throws IOException
+    public static ISentenceSimilarityMeasure getStringBasedMeasure(
+        StringBasedSentSimilarityMethod method,
+            IWordProcessing             wordPreprocessing)
     {
-        return (new JaccardMeasure(preprocesser));
+        // We initialize the output
+        
+        ISentenceSimilarityMeasure measure = null;
+        
+        // We creates an instance of the required method
+        
+        switch (method)
+        {
+            case BlockDistance:
+                
+                measure = new BlockDistanceMeasure(wordPreprocessing);
+                
+                break;
+                
+            case Jaccard:
+                
+                measure = new JaccardMeasure(wordPreprocessing);
+                
+                break;
+                
+            case Levenshtein:
+                
+                measure = new LevenshteinMeasure(wordPreprocessing);
+                
+                break;
+                
+            case OverlapCoefficient:
+                
+                measure = new OverlapCoefficientMeasure(wordPreprocessing);
+                
+                break;
+                
+            case Qgram:
+                
+                measure = new QgramMeasure(wordPreprocessing);
+                
+                break;
+        }
+        
+        // We return the result
+        
+        return (measure);
     }
     
     /**
-     *  This function creates a Qgram measure object for sentence similarity
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
+     * This function creates a sentence embedding method.
+     * @param method
+     * @param strPretrainedModelFilename
+     * @return 
      */
     
-    public static ISentenceSimilarityMeasure getQgramMeasure(
-            IWordProcessing     preprocesser) throws IOException
+    public static ISentenceSimilarityMeasure getSentenceEmbeddingMethod(
+            SentenceEmbeddingMethod method,
+            IWordProcessing         wordPreprocessor,
+            String                  strPretrainedModelFilename) throws IOException,
+            InterruptedException, org.json.simple.parser.ParseException
     {
-        return (new QgramMeasure(preprocesser));
-    }
-    
-    /**
-     *  This function creates a Block distance similarity measure 
-     * object for sentence similarity
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
-     */
-    
-    public static ISentenceSimilarityMeasure getBlockDistanceMeasure(
-            IWordProcessing     preprocesser) throws IOException
-    {
-        return (new BlockDistanceMeasure(preprocesser));
-    }
-    
-    /**
-     *  This function creates a Overlap coefficient similarity measure 
-     * object for sentence similarity
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
-     */
-    
-    public static ISentenceSimilarityMeasure getOverlapCoefficientMeasure(
-            IWordProcessing     preprocesser) throws IOException
-    {
-        return (new OverlapCoefficientMeasure(preprocesser));
-    }
-    
-    /**
-     *  This function creates a Levenshtein similarity measure 
-     * object for sentence similarity
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
-     */
-    
-    public static ISentenceSimilarityMeasure getLevenshteinMeasure(
-            IWordProcessing     preprocesser) throws IOException
-    {
-        return (new LevenshteinMeasure(preprocesser));
-    }
-    
-    /**
-     *  This function creates a Bert Embedding similarity measure 
-     * object for sentence similarity
-     * @param modelDirPath
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
-     * @throws java.lang.InterruptedException
-     * @throws java.io.FileNotFoundException
-     * @throws org.json.simple.parser.ParseException
-     */
-    
-    public static ISentenceSimilarityMeasure getBertEmbeddingModelMeasure(
-            String              modelDirPath,
-            IWordProcessing     preprocesser) throws IOException, InterruptedException, FileNotFoundException, org.json.simple.parser.ParseException
-    {
-        return (new BertEmbeddingModelMeasure(modelDirPath, preprocesser));
-    }
-    
-    /**
-     *  This function creates a Paragraph Vector similarity measure 
-     * object for sentence similarity
-     * @param strModelDirPath
-     * @param preprocesser
-     * @return
-     * @throws java.io.IOException
-     */
-    
-    public static ISentenceSimilarityMeasure getParagraphVectorModelMeasure(
-            String    strModelDirPath,
-            IWordProcessing             preprocesser) throws IOException 
-    {
-        return (new ParagraphVectorMeasure(strModelDirPath, preprocesser));
+        // We initialize the output
+        
+        ISentenceSimilarityMeasure measure = null;
+        
+        // We creates an instance of the required method
+        
+        switch (method)
+        {
+            case Paragraph:
+                
+                measure = new ParagraphVectorMeasure(strPretrainedModelFilename, wordPreprocessor);
+                
+                break;
+                
+            case BERT:
+                
+                measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, wordPreprocessor);
+                
+                break;
+        }
+        
+        // We return the result
+        
+        return (measure);
     }
 }

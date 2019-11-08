@@ -25,14 +25,22 @@ import hesml.HESMLversion;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
+import hesml.sts.measures.SentenceEmbeddingMethod;
+import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.PreprocessType;
 import hesml.sts.preprocess.impl.PreprocessFactory;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -238,9 +246,8 @@ public class HESMLSTSMeasuresEvaluatorclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
                 PreprocessType.DefaultJava);
         
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
-                modelDirPath,
-                preprocess);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
+                                                SentenceEmbeddingMethod.BERT, preprocess, modelDirPath);
         return measure;
     }
     
@@ -257,9 +264,9 @@ public class HESMLSTSMeasuresEvaluatorclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
                 PreprocessType.DefaultJava);
         
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getParagraphVectorModelMeasure(
-                strModelDirPath, 
-                preprocess);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
+                                                SentenceEmbeddingMethod.Paragraph, preprocess, strModelDirPath);
+        
         return measure;
     }
     
@@ -275,9 +282,10 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testJaccardMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
         return measure;
     }
     
@@ -294,9 +302,10 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testQgramMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getQgramMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                StringBasedSentSimilarityMethod.Qgram, preprocess);
         return measure;
     }
     
@@ -309,9 +318,11 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testBlockDistanceMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBlockDistanceMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                    StringBasedSentSimilarityMethod.BlockDistance, preprocess);
+        
         return measure;
     }
 
@@ -324,9 +335,10 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testOverlapCoefficientMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getOverlapCoefficientMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                StringBasedSentSimilarityMethod.OverlapCoefficient, preprocess);
+        
         return measure;
     }    
     
@@ -339,9 +351,10 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testLevenshteinMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getLevenshteinMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                StringBasedSentSimilarityMethod.Levenshtein, preprocess);
         return measure;
     }   
     
@@ -358,7 +371,8 @@ public class HESMLSTSMeasuresEvaluatorclient
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
                 PreprocessType.Biosses2017);
         
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
         return measure;
     }
     
@@ -371,9 +385,9 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testJaccardMeasureBlagec2019Preprocess() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Blagec2019);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
         return measure;
     }
     
@@ -392,7 +406,34 @@ public class HESMLSTSMeasuresEvaluatorclient
                 "../StopWordsFiles/Biosses2017StopWords.txt",
                 hesml.sts.preprocess.CharFilteringType.DefaultJava);
         
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                                                 StringBasedSentSimilarityMethod.Jaccard, preprocess);
         return measure;
+    }
+    
+    /**
+     * Preprocess the datasets for evaluate BERT models.
+     * @throws Exception 
+     */
+    
+    private static void PreprocessDatasets() throws Exception
+    {
+        List<File> filesInFolder = Files.walk(Paths.get("../SentenceSimDatasets"))
+                                .filter(Files::isRegularFile)
+                                .map(Path::toFile)
+                                .collect(Collectors.toList());
+        
+        for(File file : filesInFolder)
+        {
+            String fileName = file.getName();
+            if(!fileName.contains("CTRNormalized_3scores"))
+            {
+                String strInputDatasetPath = "../SentenceSimDatasets/" + fileName;
+                String strOutputDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/" + fileName;
+                PreprocessFactory.preprocessDataset(PreprocessType.DefaultJava, strInputDatasetPath, strOutputDatasetPath);     
+            }
+
+        }
+
     }
 }

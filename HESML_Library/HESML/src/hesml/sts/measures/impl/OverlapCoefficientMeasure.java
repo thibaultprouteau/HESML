@@ -16,6 +16,8 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.ISentenceSimilarityMeasure;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -46,7 +48,6 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
     {
         m_Preprocesser = preprocesser;
     }
-
     
     /**
      * This function returns the type of method implemented by the current
@@ -55,8 +56,22 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.OverlapCoefficient;}
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.OverlapCoefficient;
+    }
 
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.String);
+    }
+    
     /**
      * This function returns the similarity value (score) between two
      * raw sentences.

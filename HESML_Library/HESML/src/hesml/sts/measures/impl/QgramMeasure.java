@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -33,7 +34,6 @@ import java.util.Set;
 
 class QgramMeasure extends SentenceSimilarityMeasure
 {
-
     // Word preprocesser used to convert the sentence into a string of words.
     
     private final IWordProcessing  m_Preprocesser;
@@ -48,7 +48,6 @@ class QgramMeasure extends SentenceSimilarityMeasure
     {
         m_Preprocesser = preprocesser;
     }
-
     
     /**
      * This function returns the type of method implemented by the current
@@ -57,8 +56,22 @@ class QgramMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.Qgram;}
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.Qgram;
+    }
 
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.SentenceEmbedding);
+    }
+    
     /**
      * This function returns the similarity value (score) between two
      * raw sentences using the Qgram similarity.
