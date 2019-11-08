@@ -36,6 +36,13 @@ public interface ISentenceSimilarityMeasure
     SentenceSimilarityMethod getMethod();
     
     /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    SentenceSimilarityFamily getFamily();
+    
+    /**
      * This function returns the similarity value (score) between two
      * raw sentences.Any sentence pre-processing is made by the underlying 
      * methods, such as lowercase normalziation, tokenization, etc.

@@ -17,6 +17,7 @@
 package hesml.sts.measures.impl;
 
 import hesml.sts.measures.ISentenceSimilarityMeasure;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -32,7 +33,6 @@ import java.util.Set;
 
 class BlockDistanceMeasure extends SentenceSimilarityMeasure
 {
-
     // Word preprocesser used to convert the sentence into a string of words.
     
     private final IWordProcessing  m_Preprocesser;
@@ -54,8 +54,23 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod(){return SentenceSimilarityMethod.BlockDistance;}
+    public SentenceSimilarityMethod getMethod()
+    {
+        return SentenceSimilarityMethod.BlockDistance;
+    }
 
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.String);
+    }
+
+    
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 

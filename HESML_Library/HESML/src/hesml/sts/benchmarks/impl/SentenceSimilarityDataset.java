@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * This class represents a sentence similarity dataset made up by two vectors
+ * of sentences and another vector containg their corresponding similairity
+ * scores.
  * @author j.lastra
  */
 
@@ -37,7 +39,7 @@ class SentenceSimilarityDataset
     private final String[]  m_SecondSentences;
     
     /**
-     * Similarity defined by a human judgement
+     * Similarity score defined by a human judgement
      */
     
     private final double[]  m_HumanJudgementSimilarity;

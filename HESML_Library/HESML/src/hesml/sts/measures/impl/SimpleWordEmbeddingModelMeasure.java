@@ -22,6 +22,7 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
@@ -60,7 +61,6 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     private final IWordProcessing  m_Preprocesser;
-
     
     /**
      * Constructor
@@ -127,6 +127,17 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // We return the result
         
         return (method);
+    }
+    
+    /**
+     * This function returns the family of the current sentence similarity method.
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        return (SentenceSimilarityFamily.WordEmbeddingAggregation);
     }
     
     /**
