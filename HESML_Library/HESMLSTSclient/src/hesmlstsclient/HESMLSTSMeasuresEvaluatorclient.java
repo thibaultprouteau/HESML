@@ -70,35 +70,126 @@ public class HESMLSTSMeasuresEvaluatorclient
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
         
         // Initialize the sentences to be tested.
+        // sentences1 are first sentences
+        // sentences2 are second sentences
         
-        String[] sentences1 = {"It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
-                            "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
-        String[] sentences2 = {"It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer.",
-                            "Recently, it has been reported that ABT-737 is not cytotoxic to all tumors cells, and that chemoresistance to ABT-737 is dependent on appreciable levels of Mcl-1 expression, the one Bcl-2 family member it does not effectively inhibit."};
+        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
+                                "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives "
+                                + "are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, "
+                                + "and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
+        String[] sentences2 = { "It has recently become evident that Craf is essential for the onset of Kras-driven "
+                                + "non-small cell lung cancer.",
+                                "Recently, it has been reported that ABT-737 is not cytotoxic to all tumors cells, and "
+                                + "that chemoresistance to ABT-737 is dependent on appreciable levels of Mcl-1 expression, "
+                                + "the one Bcl-2 family member it does not effectively inhibit."};
 
-//        String sentence1 = "My brother has a dog with four legs.";
-//        String sentence2 = "My brother has four legs.";
+        // Execute the tests
+        
+        testAllStringBasedMeasures(sentences1, sentences2);
+        
+        testAllBertModelsMeasures(sentences1, sentences2);
+        
+        testEmbeddingModelsMeasures(sentences1, sentences2);
+        
+        
 
-        // Init of testing functions
-        // Create a hashmap to include the testing methods.
-
+    }
+    
+    /**
+     * This function tests all string-based similarity measures 
+     * 
+     * @param sentences1
+     * @param sentences2 
+     */
+    
+    private static void testAllStringBasedMeasures(
+            String[] sentences1,
+            String[] sentences2) throws IOException, ParseException, InterruptedException
+    {
         HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
         
-//        tests.put("SWEMMeasure", testSWEMMeasure());
-//        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorDMModelMeasure());
-//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
-//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
-//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
-//        tests.put("Bert Embedding Model Measure - NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
-//
-        tests.put("Jaccard Measure", testJaccardMeasure());
-        tests.put("Qgram Measure", testQgramMeasure());
-        tests.put("Block Distance Measure", testBlockDistanceMeasure());
-        tests.put("Overlap Coefficient Measure", testOverlapCoefficientMeasure());
-        tests.put("Levenshtein Measure", testLevenshteinMeasure());
-        tests.put("Jaccard Measure Biosses Tokenizer", testJaccardMeasureBiossesTokenizer());
-        tests.put("Jaccard Measure Blagec2019 Preprocess", testJaccardMeasureBlagec2019Preprocess());
-        tests.put("Jaccard Measure Custom Preprocess", testJaccardMeasureCustomPreprocess());
+        tests.put("Jaccard Measure",                        testJaccardMeasure());
+        tests.put("Qgram Measure",                          testQgramMeasure());
+        tests.put("Block Distance Measure",                 testBlockDistanceMeasure());
+        tests.put("Overlap Coefficient Measure",            testOverlapCoefficientMeasure());
+        tests.put("Levenshtein Measure",                    testLevenshteinMeasure());
+        tests.put("Jaccard Measure Biosses Tokenizer",      testJaccardMeasureBiossesTokenizer());
+        tests.put("Jaccard Measure Blagec2019 Preprocess",  testJaccardMeasureBlagec2019Preprocess());
+        tests.put("Jaccard Measure Custom Preprocess",      testJaccardMeasureCustomPreprocess());
+        
+        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
+        {
+            String strMeasureName = testMeasure.getKey();
+            ISentenceSimilarityMeasure measure = testMeasure.getValue();
+            double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
+            System.out.println("Scores for " + strMeasureName + ": ");
+            for (int i = 0; i < simScores.length; i++)
+            {
+                double score = simScores[i];
+                System.out.println("---- Sentence " + i + " : " + score);
+            }
+        }
+    }
+    
+    /**
+     * This function test all BERT models with a simple cosine similarity measure.
+     * 
+     * @param sentences1
+     * @param sentences2
+     * @throws InterruptedException
+     * @throws Exception 
+     */
+    
+    private static void testAllBertModelsMeasures(
+            String[] sentences1,
+            String[] sentences2) throws InterruptedException, Exception
+    {
+        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
+        
+        tests.put("Bert Embedding Model Measure - "
+                + "NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", 
+                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
+        tests.put("Bert Embedding Model Measure -"
+                + " NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", 
+                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
+        tests.put("Bert Embedding Model Measure - "
+                + "NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", 
+                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
+        tests.put("Bert Embedding Model Measure - "
+                + "NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", 
+                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
+        
+        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
+        {
+            String strMeasureName = testMeasure.getKey();
+            ISentenceSimilarityMeasure measure = testMeasure.getValue();
+            double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
+            System.out.println("Scores for " + strMeasureName + ": ");
+            for (int i = 0; i < simScores.length; i++)
+            {
+                double score = simScores[i];
+                System.out.println("---- Sentence " + i + " : " + score);
+            }
+        }
+    }
+    
+    /**
+     * This function test all some embedding models with a simple cosine similarity measure.
+     * 
+     * @param sentences1
+     * @param sentences2
+     * @throws InterruptedException
+     * @throws Exception 
+     */
+    
+    private static void testEmbeddingModelsMeasures(
+            String[] sentences1,
+            String[] sentences2) throws InterruptedException, Exception
+    {
+        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
+        
+        tests.put("SWEMMeasure", testSWEMMeasure());
+        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorDMModelMeasure());
         
         for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
         {
@@ -123,7 +214,7 @@ public class HESMLSTSMeasuresEvaluatorclient
     private static ISentenceSimilarityMeasure testSWEMMeasure() throws IOException, ParseException
     {
         String strBioWordVecfile = "../BioWordVec_models/bio_embedding_intrinsic";
-//        String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
+        // String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
 
         IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
         
@@ -144,7 +235,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     {
 
         String modelDirPath = "../BERTExperiments/BertPretrainedModels/" + model;
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBertEmbeddingModelMeasure(
                 modelDirPath,
@@ -162,7 +254,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     {
 
         String strModelDirPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDM/vectors.zip";
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.DefaultJava);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getParagraphVectorModelMeasure(
                 strModelDirPath, 
@@ -182,7 +275,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testJaccardMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
     }
@@ -200,7 +294,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testQgramMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getQgramMeasure(preprocess);
         return measure;
     }
@@ -214,7 +309,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testBlockDistanceMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getBlockDistanceMeasure(preprocess);
         return measure;
     }
@@ -228,7 +324,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testOverlapCoefficientMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getOverlapCoefficientMeasure(preprocess);
         return measure;
     }    
@@ -242,7 +339,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testLevenshteinMeasure() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017_withStopWords);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getLevenshteinMeasure(preprocess);
         return measure;
     }   
@@ -257,7 +355,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testJaccardMeasureBiossesTokenizer() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Biosses2017);
         
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
@@ -272,7 +371,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static ISentenceSimilarityMeasure testJaccardMeasureBlagec2019Preprocess() throws IOException, ParseException
     {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
+        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
+                PreprocessType.Blagec2019);
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getJaccardMeasure(preprocess);
         return measure;
     }

@@ -17,6 +17,8 @@
 
 package hesml.sts.measures;
 
+import hesml.sts.measures.impl.WBSMMeasure;
+
 
 /**
  * Types of sentence similarity methods
@@ -102,5 +104,13 @@ public enum SentenceSimilarityMethod
      * In International Conference on Machine Learning, 1188–96. jmlr.org.
      */
     
-    ParagraphVector
+    ParagraphVector,
+    
+    /**
+     * Sogancioglu, Gizem, Hakime Öztürk, and Arzucan Özgür. 2017. 
+     * “BIOSSES: A Semantic Sentence Similarity Estimation System 
+     * for the Biomedical Domain.” Bioinformatics  33 (14): i49–58.
+     */
+    
+    WBSMMeasure,
 }

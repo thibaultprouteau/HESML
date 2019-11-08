@@ -96,8 +96,8 @@ class QgramMeasure extends SentenceSimilarityMeasure
         
         // Create the maps for the ngrams and get the total values for each map.
         
-        Map<String, Integer> mapQgramsS1 = qGramsWithPadding(lstWordsSentence1, padding);
-        Map<String, Integer> mapQgramsS2 = qGramsWithPadding(lstWordsSentence2, padding);
+        Map<String, Integer> mapQgramsS1 = getQGramsWithPadding(lstWordsSentence1, padding);
+        Map<String, Integer> mapQgramsS2 = getQGramsWithPadding(lstWordsSentence2, padding);
         int totalQgramsS1 = mapQgramsS1.values().stream().mapToInt(Integer::intValue).sum();
         int totalQgramsS2 = mapQgramsS2.values().stream().mapToInt(Integer::intValue).sum();
     
@@ -141,14 +141,20 @@ class QgramMeasure extends SentenceSimilarityMeasure
      * @return 
      */
     
-    private Map<String, Integer> qGramsWithPadding(
+    private Map<String, Integer> getQGramsWithPadding(
             String[]    strings, 
             int         padding) 
     {
+        // Initialize a hashmap with the qgram
+        
         HashMap<String, Integer> mapQgrams = new HashMap<>();
 
+        // Add a padding "##" at the start and the end of the sentence
+        
         String strSentence = "##" + String.join(" ", strings) + "##";
 
+        // Get all the substrings of the sentence and add to the map counting the frequency
+        
         for (int i = 0; i < (strSentence.length() - padding + 1); i++) 
         {
             String strSubstring = strSentence.substring(i, i + padding);
@@ -162,6 +168,9 @@ class QgramMeasure extends SentenceSimilarityMeasure
                 mapQgrams.put(strSubstring, 1);
             }
         }
+        
+        // Return the map of Qgrams
+        
         return mapQgrams;
     }
 }

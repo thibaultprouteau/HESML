@@ -61,8 +61,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // Create the temporal files and remove (if exists) the preexisting temp files.
         
-        m_tempFileSentences = createTempFile("../BERTExperiments/tempSentences.txt");
-        m_tempFileVectors = createTempFile("../BERTExperiments/tempVecs.txt");
+        m_tempFileSentences =   createTempFile("../BERTExperiments/tempSentences.txt");
+        m_tempFileVectors   =   createTempFile("../BERTExperiments/tempVecs.txt");
     }
 
     /**
@@ -148,7 +148,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         for (int i = 0; i < m_vectors.size(); i++)
         {
             ArrayList<double[]> listSentences = m_vectors.get(i);
-            
             double[] sentence1 = listSentences.get(0); 
             double[] sentence2 = listSentences.get(1); 
             scores[i] = this.getSimilarityValue(sentence1, sentence2);
