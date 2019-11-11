@@ -22,25 +22,18 @@
 package hesmlstsclient;
 
 import hesml.HESMLversion;
-import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
-import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
+import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
-import hesml.sts.preprocess.PreprocessType;
-import hesml.sts.preprocess.impl.PreprocessFactory;
-import java.io.File;
+import hesml.sts.preprocess.TokenizerType;
+import hesml.sts.preprocess.impl.PreprocessingFactory;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import org.json.simple.parser.ParseException;
 
 /**
  * This class implements a basic client application of the HESML similarity
@@ -56,6 +49,67 @@ import java.util.stream.Collectors;
 
 public class HESMLSTSMeasuresEvaluatorclient
 {
+    /**
+     * Resources directories.
+     * 
+     * m_strBaseDir: the base directory with the resources
+     * m_strStopWordsDir: Subdirectory with all the stop words files
+     * m_BERTDir: Subdirectory for all the BERT-based experiments 
+     * m_strBERTPretrainedModelsDir: Subdirectory with all the pretrained models for BERT
+     * m_strNCBIBERTModelsDir: Subdirectory with all the NCBI BERT pretrained models
+     * m_strBioBERTModelsDir: Subdirectory with all the BioBERT pretrained models
+     * m_PythonVenvExecutable: Path to the Python executable virtual environment
+     * m_PythonBERTWrapperScript: Path to the Python script that extracts the inferred vectors for a list of sentences
+     */
+    
+    private static final String  m_strBaseDir = "../";
+    private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
+    private static final String  m_BERTDir = m_strBaseDir + "BERTExperiments/";
+    
+    private static final String  m_strBERTPretrainedModelsDir = m_BERTDir + "PretrainedModels/";
+    private static final String  m_strNCBIBERTModelsDir = m_strBERTPretrainedModelsDir + "NCBIBERT/";
+    private static final String  m_strBioBERTModelsDir = m_strBERTPretrainedModelsDir + "BioBERT/";
+    
+    private static final String  m_PythonVenvExecutable = m_BERTDir + "venv/bin/python3.6";
+    private static final String  m_PythonBERTWrapperScript = m_BERTDir + "script.py";
+    
+    /**
+     * Subdirectories with the NCBI BERT existing pretrained models.
+     * 
+     * Peng, Yifan, Shankai Yan, and Zhiyong Lu. 2019. 
+     * “Transfer Learning in Biomedical Natural Language Processing: 
+     * An Evaluation of BERT and ELMo on Ten Benchmarking Datasets.” 
+     * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1906.05474.
+     */
+    
+    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed        = m_strNCBIBERTModelsDir 
+            + "NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/";
+    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed_Mimic  = m_strNCBIBERTModelsDir 
+            + "NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12/";
+    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed       = m_strNCBIBERTModelsDir 
+            + "NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16/";
+    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed_Mimic = m_strNCBIBERTModelsDir 
+            + "NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16/";
+    
+    /**
+     * Subdirectories with the BioBERT existing pretrained models.
+     * 
+     * Lee, Jinhyuk, Wonjin Yoon, Sungdong Kim, Donghyeon Kim, 
+     * Sunkyu Kim, Chan Ho So, and Jaewoo Kang. 2019. 
+     * “BioBERT: A Pre-Trained Biomedical Language Representation Model 
+     * for Biomedical Text Mining.” arXiv [cs.CL]. arXiv. 
+     * http://arxiv.org/abs/1901.08746.
+     */
+    
+    private static final String BioBert_Base_Pubmed     = m_strBioBERTModelsDir 
+            + "biobert_v1.0_pubmed/";
+    private static final String BioBert_Large_Pubmed    = m_strBioBERTModelsDir 
+            + "biobert_v1.1_pubmed/";
+    private static final String BioBert_Base_PMC        = m_strBioBERTModelsDir 
+            + "biobert_v1.0_pmc/";
+    private static final String BioBert_Base_Pubmed_PMC = m_strBioBERTModelsDir 
+            + "biobert_v1.0_pubmed_pmc/";
+    
     /**
      * This function loads an input XML file detailing a
      * set of reproducible experiments on sentence similarity.
@@ -93,43 +147,70 @@ public class HESMLSTSMeasuresEvaluatorclient
 
         // Execute the tests
         
-        testAllStringBasedMeasures(sentences1, sentences2);
-        
-        testAllBertModelsMeasures(sentences1, sentences2);
-        
-        testEmbeddingModelsMeasures(sentences1, sentences2);
-        
-        
-
+        testStringMeasures(sentences1, sentences2);
+        testBertMeasures(sentences1, sentences2);
     }
     
     /**
-     * This function tests all string-based similarity measures 
+     * Test all the string measures.
      * 
-     * @param sentences1
-     * @param sentences2 
+     *  * Preprocessing configured as Blagec2019.
+     * @return
+     * @throws IOException 
+     * @param sentences1: first sentences of the dataset
+     * @param sentences2: second sentences of the dataset
      */
     
-    private static void testAllStringBasedMeasures(
+    private static void testStringMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, ParseException, InterruptedException
+            String[] sentences2) throws IOException, InterruptedException
     {
-        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
+        // Initialize the preprocessing method and measures
         
-        tests.put("Jaccard Measure",                        testJaccardMeasure());
-        tests.put("Qgram Measure",                          testQgramMeasure());
-        tests.put("Block Distance Measure",                 testBlockDistanceMeasure());
-        tests.put("Overlap Coefficient Measure",            testOverlapCoefficientMeasure());
-        tests.put("Levenshtein Measure",                    testLevenshteinMeasure());
-        tests.put("Jaccard Measure Biosses Tokenizer",      testJaccardMeasureBiossesTokenizer());
-        tests.put("Jaccard Measure Blagec2019 Preprocess",  testJaccardMeasureBlagec2019Preprocess());
-        tests.put("Jaccard Measure Custom Preprocess",      testJaccardMeasureCustomPreprocess());
+        IWordProcessing wordPreprocessing = null;
+        ISentenceSimilarityMeasure measure = null;
         
-        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
+        // Initialize the hashmap for testing
+        
+        HashMap<String, StringBasedSentSimilarityMethod> tests = new HashMap<>();
+        
+        // Create a Wordpreprocessing object as Blagec2019 does.
+        
+        wordPreprocessing = PreprocessingFactory.getWordProcessing(
+                        m_strBaseDir + m_strStopWordsDir + "nltk2018StopWords.txt", 
+                        TokenizerType.StanfordCoreNLPv3_9_1, 
+                        false, 
+                        CharFilteringType.Blagec2019);
+        
+        // Add the string based methods to test
+        
+        tests.put("Jaccard Measure",            StringBasedSentSimilarityMethod.Jaccard);
+        tests.put("Block Distance Measure",     StringBasedSentSimilarityMethod.BlockDistance);
+        tests.put("Levenshtein Measure",        StringBasedSentSimilarityMethod.Levenshtein);
+        tests.put("Overlap Coefficient Measure",StringBasedSentSimilarityMethod.OverlapCoefficient);
+        tests.put("Qgram Measure",              StringBasedSentSimilarityMethod.Qgram);
+        
+        // Iterate the map 
+        
+        for (Map.Entry<String, StringBasedSentSimilarityMethod> testMeasure : tests.entrySet())
         {
+            // Get the name of the measure and the type
+            
             String strMeasureName = testMeasure.getKey();
-            ISentenceSimilarityMeasure measure = testMeasure.getValue();
+            StringBasedSentSimilarityMethod similarityMethod = testMeasure.getValue();
+            
+            // Initialize the measure
+            
+            measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                            similarityMethod, 
+                            wordPreprocessing);
+            
+            // Get the similarity scores for the lists of sentences
+            
             double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
+            
+            // Print the results - For testing purposes
+            
             System.out.println("Scores for " + strMeasureName + ": ");
             for (int i = 0; i < simScores.length; i++)
             {
@@ -140,300 +221,52 @@ public class HESMLSTSMeasuresEvaluatorclient
     }
     
     /**
-     * This function test all BERT models with a simple cosine similarity measure.
-     * 
-     * @param sentences1
-     * @param sentences2
-     * @throws InterruptedException
-     * @throws Exception 
-     */
-    
-    private static void testAllBertModelsMeasures(
-            String[] sentences1,
-            String[] sentences2) throws InterruptedException, Exception
-    {
-        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
-        
-        tests.put("Bert Embedding Model Measure - "
-                + "NCBI_BERT_pubmed_uncased_L-12_H-768_A-12", 
-                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"));
-        tests.put("Bert Embedding Model Measure -"
-                + " NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12", 
-                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12"));
-        tests.put("Bert Embedding Model Measure - "
-                + "NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16", 
-                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16"));
-        tests.put("Bert Embedding Model Measure - "
-                + "NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16", 
-                testBertEmbeddingModelMeasure("NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16"));
-        
-        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
-        {
-            String strMeasureName = testMeasure.getKey();
-            ISentenceSimilarityMeasure measure = testMeasure.getValue();
-            double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
-            System.out.println("Scores for " + strMeasureName + ": ");
-            for (int i = 0; i < simScores.length; i++)
-            {
-                double score = simScores[i];
-                System.out.println("---- Sentence " + i + " : " + score);
-            }
-        }
-    }
-    
-    /**
-     * This function test all some embedding models with a simple cosine similarity measure.
+     * Test a single BERT model evaluation
      * 
      * @param sentences1
      * @param sentences2
-     * @throws InterruptedException
-     * @throws Exception 
+     * @throws IOException 
      */
     
-    private static void testEmbeddingModelsMeasures(
+    private static void testBertMeasures(
             String[] sentences1,
-            String[] sentences2) throws InterruptedException, Exception
+            String[] sentences2) throws IOException, InterruptedException, ParseException
     {
-        HashMap<String, ISentenceSimilarityMeasure> tests = new HashMap<>();
+        // Initialize the preprocessing method and measures
         
-        tests.put("SWEMMeasure", testSWEMMeasure());
-        tests.put("BioC-trained Paragraph vector with DM", testParagraphVectorDMModelMeasure());
+        IWordProcessing wordPreprocessing = null;
+        ISentenceSimilarityMeasure measure = null;
         
-        for (Map.Entry<String, ISentenceSimilarityMeasure> testMeasure : tests.entrySet())
+        // Create a Wordpreprocessing object as BIOSSES2017 does for evaluation.
+        
+        wordPreprocessing = PreprocessingFactory.getWordProcessing(
+                        "", 
+                        TokenizerType.WhiteSpace, 
+                        true, 
+                        CharFilteringType.BIOSSES2017);
+        
+        // Initialize the measure
+        // Test a BioBert model measure
+        
+        measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
+                SentenceEmbeddingMethod.BERT, 
+                wordPreprocessing, 
+                BioBert_Base_PMC,
+                m_BERTDir,
+                m_PythonVenvExecutable,
+                m_PythonBERTWrapperScript);
+        
+        // Get the similarity scores for the lists of sentences
+            
+        double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
+
+        // Print the results - For testing purposes
+
+        System.out.println("Scores for BERT model: ");
+        for (int i = 0; i < simScores.length; i++)
         {
-            String strMeasureName = testMeasure.getKey();
-            ISentenceSimilarityMeasure measure = testMeasure.getValue();
-            double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
-            System.out.println("Scores for " + strMeasureName + ": ");
-            for (int i = 0; i < simScores.length; i++)
-            {
-                double score = simScores[i];
-                System.out.println("---- Sentence " + i + " : " + score);
-            }
+            double score = simScores[i];
+            System.out.println("---- Sentence " + i + " : " + score);
         }
-    }
-    
-    /**
-     * Test function for SWEM Measure
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testSWEMMeasure() throws IOException, ParseException
-    {
-        String strBioWordVecfile = "../BioWordVec_models/bio_embedding_intrinsic";
-        // String strBioWordVecfile = "C:\\HESML_GitHub\\HESML_Library\\WordEmbeddings\\bio_embedding_intrinsic";
-
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.DefaultJava);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSWEMMeasure(
-                SWEMpoolingMethod.Average, WordEmbeddingFileType.BioWordVecBinaryFile,
-                preprocess, strBioWordVecfile);
-        return measure;
-    }
-
-    /**
-     * Test function for SWEM Measure
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testBertEmbeddingModelMeasure(
-            String model) throws IOException, InterruptedException, Exception
-    {
-
-        String modelDirPath = "../BERTExperiments/BertPretrainedModels/" + model;
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.DefaultJava);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
-                                                SentenceEmbeddingMethod.BERT, preprocess, modelDirPath);
-        return measure;
-    }
-    
-    /**
-     * Test function for Paragraph Vector DM measure
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testParagraphVectorDMModelMeasure() throws IOException, InterruptedException, Exception
-    {
-
-        String strModelDirPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDM/vectors.zip";
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.DefaultJava);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
-                                                SentenceEmbeddingMethod.Paragraph, preprocess, strModelDirPath);
-        
-        return measure;
-    }
-    
-    /**
-     * Test function for Jaccard Measure 
-     * 
-     * Important: In BIOSSES2017 lowercaseNormalization has to be true.
-     *              BIOSSES2017 implementation do NOT remove the stop words for the evaluation!.
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testJaccardMeasure() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
-        return measure;
-    }
-    
-    /**
-     * Test function for Qgram Measure 
-     * 
-     * Important: 
-     *      In BIOSSES2017 lowercaseNormalization has to be true.
-     *      BIOSSES2017 implementation do NOT remove the stop words for the evaluation!.
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testQgramMeasure() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                StringBasedSentSimilarityMethod.Qgram, preprocess);
-        return measure;
-    }
-    
-    /**
-     * Test function for Block distance Measure 
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testBlockDistanceMeasure() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                    StringBasedSentSimilarityMethod.BlockDistance, preprocess);
-        
-        return measure;
-    }
-
-    /**
-     * Test function for Overlap coefficient Measure 
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testOverlapCoefficientMeasure() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                StringBasedSentSimilarityMethod.OverlapCoefficient, preprocess);
-        
-        return measure;
-    }    
-    
-    /**
-     * Test function for Levenshtein Measure 
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testLevenshteinMeasure() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Biosses2017_withStopWords);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                StringBasedSentSimilarityMethod.Levenshtein, preprocess);
-        return measure;
-    }   
-    
-    
-    /**
-     * Test function for Jaccard Measure using BIOSSES tokenizer
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testJaccardMeasureBiossesTokenizer() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                PreprocessType.Biosses2017);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
-        return measure;
-    }
-    
-    /**
-     * Test function for Jaccard Measure using Blagec2019 preprocessing
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testJaccardMeasureBlagec2019Preprocess() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(PreprocessType.Blagec2019);
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                StringBasedSentSimilarityMethod.Jaccard, preprocess);
-        return measure;
-    }
-    
-    /**
-     * Test function for Jaccard Measure using a custom tokenizer
-     * 
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ISentenceSimilarityMeasure testJaccardMeasureCustomPreprocess() throws IOException, ParseException
-    {
-        IWordProcessing preprocess = PreprocessFactory.getPreprocessPipeline(
-                true, 
-                hesml.sts.preprocess.TokenizerType.WhiteSpace,
-                "../StopWordsFiles/Biosses2017StopWords.txt",
-                hesml.sts.preprocess.CharFilteringType.DefaultJava);
-        
-        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getStringBasedMeasure(
-                                                 StringBasedSentSimilarityMethod.Jaccard, preprocess);
-        return measure;
-    }
-    
-    /**
-     * Preprocess the datasets for evaluate BERT models.
-     * @throws Exception 
-     */
-    
-    private static void PreprocessDatasets() throws Exception
-    {
-        List<File> filesInFolder = Files.walk(Paths.get("../SentenceSimDatasets"))
-                                .filter(Files::isRegularFile)
-                                .map(Path::toFile)
-                                .collect(Collectors.toList());
-        
-        for(File file : filesInFolder)
-        {
-            String fileName = file.getName();
-            if(!fileName.contains("CTRNormalized_3scores"))
-            {
-                String strInputDatasetPath = "../SentenceSimDatasets/" + fileName;
-                String strOutputDatasetPath = "../SentenceSimDatasets/preprocessedDatasets/" + fileName;
-                PreprocessFactory.preprocessDataset(PreprocessType.DefaultJava, strInputDatasetPath, strOutputDatasetPath);     
-            }
-
-        }
-
     }
 }

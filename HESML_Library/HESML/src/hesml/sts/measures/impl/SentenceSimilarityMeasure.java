@@ -17,6 +17,7 @@
 package hesml.sts.measures.impl;
 
 import hesml.sts.measures.ISentenceSimilarityMeasure;
+import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import java.io.IOException;
 
@@ -40,6 +41,17 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the current family of STS method
+     * @return 
+     */
+    
+    @Override
+    public SentenceSimilarityFamily getFamily()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /**
      * Get the similarity value of two sentences.
      * Each measure implements its own method.

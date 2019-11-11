@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *  This class configures the preprocess method and preprocess the sentences.
@@ -37,29 +35,31 @@ import java.util.logging.Logger;
 
 class WordProcessing implements IWordProcessing
 {
-
-    private boolean m_lowercaseNormalization; // Configure if the text would be lowercased.
-
-    private TokenizerType m_tokenizerType; // Set the tokenization method
     
-    private CharFilteringType m_charFilteringType; // Set the filtering method
+    // Configure if the text would be lowercased.
+    
+    private final boolean m_lowercaseNormalization; 
 
-    // Set the stopwords filename and hashset. 
+    // Set the tokenization method
+    
+    private final TokenizerType m_tokenizerType; 
+    
+    // Set the filtering method
+    
+    private final CharFilteringType m_charFilteringType; 
+
+    // Stopwords filename and hashset. 
     // If empty, there's not a stopwords preprocessing.
     
-    private String m_strStopWordsFileName;
+    private final String m_strStopWordsFileName;
     private HashSet<String> m_stopWordsSet;
 
     /**
-     * Constructor by default
-     */
-    
-    WordProcessing(){}
-    
-    /**
      * Constructor with parameters
-     * @param tokenizerType
-     * @param lowercaseNormalization 
+     * @param tokenizerType tokenizer type used in the method
+     * @param lowercaseNormalization true if lowercased
+     * @param strStopWordsFileName stopWords file path
+     * @param charFilteringType char filtering method used
      */
     
     WordProcessing(
@@ -72,14 +72,15 @@ class WordProcessing implements IWordProcessing
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
         m_charFilteringType = charFilteringType;
-        HashSet<String> m_stopWordsSet = new HashSet<>();
+        m_stopWordsSet = null;
         
-        // If the file name of stop words is set, get the stop words
+        // If there is a valid file name for stop words, 
+        // get the stop words in the hashSet
         
         if(m_strStopWordsFileName.length() > 0 
-                && Files.exists(Paths.get(m_strStopWordsFileName)))
+            && Files.exists(Paths.get(m_strStopWordsFileName)))
         {
-            m_stopWordsSet = getStopWords();
+            getStopWords();
         }
     }
 
@@ -108,7 +109,7 @@ class WordProcessing implements IWordProcessing
         // Remove stop words if there are stop words
         
         if(m_stopWordsSet != null && !m_stopWordsSet.isEmpty()) 
-            strRawSentence = removeStopwords(strRawSentence, m_stopWordsSet);
+            strRawSentence = removeStopwords(strRawSentence);
 
         // Tokenize the text
         
@@ -119,8 +120,7 @@ class WordProcessing implements IWordProcessing
     }
     
     /**
-     * Get the stop words using the list provided in BIOSSES2017 
-     * and original code.
+     * Get the stop words list
      * 
      * @return
      * @throws FileNotFoundException
@@ -128,11 +128,11 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public final HashSet<String> getStopWords() throws FileNotFoundException, IOException
+    public final void getStopWords() throws FileNotFoundException, IOException
     {
         // Initialize the hash set for stop words
         
-        HashSet<String> stopWords = new HashSet<>();
+        m_stopWordsSet = new HashSet<>();
         
         // Read the file and return the hash set
         
@@ -141,10 +141,9 @@ class WordProcessing implements IWordProcessing
         while((line=buffer.readLine()) != null)
         {
             String stop = line.replaceAll(" ", "");
-            stopWords.add(stop);
+            m_stopWordsSet.add(stop);
         }
         buffer.close();
-        return stopWords;
     }
     
     /**
@@ -154,10 +153,12 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public String removeStopwords(String strRawSentence, HashSet<String> m_stopWords)
+    public String removeStopwords(String strRawSentence)
     {
 
-        String [] splitArray = strRawSentence.split("\\s+"); // Split the sentence into words
+        // Split the sentence into words
+        
+        String [] splitArray = strRawSentence.split("\\s+"); 
         
         // Create the new string
         
@@ -167,56 +168,11 @@ class WordProcessing implements IWordProcessing
         
         for (String strWord : splitArray)
         {
-            if (!m_stopWords.contains(strWord))
+            if (!m_stopWordsSet.contains(strWord))
             {
                 sentenceString = sentenceString + strWord + " ";
             }
         }
         return sentenceString;
     }
-    
-    
-
-    /**
-     * Getters and setters
-     * @return 
-     */
-    
-    @Override
-    public TokenizerType getTokenizerType(){return m_tokenizerType;}
-
-    @Override
-    public void setTokenizerType(TokenizerType tokenizerType){m_tokenizerType = tokenizerType;}
-
-    @Override
-    public boolean getLowercaseNormalization(){return m_lowercaseNormalization;}
-    
-    @Override
-    public void setLowercaseNormalization(boolean lowercaseNormalization){m_lowercaseNormalization = lowercaseNormalization;}
-
-    @Override
-    public String getStrStopWordsFileName(){return m_strStopWordsFileName;}
-
-    @Override
-    public void setStrStopWordsFileName(String strStopWordsFileName)
-    {
-        m_strStopWordsFileName = strStopWordsFileName;
-        
-        if(m_strStopWordsFileName.length() > 0 && Files.exists(Paths.get(m_strStopWordsFileName)))
-        {
-            try
-            {
-                m_stopWordsSet = getStopWords();
-            } catch (IOException ex)
-            {
-                Logger.getLogger(WordProcessing.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    @Override
-    public CharFilteringType getCharFilteringType(){return m_charFilteringType;}
-
-    @Override
-    public void setCharFilteringType(CharFilteringType charFilteringType){m_charFilteringType = charFilteringType;}
 }

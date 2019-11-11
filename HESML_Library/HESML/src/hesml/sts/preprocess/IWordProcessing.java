@@ -32,6 +32,7 @@ public interface IWordProcessing
     /**
      * This function returns the collection of word tokens extracted from
      * the raw input sentence.
+     * 
      * @param strRawSentence
      * @return 
      * @throws java.io.FileNotFoundException 
@@ -39,84 +40,22 @@ public interface IWordProcessing
     
     String[] getWordTokens(
             String strRawSentence)  throws FileNotFoundException;
-    
+   
     /**
-     * Get the tokenizer method
-     * @return
-     */
-    
-    TokenizerType getTokenizerType();
-
-    /**
-     * Set the tokenizer method
-     * @param tokenizerType
-     */
-    
-    void setTokenizerType(
-            TokenizerType tokenizerType);
-    
-    /**
-     * Get if the preprocess normalizes as lowercase
-     * @return
-     */
-    
-    boolean getLowercaseNormalization();
-
-    /**
-     * Set the lowercase normalization
-     * @param lowercaseNormalization
-     */
-    
-    void setLowercaseNormalization(
-            boolean lowercaseNormalization);
-    
-    /**
-     * Set the stopWords file name
-     * @return
-     */
-    
-    String getStrStopWordsFileName();
-    
-    /**
-     *  Set the stopwords file name
-     * @param strStopWordsFileName
-     */
-    
-    void setStrStopWordsFileName(
-            String strStopWordsFileName);
-    
-    /**
-     * Remove the stop words
+     * This function removes the stop words from a string.
+     * 
      * @param strRawSentence
-     * @param m_stopWords
      * @return 
      */
     
     String removeStopwords(
-            String          strRawSentence, 
-            HashSet<String> m_stopWords);
+            String  strRawSentence);
     
     /**
-     * Read the stop words file name
-     * @return 
+     * Read the stop words file name if exists.
+     * 
      * @throws java.io.FileNotFoundException 
      */
     
-    HashSet<String> getStopWords() throws FileNotFoundException, IOException;
-    
-    /**
-     * Get the char filtering method
-     * @return
-     */
-    
-    CharFilteringType getCharFilteringType();
-    
-    /**
-     * Set the char filtering method
-     * @param charFilteringType
-     */
-    
-    void setCharFilteringType(
-            CharFilteringType charFilteringType);
-    
+    void getStopWords() throws FileNotFoundException, IOException;
 }

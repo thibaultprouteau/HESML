@@ -22,7 +22,6 @@ import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -37,6 +36,7 @@ public class SentenceSimilarityFactory
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
      * pre-traiend WE file.
+     * 
      * @param poolingMethod
      * @param embeddingType
      * @param preprocesser
@@ -58,6 +58,9 @@ public class SentenceSimilarityFactory
     
     /**
      * This function creates a string-based sentence similarity measure.
+     * 
+     * @param method
+     * @param wordPreprocessing
      * @return 
      */
     
@@ -111,15 +114,26 @@ public class SentenceSimilarityFactory
     
     /**
      * This function creates a sentence embedding method.
+     * 
      * @param method
+     * @param wordPreprocessor
      * @param strPretrainedModelFilename
+     * @param BERTDir
+     * @param PythonVenvDir
+     * @param PythonScriptDir
      * @return 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
+     * @throws org.json.simple.parser.ParseException 
      */
     
     public static ISentenceSimilarityMeasure getSentenceEmbeddingMethod(
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
-            String                  strPretrainedModelFilename) throws IOException,
+            String                  strPretrainedModelFilename,
+            String                  BERTDir,
+            String                  PythonVenvDir,
+            String                  PythonScriptDir) throws IOException,
             InterruptedException, org.json.simple.parser.ParseException
     {
         // We initialize the output
@@ -138,7 +152,12 @@ public class SentenceSimilarityFactory
                 
             case BERT:
                 
-                measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, wordPreprocessor);
+                measure = new BertEmbeddingModelMeasure(
+                        strPretrainedModelFilename, 
+                        wordPreprocessor,
+                        BERTDir,
+                        PythonVenvDir,
+                        PythonScriptDir);
                 
                 break;
         }

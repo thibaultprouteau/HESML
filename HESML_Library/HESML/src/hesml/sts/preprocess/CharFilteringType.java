@@ -37,6 +37,8 @@ public enum CharFilteringType
     
     /**
      * Filter punctuation marks using the BIOSSES2017 implementation.
+     * 
+     * Filter symbols: .;-:,_!()[]*?, whitespaces and "/"
      */
     
     BIOSSES2017,

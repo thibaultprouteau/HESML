@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.simple.parser.ParseException;
@@ -39,11 +40,34 @@ import org.json.simple.parser.ParseException;
 class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
     
+    // Path to the model to evaluate.
+    
     private final String m_modelDirPath;
+    
+    // WordProcesser object.
+    
     private final IWordProcessing m_preprocesser;
+    
+    // Temporal files for getting the sentences and setting the embedding vectors.
+    
     private final File m_tempFileSentences;
     private final File m_tempFileVectors;
+    
+    // List of embeddings.
+    
     private ArrayList<ArrayList<double[]> > m_vectors;
+    
+    // Paths to the BERT directory.
+    
+    private final String m_BERTDir;
+    
+    // Python executable using the virtual environment.
+    
+    private final String m_PythonVenvDir;
+    
+    // Python script wrapper to extract the embeddings.
+    
+    private final String m_PythonScriptDir;
     
     /**
      * Constructor
@@ -53,7 +77,10 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     BertEmbeddingModelMeasure(
             String              modelDirPath,
-            IWordProcessing     preprocesser) throws InterruptedException,
+            IWordProcessing     preprocesser,
+            String BERTDir,
+            String PythonVenvDir,
+            String PythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
         m_preprocesser = preprocesser;
@@ -61,10 +88,14 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         m_vectors = new ArrayList< >();
         
+        m_BERTDir = BERTDir;
+        m_PythonScriptDir = PythonScriptDir;
+        m_PythonVenvDir = PythonVenvDir;
+        
         // Create the temporal files and remove (if exists) the preexisting temp files.
         
-        m_tempFileSentences =   createTempFile("../BERTExperiments/tempSentences.txt");
-        m_tempFileVectors   =   createTempFile("../BERTExperiments/tempVecs.txt");
+        m_tempFileSentences =   createTempFile(BERTDir + "tempSentences.txt");
+        m_tempFileVectors   =   createTempFile(BERTDir + "tempVecs.txt");
     }
 
     /**
@@ -75,7 +106,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.BertEmbeddingModelMeasure;
+        return (SentenceSimilarityMethod.BertEmbeddingModelMeasure);
     }
     
     /**
@@ -205,6 +236,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String preprocessedSentence2 = String.join(" ", lstWordsSentence2);
 
             // And write in the temporal file
+            
             String line = preprocessedSentence1
                     .concat("\t")
                     .concat(preprocessedSentence2);
@@ -274,7 +306,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void executePythonWrapper() throws InterruptedException, IOException
     {
-        String python_command = "../BERTExperiments/venv/bin/python3.6 ../BERTExperiments/script.py";
+        String python_command = m_PythonVenvDir + " " + m_PythonScriptDir;
         
         String absPathTempSentencesFile = m_tempFileSentences.getCanonicalPath();
         String absPathTempVectorsFile = m_tempFileVectors.getCanonicalPath();
@@ -286,6 +318,9 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
                 .concat(absPathTempSentencesFile)
                 .concat(" ")
                 .concat(absPathTempVectorsFile);
+        
+//        System.out.print("Python command executed: ");
+//        System.out.print(command);
         
         Process proc = Runtime.getRuntime().exec(command);
 
