@@ -27,7 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.simple.parser.ParseException;
@@ -83,15 +82,17 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String PythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
+        
         m_preprocesser = preprocesser;
         m_modelDirPath = modelDirPath;
-        
-        m_vectors = new ArrayList< >();
-        
         m_BERTDir = BERTDir;
         m_PythonScriptDir = PythonScriptDir;
         m_PythonVenvDir = PythonVenvDir;
         
+        // Initialize the vectors
+        
+        m_vectors = new ArrayList< >();
+
         // Create the temporal files and remove (if exists) the preexisting temp files.
         
         m_tempFileSentences =   createTempFile(BERTDir + "tempSentences.txt");
@@ -306,6 +307,9 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void executePythonWrapper() throws InterruptedException, IOException
     {
+        
+        // Fill the command params and execute the script
+        
         String python_command = m_PythonVenvDir + " " + m_PythonScriptDir;
         
         String absPathTempSentencesFile = m_tempFileSentences.getCanonicalPath();
@@ -336,7 +340,9 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 //        while((lineTerminal = readerTerminal.readLine()) != null) {
 //            System.out.print(lineTerminal + "\n");
 //        }
-
+        
+        // Destroy the process
+        
         proc.waitFor();  
         proc.destroy();
     }

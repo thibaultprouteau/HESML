@@ -144,13 +144,13 @@ public class SentenceSimilarityFactory
         
         switch (method)
         {
-            case Paragraph:
+            case ParagraphVector:
                 
                 measure = new ParagraphVectorMeasure(strPretrainedModelFilename, wordPreprocessor);
                 
                 break;
                 
-            case BERT:
+            case BertEmbeddingModelMethod:
                 
                 measure = new BertEmbeddingModelMeasure(
                         strPretrainedModelFilename, 

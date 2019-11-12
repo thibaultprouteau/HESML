@@ -86,22 +86,6 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
             String[] lstSentences1, 
             String[] lstSentences2) throws IOException, InterruptedException
     {
-        // Initialize the scores
-        
-        double[] scores = new double[lstSentences1.length];
-        
-        if(lstSentences1.length != lstSentences2.length)
-            throw new IllegalArgumentException("The size of the input arrays are different!");
-        
-        // Iterate the sentences and get the similarity scores.
-        
-        for (int i = 0; i < lstSentences1.length; i++)
-        {
-            String sentence1 = lstSentences1[i];
-            String sentence2 = lstSentences2[i];
-            scores[i] = this.getSimilarityValue(sentence1, sentence2);
-        }
-        
-        return scores;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

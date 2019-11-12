@@ -24,6 +24,18 @@ package hesml.sts.measures;
 
 public enum SentenceEmbeddingMethod
 {
-    Paragraph,
-    BERT
+
+    /**
+     * This method evaluates all the pre-trained BERT-based models.
+     */
+    
+    BertEmbeddingModelMethod,
+    
+    /**
+     * Le, Quoc, and Tomas Mikolov. 2014. 
+     * “Distributed Representations of Sentences and Documents.” 
+     * In International Conference on Machine Learning, 1188–96. jmlr.org.
+     */
+    
+    ParagraphVector,
 }

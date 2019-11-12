@@ -19,6 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
+import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class BlockDistanceMeasure extends SentenceSimilarityMeasure
+class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
 {
     // Word preprocesser used to convert the sentence into a string of words.
     
@@ -69,7 +70,17 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure
     {
         return (SentenceSimilarityFamily.String);
     }
-
+    
+    /**
+     * Return the String method
+     * @return 
+     */
+    
+    @Override
+    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    {
+        return (StringBasedSentSimilarityMethod.BlockDistance);
+    }
     
     @Override
     public double getSimilarityValue(
@@ -162,5 +173,7 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure
         } 
         return occurrences;
     }
+
+
 
 }

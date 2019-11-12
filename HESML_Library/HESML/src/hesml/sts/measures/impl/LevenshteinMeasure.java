@@ -19,6 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
+import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure extends SentenceSimilarityMeasure
+class LevenshteinMeasure extends StringBasedSentenceSimMeasure
 {
     
     // Internal variables used in the method by the original code (BIOSSES2017).
@@ -86,6 +87,17 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.String);
+    }
+    
+    /**
+     * Return the String method
+     * @return 
+     */
+    
+    @Override
+    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    {
+        return (StringBasedSentSimilarityMethod.Levenshtein);
     }
     
     /**

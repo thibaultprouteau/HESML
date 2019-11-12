@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 j.lastra
+ * Copyright (C) 2019 alicia
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,38 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package hesml.sts.measures;
 
 /**
- * This enumeration sets the families or classes of sentence similarity measures.
- * @author j.lastra
+ *  This interface encapsulates all the String-based similarity measures
+ * 
+ * @author alicia
  */
 
-public enum SentenceSimilarityFamily
+public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasure
 {
 
     /**
-     *  This type encapsulates all the string-based sentence measures.
+     * Return the string based method
+     * @return
      */
     
-    String,
-    
-    /**
-     * This type encapsulates all the Word-embedding-aggregation-based sentence measures. 
-     */
-    
-    WordEmbeddingAggregation,
-    
-    /**
-     * This type encapsulates all the sentence-embedding-based sentence measures.
-     */
-    
-    SentenceEmbedding,
-    
-    /**
-     * This type encapsulates all the ontology-based sentence measures.
-     */
-    
-    OntologyBased
+    StringBasedSentSimilarityMethod getStringBasedMethodType();
+
 }

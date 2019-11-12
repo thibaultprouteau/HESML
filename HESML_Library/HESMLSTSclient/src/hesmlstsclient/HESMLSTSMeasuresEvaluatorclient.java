@@ -148,7 +148,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Execute the tests
         
         testStringMeasures(sentences1, sentences2);
-        testBertMeasures(sentences1, sentences2);
+//        testBertMeasures(sentences1, sentences2);
     }
     
     /**
@@ -249,7 +249,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Test a BioBert model measure
         
         measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
-                SentenceEmbeddingMethod.BERT, 
+                SentenceEmbeddingMethod.BertEmbeddingModelMethod, 
                 wordPreprocessing, 
                 BioBert_Base_PMC,
                 m_BERTDir,
