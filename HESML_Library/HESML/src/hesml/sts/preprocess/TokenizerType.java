@@ -34,5 +34,15 @@ public enum TokenizerType
      * Tokenize a text using the external Stanford CoreNLP library
      */
     
-    StanfordCoreNLPv3_9_1
+    StanfordCoreNLPv3_9_1,
+    
+    /**
+     * Tokenize text using the BERT approximation.
+     * Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. 
+     * “BERT: Pre-Training of Deep Bidirectional Transformers for 
+     * Language Understanding.” arXiv [cs.CL]. arXiv. 
+     * http://arxiv.org/abs/1810.04805.
+     */
+    
+    WordPieceTokenizer,
 }

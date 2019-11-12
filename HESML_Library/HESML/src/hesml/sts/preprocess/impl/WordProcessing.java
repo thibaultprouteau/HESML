@@ -17,6 +17,7 @@
 package hesml.sts.preprocess.impl;
 
 import hesml.sts.preprocess.CharFilteringType;
+import hesml.sts.preprocess.ITokenizer;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.TokenizerType;
 import java.io.BufferedReader;
@@ -26,6 +27,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -53,6 +55,24 @@ class WordProcessing implements IWordProcessing
     
     private final String m_strStopWordsFileName;
     private HashSet<String> m_stopWordsSet;
+    
+    // The Temp and Python directories are used in some 
+    // tokenizer methods that uses the Python wrapper.
+    // Path to the temp directory.
+    
+    private final String m_TempDir;
+    
+    // Python executable using the virtual environment.
+    
+    private final String m_PythonVenvDir;
+    
+    // Python script wrapper
+    
+    private final String m_PythonScriptDir;
+    
+    // Path to the pretrained model embedding 
+    
+    private final String m_modelDirPath;
 
     /**
      * Constructor with parameters
@@ -82,6 +102,56 @@ class WordProcessing implements IWordProcessing
         {
             getStopWords();
         }
+        
+        // Initialize the temporal dirs to null.
+        
+        m_TempDir = null;
+        m_PythonVenvDir = null;
+        m_PythonScriptDir = null;
+        m_modelDirPath = null;
+    }
+    
+    /**
+     * Constructor with parameters
+     * 
+     * @param tokenizerType tokenizer type used in the method
+     * @param lowercaseNormalization true if lowercased
+     * @param strStopWordsFileName stopWords file path
+     * @param charFilteringType char filtering method used
+     * 
+     */
+    
+    WordProcessing(
+            TokenizerType tokenizerType,
+            boolean lowercaseNormalization,
+            String strStopWordsFileName,
+            CharFilteringType charFilteringType,
+            String tempDir,
+            String pythonVenvDir,
+            String pythonScriptDir,
+            String modelDirPath) throws IOException
+    {
+        m_tokenizerType = tokenizerType;
+        m_lowercaseNormalization = lowercaseNormalization;
+        m_strStopWordsFileName = strStopWordsFileName;
+        m_charFilteringType = charFilteringType;
+        m_stopWordsSet = null;
+        
+        // If there is a valid file name for stop words, 
+        // get the stop words in the hashSet
+        
+        if(m_strStopWordsFileName.length() > 0 
+            && Files.exists(Paths.get(m_strStopWordsFileName)))
+        {
+            getStopWords();
+        }
+        
+        // Initialize the temporal dirs to null.
+        
+        m_TempDir = tempDir;
+        m_PythonVenvDir = pythonVenvDir;
+        m_PythonScriptDir = pythonScriptDir;
+        m_modelDirPath = modelDirPath;
     }
 
     /**
@@ -91,7 +161,7 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public String[] getWordTokens(String strRawSentence)
+    public String[] getWordTokens(String strRawSentence) throws IOException, InterruptedException
     {
         // Initialize tokens
         
@@ -113,8 +183,20 @@ class WordProcessing implements IWordProcessing
 
         // Tokenize the text
         
-        Tokenizer tokenizer = new Tokenizer(m_tokenizerType);
-        tokens = tokenizer.getTokens(strRawSentence);
+        if(m_tokenizerType != TokenizerType.WordPieceTokenizer)
+        {
+            ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
+            tokens = tokenizer.getTokens(strRawSentence);
+        }
+        else
+        { 
+            ITokenizer tokenizer = new Tokenizer(
+                    m_tokenizerType,
+                    m_PythonVenvDir,
+                    m_PythonScriptDir,
+                    m_modelDirPath);
+            tokens = tokenizer.getTokens(strRawSentence);
+        }
         
         return tokens;
     }
@@ -175,4 +257,6 @@ class WordProcessing implements IWordProcessing
         }
         return sentenceString;
     }
+
+
 }

@@ -21,6 +21,7 @@ import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -113,7 +114,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException
+            String strRawSentence2) throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
     {
         // We initialize the output
 

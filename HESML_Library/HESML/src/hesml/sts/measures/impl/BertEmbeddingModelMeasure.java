@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.simple.parser.ParseException;
@@ -217,7 +218,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void writeSentencesInTemporalFile(
             String[] lstSentences1,
-            String[] lstSentences2) throws FileNotFoundException, IOException
+            String[] lstSentences2) throws FileNotFoundException, IOException, InterruptedException
     {
         BufferedWriter outputWriter = new BufferedWriter(new FileWriter(m_tempFileSentences));
         

@@ -20,6 +20,7 @@ import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -101,7 +102,7 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException 
+            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException 
     {
         
         double similarity = 0.0; // We initialize the output

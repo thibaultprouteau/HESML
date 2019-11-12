@@ -19,7 +19,7 @@ package hesml.sts.preprocess;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * This interface sets the abstract methods which must be implemented by
@@ -39,7 +39,8 @@ public interface IWordProcessing
      */
     
     String[] getWordTokens(
-            String strRawSentence)  throws FileNotFoundException;
+            String strRawSentence)  throws FileNotFoundException, IOException, InterruptedException;
+    
    
     /**
      * This function removes the stop words from a string.

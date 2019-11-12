@@ -24,6 +24,7 @@ import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -151,7 +152,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public double getSimilarityValue(
             String  strRawSentence1,
-            String  strRawSentence2) throws IOException
+            String  strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
     {
         // We initialize the output
 
@@ -195,7 +196,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     private double[] getSentenceEmbedding(
-        String  strRawSentence) throws IOException
+        String  strRawSentence) throws IOException, FileNotFoundException, InterruptedException
     {
         // We obtain the words in the input sentence
         

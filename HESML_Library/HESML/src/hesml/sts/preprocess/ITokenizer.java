@@ -17,6 +17,8 @@
 
 package hesml.sts.preprocess;
 
+import java.io.IOException;
+
 /**
  *  Tokenizer for preprocessing the texts
  * @author alicia
@@ -32,20 +34,16 @@ public interface ITokenizer
     
     TokenizerType getTokenizerType();
     
-    /**
-     * Set the tokenizer method
-     * @param tokenizerType
-     */
-    
-    void setTokenizerType(
-            TokenizerType tokenizerType);
     
     /**
      * Given a sentence, get the tokens using the method selected.
      * @param strRawSentence
      * @return
+     * @throws java.lang.InterruptedException
+     * @throws java.io.IOException
      */
     
     String[] getTokens(
-            String strRawSentence);
+            String strRawSentence) throws InterruptedException, IOException;
+    
 }

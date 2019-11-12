@@ -60,6 +60,7 @@ public class HESMLSTSMeasuresEvaluatorclient
      * m_strBioBERTModelsDir: Subdirectory with all the BioBERT pretrained models
      * m_PythonVenvExecutable: Path to the Python executable virtual environment
      * m_PythonBERTWrapperScript: Path to the Python script that extracts the inferred vectors for a list of sentences
+     * m_PythonWordPieceTokenizerWrapperScript: Path to the Python script for word piece tokenize the texts.
      */
     
     private static final String  m_strBaseDir = "../";
@@ -72,6 +73,7 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static final String  m_PythonVenvExecutable = m_BERTDir + "venv/bin/python3.6";
     private static final String  m_PythonBERTWrapperScript = m_BERTDir + "script.py";
+    private static final String  m_PythonWordPieceTokenizerWrapperScript = m_BERTDir + "WordPieceTokenization.py";
     
     /**
      * Subdirectories with the NCBI BERT existing pretrained models.
@@ -147,8 +149,8 @@ public class HESMLSTSMeasuresEvaluatorclient
 
         // Execute the tests
         
-        testStringMeasures(sentences1, sentences2);
-//        testBertMeasures(sentences1, sentences2);
+//        testStringMeasures(sentences1, sentences2);
+        testBertMeasures(sentences1, sentences2);
     }
     
     /**
@@ -223,6 +225,8 @@ public class HESMLSTSMeasuresEvaluatorclient
     /**
      * Test a single BERT model evaluation
      * 
+     * BioBert model evaluation using the BERT FullTokenizer (WordPiece Tokenizer)
+     * 
      * @param sentences1
      * @param sentences2
      * @throws IOException 
@@ -237,13 +241,17 @@ public class HESMLSTSMeasuresEvaluatorclient
         IWordProcessing wordPreprocessing = null;
         ISentenceSimilarityMeasure measure = null;
         
-        // Create a Wordpreprocessing object as BIOSSES2017 does for evaluation.
+        // Create a Wordpreprocessing object using WordPieceTokenizer
         
         wordPreprocessing = PreprocessingFactory.getWordProcessing(
                         "", 
-                        TokenizerType.WhiteSpace, 
+                        TokenizerType.WordPieceTokenizer, 
                         true, 
-                        CharFilteringType.BIOSSES2017);
+                        CharFilteringType.None,
+                        m_BERTDir,
+                        m_PythonVenvExecutable,
+                        m_PythonWordPieceTokenizerWrapperScript,
+                        BioBert_Base_PMC);
         
         // Initialize the measure
         // Test a BioBert model measure

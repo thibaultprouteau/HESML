@@ -100,7 +100,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException
+            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
     {
         double similarity = 0.0;
         

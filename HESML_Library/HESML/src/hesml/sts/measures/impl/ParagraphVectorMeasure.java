@@ -23,6 +23,7 @@ import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.languagemodels.impl.LanguageModelFactory;
 import hesml.sts.languagemodels.ILanguageModel;
 import hesml.sts.measures.SentenceSimilarityFamily;
+import java.io.FileNotFoundException;
 
 import java.io.IOException;
 
@@ -79,7 +80,7 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
     }
     
     @Override
-    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException
+    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
     {
         double similarity = 0.0; // We initialize the output
         

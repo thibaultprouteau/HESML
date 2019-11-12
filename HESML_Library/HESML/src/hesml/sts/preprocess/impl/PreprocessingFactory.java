@@ -57,4 +57,43 @@ public class PreprocessingFactory {
                 stopWordFileName,
                 charFilteringType));
     }
+    
+    /**
+     *  Constructor of the preprocess pipeline factory with Python wrapper for BERT.
+     * 
+     * @param stopWordFileName
+     * @param tokenizerType
+     * @param lowercaseNormalization
+     * @param charFilteringType
+     * @param tempDir
+     * @param modelDirPath
+     * @param pythonVenvDir
+     * @param pythonScriptDir
+     * @return 
+     * @throws java.io.IOException
+     */
+    
+    public static IWordProcessing getWordProcessing(
+            String stopWordFileName,
+            TokenizerType tokenizerType,
+            boolean lowercaseNormalization,
+            CharFilteringType charFilteringType,
+            String tempDir,
+            String pythonVenvDir,
+            String pythonScriptDir,
+            String modelDirPath) throws IOException
+    {   
+        
+        // Return the preprocessing object
+        
+        return (new WordProcessing(
+                tokenizerType,
+                lowercaseNormalization,
+                stopWordFileName,
+                charFilteringType,
+                tempDir,
+                pythonVenvDir,
+                pythonScriptDir,
+                modelDirPath));
+    }
 }

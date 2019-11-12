@@ -11,8 +11,6 @@ import logging
 logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
-# @todo GENERALIZE TO: (1) create output dirs for the input models (2) given a model, get the embeddings for all the input datasets in the preprocessed directory
-
 # bert-serving-start -model_dir=/home/alicia/Desktop/BERT/PretrainedModels/NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 -pooling_layer -4 -3 -2 -1
 # bert-serving-start -model_dir=/home/alicia/Desktop/BERT/PretrainedModels/NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12
 # bert-serving-start -model_dir=/home/alicia/Desktop/BERT/PretrainedModels/NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16
@@ -33,7 +31,6 @@ datasets = [
 ]
 
 for model in models:
-
 
     ## START SERVER  for the model ##
 
@@ -79,7 +76,6 @@ for model in models:
                 s1 = data[0].strip().split(" ")
                 s2 = data[1].strip().split(" ")
 
-
                 # get the vectors of the sentences
 
                 doc_vecs = bc.encode([s1, s2], is_tokenized=True)
@@ -93,7 +89,6 @@ for model in models:
 
                 a = v1.tolist()  # nested lists with same data, indices
                 b = v2.tolist()  # nested lists with same data, indices
-
 
                 # output[count] = [a, b]
                 # write into file
