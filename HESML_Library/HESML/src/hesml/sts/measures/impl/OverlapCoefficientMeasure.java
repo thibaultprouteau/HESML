@@ -18,6 +18,7 @@ package hesml.sts.measures.impl;
 
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
+import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,7 +35,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
+class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
 {
     
     /**
@@ -69,6 +70,17 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.String);
+    }
+    
+    /**
+     * Return the String method
+     * @return 
+     */
+    
+    @Override
+    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    {
+        return (StringBasedSentSimilarityMethod.OverlapCoefficient);
     }
     
     /**

@@ -35,7 +35,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure extends SentenceSimilarityMeasure
+class LevenshteinMeasure extends StringBasedSentenceSimMeasure
 {
     
     // Internal variables used in the method by the original code (BIOSSES2017).
@@ -85,6 +85,17 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.String);
+    }
+    
+    /**
+     * Return the String method
+     * @return 
+     */
+    
+    @Override
+    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    {
+        return (StringBasedSentSimilarityMethod.Levenshtein);
     }
     
     /**

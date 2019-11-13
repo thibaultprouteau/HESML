@@ -37,7 +37,7 @@ import javax.xml.stream.XMLStreamException;
  * @author alicia
  */
 
-public class HESMLSTSDocumentsSentenceSplittingclient
+public class HESMLSTSpreprocessing
 {
     /**
      * This function loads an input XML file detailing a

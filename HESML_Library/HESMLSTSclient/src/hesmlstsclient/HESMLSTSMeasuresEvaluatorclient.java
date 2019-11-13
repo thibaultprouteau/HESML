@@ -151,6 +151,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         
         testStringMeasures(sentences1, sentences2);
 //        testBertMeasures(sentences1, sentences2);
+        testWBSMMeasures(sentences1, sentences2);
     }
     
     /**
@@ -276,5 +277,31 @@ public class HESMLSTSMeasuresEvaluatorclient
             double score = simScores[i];
             System.out.println("---- Sentence " + i + " : " + score);
         }
+    }
+    
+    /**
+     * Test WBSM Measures from BIOSSES2017
+     * 
+     * @param sentences1
+     * @param sentences2 
+     */
+    private static void testWBSMMeasures(
+            String[] sentences1,
+            String[] sentences2) throws IOException
+    {
+         // Initialize the preprocessing method and measures
+        
+        IWordProcessing wordPreprocessing = null;
+        ISentenceSimilarityMeasure measure = null;
+        
+        // Create a Wordpreprocessing object using WordPieceTokenizer
+        
+        wordPreprocessing = PreprocessingFactory.getWordProcessing(
+                        "", 
+                        TokenizerType.WhiteSpace, 
+                        true, 
+                        CharFilteringType.None);
+        
+//        measure = SentenceSimilarityFactory. @TODO!!
     }
 }
