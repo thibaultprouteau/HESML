@@ -19,6 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.IOException;
 
 /**
@@ -29,7 +30,15 @@ import java.io.IOException;
 
 abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
 {
-
+    // WordProcesser object.
+    
+    protected IWordProcessing m_preprocesser;
+    
+    SentenceSimilarityMeasure(IWordProcessing preprocesser)
+    {
+        m_preprocesser = preprocesser;
+    }
+    
     /**
      * Get the current method.
      * @return 
@@ -82,10 +91,31 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public double[] getSimilarityValues(
-            String[] lstSentences1, 
-            String[] lstSentences2) throws IOException, InterruptedException
+    public double[] getSimilarityValues(String[] lstSentences1, String[] lstSentences2) throws IOException, InterruptedException
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        // Initialize the scores
+        
+        double[] scores = new double[lstSentences1.length];
+        
+        // The length of the lists has to be equal
+        
+        if(lstSentences1.length != lstSentences2.length)
+        {
+            String strerror = "The size of the input arrays are different!";
+            throw new IllegalArgumentException(strerror);
+        }
+
+        // Iterate the sentences and get the similarity scores.
+        
+        for (int i = 0; i < lstSentences1.length; i++)
+        {
+            String sentence1 = lstSentences1[i];
+            String sentence2 = lstSentences2[i];
+            scores[i] = this.getSimilarityValue(sentence1, sentence2);
+        }
+        
+        // Return the result
+        
+        return scores;
     }
 }

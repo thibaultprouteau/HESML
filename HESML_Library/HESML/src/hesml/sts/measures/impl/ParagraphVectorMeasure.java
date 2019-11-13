@@ -42,11 +42,7 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
     // Path to the trained model (.zip file)
     
     private final String m_strModelDirPath; 
-    
-    // Preprocessed configured object
-    
-    private final IWordProcessing m_preprocesser; 
-    
+
     // Language Model 
     
     private final ILanguageModel m_model; 
@@ -62,8 +58,8 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
             IWordProcessing preprocesser) throws IOException
     {
         
+        super(preprocesser);
         m_strModelDirPath = strModelDirPath;
-        m_preprocesser = preprocesser;
         
         // Load the model
         

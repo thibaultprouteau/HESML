@@ -35,7 +35,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure extends StringBasedSentenceSimMeasure
+class LevenshteinMeasure extends SentenceSimilarityMeasure
 {
     
     // Internal variables used in the method by the original code (BIOSSES2017).
@@ -48,14 +48,6 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     private float maxCost;
     
     /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     * 
-     */
-    
-    private final IWordProcessing  m_preprocesser;
-    
-    /**
      * Constructor
      * @param preprocesser 
      */
@@ -63,7 +55,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     public LevenshteinMeasure(
             IWordProcessing preprocesser)
     {
-        m_preprocesser = preprocesser;
+        super(preprocesser);
         
         // Initialize the default internal variables
         // The cost of inserts and subtitutions are 1 (equal costs)
@@ -93,17 +85,6 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.String);
-    }
-    
-    /**
-     * Return the String method
-     * @return 
-     */
-    
-    @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
-    {
-        return (StringBasedSentSimilarityMethod.Levenshtein);
     }
     
     /**

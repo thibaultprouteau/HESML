@@ -56,12 +56,6 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private final SWEMpoolingMethod    m_PoolingMethod;
     
-    /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     */
-    
-    private final IWordProcessing  m_Preprocesser;
     
     /**
      * Constructor
@@ -75,10 +69,10 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
             IWordProcessing         preprocesser,
             String                  strPretrainedModelFilename) throws IOException, ParseException
     {
+        super(preprocesser);
         // We initializer the object
         
         m_PoolingMethod = poolingMethod;
-        m_Preprocesser = preprocesser;
         m_WordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
                             strPretrainedModelFilename);
     }
@@ -202,7 +196,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     {
         // We obtain the words in the input sentence
         
-        String[] strWords = m_Preprocesser.getWordTokens(strRawSentence);        
+        String[] strWords = m_preprocesser.getWordTokens(strRawSentence);        
 
         // We initialize the accumulated word vector
         

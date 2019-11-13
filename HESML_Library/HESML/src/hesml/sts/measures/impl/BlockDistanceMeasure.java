@@ -18,7 +18,6 @@ package hesml.sts.measures.impl;
 
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,12 +33,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
+class BlockDistanceMeasure extends SentenceSimilarityMeasure
 {
-    
-    // Word preprocesser used to convert the sentence into a string of words.
-    
-    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor with parameters
@@ -50,9 +45,7 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
             IWordProcessing preprocesser)
     {
         
-        // Initialize the preprocesser object
-        
-        m_preprocesser = preprocesser;
+        super(preprocesser);
     }
     
     /**
@@ -75,17 +68,6 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.String);
-    }
-    
-    /**
-     * Return the current String Based Sentence Similarity method
-     * @return StringBasedSentSimilarityMethod
-     */
-    
-    @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
-    {
-        return (StringBasedSentSimilarityMethod.BlockDistance);
     }
     
     /**

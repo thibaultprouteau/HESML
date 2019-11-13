@@ -18,7 +18,6 @@ package hesml.sts.measures.impl;
 
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,12 +33,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class QgramMeasure extends StringBasedSentenceSimMeasure
+class QgramMeasure  extends SentenceSimilarityMeasure
 {
-    
-    // Word preprocesser used to convert the sentence into a string of words.
-    
-    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -49,10 +44,7 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
     public QgramMeasure(
             IWordProcessing preprocesser)
     {
-        
-        // Asign the preprocesser object.
-        
-        m_preprocesser = preprocesser;
+        super(preprocesser);
     }
     
     /**
@@ -77,17 +69,6 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
     public SentenceSimilarityFamily getFamily()
     {
         return (SentenceSimilarityFamily.SentenceEmbedding);
-    }
-    
-    /**
-     * Return the current String method
-     * @return 
-     */
-    
-    @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
-    {
-        return (StringBasedSentSimilarityMethod.Qgram);
     }
     
     /**

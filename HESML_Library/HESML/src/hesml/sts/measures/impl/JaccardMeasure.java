@@ -18,7 +18,6 @@ package hesml.sts.measures.impl;
 
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,15 +34,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class JaccardMeasure extends StringBasedSentenceSimMeasure
+class JaccardMeasure extends SentenceSimilarityMeasure
 {
-    
-    /**
-     * Word preprocesser used to convert the sentence into a string
-     * of words.
-     */
-    
-    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -53,10 +45,7 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
     public JaccardMeasure(
             IWordProcessing preprocesser)
     {
-        
-        // Asign the preprocesser object
-        
-        m_preprocesser = preprocesser;
+        super(preprocesser);
     }
 
     /**
@@ -82,16 +71,6 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
         return SentenceSimilarityMethod.Jaccard;
     }
     
-    /**
-     * This function return the current string based method.
-     * @return StringBasedSentSimilarityMethod
-     */
-    
-    @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
-    {
-        return (StringBasedSentSimilarityMethod.Jaccard);
-    }
 
     /**
      * This function returns the similarity value (score) between two

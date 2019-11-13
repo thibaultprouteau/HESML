@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.measures.IWordSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
@@ -40,9 +41,6 @@ import java.util.Set;
 
 class WBSMMeasure extends SentenceSimilarityMeasure
 {
-    // Word preprocesser used to convert the sentence into a string
-    
-    private final IWordProcessing  m_preprocesser;
     
     // Set with all joint words from the sentences
     
@@ -53,6 +51,10 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     private HashMap<String, Double> m_semanticVector1;
     private HashMap<String, Double> m_semanticVector2;
     
+    // Word Similarity measure used for calculating similarity between words.
+    
+    IWordSimilarityMeasure wordSimilarityMeasure;
+    
     /**
      * Constructor
      * @param preprocesser 
@@ -60,11 +62,15 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     
     WBSMMeasure(IWordProcessing  preprocesser)
     {
-        m_preprocesser = preprocesser;
+        super(preprocesser);
         
         // Initialize the set
         
         m_dictionary = new HashSet<>();
+        
+        // Initialize the word similarity measure to null
+        
+        wordSimilarityMeasure = null;
     }
     
     /**

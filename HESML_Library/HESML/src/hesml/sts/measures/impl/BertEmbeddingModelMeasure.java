@@ -45,14 +45,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private final String m_modelDirPath;
     
-    // WordProcesser object.
-    
-    private final IWordProcessing m_preprocesser;
-    
-    // Temporal files for getting the sentences and setting the embedding vectors.
-    
-    private final File m_tempFileSentences;
-    private final File m_tempFileVectors;
     
     // Paths to the BERT directory.
     
@@ -80,19 +72,14 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String              pythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
+        super(preprocesser);
         
         // We initialize main attributes
         
-        m_preprocesser      = preprocesser;
         m_modelDirPath      = modelDirPath;
         m_BERTDir           = bertDir;
         m_PythonScriptDir   = pythonScriptDir;
         m_PythonVenvDir     = pythonVenvDir;
-
-        // Create the temporal files and remove (if exists) the preexisting temp files.
-        
-        m_tempFileSentences = createTempFile(bertDir + "tempSentences.txt");
-        m_tempFileVectors   = createTempFile(bertDir + "tempVecs.txt");
     }
 
     /**
@@ -184,18 +171,28 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         double[] scores = new double[lstSentences1.length];
         
+        // Initialize the temporal file for writing the sentences and read the vectors
+        
+        File tempFileSentences = createTempFile(m_BERTDir + "tempSentences.txt");
+        File tempFileVectors   = createTempFile(m_BERTDir + "tempVecs.txt");
+        
+        // Get the canonical path for the temporal files
+        
+        String absPathTempSentencesFile = tempFileSentences.getCanonicalPath();
+        String absPathTempVectorsFile   = tempFileVectors.getCanonicalPath();
+        
         // 1. Preprocess the sentences and write the sentences in a temporal file
         
-        this.writeSentencesInTemporalFile(lstSentences1, lstSentences2);
-        
+        this.writeSentencesInTemporalFile(tempFileSentences, lstSentences1, lstSentences2);
+
         // 2. Read the vectors and write them in the temporal file for vectors
-        
-        this.executePythonWrapper();
+
+        this.executePythonWrapper(absPathTempSentencesFile, absPathTempVectorsFile);
         
         // 3. We read the vectors from the temporal file
         
-        ArrayList<ArrayList<double[]> > vectors = this.getVectorsFromTemporalFile();
-        
+        ArrayList<ArrayList<double[]> > vectors = this.getVectorsFromTemporalFile(tempFileVectors);
+
         // We check the recovery of sentence vectors
         
         if(vectors.isEmpty())
@@ -203,6 +200,11 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String strError = "The vectors temporal file has not been loaded";
             throw new RuntimeException(strError);
         }
+        
+        // Remove the temporal files
+        
+        tempFileSentences.delete();
+        tempFileVectors.delete();
         
         // We traverse the collection of sentence pairs and compute
         // the similarity score for each pair.
@@ -229,13 +231,15 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     private void writeSentencesInTemporalFile(
-            String[] lstSentences1,
-            String[] lstSentences2) 
+            File        tempFileSentences,
+            String[]    lstSentences1,
+            String[]    lstSentences2) 
             throws FileNotFoundException, IOException, InterruptedException
     {
+
         // We create the file to trasnfer the sentences to the BERT library
         
-        BufferedWriter outputWriter = new BufferedWriter(new FileWriter(m_tempFileSentences));
+        BufferedWriter outputWriter = new BufferedWriter(new FileWriter(tempFileSentences));
         
         // We write all sentence pairs in the BERT file
         
@@ -276,17 +280,15 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws InterruptedException 
      */
     
-    private ArrayList<ArrayList<double[]> > getVectorsFromTemporalFile() 
+    private ArrayList<ArrayList<double[]> > getVectorsFromTemporalFile(
+            File tempFileVectors) 
             throws IOException, InterruptedException
     {
         // We initialize the output
         
         ArrayList<ArrayList<double[]> > vectors = new ArrayList<>();
         
-        
-        // Read the vectors from the temporal file
-        
-        FileReader fileReader = new FileReader(m_tempFileVectors);
+        FileReader fileReader = new FileReader(tempFileVectors);
         BufferedReader reader = new BufferedReader(fileReader);
        
         // We retrieve each sentecne vector
@@ -324,11 +326,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         reader.close();
         
-        // We remove the temporal files
-
-        m_tempFileVectors.delete();
-        m_tempFileSentences.delete();
-        
         // We return the result
         
         return vectors;
@@ -341,19 +338,16 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws IOException 
      */
     
-    private void executePythonWrapper() throws InterruptedException, IOException
+    private void executePythonWrapper(
+            String absPathTempSentencesFile,
+            String absPathTempVectorsFile) throws InterruptedException, IOException
     {
         
         // Fill the command params and execute the script
         // Ignore the Tensorflow warnings
         
         String python_command = m_PythonVenvDir + " -W ignore " + m_PythonScriptDir;
-        
-        // Get the canonical path for the temporal files
-        
-        String absPathTempSentencesFile = m_tempFileSentences.getCanonicalPath();
-        String absPathTempVectorsFile   = m_tempFileVectors.getCanonicalPath();
-        
+
         // We fill the command line for the Python call
         
         String command = python_command + " " + m_modelDirPath + " "
