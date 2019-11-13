@@ -78,30 +78,31 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     BertEmbeddingModelMeasure(
             String              modelDirPath,
             IWordProcessing     preprocesser,
-            String BERTDir,
-            String PythonVenvDir,
-            String PythonScriptDir) throws InterruptedException,
+            String              bertDir,
+            String              pythonVenvDir,
+            String              pythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
+        // We initialize main attributes
         
         m_preprocesser = preprocesser;
         m_modelDirPath = modelDirPath;
-        m_BERTDir = BERTDir;
-        m_PythonScriptDir = PythonScriptDir;
-        m_PythonVenvDir = PythonVenvDir;
+        m_BERTDir = bertDir;
+        m_PythonScriptDir = pythonScriptDir;
+        m_PythonVenvDir = pythonVenvDir;
         
         // Initialize the vectors
         
-        m_vectors = new ArrayList< >();
+        m_vectors = new ArrayList<>();
 
         // Create the temporal files and remove (if exists) the preexisting temp files.
         
-        m_tempFileSentences =   createTempFile(BERTDir + "tempSentences.txt");
-        m_tempFileVectors   =   createTempFile(BERTDir + "tempVecs.txt");
+        m_tempFileSentences = createTempFile(bertDir + "tempSentences.txt");
+        m_tempFileVectors = createTempFile(bertDir + "tempVecs.txt");
     }
 
     /**
-     * Get the actual method
+     * This function returns the sentence similarity method implemented by the object.
      * @return 
      */
     
@@ -130,10 +131,13 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws IOException 
      */
     
-    private double getSimilarityValue(double[] sentence1Vector, double[] sentence2Vector) throws FileNotFoundException, IOException
+    private double getSimilarityValue(
+            double[]    sentence1Vector,
+            double[]    sentence2Vector) throws FileNotFoundException, IOException
     {
-        double similarity = 0;
+        // We initialize the output value
         
+        double similarity = 0.0;
         
         // We check the validity of the word vectors. They could be null if
         // any word is not contained in the vocabulary of the embedding.
@@ -156,7 +160,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // We return the result
         
         return (similarity);
-        
     }
     
     /**
@@ -173,10 +176,14 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String[] lstSentences1, 
             String[] lstSentences2) throws IOException, InterruptedException
     {
-        double[] scores = new double[lstSentences1.length];
+        // We check that input vectors have the same length
         
         if(lstSentences1.length != lstSentences2.length)
             throw new IllegalArgumentException("The size of the input arrays are different!");
+        
+        // We initialize the output score vector
+        
+        double[] scores = new double[lstSentences1.length];
         
         // 1. Preprocess the sentences and write the sentences in a temporal file
         
@@ -185,26 +192,44 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // 2. Read the vectors and write them in the temporal file for vectors
         
         this.executePythonWrapper();
-        
         this.getVectorsFromTemporalFile();
         
+        // We check the recovery of sentence vectors
+        
         if(m_vectors.isEmpty())
-            throw new RuntimeException("The vectors temporal file has not been loaded");
+        {
+            String strError = "The vectors temporal file has not been loaded";
+            throw new RuntimeException(strError);
+        }
         
         // Calculate the scores
         
-        for (int i = 0; i < m_vectors.size(); i++)
+        /*for (int i = 0; i < m_vectors.size(); i++)
         {
             ArrayList<double[]> listSentences = m_vectors.get(i);
             double[] sentence1 = listSentences.get(0); 
             double[] sentence2 = listSentences.get(1); 
             scores[i] = this.getSimilarityValue(sentence1, sentence2);
+        }*/
+        
+        // We traverse the collection of sentence pairs and compute
+        // the similarity score for each pair.
+        
+        int i = 0;
+        
+        for (ArrayList<double[]> listSentences : m_vectors)
+        {
+            scores[i++] = this.getSimilarityValue(listSentences.get(0), listSentences.get(1));
         }
+        
+        // La liberaciónde recursos la debería hacer getVectorsFromTemporalFile()
 
         removeTempFile(m_tempFileVectors);
         removeTempFile(m_tempFileSentences);
         
-        return scores;
+        // We return the result
+        
+        return (scores);
     }
    
     /**
@@ -220,9 +245,13 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String[] lstSentences1,
             String[] lstSentences2) throws FileNotFoundException, IOException, InterruptedException
     {
+        // We create the file to trasnfer the sentences to the BERT library
+        
         BufferedWriter outputWriter = new BufferedWriter(new FileWriter(m_tempFileSentences));
         
-        for (int i = 0; i < lstSentences1.length; i++) // the length is the same in both arrays
+        // We write all sentence pairs in the BERT file
+        
+        for (int i = 0; i < lstSentences1.length; i++) 
         {
             // Get the sentences string
             
@@ -237,18 +266,18 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String preprocessedSentence1 = String.join(" ", lstWordsSentence1);
             String preprocessedSentence2 = String.join(" ", lstWordsSentence2);
 
-            // And write in the temporal file
+            // We separate both sentences by a TAB
             
-            String line = preprocessedSentence1
-                    .concat("\t")
-                    .concat(preprocessedSentence2);
+            String line = preprocessedSentence1 + "\t" + preprocessedSentence2;
             
             outputWriter.write(line);
             outputWriter.newLine();
         }
+        
+        // We close the file
+        
         outputWriter.close();
     }
-    
     
     /**
      * After executing the wrapper for Python, get the vectors from the temporal file.
@@ -264,11 +293,12 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         FileReader fileReader = new FileReader(m_tempFileVectors);
         BufferedReader reader = new BufferedReader(fileReader);
        
-        int countline = 0;
+        // We retrieve each sentecne vector
         
         String line = reader.readLine();
-        while (line != null) {
-                
+        
+        while (line != null)
+        {
             // Get the vectors
 
             String[] sentenceVectors = line.split("\t");
@@ -277,24 +307,24 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 
             // map to doubles
 
-            double[] embeddingSentence1 = Arrays.stream(vectorSentence1)
-                    .mapToDouble(Double::parseDouble)
-                    .toArray();
+            double[] embeddingSentence1 = Arrays.stream(vectorSentence1).mapToDouble(Double::parseDouble).toArray();
+            double[] embeddingSentence2 = Arrays.stream(vectorSentence2).mapToDouble(Double::parseDouble).toArray();
 
-            double[] embeddingSentence2 = Arrays.stream(vectorSentence2)
-                    .mapToDouble(Double::parseDouble)
-                    .toArray();
-
+            // We save together the vectors of both sentences
 
             ArrayList<double[]> vectorsLineI = new ArrayList<>();
+            
             vectorsLineI.add(embeddingSentence1);
             vectorsLineI.add(embeddingSentence2);
             
             m_vectors.add(vectorsLineI);
-            countline++;
+            
+            // We read the next line
             
             line = reader.readLine();
         }
+        
+        // We clsoe the file
         
         reader.close();
     }
@@ -308,7 +338,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void executePythonWrapper() throws InterruptedException, IOException
     {
-        
         // Fill the command params and execute the script
         
         String python_command = m_PythonVenvDir + " " + m_PythonScriptDir;
@@ -316,19 +345,23 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         String absPathTempSentencesFile = m_tempFileSentences.getCanonicalPath();
         String absPathTempVectorsFile = m_tempFileVectors.getCanonicalPath();
         
-        String command = python_command
+        /*String command = python_command 
                 .concat(" ")
                 .concat(m_modelDirPath)
                 .concat(" ")
                 .concat(absPathTempSentencesFile)
                 .concat(" ")
-                .concat(absPathTempVectorsFile);
+                .concat(absPathTempVectorsFile);*/
+        
+        String command = python_command + " " + m_modelDirPath + " "
+                + absPathTempSentencesFile + " " + absPathTempVectorsFile;
         
 //        System.out.print("Python command executed: ");
 //        System.out.print(command);
         
         Process proc = Runtime.getRuntime().exec(command);
 
+        //  NO SE DEBE DEJAR NUNCA CÓDIGO COMENTADO.
         // Read the output @todo: check if OK
 
 //        BufferedReader readerTerminal = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -365,6 +398,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         tempFile.createNewFile();
         return tempFile;
     }
+    
+    // Esta función es innecesaria
     
     private static boolean removeTempFile(
             File file)
