@@ -32,6 +32,7 @@ import java.text.ParseException;
 
 public class SentenceSimilarityFactory
 {
+    
     /**
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
@@ -50,7 +51,8 @@ public class SentenceSimilarityFactory
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
-            String                  strPretrainedWEFilename) throws IOException, ParseException
+            String                  strPretrainedWEFilename) 
+            throws IOException, ParseException
     {
         return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
                 embeddingType, preprocesser, strPretrainedWEFilename));
@@ -68,6 +70,7 @@ public class SentenceSimilarityFactory
         StringBasedSentSimilarityMethod method,
             IWordProcessing             wordPreprocessing)
     {
+        
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = null;
@@ -136,6 +139,7 @@ public class SentenceSimilarityFactory
             String                  PythonScriptDir) throws IOException,
             InterruptedException, org.json.simple.parser.ParseException
     {
+        
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = null;

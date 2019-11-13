@@ -16,7 +16,6 @@
  */
 package hesml.sts.measures.impl;
 
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
@@ -25,7 +24,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- *  This class implements the Levenshtein Measure
+ *  This class implements the Levenshtein Measure.
+ * 
+ *  * In this implementation, the cost of insert and deletions are 1 by default.
+ * 
+ *  Levenshtein, Vladimir I. 1966. “Binary Codes Capable of 
+ *  Correcting Deletions, Insertions, and Reversals.” 
+ *  In Soviet Physics Doklady, 10:707–10. nymity.ch.
  * 
  * @author alicia
  */
@@ -48,7 +53,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
      * 
      */
     
-    private final IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -58,9 +63,9 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     public LevenshteinMeasure(
             IWordProcessing preprocesser)
     {
-        m_Preprocesser = preprocesser;
+        m_preprocesser = preprocesser;
         
-        // Initialize internal variables
+        // Initialize the default internal variables
         // The cost of inserts and subtitutions are 1 (equal costs)
         
         this.insertDelete = 1;
@@ -114,7 +119,8 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
+            String strRawSentence2) 
+            throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
     {
         // We initialize the output
 
@@ -123,21 +129,33 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
         
         // Get the tokens for each sentence
 
-        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
+        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
+        
+        // Join the words and get a preprocessed sentence
         
         String sentence1 = String.join(" ", lstWordsSentence1);
         String sentence2 = String.join(" ", lstWordsSentence2);
         
+        // The similarity is 1 if the two lists are empty
+        
         if (lstWordsSentence1.length == 0 && lstWordsSentence2.length == 0) {return 1.0f;}
+        
+        // Calculate the distance between the sentences
         
         distance = distance(sentence1, sentence2);
 
+        // The max cost is the maximum number between the costs of insert and substitution
+        // By default is 1
+        
         this.maxCost = max(this.insertDelete, this.substitute);
         
         // Calculate the similarity
         
-	similarity = 1.0f - (distance / (this.maxCost * max(sentence1.length(), sentence2.length())));
+	similarity = 1.0f - (distance / 
+                (this.maxCost * max(sentence1.length(), sentence2.length())));
+        
+        // Return the result
         
         return similarity;
     }
@@ -147,6 +165,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
      * 
      *  This function calculates the distance between two strings 
      * using the Levenshtein distance.
+     * 
      * @param s
      * @param t
      * @return
@@ -183,6 +202,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
         
         for (int i = 0; i < v0.length; i++) 
         {
+            
                 v0[i] = i * this.insertDelete;
         }
 
@@ -222,7 +242,8 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     private static float min(
             float a, 
             float b, 
-            float c) {
+            float c) 
+    {
         return java.lang.Math.min(java.lang.Math.min(a, b), c);
     }
     
@@ -235,8 +256,8 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
     
     private static float max(
             float a, 
-            float b) {
+            float b) 
+    {
         return java.lang.Math.max(a, b);
     }
-
 }

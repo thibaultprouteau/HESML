@@ -23,6 +23,7 @@ package hesml.sts.preprocess;
 
 public interface ICharsFiltering
 {
+    
     /**
      *  Get the filtering method
      * @return

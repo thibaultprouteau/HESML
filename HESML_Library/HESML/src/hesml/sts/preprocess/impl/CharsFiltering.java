@@ -20,7 +20,8 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.ICharsFiltering;
 
 /**
- *  This class implements the punctuation marks filtering methods used in the papers.
+ *  This class implements the punctuation marks 
+ *  filtering methods used in the papers.
  * @author alicia
  */
 
@@ -41,6 +42,9 @@ public class CharsFiltering implements ICharsFiltering
     public CharsFiltering(
             CharFilteringType charFilteringType)
     {
+        
+        // Set the char filtering type
+        
         m_charFilteringType = charFilteringType;
     }
     
@@ -54,14 +58,19 @@ public class CharsFiltering implements ICharsFiltering
     public String filter(
             String strRawSentence)
     {
-        String strFilteredSentence = null; // Returned value
+        // Initialize the output
+        
+        String strFilteredSentence = null; 
         
         // Filter the punctuation marks by the selected type
         
         switch (m_charFilteringType)
         {
             case None:
-                strFilteredSentence = strRawSentence; // Skip the filtering 
+                
+                // Skip the filtering 
+                
+                strFilteredSentence = strRawSentence; 
                 break;
                 
             case DefaultJava:
@@ -69,16 +78,28 @@ public class CharsFiltering implements ICharsFiltering
                 //Remove all the punctuation marks using the Java preexisting regex.
                 
                 strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
+                
                 break;
                 
             case BIOSSES2017:
+                
+                // Remove the punctuation marks defined in BIOSSES2017
+                
                 strFilteredSentence = replacePunctuationsBIOSSES2017(strRawSentence);
+                
                 break;
+                
             case Blagec2019:
+                
+                // Remove the punctuation marks defined in Blagec2019
+                
                 strFilteredSentence = replacePunctuationsBlagec2019(strRawSentence);
+                
                 break;
         }
-            
+        
+        // Return the result
+        
         return strFilteredSentence;
     }
     
@@ -92,6 +113,7 @@ public class CharsFiltering implements ICharsFiltering
     public static String replacePunctuationsBIOSSES2017(
             String strRawSentence)
     {
+        
         strRawSentence = strRawSentence.trim();
         strRawSentence = strRawSentence.replaceAll("\\.","");
         strRawSentence = strRawSentence.replaceAll(";","");
@@ -100,7 +122,6 @@ public class CharsFiltering implements ICharsFiltering
         strRawSentence = strRawSentence.replaceAll(",","");
         strRawSentence = strRawSentence.replaceAll("_","");
         strRawSentence = strRawSentence.replaceAll("!", "");
-        // strRawSentence = strRawSentence.replace(" " , "");
         strRawSentence = strRawSentence.replaceAll("\\(", "");
         strRawSentence = strRawSentence.replaceAll("\\)", "");
         strRawSentence = strRawSentence.replaceAll("\\[", "");
@@ -108,6 +129,9 @@ public class CharsFiltering implements ICharsFiltering
         strRawSentence = strRawSentence.replaceAll("\\*", "");
         strRawSentence = strRawSentence.replaceAll("/", "");
         strRawSentence = strRawSentence.replaceAll("\\?", "");
+        
+        // Return the result
+        
         return strRawSentence;
     }
     
@@ -129,12 +153,14 @@ public class CharsFiltering implements ICharsFiltering
         strRawSentence = strRawSentence.replaceAll("!", "");
         strRawSentence = strRawSentence.replaceAll("/", "");     
         strRawSentence = strRawSentence.replaceAll("-","");
-
+        
+        // Return the result
+        
         return strRawSentence;
     }
     
     /**
-     * Getters and setters
+     * Get and set the current char filtering type
      * @return 
      */
     

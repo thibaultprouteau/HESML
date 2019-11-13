@@ -45,5 +45,4 @@ public interface ITokenizer
     
     String[] getTokens(
             String strRawSentence) throws InterruptedException, IOException;
-    
 }

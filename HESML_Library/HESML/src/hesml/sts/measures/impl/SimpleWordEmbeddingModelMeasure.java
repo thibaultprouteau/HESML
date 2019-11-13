@@ -43,6 +43,7 @@ import java.text.ParseException;
 
 class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
+    
     /**
      * Word emebedding model
      */
@@ -196,7 +197,8 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     private double[] getSentenceEmbedding(
-        String  strRawSentence) throws IOException, FileNotFoundException, InterruptedException
+            String      strRawSentence) 
+            throws IOException, FileNotFoundException, InterruptedException
     {
         // We obtain the words in the input sentence
         

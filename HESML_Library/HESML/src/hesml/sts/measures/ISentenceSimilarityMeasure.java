@@ -27,6 +27,7 @@ import java.io.IOException;
 
 public interface ISentenceSimilarityMeasure
 {
+    
     /**
      * This function returns the type of method implemented by the current
      * of sentence similarity measure.
@@ -50,6 +51,7 @@ public interface ISentenceSimilarityMeasure
      * @param strRawSentence2
      * @return 
      * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
      */
     
     double getSimilarityValue(

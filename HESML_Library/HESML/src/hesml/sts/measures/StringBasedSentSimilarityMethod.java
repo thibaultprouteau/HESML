@@ -24,6 +24,7 @@ package hesml.sts.measures;
 
 public enum StringBasedSentSimilarityMethod
 {
+    
     /**
      * JACCARD, and P. 1908. “Nouvelles Recherches Sur La Distribution Florale.” 
      * Bulletin de La SociÃ©tÃ© Vaudoise Des Sciences Naturelles 44: 223–70.
@@ -59,11 +60,4 @@ public enum StringBasedSentSimilarityMethod
      */
     
     Levenshtein,
-    
-    /**
-     * Peng, Yifan, Shankai Yan, and Zhiyong Lu. 2019. 
-     * “Transfer Learning in Biomedical Natural Language Processing: 
-     * An Evaluation of BERT and ELMo on Ten Benchmarking Datasets.” 
-     * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1906.05474.
-     */
 }

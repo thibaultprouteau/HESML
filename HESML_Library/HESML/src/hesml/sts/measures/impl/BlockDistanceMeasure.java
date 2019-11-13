@@ -28,15 +28,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *  This class implements the Block Distance Measure
+ *  This class implements the Block Distance Measure.
+ *  Krause, Eugene F. 1986. Taxicab Geometry: 
+ *  An Adventure in Non-Euclidean Geometry. Courier Corporation.
  * @author alicia
  */
 
 class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
 {
+    
     // Word preprocesser used to convert the sentence into a string of words.
     
-    private final IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor with parameters
@@ -46,12 +49,15 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
     public BlockDistanceMeasure(
             IWordProcessing preprocesser)
     {
-        m_Preprocesser = preprocesser;
+        
+        // Initialize the preprocesser object
+        
+        m_preprocesser = preprocesser;
     }
     
     /**
-     * Return the similarity method
-     * @return 
+     * This function returns the current similarity method
+     * @return SentenceSimilarityMethod
      */
     
     @Override
@@ -62,7 +68,7 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -72,8 +78,8 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
     }
     
     /**
-     * Return the String method
-     * @return 
+     * Return the current String Based Sentence Similarity method
+     * @return StringBasedSentSimilarityMethod
      */
     
     @Override
@@ -82,11 +88,24 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
         return (StringBasedSentSimilarityMethod.BlockDistance);
     }
     
+    /**
+     * This function calculates the similarity value between two sentences.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InterruptedException 
+     */
+    
     @Override
     public double getSimilarityValue(
-            String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
+            String  strRawSentence1, 
+            String  strRawSentence2) 
+            throws IOException, FileNotFoundException, InterruptedException
     {
+        
         // We initialize the output
 
         double similarity = 0.0;
@@ -94,8 +113,8 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
         
         // Get the tokens for each sentence
 
-        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
+        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
         
         // Hashmap to store the frequency that an element occurs in each sentence
         
@@ -112,6 +131,7 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
         // Get the union set of both sentences (a dictionary)
                 
         Set<String> union = new HashSet<>();
+        
         union.addAll(mapOccurrencesSentence1.keySet());
         union.addAll(mapOccurrencesSentence2.keySet());
         
@@ -143,6 +163,8 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
         
         similarity = 1.0f - distance / (totalWordsS1 + totalWordsS2);
         
+        // Return the similarity
+        
         return similarity;
     }
     
@@ -153,13 +175,14 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
      * 
      * {{"this", 2}, {"word", 1}, ...}
      * 
-     * @param setWordsSentence
-     * @return 
+     * @param lstWordsSentence
+     * @return Map<String, Integer> string occurrences.
      */
     
     private Map<String, Integer> getStringOccurrences(
-            String[] lstWordsSentence)
+            String[]    lstWordsSentence)
     {
+        
         // Initialize the output
         
         Map<String, Integer> occurrences = new HashMap<>(); 
@@ -171,9 +194,9 @@ class BlockDistanceMeasure extends StringBasedSentenceSimMeasure
             Integer j = occurrences.get(i); 
             occurrences.put(i, (j == null) ? 1 : j + 1); 
         } 
+        
+        // Return the result
+        
         return occurrences;
     }
-
-
-
 }

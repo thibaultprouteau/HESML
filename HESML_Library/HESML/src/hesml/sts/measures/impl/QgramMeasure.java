@@ -36,9 +36,10 @@ import java.util.Set;
 
 class QgramMeasure extends StringBasedSentenceSimMeasure
 {
+    
     // Word preprocesser used to convert the sentence into a string of words.
     
-    private final IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -48,12 +49,16 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
     public QgramMeasure(
             IWordProcessing preprocesser)
     {
-        m_Preprocesser = preprocesser;
+        
+        // Asign the preprocesser object.
+        
+        m_preprocesser = preprocesser;
     }
     
     /**
      * This function returns the type of method implemented by the current
      * sentence similarity measure.
+     * 
      * @return SentenceSimilarityMethod
      */
     
@@ -75,7 +80,7 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
     }
     
     /**
-     * Return the String method
+     * Return the current String method
      * @return 
      */
     
@@ -99,9 +104,11 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
     
     @Override
     public double getSimilarityValue(
-            String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException 
+            String  strRawSentence1, 
+            String  strRawSentence2) 
+            throws IOException, FileNotFoundException, InterruptedException 
     {
+        
         // We initialize the output
 
         double similarity = 0.0;
@@ -111,8 +118,8 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
         
         // Get the tokens for each sentence
 
-        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
+        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
 
         // Get the basic results
         
@@ -156,6 +163,8 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
         
         similarity = 1.0f - distance / (totalQgramsS1 + totalQgramsS2);
         
+        // We return the result
+        
         return similarity;
     }
     
@@ -171,6 +180,7 @@ class QgramMeasure extends StringBasedSentenceSimMeasure
             String[]    strings, 
             int         padding) 
     {
+        
         // Initialize a hashmap with the qgram
         
         HashMap<String, Integer> mapQgrams = new HashMap<>();

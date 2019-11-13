@@ -16,7 +16,6 @@
  */
 package hesml.sts.measures.impl;
 
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
@@ -30,6 +29,9 @@ import java.util.Set;
 /**
  *  This function implements the Overlap coefficient similarity between two sentences 
  * 
+ *  Lawlor, Lawrence R. 1980. “Overlap, Similarity, 
+ *  and Competition Coefficients.” Ecology 61 (2): 245–51.
+ * 
  * @author alicia
  */
 
@@ -38,7 +40,7 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
 
     // Word preprocesser used to convert the sentence into a string of words.
     
-    private final IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -48,7 +50,10 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
     public OverlapCoefficientMeasure(
             IWordProcessing preprocesser)
     {
-        m_Preprocesser = preprocesser;
+        
+        // Asign the processer
+        
+        m_preprocesser = preprocesser;
     }
     
     /**
@@ -75,7 +80,7 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
     }
 
     /**
-     * Return the String method
+     * Return the current String method
      * @return 
      */
     
@@ -102,15 +107,16 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException 
+            String strRawSentence2) 
+            throws IOException, FileNotFoundException, InterruptedException 
     {
         
         double similarity = 0.0; // We initialize the output
         
         // Get the tokens for each sentence
 
-        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
+        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
         
         // Convert the lists to set objects
         // HashSet is a set where the elements are not sorted or ordered.
@@ -140,12 +146,15 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
         
         similarity = intersection / minimumSentenceSize;
         
+        // Return the result
+        
         return similarity;
     }
     
     /**
      * This function calculates the intersection between two sets 
      * to compute the Overlap Coefficient Similarity.
+     * 
      * @param s1
      * @param s2
      * @return 
@@ -155,8 +164,17 @@ class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
             Set<String> s1, 
             Set<String> s2) 
     {
+        
+        // Initialize the intersection set with the first set.
+        
         Set<String> intersection = new HashSet<>(s1);
+        
+        // Intersect with the second set
+        
         intersection.retainAll(s2);
+        
+        // Return the intersected set.
+        
         return intersection;
     }
 }

@@ -38,7 +38,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     /**
@@ -49,7 +49,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public SentenceSimilarityFamily getFamily()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     /**
@@ -68,7 +68,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
             String strRawSentence1, 
             String strRawSentence2) throws IOException, InterruptedException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     /**
@@ -86,6 +86,6 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
             String[] lstSentences1, 
             String[] lstSentences2) throws IOException, InterruptedException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

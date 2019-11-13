@@ -27,19 +27,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *  This function implements the Jaccard similarity between two sentences 
+ *  This function implements the Jaccard similarity between two sentences .
+ * 
+ *  JACCARD, and P. 1908. “Nouvelles Recherches Sur La Distribution Florale.” 
+ *  Bulletin de La SociÃ©tÃ© Vaudoise Des Sciences Naturelles 44: 223–70.
  * 
  * @author alicia
  */
 
 class JaccardMeasure extends StringBasedSentenceSimMeasure
 {
+    
     /**
      * Word preprocesser used to convert the sentence into a string
      * of words.
      */
     
-    private final IWordProcessing  m_Preprocesser;
+    private final IWordProcessing  m_preprocesser;
     
     /**
      * Constructor
@@ -49,12 +53,15 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
     public JaccardMeasure(
             IWordProcessing preprocesser)
     {
-        m_Preprocesser = preprocesser;
+        
+        // Asign the preprocesser object
+        
+        m_preprocesser = preprocesser;
     }
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -74,6 +81,11 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
     {
         return SentenceSimilarityMethod.Jaccard;
     }
+    
+    /**
+     * This function return the current string based method.
+     * @return StringBasedSentSimilarityMethod
+     */
     
     @Override
     public StringBasedSentSimilarityMethod getStringBasedMethodType()
@@ -102,15 +114,18 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException 
+            String strRawSentence2) 
+            throws IOException, FileNotFoundException, InterruptedException 
     {
         
-        double similarity = 0.0; // We initialize the output
+        // We initialize the output
+        
+        double similarity = 0.0; 
         
         // Get the tokens for each sentence
 
-        String[] lstWordsSentence1 = m_Preprocesser.getWordTokens(strRawSentence1);
-        String[] lstWordsSentence2 = m_Preprocesser.getWordTokens(strRawSentence2);
+        String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
+        String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
         
         // Convert the lists to set objects
         // HashSet is a set where the elements are not sorted or ordered.
@@ -142,15 +157,24 @@ class JaccardMeasure extends StringBasedSentenceSimMeasure
      * to compute the Jaccard Similarity.
      * @param s1
      * @param s2
-     * @return 
+     * @return Set<String> intersection set
      */
     
     static Set<String> intersection(
             Set<String> s1, 
             Set<String> s2) 
     {
+        
+        // Initialize the set with the information of the first set
+        
         Set<String> intersection = new HashSet<>(s1);
+        
+        // Intersect with the second set
+        
         intersection.retainAll(s2);
+        
+        // Return the intersection
+        
         return intersection;
     }
 }

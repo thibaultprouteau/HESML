@@ -26,8 +26,8 @@ public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasu
 {
 
     /**
-     * Return the string based method
-     * @return
+     * Return the string based method used.
+     * @return StringBasedSentSimilarityMethod
      */
     
     StringBasedSentSimilarityMethod getStringBasedMethodType();

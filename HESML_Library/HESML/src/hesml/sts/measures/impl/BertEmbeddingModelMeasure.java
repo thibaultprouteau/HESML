@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
@@ -53,10 +54,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final File m_tempFileSentences;
     private final File m_tempFileVectors;
     
-    // List of embeddings.
-    
-    private ArrayList<ArrayList<double[]> > m_vectors;
-    
     // Paths to the BERT directory.
     
     private final String m_BERTDir;
@@ -83,22 +80,19 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String              pythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
+        
         // We initialize main attributes
         
-        m_preprocesser = preprocesser;
-        m_modelDirPath = modelDirPath;
-        m_BERTDir = bertDir;
-        m_PythonScriptDir = pythonScriptDir;
-        m_PythonVenvDir = pythonVenvDir;
-        
-        // Initialize the vectors
-        
-        m_vectors = new ArrayList<>();
+        m_preprocesser      = preprocesser;
+        m_modelDirPath      = modelDirPath;
+        m_BERTDir           = bertDir;
+        m_PythonScriptDir   = pythonScriptDir;
+        m_PythonVenvDir     = pythonVenvDir;
 
         // Create the temporal files and remove (if exists) the preexisting temp files.
         
         m_tempFileSentences = createTempFile(bertDir + "tempSentences.txt");
-        m_tempFileVectors = createTempFile(bertDir + "tempVecs.txt");
+        m_tempFileVectors   = createTempFile(bertDir + "tempVecs.txt");
     }
 
     /**
@@ -135,6 +129,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             double[]    sentence1Vector,
             double[]    sentence2Vector) throws FileNotFoundException, IOException
     {
+        
         // We initialize the output value
         
         double similarity = 0.0;
@@ -176,11 +171,15 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String[] lstSentences1, 
             String[] lstSentences2) throws IOException, InterruptedException
     {
+        
         // We check that input vectors have the same length
         
         if(lstSentences1.length != lstSentences2.length)
-            throw new IllegalArgumentException("The size of the input arrays are different!");
-        
+        {
+            String strError = "The size of the input arrays are different!";
+            throw new IllegalArgumentException(strError);    
+        }
+
         // We initialize the output score vector
         
         double[] scores = new double[lstSentences1.length];
@@ -192,41 +191,29 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // 2. Read the vectors and write them in the temporal file for vectors
         
         this.executePythonWrapper();
-        this.getVectorsFromTemporalFile();
+        
+        // 3. We read the vectors from the temporal file
+        
+        ArrayList<ArrayList<double[]> > vectors = this.getVectorsFromTemporalFile();
         
         // We check the recovery of sentence vectors
         
-        if(m_vectors.isEmpty())
+        if(vectors.isEmpty())
         {
             String strError = "The vectors temporal file has not been loaded";
             throw new RuntimeException(strError);
         }
-        
-        // Calculate the scores
-        
-        /*for (int i = 0; i < m_vectors.size(); i++)
-        {
-            ArrayList<double[]> listSentences = m_vectors.get(i);
-            double[] sentence1 = listSentences.get(0); 
-            double[] sentence2 = listSentences.get(1); 
-            scores[i] = this.getSimilarityValue(sentence1, sentence2);
-        }*/
         
         // We traverse the collection of sentence pairs and compute
         // the similarity score for each pair.
         
         int i = 0;
         
-        for (ArrayList<double[]> listSentences : m_vectors)
+        for (ArrayList<double[]> listSentences : vectors)
         {
             scores[i++] = this.getSimilarityValue(listSentences.get(0), listSentences.get(1));
         }
-        
-        // La liberaciónde recursos la debería hacer getVectorsFromTemporalFile()
-
-        removeTempFile(m_tempFileVectors);
-        removeTempFile(m_tempFileSentences);
-        
+       
         // We return the result
         
         return (scores);
@@ -243,7 +230,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void writeSentencesInTemporalFile(
             String[] lstSentences1,
-            String[] lstSentences2) throws FileNotFoundException, IOException, InterruptedException
+            String[] lstSentences2) 
+            throws FileNotFoundException, IOException, InterruptedException
     {
         // We create the file to trasnfer the sentences to the BERT library
         
@@ -270,6 +258,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             
             String line = preprocessedSentence1 + "\t" + preprocessedSentence2;
             
+            // We write the line in the file
+            
             outputWriter.write(line);
             outputWriter.newLine();
         }
@@ -286,8 +276,14 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws InterruptedException 
      */
     
-    private void getVectorsFromTemporalFile() throws IOException, InterruptedException
+    private ArrayList<ArrayList<double[]> > getVectorsFromTemporalFile() 
+            throws IOException, InterruptedException
     {
+        // We initialize the output
+        
+        ArrayList<ArrayList<double[]> > vectors = new ArrayList<>();
+        
+        
         // Read the vectors from the temporal file
         
         FileReader fileReader = new FileReader(m_tempFileVectors);
@@ -317,16 +313,25 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             vectorsLineI.add(embeddingSentence1);
             vectorsLineI.add(embeddingSentence2);
             
-            m_vectors.add(vectorsLineI);
+            vectors.add(vectorsLineI);
             
             // We read the next line
             
             line = reader.readLine();
         }
         
-        // We clsoe the file
+        // We close the file
         
         reader.close();
+        
+        // We remove the temporal files
+
+        m_tempFileVectors.delete();
+        m_tempFileSentences.delete();
+        
+        // We return the result
+        
+        return vectors;
     }
     
     /**
@@ -338,42 +343,42 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private void executePythonWrapper() throws InterruptedException, IOException
     {
-        // Fill the command params and execute the script
         
-        String python_command = m_PythonVenvDir + " " + m_PythonScriptDir;
+        // Fill the command params and execute the script
+        // Ignore the Tensorflow warnings
+        
+        String python_command = m_PythonVenvDir + " -W ignore " + m_PythonScriptDir;
+        
+        // Get the canonical path for the temporal files
         
         String absPathTempSentencesFile = m_tempFileSentences.getCanonicalPath();
-        String absPathTempVectorsFile = m_tempFileVectors.getCanonicalPath();
+        String absPathTempVectorsFile   = m_tempFileVectors.getCanonicalPath();
         
-        /*String command = python_command 
-                .concat(" ")
-                .concat(m_modelDirPath)
-                .concat(" ")
-                .concat(absPathTempSentencesFile)
-                .concat(" ")
-                .concat(absPathTempVectorsFile);*/
+        // We fill the command line for the Python call
         
         String command = python_command + " " + m_modelDirPath + " "
                 + absPathTempSentencesFile + " " + absPathTempVectorsFile;
         
-//        System.out.print("Python command executed: ");
-//        System.out.print(command);
+        System.out.print("Python command executed: \n");
+        System.out.print(command);
         
         Process proc = Runtime.getRuntime().exec(command);
 
-        //  NO SE DEBE DEJAR NUNCA CÓDIGO COMENTADO.
-        // Read the output @todo: check if OK
+        // Read the Python script output 
 
-//        BufferedReader readerTerminal = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-//        String lineTerminal = "";
-//        while((lineTerminal = readerTerminal.readLine()) != null) {
-//            System.out.print(lineTerminal + "\n");
-//        }
-//        readerTerminal = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-//        lineTerminal = "";
-//        while((lineTerminal = readerTerminal.readLine()) != null) {
-//            System.out.print(lineTerminal + "\n");
-//        }
+        String lineTerminal = "";
+        
+        InputStreamReader inputStreamReader = new InputStreamReader(proc.getErrorStream());
+        BufferedReader readerTerminal       = new BufferedReader(inputStreamReader);
+        
+        System.out.print("\n\n ----------------------------- \n");
+        System.out.print("--- Python script output: --- \n");
+        
+        while((lineTerminal = readerTerminal.readLine()) != null) 
+            System.out.print(lineTerminal + "\n");
+        
+        System.out.print("\n --- End Python script output: --- \n");
+        System.out.print("--------------------------------- \n\n");
         
         // Destroy the process
         
@@ -392,18 +397,16 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private static File createTempFile(
             String strTempFilePath) throws IOException
     {
+        
+        // We create a temporal file, remove if previously exists.
+        
         File tempFile = new File(strTempFilePath);
         if (tempFile.exists())
             tempFile.delete(); 
         tempFile.createNewFile();
+        
+        // Return true if ok
+        
         return tempFile;
-    }
-    
-    // Esta función es innecesaria
-    
-    private static boolean removeTempFile(
-            File file)
-    {
-        return file.delete();
     }
 }

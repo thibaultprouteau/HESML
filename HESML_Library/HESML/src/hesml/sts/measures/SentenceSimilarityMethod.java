@@ -24,6 +24,7 @@ package hesml.sts.measures;
 
 public enum SentenceSimilarityMethod
 {
+    
     /**
      * Simple Word Embedding Model Measure by AveragePooling
      */
@@ -47,10 +48,6 @@ public enum SentenceSimilarityMethod
      */
     
     SWEM_SumPooling,
-    
-    /**
-     * String-based similarity measures
-     */
     
     /**
      * JACCARD, and P. 1908. “Nouvelles Recherches Sur La Distribution Florale.” 

@@ -17,7 +17,6 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
-import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.languagemodels.impl.LanguageModelFactory;
@@ -30,14 +29,27 @@ import java.io.IOException;
 /**
  *   This class implements the Paragraph Vector model measure.
  * 
+ *  Le, Quoc, and Tomas Mikolov. 2014. 
+ *  “Distributed Representations of Sentences and Documents.” 
+ *  In International Conference on Machine Learning, 1188–96. jmlr.org.
+ * 
  * @author alicia
  */
 
 class ParagraphVectorMeasure extends SentenceSimilarityMeasure
 {
-    private final String m_strModelDirPath; // Path to the trained model (.zip file)
-    private final IWordProcessing m_preprocesser; // Preprocessed configured object
-    private final ILanguageModel m_model; // Language Model 
+    
+    // Path to the trained model (.zip file)
+    
+    private final String m_strModelDirPath; 
+    
+    // Preprocessed configured object
+    
+    private final IWordProcessing m_preprocesser; 
+    
+    // Language Model 
+    
+    private final ILanguageModel m_model; 
     
     /**
      * Constructor with parameters
@@ -49,6 +61,7 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
             String strModelDirPath,
             IWordProcessing preprocesser) throws IOException
     {
+        
         m_strModelDirPath = strModelDirPath;
         m_preprocesser = preprocesser;
         
@@ -79,16 +92,36 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         return (SentenceSimilarityFamily.SentenceEmbedding);
     }
     
+    /**
+     *  Get the similarity value between the two sentences 
+     *  using the cosine distance between the generated embeddings.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InterruptedException 
+     */
+    
     @Override
-    public double getSimilarityValue(String strRawSentence1, String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
+    public double getSimilarityValue(
+            String  strRawSentence1, 
+            String  strRawSentence2) 
+            throws IOException, FileNotFoundException, InterruptedException
     {
-        double similarity = 0.0; // We initialize the output
+        
+        // We initialize the output
+        
+        double similarity = 0.0; 
         
         // Get the tokens for each sentence
 
         String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
         String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
        
+        // Join the words and generate the preprocessed sentences
+        
         double[] sentence1Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
         double[] sentence2Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
 

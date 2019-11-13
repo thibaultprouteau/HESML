@@ -24,6 +24,7 @@ package hesml.sts.preprocess;
 
 public enum TokenizerType
 {
+    
     /**
      * Tokenize a text splitting by whitespaces
      */

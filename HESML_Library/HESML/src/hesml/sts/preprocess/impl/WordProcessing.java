@@ -27,7 +27,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -54,7 +53,6 @@ class WordProcessing implements IWordProcessing
     // If empty, there's not a stopwords preprocessing.
     
     private final String m_strStopWordsFileName;
-    private HashSet<String> m_stopWordsSet;
     
     // The Temp and Python directories are used in some 
     // tokenizer methods that uses the Python wrapper.
@@ -83,36 +81,27 @@ class WordProcessing implements IWordProcessing
      */
     
     WordProcessing(
-            TokenizerType tokenizerType,
-            boolean lowercaseNormalization,
-            String strStopWordsFileName,
-            CharFilteringType charFilteringType) throws IOException
+            TokenizerType       tokenizerType,
+            boolean             lowercaseNormalization,
+            String              strStopWordsFileName,
+            CharFilteringType   charFilteringType) throws IOException
     {
-        m_tokenizerType = tokenizerType;
-        m_lowercaseNormalization = lowercaseNormalization;
-        m_strStopWordsFileName = strStopWordsFileName;
-        m_charFilteringType = charFilteringType;
-        m_stopWordsSet = null;
         
-        // If there is a valid file name for stop words, 
-        // get the stop words in the hashSet
-        
-        if(m_strStopWordsFileName.length() > 0 
-            && Files.exists(Paths.get(m_strStopWordsFileName)))
-        {
-            getStopWords();
-        }
+        m_tokenizerType             = tokenizerType;
+        m_lowercaseNormalization    = lowercaseNormalization;
+        m_strStopWordsFileName      = strStopWordsFileName;
+        m_charFilteringType         = charFilteringType;
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir = null;
-        m_PythonVenvDir = null;
-        m_PythonScriptDir = null;
-        m_modelDirPath = null;
+        m_TempDir           = null;
+        m_PythonVenvDir     = null;
+        m_PythonScriptDir   = null;
+        m_modelDirPath      = null;
     }
     
     /**
-     * Constructor with parameters
+     * Constructor with parameters when using the python wrapper.
      * 
      * @param tokenizerType tokenizer type used in the method
      * @param lowercaseNormalization true if lowercased
@@ -122,36 +111,27 @@ class WordProcessing implements IWordProcessing
      */
     
     WordProcessing(
-            TokenizerType tokenizerType,
-            boolean lowercaseNormalization,
-            String strStopWordsFileName,
-            CharFilteringType charFilteringType,
-            String tempDir,
-            String pythonVenvDir,
-            String pythonScriptDir,
-            String modelDirPath) throws IOException
+            TokenizerType       tokenizerType,
+            boolean             lowercaseNormalization,
+            String              strStopWordsFileName,
+            CharFilteringType   charFilteringType,
+            String              tempDir,
+            String              pythonVenvDir,
+            String              pythonScriptDir,
+            String              modelDirPath) throws IOException
     {
-        m_tokenizerType = tokenizerType;
-        m_lowercaseNormalization = lowercaseNormalization;
-        m_strStopWordsFileName = strStopWordsFileName;
-        m_charFilteringType = charFilteringType;
-        m_stopWordsSet = null;
         
-        // If there is a valid file name for stop words, 
-        // get the stop words in the hashSet
-        
-        if(m_strStopWordsFileName.length() > 0 
-            && Files.exists(Paths.get(m_strStopWordsFileName)))
-        {
-            getStopWords();
-        }
+        m_tokenizerType             = tokenizerType;
+        m_lowercaseNormalization    = lowercaseNormalization;
+        m_strStopWordsFileName      = strStopWordsFileName;
+        m_charFilteringType         = charFilteringType;
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir = tempDir;
-        m_PythonVenvDir = pythonVenvDir;
-        m_PythonScriptDir = pythonScriptDir;
-        m_modelDirPath = modelDirPath;
+        m_TempDir           = tempDir;
+        m_PythonVenvDir     = pythonVenvDir;
+        m_PythonScriptDir   = pythonScriptDir;
+        m_modelDirPath      = modelDirPath;
     }
 
     /**
@@ -161,27 +141,47 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public String[] getWordTokens(String strRawSentence) throws IOException, InterruptedException
+    public String[] getWordTokens(
+            String  strRawSentence) 
+            throws IOException, InterruptedException
     {
+        
         // Initialize tokens
         
         String[] tokens;
         
         // Lowercase if true
         
-        if(m_lowercaseNormalization) strRawSentence = strRawSentence.toLowerCase();
+        if(m_lowercaseNormalization)
+        {
+            strRawSentence = strRawSentence.toLowerCase();
+        }
         
         // Filter the punctuation marks
         
         CharsFiltering filtering = new CharsFiltering(m_charFilteringType);
         strRawSentence = filtering.filter(strRawSentence);
         
-        // Remove stop words if there are stop words
+        // If there is a valid file name for stop words, 
+        // get the stop words in the hashSet
         
-        if(m_stopWordsSet != null && !m_stopWordsSet.isEmpty()) 
-            strRawSentence = removeStopwords(strRawSentence);
-
+        if(m_strStopWordsFileName.length() > 0 
+            && Files.exists(Paths.get(m_strStopWordsFileName)))
+        {
+            HashSet<String> stopWordsSet = getStopWords();
+            
+            // If the set of stop words is not empty, remove the stop words
+            
+            if(stopWordsSet != null && !stopWordsSet.isEmpty())
+            {
+                strRawSentence = removeStopwords(strRawSentence, stopWordsSet);
+            }
+        }
+        
         // Tokenize the text
+        
+        // If the tokenizer type is WordPieceTokenizer, 
+        // the Tokenizer constructor changes
         
         if(m_tokenizerType != TokenizerType.WordPieceTokenizer)
         {
@@ -198,6 +198,8 @@ class WordProcessing implements IWordProcessing
             tokens = tokenizer.getTokens(strRawSentence);
         }
         
+        // Return the tokens
+        
         return tokens;
     }
     
@@ -210,22 +212,33 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public final void getStopWords() throws FileNotFoundException, IOException
+    public final HashSet<String> getStopWords() throws FileNotFoundException, IOException
     {
+        
         // Initialize the hash set for stop words
         
-        m_stopWordsSet = new HashSet<>();
+        HashSet<String> stopWordsSet = new HashSet<>();
         
         // Read the file and return the hash set
         
-        BufferedReader buffer = new BufferedReader(new FileReader(new File(m_strStopWordsFileName)));
+        FileReader fileReader = new FileReader(new File(m_strStopWordsFileName));
+        BufferedReader buffer = new BufferedReader(fileReader);
+        
         String line;
+        
         while((line=buffer.readLine()) != null)
         {
             String stop = line.replaceAll(" ", "");
-            m_stopWordsSet.add(stop);
+            stopWordsSet.add(stop);
         }
+        
+        // Close the file
+        
         buffer.close();
+        
+        // Return the set of stop words
+        
+        return stopWordsSet;
     }
     
     /**
@@ -235,7 +248,9 @@ class WordProcessing implements IWordProcessing
      */
     
     @Override
-    public String removeStopwords(String strRawSentence)
+    public String removeStopwords(
+            String strRawSentence,
+            HashSet<String> stopWordsSet)
     {
 
         // Split the sentence into words
@@ -250,13 +265,11 @@ class WordProcessing implements IWordProcessing
         
         for (String strWord : splitArray)
         {
-            if (!m_stopWordsSet.contains(strWord))
+            if (!stopWordsSet.contains(strWord))
             {
                 sentenceString = sentenceString + strWord + " ";
             }
         }
         return sentenceString;
     }
-
-
 }

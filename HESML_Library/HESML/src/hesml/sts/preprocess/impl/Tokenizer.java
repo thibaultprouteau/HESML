@@ -32,11 +32,10 @@ import java.io.InputStreamReader;
 
 class Tokenizer implements ITokenizer
 {
-    /**
-     * Type of tokenization method
-     */
     
-    private TokenizerType m_tokenizerType;
+    // Type of tokenization method
+    
+    private final TokenizerType m_tokenizerType;
     
     // Python executable using the virtual environment.
     
@@ -50,8 +49,6 @@ class Tokenizer implements ITokenizer
     
     private final String m_modelDirPath;
     
-
-    
     /**
      * Constructor
      * @param tokenizerType 
@@ -60,7 +57,13 @@ class Tokenizer implements ITokenizer
     Tokenizer(
             TokenizerType tokenizerType)
     {
+        
+        // Set the tokenizer type 
+        
         m_tokenizerType = tokenizerType;
+        
+        // If the Python wrapper is not used, set the variables null.
+        
         m_PythonVenvDir = null;
         m_PythonScriptDir = null;
         m_modelDirPath = null;
@@ -76,11 +79,14 @@ class Tokenizer implements ITokenizer
      */
     
     Tokenizer(
-            TokenizerType tokenizerType,
-            String PythonVenvDir,
-            String PythonScriptDir,
-            String modelDirPath) throws IOException
+            TokenizerType   tokenizerType,
+            String          PythonVenvDir,
+            String          PythonScriptDir,
+            String          modelDirPath) throws IOException
     {
+        
+        // Set the variables by constructor
+        
         m_tokenizerType = tokenizerType;
         m_PythonScriptDir = PythonScriptDir;
         m_PythonVenvDir = PythonVenvDir;
@@ -94,7 +100,10 @@ class Tokenizer implements ITokenizer
      */
     
     @Override
-    public TokenizerType getTokenizerType(){return m_tokenizerType;}
+    public TokenizerType getTokenizerType()
+    {
+        return m_tokenizerType;
+    }
 
     /**
      * Get the tokens from a sentence
@@ -104,9 +113,12 @@ class Tokenizer implements ITokenizer
     
     @Override
     public String[] getTokens(
-            String strRawSentence) throws InterruptedException, IOException
+            String  strRawSentence) throws InterruptedException, IOException
     {
-        String[] tokens = null; // Returned value
+        
+        // Initialize the output
+        
+        String[] tokens = null; 
         
         // We create the tokenizer
         
@@ -147,8 +159,11 @@ class Tokenizer implements ITokenizer
      * @throws IOException 
      */
     
-    private String[] getTokensUsingWordPiecePythonWrapper(String strSentence) throws InterruptedException, IOException
+    private String[] getTokensUsingWordPiecePythonWrapper(
+            String  strSentence) 
+            throws InterruptedException, IOException
     {
+        
         //Initialize the output
         
         String[] tokenizedText = null;
@@ -169,18 +184,9 @@ class Tokenizer implements ITokenizer
 
 
         // Read the output 
-
-        BufferedReader readerTerminal = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-//        String lineTerminal = "";
-//        while((lineTerminal = readerTerminal.readLine()) != null) {
-//            System.out.print(lineTerminal + "\n");
-//        }
-
-//        readerTerminal = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-//        lineTerminal = "";
-//        while((lineTerminal = readerTerminal.readLine()) != null) {
-//            System.out.print(lineTerminal + "\n");
-//        }
+        
+        InputStreamReader inputStreamReader = new InputStreamReader(proc.getInputStream());
+        BufferedReader readerTerminal = new BufferedReader(inputStreamReader);
 
         // Read the sentence and split by whitespaces
         

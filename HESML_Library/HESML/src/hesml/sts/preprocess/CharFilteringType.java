@@ -23,6 +23,7 @@ package hesml.sts.preprocess;
 
 public enum CharFilteringType
 {
+    
     /**
      * Use no filter method.
      */

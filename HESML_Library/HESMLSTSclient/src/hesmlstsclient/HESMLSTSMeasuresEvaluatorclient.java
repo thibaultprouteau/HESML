@@ -149,8 +149,8 @@ public class HESMLSTSMeasuresEvaluatorclient
 
         // Execute the tests
         
-//        testStringMeasures(sentences1, sentences2);
-        testBertMeasures(sentences1, sentences2);
+        testStringMeasures(sentences1, sentences2);
+//        testBertMeasures(sentences1, sentences2);
     }
     
     /**

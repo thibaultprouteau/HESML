@@ -20,9 +20,11 @@ import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import java.io.IOException;
 
 /**
- *
+ *  This abstract class implements the general methods 
+ * for string-based similarity measures.
  * @author alicia
  */
+
 abstract class StringBasedSentenceSimMeasure implements IStringBasedSentenceSimMeasure
 {
 
@@ -33,9 +35,14 @@ abstract class StringBasedSentenceSimMeasure implements IStringBasedSentenceSimM
         
         double[] scores = new double[lstSentences1.length];
         
-        if(lstSentences1.length != lstSentences2.length)
-            throw new IllegalArgumentException("The size of the input arrays are different!");
+        // The length of the lists has to be equal
         
+        if(lstSentences1.length != lstSentences2.length)
+        {
+            String strerror = "The size of the input arrays are different!";
+            throw new IllegalArgumentException(strerror);
+        }
+
         // Iterate the sentences and get the similarity scores.
         
         for (int i = 0; i < lstSentences1.length; i++)
@@ -45,7 +52,8 @@ abstract class StringBasedSentenceSimMeasure implements IStringBasedSentenceSimM
             scores[i] = this.getSimilarityValue(sentence1, sentence2);
         }
         
+        // Return the result
+        
         return scores;
     }
-    
 }

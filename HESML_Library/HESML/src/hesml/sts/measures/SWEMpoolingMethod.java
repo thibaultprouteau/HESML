@@ -18,7 +18,7 @@
 package hesml.sts.measures;
 
 /**
- * This enumertaion sets the pooling methods implemented by our SWEM measure.
+ * This enumeration sets the pooling methods implemented by our SWEM measure.
  * @author j.lastra
  */
 
@@ -28,20 +28,24 @@ public enum SWEMpoolingMethod
     /**
      *  Average pooling method
      */
+    
     Average,
 
     /**
      *  Max pooling method
      */
+    
     Max,
 
     /**
      *  Min pooling method
      */
+    
     Min,
 
     /**
      *  Sum pooling method
      */
+    
     Sum
 }
