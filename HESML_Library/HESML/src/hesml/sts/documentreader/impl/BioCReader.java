@@ -23,12 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 
 import bioc.BioCCollection;
@@ -39,8 +35,8 @@ import bioc.io.BioCFactory;
 import bioc.preprocessing.pipeline.PreprocessingPipeline;
 import edu.stanford.nlp.ling.CoreLabel; // Used for extracting sentences
 import hesml.sts.documentreader.HSTSIDocument;
-import hesml.sts.documentreader.HSTSIDocumentList;
 import hesml.sts.documentreader.HSTSIParagraph;
+import hesml.sts.preprocess.IWordProcessing;
 
 /**
  * The BioCReader class gets the directory path of the document and the 
@@ -49,103 +45,7 @@ import hesml.sts.documentreader.HSTSIParagraph;
  */
 
 class BioCReader { 
-      
-    
-    /**
-     * Loads the BioC file, extract the documents and paragraphs.
-     * -> A BioCColection has one or more BioCDocuments.
-     * -> Each BioCDocument has one or more BioCPassages.
-     * -> Each BioCPassage has one text (similar to paragraph).
-     * @param strDocumentsPath
-     * @param documentType
-     * @return
-     * @throws IOException
-     * @throws XMLStreamException 
-     */
-    
-    static HSTSIDocumentList loadFilesFromDir(
-        String        strDocumentsPath) throws IOException, XMLStreamException
-    {
 
-        List<File> filesInFolder = Files.walk(Paths.get(strDocumentsPath))
-                                .filter(Files::isRegularFile)
-                                .map(Path::toFile)
-                                .collect(Collectors.toList());
-       
-        HSTSDocumentList documentList = new HSTSDocumentList();
-        
-        for (int i = 0; i < filesInFolder.size(); i++) 
-        {
-            File biocFile = filesInFolder.get(i);
-
-            // read BioC XML collection
-            
-            BioCCollection collection = readBioCCollection(biocFile);
-            // Extract the documents from the collection
-            
-            List<BioCDocument> biocDocuments = collection.getDocuments();
-            
-            /**
-            * Create an IDocument
-            */
-            
-            int idDocument = i;
-            String str_documentPath = biocFile.getAbsolutePath();
-            HSTSDocument document = new HSTSDocument(idDocument, str_documentPath);
-            
-            /**
-             * Create a ParagraphList
-             */
-            
-            HSTSParagraphList paragraphList = new HSTSParagraphList();
-                
-            /**
-             * Iterate the BioCCollection: a list of documents
-             */
-            
-            for (Iterator<BioCDocument> iterator = biocDocuments.iterator();
-                    iterator.hasNext();
-                    ) 
-            {
-                BioCDocument nextBioCDocument = iterator.next();
-                
-                
-                List<BioCPassage> bioCPassages = nextBioCDocument.getPassages();
-                
-                /**
-                 * Iterate over passages and extract the texts
-                 */
-                
-                int idParagraph = 0;
-                for (Iterator<BioCPassage> iterator1 = bioCPassages.iterator(); iterator1.hasNext();) {
-                    BioCPassage nextBioCPassage = iterator1.next();
-                    
-                    /**
-                    * Create an IParagraph
-                    */
-                    
-                    HSTSParagraph paragraph = new HSTSParagraph(idParagraph, idDocument);
-                    
-                    String strParagraph = nextBioCPassage.getText();
-                    paragraph.setText(strParagraph);
-                    
-                    paragraphList.addParagraph(paragraph);
-                    idParagraph++;
-                   
-                    
-                }
-                
-            }
-            
-            document.setParagraphList(paragraphList);
-            documentList.addDocument(document);
-        }
-        
-        
-        
-        return documentList;
-    }
-    
     /**
      * Loads the BioC file, extract the documents and paragraphs.
      * -> A BioCColection has one or more BioCDocuments.
@@ -159,8 +59,9 @@ class BioCReader {
      */
     
     static HSTSIDocument loadFile(
-            int idDocument,
-            File        biocFile) throws FileNotFoundException, XMLStreamException
+            int             idDocument,
+            File            biocFile,
+            IWordProcessing wordPreprocessing) throws FileNotFoundException, XMLStreamException
     {
         // read BioC XML collection
         
@@ -175,7 +76,7 @@ class BioCReader {
         */
         
         String str_documentPath = biocFile.getAbsolutePath();
-        HSTSDocument document = new HSTSDocument(idDocument, str_documentPath);
+        HSTSDocument document = new HSTSDocument(idDocument, str_documentPath, wordPreprocessing);
 
         /**
          * Create a ParagraphList

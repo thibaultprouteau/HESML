@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 import hesml.sts.documentreader.HSTSIDocument;
-
+import hesml.sts.preprocess.IWordProcessing;
 
 /**
  * The aim of this class is to instantiate all the preprocessing pipeline
@@ -55,6 +55,7 @@ public class SentenceExtractorFactory {
      * @param documentType: Type of input document.
      * @param sentenceSplitterType: Sentence Splitter method used.
      * @param preprocessType
+     * @param preprocessing
      * @param allInOneFile: save all the sentences in the same file
      * @throws IOException
      * @throws FileNotFoundException
@@ -65,13 +66,15 @@ public class SentenceExtractorFactory {
      * @todo Write the output with subdirectories info!
      */
     
-    public void runSentenceExtractorPipeline(
-            String strDocumentsPathInput,
-            String strDocumentsPathOutput,
-            HSTSDocumentType documentType,
-            SentenceSplitterType sentenceSplitterType,
-            SentenceExtractorType preprocessType,
-            boolean allInOneFile) throws IOException, FileNotFoundException, XMLStreamException 
+    public static void runSentenceExtractorPipeline(
+            String                  strDocumentsPathInput,
+            String                  strDocumentsPathOutput,
+            HSTSDocumentType        documentType,
+            SentenceSplitterType    sentenceSplitterType,
+            SentenceExtractorType   preprocessType,
+            IWordProcessing         preprocessing,
+            boolean                 allInOneFile) 
+            throws IOException, FileNotFoundException, XMLStreamException, InterruptedException 
     {
 
         // List all directories in the path
@@ -102,20 +105,27 @@ public class SentenceExtractorFactory {
 
                 int idDocument = i;
 
-
                 // Load the document and fill the paragraphs
 
-
-                HSTSIDocument documentWithParagraphs = HSTSDocumentFactory.loadDocument(idDocument, fileInput, documentType);
-
+                HSTSIDocument documentWithParagraphs = HSTSDocumentFactory.loadDocument(
+                        idDocument, 
+                        fileInput, 
+                        documentType, 
+                        preprocessing);
+                
                 HSTSIDocument documentWithSentences = documentWithParagraphs;
-
-
+                
+                // Preprocess the document before writing the sentences
+                
+                documentWithSentences.preprocessDocument();
+                
                 /**
                  * Write the output sentences into the correct subdirectories
                  */
+                
                 if(!allInOneFile)
                 {
+                    
                     String strFileOutput = strDocumentsPathOutput
                         .concat(directory.getName())
                         .concat("/")
@@ -123,8 +133,10 @@ public class SentenceExtractorFactory {
                         .concat(".txt"));
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
-                } else
+                } 
+                else
                 {
+                    
                     String strFileOutput = strDocumentsPathOutput.concat("allSentencesInAFile.txt");
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
@@ -139,7 +151,9 @@ public class SentenceExtractorFactory {
      * @param strDocumentsPathOutput 
      */
     
-    public static void createOutputDirectoryStructure(File subdirectory, String strDocumentsPathOutput) 
+    public static void createOutputDirectoryStructure(
+            File        subdirectory, 
+            String      strDocumentsPathOutput) 
     {
         String dirName = subdirectory.getName();
         String outputSubdirectoryPath = strDocumentsPathOutput.concat(dirName);

@@ -17,6 +17,7 @@
 package hesml.sts.documentreader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -39,6 +40,14 @@ public interface HSTSIDocument
      */
     
     void setParagraphList(HSTSIParagraphList paragraphList);
+    
+    /**
+     * Preprocess the document
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.InterruptedException
+     */
+    
+    void preprocessDocument() throws FileNotFoundException, IOException, InterruptedException;
 
     /**
      * Save sentences for each paragraph to an output file.

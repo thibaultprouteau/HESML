@@ -33,7 +33,7 @@ public enum SentenceExtractorType {
     
     
     /**
-     * D0 type: From input documents to sentences annotated with NER. 
+     * D0 type: From input documents to sentences annotated with NER (METAMAP). 
      * One line per sentence
      */
     

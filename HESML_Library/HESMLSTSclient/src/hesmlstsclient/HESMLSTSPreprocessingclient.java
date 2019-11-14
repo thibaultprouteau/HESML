@@ -23,22 +23,48 @@ package hesmlstsclient;
 
 import hesml.HESMLversion;
 import hesml.sts.documentreader.HSTSDocumentType;
+import hesml.sts.preprocess.CharFilteringType;
+import hesml.sts.preprocess.IWordProcessing;
+import hesml.sts.preprocess.TokenizerType;
+import hesml.sts.preprocess.impl.PreprocessingFactory;
 import hesml.sts.sentencesextractor.SentenceExtractorType;
 import hesml.sts.sentencesextractor.SentenceSplitterType;
 import hesml.sts.sentencesextractor.impl.SentenceExtractorFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import javax.xml.stream.XMLStreamException;
 
 /**
- * This class implements the sentence splitting of documents for the input of some trainning methods.
+ * This class implements the sentence splitting of documents 
+ * for the input of some trainning methods.
+ * 
+ * The output of this method is a file (or a list of files) with one sentence per line.
  * 
  * @author alicia
  */
 
-public class HESMLSTSpreprocessing
+public class HESMLSTSPreprocessingclient
 {
+    /**
+     * Resources directories.
+     * 
+     * m_strBaseDir: the base directory with the resources
+     * m_strStopWordsDir: Subdirectory with all the stop words files
+     * m_bioCManuscriptCorpusDir: Subdirectory with the BioC corpus*
+     *      * It can be divided into subdirectories, 
+     *          HESML will iterate between them and extract the documents.
+     * m_preprocessedDocumentsOutputDir: Output path.
+     */
+    
+    private static final String  m_strBaseDir = "../";
+    private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
+    // private static final String  m_bioCManuscriptCorpusDir = m_strBaseDir + "BioCCorpus/BioCManuscriptCorpus/";
+    private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/BioCManuscriptCorpus/";
+    private static final String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "BioCCorpus/BioC_sentencesSplitted_D0/";
+    
     /**
      * This function loads an input XML file detailing a
      * set of reproducible experiments on sentence similarity.
@@ -78,19 +104,15 @@ public class HESMLSTSpreprocessing
      * @todo establish input directory and read the tree. Output the results using the same structure than the input directories.
      */
     
-    private static void testD0() throws IOException, XMLStreamException
+    private static void testD0() throws IOException, XMLStreamException, FileNotFoundException, InterruptedException
     {
         //Calculate the execution time of the method
         
         Instant start = Instant.now();
         
-        // We define the input and ooutput directory
+        // Initialize the preprocessing method
         
-//        String strBioCDirInput = "../BioC/";
-//        String strBioCDirOutput = "../BioC_sentencesSplitted_D0/";
-        
-        String strBioCDirInput = "/home/alicia/Desktop/BioCManuscriptCorpus/";
-        String strBioCDirOutput = "../BioCCorpus/BioC_sentencesSplitted_D0/";
+        IWordProcessing wordPreprocessing = null;
         
         // Select BioC XML files and the default BioC Project Sentences Splitter (from Stanford CoreNLP)
         
@@ -98,21 +120,37 @@ public class HESMLSTSpreprocessing
         SentenceSplitterType sentenceSplitterType = SentenceSplitterType.BioCSentenceSplitter;
         SentenceExtractorType preprocessType = SentenceExtractorType.D0;
         boolean saveAllSentencesToASingleFile = Boolean.TRUE;
-        // Create a preprocess object and run the pipeline for D0 documents
+
+        // Create a Wordpreprocessing object
         
-        SentenceExtractorFactory sentenceExtractor = new SentenceExtractorFactory();
-        sentenceExtractor.runSentenceExtractorPipeline(
-                                strBioCDirInput, 
-                                strBioCDirOutput, 
+        wordPreprocessing = PreprocessingFactory.getWordProcessing(
+                        "", 
+                        TokenizerType.StanfordCoreNLPv3_9_1, 
+                        true, 
+                        CharFilteringType.DefaultJava);
+        
+        // Create the output subdirectories
+        
+        File outputDir = new File(m_preprocessedDocumentsOutputDir);
+        outputDir.mkdirs();
+        
+        // Run the sentence extractor pipeline
+        
+        SentenceExtractorFactory.runSentenceExtractorPipeline(
+                                m_bioCManuscriptCorpusDir, 
+                                m_preprocessedDocumentsOutputDir, 
                                 documentType, 
                                 sentenceSplitterType,
                                 preprocessType,
+                                wordPreprocessing,
                                 saveAllSentencesToASingleFile);
         
         //Calculate the execution time 
         
         Instant end = Instant.now();
         Duration interval = Duration.between(start, end);
-        System.out.println("Execution time in seconds: " + interval.getSeconds());
+        System.out.println("\nExecution time in seconds: " + interval.getSeconds());
+        System.out.println("\nExecution time in minutes: " + (interval.getSeconds() / 60));
+        System.out.println("\nExecution time in hours: " + ((interval.getSeconds() / 60) / 60));
     } 
 }

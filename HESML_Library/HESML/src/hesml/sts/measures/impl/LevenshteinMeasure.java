@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
@@ -35,7 +36,7 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure extends StringBasedSentenceSimMeasure
+class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
     
     // Internal variables used in the method by the original code (BIOSSES2017).
@@ -114,6 +115,7 @@ class LevenshteinMeasure extends StringBasedSentenceSimMeasure
             String strRawSentence2) 
             throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
     {
+        
         // We initialize the output
 
         double similarity = 0.0;

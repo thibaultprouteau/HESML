@@ -24,6 +24,7 @@ import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
 import hesml.sts.documentreader.HSTSIDocument;
 import hesml.sts.documentreader.HSTSIDocumentList;
+import hesml.sts.preprocess.IWordProcessing;
 
 /**
  * This class is responsible of creating the input Documents readers and writers
@@ -33,32 +34,11 @@ import hesml.sts.documentreader.HSTSIDocumentList;
 public class HSTSDocumentFactory {
     
     /**
-     * This function loads all the files from a directory.
-     * 
-     * @param strDocumentsPath
-     * @param documentType
-     * @return 
-     * @throws java.io.IOException 
-     * @throws javax.xml.stream.XMLStreamException 
-     */
-    
-    public static HSTSIDocumentList loadDatabase(
-            String strDocumentsPath,
-            HSTSDocumentType documentType) throws IOException, XMLStreamException
-    {
-        if (documentType == HSTSDocumentType.BioCXMLASCII) {
-            return (BioCReader.loadFilesFromDir(strDocumentsPath));
-        }
-        
-        return null;
-        
-    }
-    
-    /**
      * This function load a file and creates an HSTSIDocument object.
      * @param iDocument
      * @param fileInput
      * @param documentType
+     * @param wordPreprocessing
      * @return
      * @throws FileNotFoundException
      * @throws XMLStreamException
@@ -69,18 +49,20 @@ public class HSTSDocumentFactory {
     public static HSTSIDocument loadDocument(
             int             iDocument,
             File            fileInput,
-            HSTSDocumentType    documentType) throws FileNotFoundException, XMLStreamException
+            HSTSDocumentType    documentType,
+            IWordProcessing wordPreprocessing) throws FileNotFoundException, XMLStreamException
     {
         
         // We initialize the output document
         
         HSTSIDocument doc = (documentType == HSTSDocumentType.BioCXMLASCII) ?
-                        BioCReader.loadFile(iDocument, fileInput) : null;
-     
+                        BioCReader.loadFile(iDocument, fileInput, wordPreprocessing) : null;
+
         // We return the result
         
         return doc;
     }
+    
     
     /**
      * This function encapsulates the writing of sentences from an HSTSIDocument object to a file

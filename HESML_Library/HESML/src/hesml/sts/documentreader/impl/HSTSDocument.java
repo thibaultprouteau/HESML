@@ -25,6 +25,9 @@ import hesml.sts.documentreader.HSTSIParagraph;
 import hesml.sts.documentreader.HSTSIParagraphList;
 import hesml.sts.documentreader.HSTSISentence;
 import hesml.sts.documentreader.HSTSISentenceList;
+import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -33,8 +36,14 @@ import hesml.sts.documentreader.HSTSISentenceList;
 class HSTSDocument implements HSTSIDocument{
     
     private final int m_idDocument;
+    
     private final String m_strDocumentPath;
+    
     private HSTSIParagraphList m_paragraphList;
+    
+    // Preprocesser object
+    
+    private final IWordProcessing m_preprocessing;
     
     /**
      * Creates an object document and extract the sentences.
@@ -43,10 +52,12 @@ class HSTSDocument implements HSTSIDocument{
     
     public HSTSDocument(
             int idDocument,
-            String strDocumentPath) 
+            String strDocumentPath,
+            IWordProcessing wordPreprocessing) 
     {
         m_idDocument = idDocument;
         m_strDocumentPath = strDocumentPath;
+        m_preprocessing = wordPreprocessing;
         m_paragraphList = new HSTSParagraphList();
     }
 
@@ -77,27 +88,73 @@ class HSTSDocument implements HSTSIDocument{
     public void saveSentencesToFile(
         File fileOutput) throws IOException
     {
+        
         /**
          * Create a StringBuilder object and fill with the sentences
          */
+        
         StringBuilder sb = new StringBuilder();
         for (HSTSIParagraph paragraph : m_paragraphList) {
             HSTSISentenceList sentenceList = paragraph.getSentenceList();
             for (HSTSISentence sentence : sentenceList) {
                 String strSentence = sentence.getText();
-                sb.append(strSentence);
-                sb.append("\n");
+                if(strSentence.length() > 0)
+                {
+                    sb.append(strSentence);
+                    sb.append("\n");
+                }
             }
         }
         
         // Get the output that will be written to the file
+        
         String strFinalText = sb.toString();
         
         // Write the file
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput, true))) {
             writer.write(strFinalText);
         }
         
+    }
+
+    /**
+     * Get the document and preprocess using IWordProcesser 
+     * 
+     */
+    
+    @Override
+    public void preprocessDocument() throws FileNotFoundException, IOException, InterruptedException
+    {
+        Pattern p = Pattern.compile("[[:alnum:]]");
+        
+        System.out.println("ID Document: " + this.m_idDocument);
+        for (HSTSIParagraph paragraph : m_paragraphList) {
+//            System.out.println("ID paragraph: " + paragraph.getId());
+            HSTSISentenceList sentenceList = paragraph.getSentenceList();
+            for (HSTSISentence sentence : sentenceList) {
+//                System.out.println("ID sentence: " + sentence.getIdSentence());
+//                
+//                if(this.m_idDocument == 1018 && paragraph.getId() == 6)
+//                {
+//                    System.err.println("AA");
+//                }
+                
+                String strSentence = sentence.getText();
+                if(strSentence.length() > 0 && p.matcher(strSentence).find())
+                {
+                    String[] tokens = m_preprocessing.getWordTokens(strSentence);
+                    if(tokens.length > 0)
+                    {
+                        String newSentence = String.join(" ", tokens);
+                        sentence.setText(newSentence); 
+                    }
+                }
+                else{
+                    sentence.setText(""); 
+                }
+            }
+        }
     }
     
 }

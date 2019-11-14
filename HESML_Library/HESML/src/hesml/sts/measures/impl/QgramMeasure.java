@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
@@ -34,7 +35,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class QgramMeasure  extends StringBasedSentenceSimMeasure
+class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
     
     /**

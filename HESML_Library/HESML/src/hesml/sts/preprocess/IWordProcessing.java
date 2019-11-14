@@ -43,24 +43,4 @@ public interface IWordProcessing
             String strRawSentence)  
             throws FileNotFoundException, IOException, InterruptedException;
     
-    /**
-     * This function removes the stop words from a string.
-     * 
-     * @param strRawSentence
-     * @param stopWordsSet
-     * @return 
-     */
-    
-    String removeStopwords(
-            String  strRawSentence,
-            HashSet<String> stopWordsSet);
-    
-    /**
-     * Read the stop words file name if exists.
-     * 
-     * @return HashSet<String> set with the stop words
-     * @throws java.io.FileNotFoundException 
-     */
-    
-    HashSet<String> getStopWords() throws FileNotFoundException, IOException;
 }

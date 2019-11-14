@@ -14,10 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package hesml.sts.measures.impl;
 
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
-import hesml.sts.preprocess.IWordProcessing;
+package hesml.sts.measures;
 
 /**
  *  This interface encapsulates all the String-based similarity measures
@@ -25,21 +23,13 @@ import hesml.sts.preprocess.IWordProcessing;
  * @author alicia
  */
 
-abstract class StringBasedSentenceSimMeasure extends SentenceSimilarityMeasure
+public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasure
 {
-    StringBasedSentenceSimMeasure(IWordProcessing processing)
-    {
-        super(processing);
-    }
-
+    
     /**
      * Return the string based method used.
      * @return StringBasedSentSimilarityMethod
      */
     
-    StringBasedSentSimilarityMethod getStringBasedMethodType()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
+    StringBasedSentSimilarityMethod getStringBasedMethodType();
 }

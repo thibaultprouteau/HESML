@@ -148,7 +148,7 @@ class WordProcessing implements IWordProcessing
         
         // Initialize tokens
         
-        String[] tokens;
+        String[] tokens = {};
         
         // Lowercase if true
         
@@ -183,19 +183,24 @@ class WordProcessing implements IWordProcessing
         // If the tokenizer type is WordPieceTokenizer, 
         // the Tokenizer constructor changes
         
-        if(m_tokenizerType != TokenizerType.WordPieceTokenizer)
+        // Check if the sentence is not empty
+        
+        if(strRawSentence.length() > 0)
         {
-            ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
-            tokens = tokenizer.getTokens(strRawSentence);
-        }
-        else
-        { 
-            ITokenizer tokenizer = new Tokenizer(
-                    m_tokenizerType,
-                    m_PythonVenvDir,
-                    m_PythonScriptDir,
-                    m_modelDirPath);
-            tokens = tokenizer.getTokens(strRawSentence);
+            if(m_tokenizerType != TokenizerType.WordPieceTokenizer)
+            {
+                ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
+                tokens = tokenizer.getTokens(strRawSentence);
+            }
+            else
+            { 
+                ITokenizer tokenizer = new Tokenizer(
+                        m_tokenizerType,
+                        m_PythonVenvDir,
+                        m_PythonScriptDir,
+                        m_modelDirPath);
+                tokens = tokenizer.getTokens(strRawSentence);
+            }
         }
         
         // Return the tokens
@@ -211,8 +216,7 @@ class WordProcessing implements IWordProcessing
      * @throws IOException 
      */
     
-    @Override
-    public final HashSet<String> getStopWords() throws FileNotFoundException, IOException
+    private  final HashSet<String> getStopWords() throws FileNotFoundException, IOException
     {
         
         // Initialize the hash set for stop words
@@ -247,8 +251,7 @@ class WordProcessing implements IWordProcessing
      * @return 
      */
     
-    @Override
-    public String removeStopwords(
+    private String removeStopwords(
             String strRawSentence,
             HashSet<String> stopWordsSet)
     {

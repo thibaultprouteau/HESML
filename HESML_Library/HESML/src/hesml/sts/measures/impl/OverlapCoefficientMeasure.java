@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.measures.StringBasedSentSimilarityMethod;
@@ -35,7 +36,7 @@ import java.util.Set;
  * @author alicia
  */
 
-class OverlapCoefficientMeasure extends StringBasedSentenceSimMeasure
+class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
     
     /**

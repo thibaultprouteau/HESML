@@ -75,9 +75,11 @@ public class CharsFiltering implements ICharsFiltering
                 
             case DefaultJava:
                 
-                //Remove all the punctuation marks using the Java preexisting regex.
+                // Remove all the punctuation marks using the Java preexisting regex.
+                // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+                // strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
                 
-                strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
+                strFilteredSentence = strRawSentence.replaceAll("[^\\p{Alpha}\\p{Digit}]+"," ");
                 
                 break;
                 
@@ -97,6 +99,10 @@ public class CharsFiltering implements ICharsFiltering
                 
                 break;
         }
+        
+        // Remove extra spaces
+        
+        strFilteredSentence = strFilteredSentence.trim();
         
         // Return the result
         
