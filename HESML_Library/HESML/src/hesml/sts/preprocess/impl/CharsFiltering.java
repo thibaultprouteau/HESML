@@ -100,9 +100,9 @@ public class CharsFiltering implements ICharsFiltering
                 break;
         }
         
-        // Remove extra spaces
-        
-        strFilteredSentence = strFilteredSentence.trim();
+        // Remove extra whitespaces
+                
+        strFilteredSentence = strRawSentence.replaceAll("\\s{2,}", " ").trim();
         
         // Return the result
         
