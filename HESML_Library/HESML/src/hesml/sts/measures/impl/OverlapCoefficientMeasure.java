@@ -38,7 +38,6 @@ import java.util.Set;
 
 class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
-    
     /**
      * Constructor
      * @param preprocesser 
@@ -104,8 +103,9 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements ISt
             String strRawSentence2) 
             throws IOException, FileNotFoundException, InterruptedException 
     {
+        // We initialize the output
         
-        double similarity = 0.0; // We initialize the output
+        double similarity = 0.0; 
         
         // Get the tokens for each sentence
 
@@ -120,29 +120,35 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements ISt
 
         // If both sets are empty, the similarity is 1
         
-        if (setWordsSentence1.isEmpty() && setWordsSentence2.isEmpty()) {return 1.0f;}
-        
-        // If only one set is empty, the similarity is 0
-        
-        if (setWordsSentence1.isEmpty() || setWordsSentence2.isEmpty()) {return 0.0f;}
-
-        float intersection = intersection(setWordsSentence1, setWordsSentence2).size();
-
-        // Get the smallest sentence
-        
-        int minimumSentenceSize = setWordsSentence1.size();
-        if (setWordsSentence2.size() < minimumSentenceSize)
+        if (setWordsSentence1.isEmpty() && setWordsSentence2.isEmpty())
         {
-            minimumSentenceSize = setWordsSentence2.size();
+            similarity = 1.0;
         }
+        else if (setWordsSentence1.isEmpty() || setWordsSentence2.isEmpty())
+        {
+            similarity = 0.0;
+        }
+        else
+        {
+            double intersection = intersection(setWordsSentence1, setWordsSentence2).size();
+
+            // Get the smallest sentence
+
+            int minimumSentenceSize = setWordsSentence1.size();
+
+            if (setWordsSentence2.size() < minimumSentenceSize)
+            {
+                minimumSentenceSize = setWordsSentence2.size();
+            }
         
-        // ∣a ∩ b∣ / ∣Min(|A|, |B|)∣
+            // ∣a ∩ b∣ / ∣Min(|A|, |B|)∣
         
-        similarity = intersection / minimumSentenceSize;
+            similarity = intersection / minimumSentenceSize;
+        }
         
         // Return the result
         
-        return similarity;
+        return (similarity);
     }
     
     /**
@@ -158,7 +164,6 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements ISt
             Set<String> s1, 
             Set<String> s2) 
     {
-        
         // Initialize the intersection set with the first set.
         
         Set<String> intersection = new HashSet<>(s1);
@@ -169,6 +174,6 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements ISt
         
         // Return the intersected set.
         
-        return intersection;
+        return (intersection);
     }
 }

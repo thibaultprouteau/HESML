@@ -41,7 +41,6 @@ import java.util.Set;
 
 class WBSMMeasure extends SentenceSimilarityMeasure
 {
-    
     // Set with all joint words from the sentences
     
     private final Set<String> m_dictionary;
@@ -108,6 +107,8 @@ class WBSMMeasure extends SentenceSimilarityMeasure
             String strRawSentence1, 
             String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
     {
+        // We initialize the output score
+        
         double similarity = 0.0;
         
         // Preprocess the sentences and get the tokens for each sentence
@@ -125,7 +126,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the similarity value
         
-        return similarity;
+        return (similarity);
     }
     
     /**
@@ -172,14 +173,22 @@ class WBSMMeasure extends SentenceSimilarityMeasure
             // For each list of words of a sentence
             // If the value is in the sentence, the value of the semantic vector will be 1.
             
-            if(setWordsSentence1.contains(word)) 
+            if(setWordsSentence1.contains(word))
+            {
                 m_semanticVector1.put(word, 1.0);
+            }
             else
+            {
                 m_semanticVector1.put(word, 0.0);
+            }
             if(setWordsSentence2.contains(word)) 
+            {
                 m_semanticVector2.put(word, 1.0);
+            }
             else
+            {
                 m_semanticVector2.put(word, 0.0);
+            }
         } 
     }
 }

@@ -108,7 +108,6 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
             String strRawSentence2) 
             throws IOException, FileNotFoundException, InterruptedException 
     {
-        
         // We initialize the output
         
         double similarity = 0.0; 
@@ -140,7 +139,9 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
         
         similarity = intersection / (setWordsSentence1.size() + setWordsSentence2.size() - intersection);
         
-        return similarity;
+        // We return the result
+        
+        return (similarity);
     }
     
     /**
@@ -155,7 +156,6 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
             Set<String> s1, 
             Set<String> s2) 
     {
-        
         // Initialize the set with the information of the first set
         
         Set<String> intersection = new HashSet<>(s1);
@@ -166,6 +166,6 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
         
         // Return the intersection
         
-        return intersection;
+        return (intersection);
     }
 }

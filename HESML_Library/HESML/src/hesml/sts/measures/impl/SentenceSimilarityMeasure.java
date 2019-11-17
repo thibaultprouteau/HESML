@@ -34,6 +34,11 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     
     protected IWordProcessing m_preprocesser;
     
+    /**
+     * Constructor
+     * @param preprocesser 
+     */
+    
     SentenceSimilarityMeasure(IWordProcessing preprocesser)
     {
         m_preprocesser = preprocesser;
@@ -83,39 +88,39 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     /**
      * Get the similarity value between a list of pairs of sentences.
      * 
-     * @param lstSentences1
-     * @param lstSentences2
+     * @param firstSentencesVector
+     * @param secondSentencesVector
      * @return
      * @throws IOException
      * @throws InterruptedException 
      */
     
     @Override
-    public double[] getSimilarityValues(String[] lstSentences1, String[] lstSentences2) throws IOException, InterruptedException
+    public double[] getSimilarityValues(
+            String[] firstSentencesVector,
+            String[] secondSentencesVector) throws IOException, InterruptedException
     {
-        // Initialize the scores
+        // We check that the length of the lists has to be equal
         
-        double[] scores = new double[lstSentences1.length];
-        
-        // The length of the lists has to be equal
-        
-        if(lstSentences1.length != lstSentences2.length)
+        if(firstSentencesVector.length != secondSentencesVector.length)
         {
             String strerror = "The size of the input arrays are different!";
             throw new IllegalArgumentException(strerror);
         }
-
+        
+        // Initialize the scores
+        
+        double[] similarityScores = new double[firstSentencesVector.length];
+        
         // Iterate the sentences and get the similarity scores.
         
-        for (int i = 0; i < lstSentences1.length; i++)
+        for (int i = 0; i < firstSentencesVector.length; i++)
         {
-            String sentence1 = lstSentences1[i];
-            String sentence2 = lstSentences2[i];
-            scores[i] = this.getSimilarityValue(sentence1, sentence2);
+            similarityScores[i] = this.getSimilarityValue(firstSentencesVector[i], secondSentencesVector[i]);
         }
         
         // Return the result
         
-        return scores;
+        return (similarityScores);
     }
 }

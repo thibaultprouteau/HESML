@@ -70,7 +70,6 @@ public class SentenceSimilarityFactory
         StringBasedSentSimilarityMethod method,
             IWordProcessing             wordPreprocessing)
     {
-        
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = null;
@@ -121,9 +120,9 @@ public class SentenceSimilarityFactory
      * @param method
      * @param wordPreprocessor
      * @param strPretrainedModelFilename
-     * @param BERTDir
-     * @param PythonVenvDir
-     * @param PythonScriptDir
+     * @param bertDir
+     * @param pythonVenvDir
+     * @param pythonScriptDir
      * @return 
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
@@ -134,12 +133,11 @@ public class SentenceSimilarityFactory
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
-            String                  BERTDir,
-            String                  PythonVenvDir,
-            String                  PythonScriptDir) throws IOException,
+            String                  bertDir,
+            String                  pythonVenvDir,
+            String                  pythonScriptDir) throws IOException,
             InterruptedException, org.json.simple.parser.ParseException
     {
-        
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = null;
@@ -156,12 +154,8 @@ public class SentenceSimilarityFactory
                 
             case BertEmbeddingModelMethod:
                 
-                measure = new BertEmbeddingModelMeasure(
-                        strPretrainedModelFilename, 
-                        wordPreprocessor,
-                        BERTDir,
-                        PythonVenvDir,
-                        PythonScriptDir);
+                measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, 
+                        wordPreprocessor, bertDir, pythonVenvDir, pythonScriptDir);
                 
                 break;
         }

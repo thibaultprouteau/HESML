@@ -34,17 +34,15 @@ import java.util.Arrays;
 import org.json.simple.parser.ParseException;
 
 /**
- *  Read and evaluate BERT embedding pretrained models
+ *  Read and evaluate BERT embedding pre-trained models
  * @author alicia
  */
 
 class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
-    
     // Path to the model to evaluate.
     
     private final String m_modelDirPath;
-    
     
     // Paths to the BERT directory.
     
@@ -236,7 +234,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String[]    lstSentences2) 
             throws FileNotFoundException, IOException, InterruptedException
     {
-
         // We create the file to trasnfer the sentences to the BERT library
         
         BufferedWriter outputWriter = new BufferedWriter(new FileWriter(tempFileSentences));
@@ -328,7 +325,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We return the result
         
-        return vectors;
+        return (vectors);
     }
     
     /**
@@ -391,16 +388,16 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private static File createTempFile(
             String strTempFilePath) throws IOException
     {
-        
         // We create a temporal file, remove if previously exists.
         
         File tempFile = new File(strTempFilePath);
-        if (tempFile.exists())
-            tempFile.delete(); 
+        
+        if (tempFile.exists()) tempFile.delete(); 
+        
         tempFile.createNewFile();
         
         // Return true if ok
         
-        return tempFile;
+        return (tempFile);
     }
 }

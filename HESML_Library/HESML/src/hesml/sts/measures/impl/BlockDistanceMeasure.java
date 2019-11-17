@@ -46,7 +46,6 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
     public BlockDistanceMeasure(
             IWordProcessing preprocesser)
     {
-        
         super(preprocesser);
     }
     
@@ -100,7 +99,6 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
             String  strRawSentence2) 
             throws IOException, FileNotFoundException, InterruptedException
     {
-        
         // We initialize the output
 
         double similarity = 0.0;
@@ -160,7 +158,7 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
         
         // Return the similarity
         
-        return similarity;
+        return (similarity);
     }
     
     /**
@@ -177,7 +175,6 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
     private Map<String, Integer> getStringOccurrences(
             String[]    lstWordsSentence)
     {
-        
         // Initialize the output
         
         Map<String, Integer> occurrences = new HashMap<>(); 
@@ -192,6 +189,6 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
         
         // Return the result
         
-        return occurrences;
+        return (occurrences);
     }
 }

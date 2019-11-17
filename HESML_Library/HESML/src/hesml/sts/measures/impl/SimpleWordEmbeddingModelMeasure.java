@@ -43,7 +43,6 @@ import java.text.ParseException;
 
 class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
-    
     /**
      * Word emebedding model
      */
@@ -55,7 +54,6 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
      */
     
     private final SWEMpoolingMethod    m_PoolingMethod;
-    
     
     /**
      * Constructor
@@ -69,7 +67,10 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
             IWordProcessing         preprocesser,
             String                  strPretrainedModelFilename) throws IOException, ParseException
     {
+        // We initialize the base class
+        
         super(preprocesser);
+        
         // We initializer the object
         
         m_PoolingMethod = poolingMethod;

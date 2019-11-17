@@ -115,11 +115,10 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBas
             String strRawSentence2) 
             throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
     {
-        
         // We initialize the output
 
         double similarity = 0.0;
-        float distance = 0;
+        double distance = 0.0;
         
         // Get the tokens for each sentence
 
@@ -146,12 +145,11 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBas
         
         // Calculate the similarity
         
-	similarity = 1.0f - (distance / 
-                (this.maxCost * max(sentence1.length(), sentence2.length())));
+	similarity = 1.0 - (distance / (this.maxCost * max(sentence1.length(), sentence2.length())));
         
         // Return the result
         
-        return similarity;
+        return (similarity);
     }
     
     /**

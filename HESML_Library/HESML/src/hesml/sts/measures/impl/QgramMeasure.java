@@ -37,6 +37,11 @@ import java.util.Set;
 
 class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
+    /**
+     * Padding used by the measure
+     */
+    
+    private int m_Padding;
     
     /**
      * Constructor
@@ -47,6 +52,10 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
             IWordProcessing preprocesser)
     {
         super(preprocesser);
+        
+        // We set the default padding value
+        
+        m_Padding = 3;
     }
     
     /**
@@ -102,13 +111,9 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
             String  strRawSentence2) 
             throws IOException, FileNotFoundException, InterruptedException 
     {
-        
         // We initialize the output
 
         double similarity = 0.0;
-        double distance = 0.0;
-        
-        int padding = 3; // The default padding in the original code (BIOSSES2017) is 3 
         
         // Get the tokens for each sentence
 
@@ -117,49 +122,67 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
 
         // Get the basic results
         
-        if (Arrays.equals(lstWordsSentence1, lstWordsSentence2)) {return 0.0f;}
-        if (lstWordsSentence1.length == 0 && lstWordsSentence2.length == 0) {return 1.0f;}
-        if (lstWordsSentence1.length == 0 || lstWordsSentence2.length == 0) {return 0.0f;}
-        
-        // Create the maps for the ngrams and get the total values for each map.
-        
-        Map<String, Integer> mapQgramsS1 = getQGramsWithPadding(lstWordsSentence1, padding);
-        Map<String, Integer> mapQgramsS2 = getQGramsWithPadding(lstWordsSentence2, padding);
-        int totalQgramsS1 = mapQgramsS1.values().stream().mapToInt(Integer::intValue).sum();
-        int totalQgramsS2 = mapQgramsS2.values().stream().mapToInt(Integer::intValue).sum();
-    
-        // Get the total distance - for each ngram, get the abs(v1 - v2), 
-        // v1 is the frequency of the trigram in the first sentence
-        // v2 is the frequency of the trigram in the second sentence
-        
-        Set<String> union = new HashSet<>();
-        union.addAll(mapQgramsS1.keySet());
-        union.addAll(mapQgramsS2.keySet());
-
-        for (String key : union) 
+        if (Arrays.equals(lstWordsSentence1, lstWordsSentence2))
         {
-            int v1 = 0;
-            int v2 = 0;
-            Integer iv1 = mapQgramsS1.get(key);
-            if (iv1 != null) 
-            {
-                v1 = iv1;
-            }
-            Integer iv2 = mapQgramsS2.get(key);
-            if (iv2 != null) 
-            {
-                v2 = iv2;
-            }
-            distance += Math.abs(v1 - v2);
+            similarity = 0.0;
         }
+        else if ((lstWordsSentence1.length == 0) && (lstWordsSentence2.length == 0))
+        {
+            similarity = 1.0;
+        }
+        else if ((lstWordsSentence1.length == 0) || (lstWordsSentence2.length == 0))
+        {
+            similarity = 0.0;
+        }
+        else
+        {
+            // Create the maps for the ngrams 
 
-        // The similarity is calculated as in BIOSSES2017 implementation.
-        
-        similarity = 1.0f - distance / (totalQgramsS1 + totalQgramsS2);
+            Map<String, Integer> mapQgramsS1 = getQGramsWithPadding(lstWordsSentence1, m_Padding);
+            Map<String, Integer> mapQgramsS2 = getQGramsWithPadding(lstWordsSentence2, m_Padding);
+
+            // We get the total values for each map.
+
+            int totalQgramsS1 = mapQgramsS1.values().stream().mapToInt(Integer::intValue).sum();
+            int totalQgramsS2 = mapQgramsS2.values().stream().mapToInt(Integer::intValue).sum();
+
+            // We build a globat set with all q-grams
+            
+            Set<String> union = new HashSet<>();
+
+            union.addAll(mapQgramsS1.keySet());
+            union.addAll(mapQgramsS2.keySet());
+
+            // We initialize the accummulated distance
+            
+            double distance = 0.0;
+            
+            for (String key : union) 
+            {
+                // We get the frequency for each q-gram in each sentence
+                
+                int qgramFreqInSentence1 = !mapQgramsS1.containsKey(key) ? 0 : mapQgramsS1.get(key);
+                int qgramFreqInSentence2 = !mapQgramsS2.containsKey(key) ? 0 : mapQgramsS2.get(key);
+
+                // We compute the frequency difference for the q-gram
+                
+                distance += Math.abs(qgramFreqInSentence1 - qgramFreqInSentence2);
+            }
+
+            // The similarity is calculated as in BIOSSES2017 implementation.
+
+            similarity = 1.0 - distance / (totalQgramsS1 + totalQgramsS2);
+            
+            // We release the mappins
+            
+            mapQgramsS1.clear();
+            mapQgramsS2.clear();
+            union.clear();
+        }
         
         // We return the result
         
-        return similarity;
+        return (similarity);
     }
     
     /**

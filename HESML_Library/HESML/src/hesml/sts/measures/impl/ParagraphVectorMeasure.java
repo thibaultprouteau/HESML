@@ -38,7 +38,6 @@ import java.io.IOException;
 
 class ParagraphVectorMeasure extends SentenceSimilarityMeasure
 {
-    
     // Path to the trained model (.zip file)
     
     private final String m_strModelDirPath; 
@@ -54,11 +53,15 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
      */
     
     ParagraphVectorMeasure(
-            String strModelDirPath,
+            String          strModelDirPath,
             IWordProcessing preprocesser) throws IOException
     {
+        // We initialize the base class
         
         super(preprocesser);
+        
+        // We save the pre-trained model file path
+        
         m_strModelDirPath = strModelDirPath;
         
         // Load the model
@@ -106,7 +109,6 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
             String  strRawSentence2) 
             throws IOException, FileNotFoundException, InterruptedException
     {
-        
         // We initialize the output
         
         double similarity = 0.0; 

@@ -48,14 +48,8 @@ public class PreprocessingFactory {
             boolean lowercaseNormalization,
             CharFilteringType charFilteringType) throws IOException
     {   
-        
-        // Return the preprocessing object
-        
-        return (new WordProcessing(
-                tokenizerType,
-                lowercaseNormalization,
-                stopWordFileName,
-                charFilteringType));
+        return (new WordProcessing(tokenizerType,lowercaseNormalization,
+                stopWordFileName, charFilteringType));
     }
     
     /**
@@ -83,17 +77,8 @@ public class PreprocessingFactory {
             String pythonScriptDir,
             String modelDirPath) throws IOException
     {   
-        
-        // Return the preprocessing object
-        
-        return (new WordProcessing(
-                tokenizerType,
-                lowercaseNormalization,
-                stopWordFileName,
-                charFilteringType,
-                tempDir,
-                pythonVenvDir,
-                pythonScriptDir,
-                modelDirPath));
+        return (new WordProcessing(tokenizerType, lowercaseNormalization,
+                stopWordFileName, charFilteringType, tempDir,
+                pythonVenvDir, pythonScriptDir, modelDirPath));
     }
 }
