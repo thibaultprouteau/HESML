@@ -426,7 +426,7 @@ public class MeasureFactory
             WordEmbeddingFileType   embeddingType,
             String                  strRawVectorFile) throws IOException, ParseException
     {
-        return (new BioWordVecBinaryWordEmbeddingModel(strRawVectorFile));
+        return (new FastTextBinaryWordEmbeddingModel(strRawVectorFile));
     }
 
     /**

@@ -13,6 +13,7 @@
 	</xs:element>
 	<xs:simpleType name="SentenceSimilarityMethod">
 		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
 			<xs:enumeration value="SWEM_AveragePooling"/>
 			<xs:enumeration value="SWEM_MaxPooling"/>
 			<xs:enumeration value="SWEM_MinPooling"/>
@@ -24,6 +25,7 @@
 			<xs:enumeration value="Levenshtein"/>
 			<xs:enumeration value="BertEmbeddingModelMeasure"/>
 			<xs:enumeration value="ParagraphVector"/>
+			<xs:enumeration value="WBSM"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="SingleDatasetSimilarityValuesExperiment">
@@ -35,4 +37,19 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="SWEMMeasure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Pooling" type="SWEMpoolingMethod"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="SWEMpoolingMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Average"/>
+			<xs:enumeration value="Max"/>
+			<xs:enumeration value="Min"/>
+			<xs:enumeration value="Sum"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>

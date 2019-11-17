@@ -36,7 +36,8 @@ import java.io.IOException;
  * @author alicia
  */
 
-class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class LevenshteinMeasure extends SentenceSimilarityMeasure
+    implements IStringBasedSentenceSimMeasure
 {
     // Internal variables used in the method by the original code (BIOSSES2017).
     // @param insertDelete: positive non-zero cost of an insert or deletion operation

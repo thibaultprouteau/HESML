@@ -22,7 +22,6 @@
 package hesml.measures.impl;
 
 import hesml.measures.IPretrainedWordEmbedding;
-import hesml.measures.IWordSimilarityMeasure;
 import hesml.measures.SimilarityMeasureClass;
 import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
@@ -37,8 +36,9 @@ import java.util.HashMap;
 
 /**
  * This class implements an evaluator of pre-trained BioWordVec
- * embedding models provided in BioWordVec binary file format [2].
- * BioWordvec embeddings are introduced in the paper [1] below.
+ * embedding models provided in FastText binary file format [2].
+ * BioWordvec embeddings are introduced in the papers [1,2] below,
+ * whilst fastText is introduced by Bojanowksi wt al. [3]
  * 
  * [1] Y. Zhang, Q. Chen, Z. Yang, H. Lin, Z. Lu, BioWordVec, improving biomedical
  *     word embeddings with subword information and MeSH, Sci Data. 6 (2019) 52.
@@ -48,10 +48,13 @@ import java.util.HashMap;
  *     Word Embeddings with Subword Information and MeSH Ontology, Figshare. (2018).
  *     http://dx.doi.org/10.6084/m9.figshare.6882647.v2
  * 
+ * [3] P. Bojanowski, E. Grave, A. Joulin, T. Mikolov,
+ *     Enriching Word Vectors with Subword Information, arXiv [cs.CL]. (2016).
+ * 
  * @author j.lastra
  */
 
-class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
+class FastTextBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
 {
     /**
      * This file contains the word vectors provided by the pre-trained
@@ -83,7 +86,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
      * @param strVectorFilename 
      */
     
-    BioWordVecBinaryWordEmbeddingModel(
+    FastTextBinaryWordEmbeddingModel(
         String  strVectorFilename) throws IOException, ParseException
     {
         // We save the filename and cretae the indexed buffer of word vectors
@@ -104,7 +107,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
     @Override
     public WordEmbeddingFileType getWordEmbeddingFileType()
     {
-        return (WordEmbeddingFileType.BioWordVecBinaryFile);
+        return (WordEmbeddingFileType.FastTextBinaryWordEmbedding);
     }
     
     /**
@@ -172,8 +175,8 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
     }
     
     /**
-     * This fucntion reads a single vector from the pre-trained model file.
-     * If the ord is not in the embedding then a zero-values vector is returned.
+     * This function reads a single vector from the pre-trained model file.
+     * If the word is not in the embedding then a zero-values vector is returned.
      * @param reader
      * @return
      * @throws IOException 
@@ -315,7 +318,7 @@ class BioWordVecBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
     @Override
     public SimilarityMeasureType getMeasureType()
     {
-        return (SimilarityMeasureType.BioWordVecBinaryEmbedding);
+        return (SimilarityMeasureType.FastTextBinaryWordEmbedding);
     }
     
     /**
