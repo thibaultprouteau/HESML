@@ -38,7 +38,6 @@ import java.util.Set;
 
 class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
-    
     /**
      * Constructor
      * @param preprocesser 
@@ -125,19 +124,32 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
 
         // If both sets are empty, the similarity is 1
         
-        if (setWordsSentence1.isEmpty() && setWordsSentence2.isEmpty()) {return 1.0f;}
-        
-        // If only one set is empty, the similarity is 0
-        
-        if (setWordsSentence1.isEmpty() || setWordsSentence2.isEmpty()) {return 0.0f;}
+        if (setWordsSentence1.isEmpty() && setWordsSentence2.isEmpty())
+        {
+            similarity = 1.0;
+        }
+        else if (setWordsSentence1.isEmpty() || setWordsSentence2.isEmpty())
+        {
+            similarity = 0.0;
+        }
+        else
+        {
+            // We compute the number of common words
+            
+            double intersection = intersection(setWordsSentence1, setWordsSentence2).size();
 
-        float intersection = intersection(setWordsSentence1, setWordsSentence2).size();
+            // ∣a ∩ b∣ / ∣a ∪ b∣
+            // Implementation note: The size of the union of two sets is equal to
+            // the size of both sets minus the duplicate elements.
 
-        // ∣a ∩ b∣ / ∣a ∪ b∣
-        // Implementation note: The size of the union of two sets is equal to
-        // the size of both sets minus the duplicate elements.
+            similarity = intersection /
+                        (setWordsSentence1.size() + setWordsSentence2.size() - intersection);
+        }
         
-        similarity = intersection / (setWordsSentence1.size() + setWordsSentence2.size() - intersection);
+        // We release all auxiliary objects
+        
+        setWordsSentence1.clear();
+        setWordsSentence2.clear();
         
         // We return the result
         

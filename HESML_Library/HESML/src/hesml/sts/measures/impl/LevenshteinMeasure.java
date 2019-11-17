@@ -38,15 +38,14 @@ import java.io.IOException;
 
 class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
-    
     // Internal variables used in the method by the original code (BIOSSES2017).
     // @param insertDelete: positive non-zero cost of an insert or deletion operation
     // @param substitute: positive cost of a substitute operation
     // @param maxCost: max(insertDelete, substitute)
     
-    private final float insertDelete;
-    private final float substitute;
-    private float maxCost;
+    private final double m_insertDelete;
+    private final double m_substitute;
+    private double m_maxCost;
     
     /**
      * Constructor
@@ -61,9 +60,9 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBas
         // Initialize the default internal variables
         // The cost of inserts and subtitutions are 1 (equal costs)
         
-        this.insertDelete = 1;
-        this.substitute = 1;
-        this.maxCost = max(this.insertDelete, this.substitute);
+        m_insertDelete = 1;
+        m_substitute = 1;
+        m_maxCost = Math.max(m_insertDelete, m_substitute);
     }
     
     /**
@@ -141,11 +140,11 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBas
         // The max cost is the maximum number between the costs of insert and substitution
         // By default is 1
         
-        this.maxCost = max(this.insertDelete, this.substitute);
+        m_maxCost = Math.max(m_insertDelete, m_substitute);
         
         // Calculate the similarity
         
-	similarity = 1.0 - (distance / (this.maxCost * max(sentence1.length(), sentence2.length())));
+	similarity = 1.0 - (distance / (this.m_maxCost * Math.max(sentence1.length(), sentence2.length())));
         
         // Return the result
         
@@ -163,93 +162,77 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure implements IStringBas
      * @return
      */
     
-    private float distance(
+    private double distance(
             final String strSentence1, 
-            final String strSentence2) {
-
+            final String strSentence2)
+    {
+        // We initialize the result
+        
+        double distanceValue = 0.0;
+                
         // if there is an empty sentence, the total cost will be the other sentence lenght.
         
         if (strSentence1.isEmpty())
-                return strSentence2.length();
-        if (strSentence2.isEmpty())
-                return strSentence1.length();
-        
-        // If the sentences are equal, there is no cost and the distance will be zero.
-        
-        if (strSentence1.equals(strSentence2))
-                return 0;
-
-        final int sentence1Length = strSentence1.length(); 
-        final int sentence2Length = strSentence2.length();
- 
-        // Initialize the vectors cost
-        
-        float[] swap;
-        float[] v0 = new float[sentence2Length + 1];
-        float[] v1 = new float[sentence2Length + 1];
-
-        // initialize v0 (the previous row of distances)
-        // this row is A[0][i]: edit distance for an empty s
-        // the distance is just the number of characters to delete from t
-        
-        for (int i = 0; i < v0.length; i++) 
         {
-            
-                v0[i] = i * this.insertDelete;
+            distanceValue = strSentence2.length();
         }
-
-        for (int i = 0; i < sentence1Length; i++) 
+        else if (strSentence2.isEmpty())
         {
+            distanceValue = strSentence1.length();
+        }
+        else if (strSentence1.equals(strSentence2))
+        {
+            distanceValue = 0.0;
+        }
+        else
+        {
+            // Initialize the vectors cost
+
+            double[] swap;
+            double[] costVector1 = new double[strSentence1.length() + 1];
+            double[] costVector2 = new double[strSentence2.length() + 1];
+
+            // initialize v0 (the previous row of distances)
+            // this row is A[0][i]: edit distance for an empty s
+            // the distance is just the number of characters to delete from t
+
+            for (int i = 0; i < costVector1.length; i++) 
+            {
+                costVector1[i] = i * m_insertDelete;
+            }
             
+            // We compute the cost of insert, delete and substitute the characters
+            // of wrod2 to become word1
+
+            for (int i = 0; i < strSentence2.length(); i++) 
+            {
                 // first element of v1 is A[i+1][0]
                 // edit distance is delete (i+1) chars from s to match empty t
-                
-                v1[0] = (i + 1) * this.insertDelete;
 
-                for (int j = 0; j < sentence2Length; j++) 
+                costVector2[0] = (i + 1) * m_insertDelete;
+
+                for (int j = 0; j < strSentence2.length(); j++) 
                 {
-                    v1[j + 1] = min(v1[j] + this.insertDelete,
-                                v0[j + 1] + this.insertDelete,
-                                v0[j] + (strSentence1.charAt(i) == strSentence2.charAt(j) ? 0.0f: this.substitute));
+                    double substitutionCost = (strSentence1.charAt(i) == strSentence2.charAt(j)) ? 0.0 : m_substitute;
+
+                    costVector2[j + 1] = Math.min(costVector2[j] + m_insertDelete, costVector1[j + 1] + m_insertDelete);
+                    costVector2[j + 1] = Math.min(costVector2[j + 1], costVector1[j] + substitutionCost);
                 }
 
-                swap = v0;
-                v0 = v1;
-                v1 = swap;
-        }
+                // We swap both cost vectors
+                
+                swap = costVector1;
+                costVector1 = costVector2;
+                costVector2 = swap;
+            }
 
-        // latest results was in v1 which was swapped with v0
+            // latest results was in v1 which was swapped with v0
         
-        return v0[sentence2Length];
-    }
-    
-    /**
-     * Get the minimum value from 3 floats
-     * @param a
-     * @param b
-     * @param c
-     * @return 
-     */
-    
-    private static float min(
-            float a, 
-            float b, 
-            float c) 
-    {
-        return java.lang.Math.min(java.lang.Math.min(a, b), c);
-    }
-    
-    /**
-     * Get the maximum value from 2 floats
-     * @param a
-     * @param b
-     * @return 
-     */
-    
-    private static float max(
-            float a, 
-            float b) 
-    {
-        return java.lang.Math.max(a, b);
+            distanceValue = costVector1[strSentence2.length()];
+        }
+        
+        // We return the result
+        
+        return (distanceValue);
     }
 }

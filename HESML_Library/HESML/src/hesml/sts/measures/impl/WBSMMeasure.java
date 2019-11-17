@@ -161,34 +161,28 @@ class WBSMMeasure extends SentenceSimilarityMeasure
             String[] lstWordsSentence1, 
             String[] lstWordsSentence2) throws FileNotFoundException
     {
-        
         // Convert arrays to set to facilitate the operations 
         // (this method do not preserve the word order)
         
         Set<String> setWordsSentence1 = new HashSet<>(Arrays.asList(lstWordsSentence1));
         Set<String> setWordsSentence2 = new HashSet<>(Arrays.asList(lstWordsSentence2));
+
+        // For each list of words of a sentence
+        // If the value is in the sentence, the value of the semantic vector will be 1.
         
         for (String word : m_dictionary)
         {
-            // For each list of words of a sentence
-            // If the value is in the sentence, the value of the semantic vector will be 1.
+            // We check if the first sentence contains the word
             
-            if(setWordsSentence1.contains(word))
-            {
-                m_semanticVector1.put(word, 1.0);
-            }
-            else
-            {
-                m_semanticVector1.put(word, 0.0);
-            }
-            if(setWordsSentence2.contains(word)) 
-            {
-                m_semanticVector2.put(word, 1.0);
-            }
-            else
-            {
-                m_semanticVector2.put(word, 0.0);
-            }
+            double wordVectorComponent = setWordsSentence1.contains(word) ? 1.0 : 0.0;
+
+            m_semanticVector1.put(word, wordVectorComponent);
+            
+            // We check if the second sentence contains the word
+            
+            wordVectorComponent = setWordsSentence2.contains(word) ? 1.0 : 0.0;
+            
+            m_semanticVector2.put(word, wordVectorComponent);
         } 
     }
 }
