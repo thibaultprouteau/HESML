@@ -70,14 +70,16 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String              pythonScriptDir) throws InterruptedException,
             IOException, FileNotFoundException, ParseException
     {
+        // We intialize the base class
+        
         super(preprocesser);
         
         // We initialize main attributes
         
-        m_modelDirPath      = modelDirPath;
-        m_BERTDir           = bertDir;
-        m_PythonScriptDir   = pythonScriptDir;
-        m_PythonVenvDir     = pythonVenvDir;
+        m_modelDirPath = modelDirPath;
+        m_BERTDir = bertDir;
+        m_PythonScriptDir = pythonScriptDir;
+        m_PythonVenvDir = pythonVenvDir;
     }
 
     /**

@@ -27,6 +27,12 @@ import java.io.IOException;
 
 public interface ISentenceSimilarityMeasure
 {
+    /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    void clear();
     
     /**
      * This function returns the type of method implemented by the current

@@ -30,7 +30,9 @@ import java.io.IOException;
 
 abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
 {
-    // WordProcesser object.
+    /**
+     * Word preprocessing object
+     */
     
     protected IWordProcessing m_preprocesser;
     
@@ -42,6 +44,16 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     SentenceSimilarityMeasure(IWordProcessing preprocesser)
     {
         m_preprocesser = preprocesser;
+    }
+    
+    /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    @Override
+    public void clear()
+    {       
     }
     
     /**

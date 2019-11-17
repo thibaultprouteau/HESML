@@ -36,7 +36,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class JaccardMeasure extends SentenceSimilarityMeasure
+    implements IStringBasedSentenceSimMeasure
 {
     /**
      * Constructor

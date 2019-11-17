@@ -36,7 +36,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class OverlapCoefficientMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
+    implements IStringBasedSentenceSimMeasure
 {
     /**
      * Constructor

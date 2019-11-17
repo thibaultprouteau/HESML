@@ -28,7 +28,6 @@ import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 
 public interface ILanguageModel
 {
-    
     /**
      * Get the training method
      * @return

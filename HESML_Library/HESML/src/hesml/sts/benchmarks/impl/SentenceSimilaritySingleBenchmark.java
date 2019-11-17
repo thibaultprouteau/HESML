@@ -18,10 +18,12 @@
 package hesml.sts.benchmarks.impl;
 
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
+import hesml.sts.measures.ISentenceSimilarityMeasure;
 
 /**
- * This class implements a sentence similarity benchmark using a normalized
- * dataset.
+ * This class implements a sentence similarity benchmark using a normalised
+ * dataset with the following line-based file format:
+ * first sentence \t second sentence \t human similarity judgement (score)
  * @author j.lastra
  */
 
@@ -34,16 +36,38 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
     private String  m_strOutputFilename;
     
     /**
+     * Dataset reader
+     */
+    
+    private SentenceSimilarityDataset   m_Dataset;
+    
+    /**
+     * Collection of sentence similarity measures to being evaluated
+     */
+    
+    private ISentenceSimilarityMeasure[] m_Measures;
+    
+    /**
      * Constructor
-     * @param strNormalizedBenchmarkFilename
+     * @param strDatasetFilename
      * @param strOutputFilename 
      */
     
     SentenceSimilaritySingleBenchmark(
-            String  strNormalizedBenchmarkFilename,
-            String  strOutputFilename)
+            ISentenceSimilarityMeasure[]    measures,
+            String                          strDatasetDirectory,
+            String                          strDatasetFilename,
+            String                          strOutputFilename) throws Exception
     {
+        // We store the setup objects
         
+        m_Measures = measures;
+        m_strOutputFilename = strOutputFilename;
+        
+        // We create the reader and manager of the dataset
+        
+        m_Dataset = new SentenceSimilarityDataset(strDatasetDirectory
+                        + "/" + strDatasetFilename);
     }
     
     /**
@@ -53,7 +77,12 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
     @Override
     public void clear()
     {
+        // We release the resoruces used by the measures
         
+        for (ISentenceSimilarityMeasure measure : m_Measures)
+        {
+            measure.clear();
+        }
     }
     
     /**

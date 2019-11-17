@@ -6,34 +6,26 @@
 			<xs:documentation>Comment describing your root element</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
-			<xs:choice maxOccurs="unbounded">
-				<xs:element ref="SingleDatasetSimilarityValuesExperiment" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:choice>
+			<xs:sequence>
+				<xs:element ref="SingleDatasetSimilarityValuesExperiment" maxOccurs="unbounded"/>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:simpleType name="SentenceSimilarityMethod">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value=""/>
-			<xs:enumeration value="SWEM_AveragePooling"/>
-			<xs:enumeration value="SWEM_MaxPooling"/>
-			<xs:enumeration value="SWEM_MinPooling"/>
-			<xs:enumeration value="SWEM_SumPooling"/>
-			<xs:enumeration value="Jaccard"/>
-			<xs:enumeration value="Qgram"/>
-			<xs:enumeration value="BlockDistance"/>
-			<xs:enumeration value="OverlapCoefficient"/>
-			<xs:enumeration value="Levenshtein"/>
-			<xs:enumeration value="BertEmbeddingModelMeasure"/>
-			<xs:enumeration value="ParagraphVector"/>
-			<xs:enumeration value="WBSM"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:element name="SingleDatasetSimilarityValuesExperiment">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="OutputFileName" type="xs:string"/>
 				<xs:element name="DatasetDirectory" type="xs:string"/>
 				<xs:element name="DatasetFileName" type="xs:string"/>
+				<xs:element name="SentenceSimilarityMeasures">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="SentenceEmbedding" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
