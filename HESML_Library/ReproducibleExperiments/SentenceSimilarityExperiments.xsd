@@ -41,6 +41,10 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Pooling" type="SWEMpoolingMethod"/>
+				<xs:element name="WordEmbeddingFileFormat" type="WordEmbeddingFileType"/>
+				<xs:element name="PretrainedModelFilename" type="xs:string"/>
+				<xs:element name="PretrainedModelDirectory"/>
+				<xs:element ref="WordProcessing"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -50,6 +54,51 @@
 			<xs:enumeration value="Max"/>
 			<xs:enumeration value="Min"/>
 			<xs:enumeration value="Sum"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="WordEmbeddingFileType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FastTextBinaryWordEmbedding"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="WordProcessing">
+		<xs:complexType>
+			<xs:sequence/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="StringBasedSentenceSimilarityMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Jaccard"/>
+			<xs:enumeration value="Qgram"/>
+			<xs:enumeration value="BlockDistance"/>
+			<xs:enumeration value="OverlapCoefficient"/>
+			<xs:enumeration value="Levenshtein"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StringBasedSentenceSimilarityMeasure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Method" type="StringBasedSentenceSimilarityMethod"/>
+				<xs:element ref="WordProcessing"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SentenceEmbedding">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Method"/>
+				<xs:element name="PretrainedModelFilename" type="xs:string"/>
+				<xs:element name="PretrainedModelDirectory"/>
+				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string"/>
+				<xs:element name="PythonScriptDir" type="xs:string"/>
+				<xs:element ref="WordProcessing"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="SentenceEmbeddingMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BERTEmbeddingModel"/>
+			<xs:enumeration value="ParagraphVector"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

@@ -24,7 +24,7 @@ package hesmlstsclient;
 import hesml.HESMLversion;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceEmbeddingMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
+import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
 import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
@@ -175,7 +175,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         
         // Initialize the hashmap for testing
         
-        HashMap<String, StringBasedSentSimilarityMethod> tests = new HashMap<>();
+        HashMap<String, StringBasedSentenceSimilarityMethod> tests = new HashMap<>();
         
         // Create a Wordpreprocessing object as Blagec2019 does.
         
@@ -187,20 +187,20 @@ public class HESMLSTSMeasuresEvaluatorclient
         
         // Add the string based methods to test
         
-        tests.put("Jaccard Measure",            StringBasedSentSimilarityMethod.Jaccard);
-        tests.put("Block Distance Measure",     StringBasedSentSimilarityMethod.BlockDistance);
-        tests.put("Levenshtein Measure",        StringBasedSentSimilarityMethod.Levenshtein);
-        tests.put("Overlap Coefficient Measure",StringBasedSentSimilarityMethod.OverlapCoefficient);
-        tests.put("Qgram Measure",              StringBasedSentSimilarityMethod.Qgram);
+        tests.put("Jaccard Measure",            StringBasedSentenceSimilarityMethod.Jaccard);
+        tests.put("Block Distance Measure",     StringBasedSentenceSimilarityMethod.BlockDistance);
+        tests.put("Levenshtein Measure",        StringBasedSentenceSimilarityMethod.Levenshtein);
+        tests.put("Overlap Coefficient Measure",StringBasedSentenceSimilarityMethod.OverlapCoefficient);
+        tests.put("Qgram Measure",              StringBasedSentenceSimilarityMethod.Qgram);
         
         // Iterate the map 
         
-        for (Map.Entry<String, StringBasedSentSimilarityMethod> testMeasure : tests.entrySet())
+        for (Map.Entry<String, StringBasedSentenceSimilarityMethod> testMeasure : tests.entrySet())
         {
             // Get the name of the measure and the type
             
             String strMeasureName = testMeasure.getKey();
-            StringBasedSentSimilarityMethod similarityMethod = testMeasure.getValue();
+            StringBasedSentenceSimilarityMethod similarityMethod = testMeasure.getValue();
             
             // Initialize the measure
             
@@ -258,7 +258,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Test a BioBert model measure
         
         measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
-                SentenceEmbeddingMethod.BertEmbeddingModelMethod, 
+                SentenceEmbeddingMethod.BERTEmbeddingModel, 
                 wordPreprocessing, 
                 BioBert_Base_PMC,
                 m_BERTDir,

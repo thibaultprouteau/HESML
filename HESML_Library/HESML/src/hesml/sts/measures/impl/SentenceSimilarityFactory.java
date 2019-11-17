@@ -20,8 +20,10 @@ import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
+import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -67,8 +69,8 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getStringBasedMeasure(
-        StringBasedSentSimilarityMethod method,
-            IWordProcessing             wordPreprocessing)
+            StringBasedSentenceSimilarityMethod method,
+            IWordProcessing                     wordPreprocessing)
     {
         // We initialize the output
         
@@ -120,8 +122,8 @@ public class SentenceSimilarityFactory
      * @param method
      * @param wordPreprocessor
      * @param strPretrainedModelFilename
-     * @param bertDir
-     * @param pythonVenvDir
+     * @param strPretrainedModelDir
+     * @param strPythonVirtualEnvironmentDir
      * @param pythonScriptDir
      * @return 
      * @throws java.io.IOException 
@@ -133,11 +135,21 @@ public class SentenceSimilarityFactory
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
-            String                  bertDir,
-            String                  pythonVenvDir,
+            String                  strPretrainedModelDir,
+            String                  strPythonVirtualEnvironmentDir,
             String                  pythonScriptDir) throws IOException,
             InterruptedException, org.json.simple.parser.ParseException
     {
+        // We check the existence of the pre-trained model file
+        
+        File pretainedModelFileInfo = new File(strPretrainedModelDir + "/" +
+                                            strPretrainedModelFilename);
+        
+        if (!pretainedModelFileInfo.exists())
+        {
+            throw (new FileNotFoundException(pretainedModelFileInfo.getAbsolutePath()));
+        }
+            
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = null;
@@ -148,14 +160,16 @@ public class SentenceSimilarityFactory
         {
             case ParagraphVector:
                 
-                measure = new ParagraphVectorMeasure(strPretrainedModelFilename, wordPreprocessor);
+                measure = new ParagraphVectorMeasure(pretainedModelFileInfo.getAbsolutePath(),
+                                    wordPreprocessor);
                 
                 break;
                 
-            case BertEmbeddingModelMethod:
+            case BERTEmbeddingModel:
                 
                 measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, 
-                        wordPreprocessor, bertDir, pythonVenvDir, pythonScriptDir);
+                        wordPreprocessor, strPretrainedModelDir,
+                        strPythonVirtualEnvironmentDir, pythonScriptDir);
                 
                 break;
         }

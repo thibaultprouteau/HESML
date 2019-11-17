@@ -19,7 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
+import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -78,9 +78,9 @@ class JaccardMeasure extends SentenceSimilarityMeasure implements IStringBasedSe
      */
     
     @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    public StringBasedSentenceSimilarityMethod getStringBasedMethodType()
     {
-        return (StringBasedSentSimilarityMethod.Jaccard);
+        return (StringBasedSentenceSimilarityMethod.Jaccard);
     }
 
     /**

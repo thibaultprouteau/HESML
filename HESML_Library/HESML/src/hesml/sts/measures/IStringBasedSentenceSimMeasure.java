@@ -31,5 +31,5 @@ public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasu
      * @return StringBasedSentSimilarityMethod
      */
     
-    StringBasedSentSimilarityMethod getStringBasedMethodType();
+    StringBasedSentenceSimilarityMethod getStringBasedMethodType();
 }

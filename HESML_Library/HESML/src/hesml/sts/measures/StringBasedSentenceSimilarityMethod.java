@@ -22,9 +22,8 @@ package hesml.sts.measures;
  * @author j.lastra
  */
 
-public enum StringBasedSentSimilarityMethod
+public enum StringBasedSentenceSimilarityMethod
 {
-    
     /**
      * JACCARD, and P. 1908. “Nouvelles Recherches Sur La Distribution Florale.” 
      * Bulletin de La SociÃ©tÃ© Vaudoise Des Sciences Naturelles 44: 223–70.
@@ -59,5 +58,5 @@ public enum StringBasedSentSimilarityMethod
      * In Soviet Physics Doklady, 10:707–10. nymity.ch.
      */
     
-    Levenshtein,
+    Levenshtein
 }

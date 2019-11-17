@@ -24,12 +24,11 @@ package hesml.sts.measures;
 
 public enum SentenceEmbeddingMethod
 {
-
     /**
      * This method evaluates all the pre-trained BERT-based models.
      */
     
-    BertEmbeddingModelMethod,
+    BERTEmbeddingModel,
     
     /**
      * Le, Quoc, and Tomas Mikolov. 2014. 
@@ -37,5 +36,5 @@ public enum SentenceEmbeddingMethod
      * In International Conference on Machine Learning, 1188–96. jmlr.org.
      */
     
-    ParagraphVector,
+    ParagraphVector
 }

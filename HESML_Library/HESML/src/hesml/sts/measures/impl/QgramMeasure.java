@@ -19,7 +19,7 @@ package hesml.sts.measures.impl;
 import hesml.sts.measures.IStringBasedSentenceSimMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
-import hesml.sts.measures.StringBasedSentSimilarityMethod;
+import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -88,9 +88,9 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
      */
     
     @Override
-    public StringBasedSentSimilarityMethod getStringBasedMethodType()
+    public StringBasedSentenceSimilarityMethod getStringBasedMethodType()
     {
-        return (StringBasedSentSimilarityMethod.Qgram);
+        return (StringBasedSentenceSimilarityMethod.Qgram);
     }
     
     /**
