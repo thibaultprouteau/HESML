@@ -196,13 +196,12 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private StringBasedSentenceSimilarityMethod ConvertToCorpusBasedICModelType(
+    private StringBasedSentenceSimilarityMethod ConvertToStringBasedSentenceSimilarityMethod(
             String  strMethod)
     {
         // We initialize the output
         
-        StringBasedSentenceSimilarityMethod recoveredMethod = 
-                StringBasedSentenceSimilarityMethod.Qgram;
+        StringBasedSentenceSimilarityMethod recoveredMethod = StringBasedSentenceSimilarityMethod.Qgram;
         
         // We look for the matching value
         
@@ -231,8 +230,7 @@ public class SentenceSimBenchmarkFactory
     {
         // We initialize the output
         
-        WordEmbeddingFileType recoveredType = 
-                WordEmbeddingFileType.FastTextBinaryWordEmbedding;
+        WordEmbeddingFileType recoveredType = WordEmbeddingFileType.FastTextBinaryWordEmbedding;
         
         // We look for the matching value
         
