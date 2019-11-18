@@ -20,8 +20,8 @@
 				<xs:element name="SentenceSimilarityMeasures">
 					<xs:complexType>
 						<xs:choice>
-							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SentenceEmbedding" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:choice>
 					</xs:complexType>
@@ -109,8 +109,8 @@
 	<xs:simpleType name="CharFilteringType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="None"/>
-			<xs:enumeration value="DefaultJava"/>
-			<xs:enumeration value="BIOSSES2017"/>
+			<xs:enumeration value="Default"/>
+			<xs:enumeration value="BIOSSES"/>
 			<xs:enumeration value="Blagec2019"/>
 		</xs:restriction>
 	</xs:simpleType>
