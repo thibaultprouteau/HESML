@@ -24,7 +24,6 @@ import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -47,7 +46,7 @@ public class SentenceSimBenchmarkFactory
      * @throws java.lang.Exception 
      */
     
-    public static ISentenceSimilarityBenchmark getSingleDatasetBenchmark(
+    private static ISentenceSimilarityBenchmark getSingleDatasetBenchmark(
             ISentenceSimilarityMeasure[]    measures,
             String                          strDatasetDirectory,
             String                          strDatasetFilename,

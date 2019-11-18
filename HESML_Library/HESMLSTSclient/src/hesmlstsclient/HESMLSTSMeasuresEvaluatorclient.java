@@ -22,6 +22,8 @@
 package hesmlstsclient;
 
 import hesml.HESMLversion;
+import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
+import hesml.sts.benchmarks.impl.SentenceSimBenchmarkFactory;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
@@ -30,6 +32,7 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.TokenizerType;
 import hesml.sts.preprocess.impl.PreprocessingFactory;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -122,8 +125,7 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception
     {
-        
-        boolean   showUsage = false;  // Show usage
+        boolean showUsage = false;  // Show usage
         
         // We print the HESML version
         
@@ -131,8 +133,83 @@ public class HESMLSTSMeasuresEvaluatorclient
                 + HESMLversion.getReleaseName() + " " + HESMLversion.getVersionCode());
         
         System.out.println("Java heap size in Mb = "
-            + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
+                + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
         
+        // We read the incoming parameters and load the reproducible
+        // experiments defined by the user in a XML-based file.
+        
+        if ((args.length > 0) && args[0].endsWith(".stsexp"))
+        {
+            // Running of a reproducible STS experiment file
+
+            File inputFile = new File(args[0]);  // Get the file path
+
+            // We check the existence of the file
+
+            if (inputFile.exists())
+            {
+                // We get the start time
+
+                long startFileProcessingTime = System.currentTimeMillis();
+
+                // Loading message
+
+                System.out.println("Loading and running the experiments defined in "
+                        + inputFile.getName());
+
+                // We set the Schema file for the *.stsexp
+                
+                // We parse the input file in order to recover all
+                // STS experiments. Schema file is assumed to be in
+                // same folder that the experiments file.
+
+                ISentenceSimilarityBenchmark[] reproExperiments = 
+                        SentenceSimBenchmarkFactory.loadXmlBenchmarksFile(inputFile.getPath());
+
+                // We execute all the experiments defined in the input file
+
+                for (ISentenceSimilarityBenchmark experiment : reproExperiments)
+                {
+                    experiment.evaluateBenchmark(false);
+                    experiment.clear();
+                }
+
+                // We measure the elapsed time to run the experiments
+
+                long    endTime = System.currentTimeMillis();
+                long    minutes = (endTime - startFileProcessingTime) / 60000;
+                long    seconds = (endTime - startFileProcessingTime) / 1000;
+
+                System.out.println("Overall elapsed loading and computation time (minutes) = " + minutes);
+                System.out.println("Overall elapsed loading and computation time (seconds) = " + seconds);
+            }
+        }
+        else
+        {
+            showUsage = true;
+        }
+        
+        // For a wrong calling to the program, we show the usage.
+        
+        if (showUsage)
+        {
+            System.err.println("\nIn order to properly use the HESMLSTSClient program");
+            System.err.println("you should call it using any of the two methods shown below:\n");
+            System.err.println("(1) C:> java -jar dist\\HESMLSTSClient.jar <reproexperiment.stsexp>");
+        }
+        
+        // We call the SampleExperiments() function
+        
+        //SampleExperiments();
+    }
+    
+    /**
+     * This function runs some basic experiments to show the functionality
+     * of HEMSL-STS library.
+     */
+    
+    private static void SampleExperiments() throws IOException, InterruptedException
+    {
         // Initialize the sentences to be tested.
         // sentences1 are first sentences
         // sentences2 are second sentences
