@@ -23,28 +23,11 @@ package hesml.sts.preprocess;
 
 public interface ICharsFiltering
 {
-    
     /**
-     *  Get the filtering method
-     * @return
-     */
-    
-    CharFilteringType getCharFilteringType();
-    
-    /**
-     * Set the filtering method
-     * @param charFilteringType
-     */
-    
-    void setCharFilteringType(
-            CharFilteringType charFilteringType);
-    
-    /**
-     *  Given a sentence, filter the chars using the method selected.
+     * Given a sentence, filter the chars using the method selected.
      * @param strRawSentence
      * @return
      */
     
-    String filter(
-            String strRawSentence);
+    String filter(String strRawSentence);
 }

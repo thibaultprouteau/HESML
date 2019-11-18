@@ -55,7 +55,13 @@
 	</xs:simpleType>
 	<xs:element name="WordProcessing">
 		<xs:complexType>
-			<xs:sequence/>
+			<xs:sequence>
+				<xs:element name="StopWordsFileDir" type="xs:string"/>
+				<xs:element name="StopWordsFilename" type="xs:string"/>
+				<xs:element name="TokenizerType" type="TokenizerType"/>
+				<xs:element name="CharFilteringType" type="CharFilteringType"/>
+				<xs:element name="TemporaryDir"/>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:simpleType name="StringBasedSentenceSimilarityMethod">
@@ -91,6 +97,21 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="BERTEmbeddingModel"/>
 			<xs:enumeration value="ParagraphVector"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TokenizerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WhiteSpace"/>
+			<xs:enumeration value="StanfordCoreNLPv3_9_1"/>
+			<xs:enumeration value="WordPieceTokenizer"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CharFilteringType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="DefaultJava"/>
+			<xs:enumeration value="BIOSSES2017"/>
+			<xs:enumeration value="Blagec2019"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

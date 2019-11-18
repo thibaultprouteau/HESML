@@ -123,11 +123,9 @@ public class HESMLSTSPreprocessingclient
 
         // Create a Wordpreprocessing object
         
-        wordPreprocessing = PreprocessingFactory.getWordProcessing(
-                        "", 
-                        TokenizerType.StanfordCoreNLPv3_9_1, 
-                        true, 
-                        CharFilteringType.DefaultJava);
+        wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
+                                TokenizerType.StanfordCoreNLPv3_9_1, 
+                                true, CharFilteringType.Default);
         
         // Create the output subdirectories
         

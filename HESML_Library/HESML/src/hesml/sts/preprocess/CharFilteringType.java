@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package hesml.sts.preprocess;
 
 /**
@@ -23,7 +24,6 @@ package hesml.sts.preprocess;
 
 public enum CharFilteringType
 {
-    
     /**
      * Use no filter method.
      */
@@ -34,20 +34,30 @@ public enum CharFilteringType
      * Filter all the punctuation marks using a standard Java regex.
      */
     
-    DefaultJava,
+    Default,
     
     /**
-     * Filter punctuation marks using the BIOSSES2017 implementation.
+     * Filter punctuation marks used by the authors of BIOSSES[1] paper
+     * in their experiments.
      * 
-     * Filter symbols: .;-:,_!()[]*?, whitespaces and "/"
+     * Filtered symbols: .;-:,_!()[]*?, whitespaces and "/"
+     * 
+     * [1] G. Sogancioglu, H. Öztürk, A. Özgür,
+     * BIOSSES: a semantic sentence similarity estimation system for
+     * the biomedical domain, Bioinformatics. 33 (2017) i49–i58.
      */
     
-    BIOSSES2017,
+    BIOSSES,
     
     /**
-     * Filter punctuation marks using Blagec2019 approximation.
-     *  Filter full stop, comma, colon, semicolon, question mark, 
+     * Filter punctuation marks used by Blagec et al. [1] in their
+     * experiments.
+     * Filtered symbols: full stop, comma, colon, semicolon, question mark, 
      * exclamation mark slash, dash.
+     * 
+     * [1] K. Blagec, H. Xu, A. Agibetov, M.
+     * Samwald, Neural sentence embedding models for semantic similarity
+     * estimation in the biomedical domain, BMC Bioinformatics. 20 (2019) 178.
      */
     
     Blagec2019

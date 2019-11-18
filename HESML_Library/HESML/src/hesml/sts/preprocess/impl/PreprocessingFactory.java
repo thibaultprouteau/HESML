@@ -21,7 +21,6 @@ import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.TokenizerType;
 import java.io.IOException;
 
-
 /**
  * The aim of this class is to instantiate the preprocessing pipeline
  * in order to hide the implementation classes to the client code.
@@ -29,8 +28,8 @@ import java.io.IOException;
  * @author alicia
  */
 
-public class PreprocessingFactory {
-
+public class PreprocessingFactory
+{
     /**
      *  Constructor of the preprocess pipeline factory
      * 
@@ -43,10 +42,10 @@ public class PreprocessingFactory {
      */
     
     public static IWordProcessing getWordProcessing(
-            String stopWordFileName,
-            TokenizerType tokenizerType,
-            boolean lowercaseNormalization,
-            CharFilteringType charFilteringType) throws IOException
+            String              stopWordFileName,
+            TokenizerType       tokenizerType,
+            boolean             lowercaseNormalization,
+            CharFilteringType   charFilteringType) throws IOException
     {   
         return (new WordProcessing(tokenizerType,lowercaseNormalization,
                 stopWordFileName, charFilteringType));
@@ -61,24 +60,24 @@ public class PreprocessingFactory {
      * @param charFilteringType
      * @param tempDir
      * @param modelDirPath
-     * @param pythonVenvDir
+     * @param pythonVirtualEnvironmentDir
      * @param pythonScriptDir
      * @return 
      * @throws java.io.IOException
      */
     
     public static IWordProcessing getWordProcessing(
-            String stopWordFileName,
-            TokenizerType tokenizerType,
-            boolean lowercaseNormalization,
-            CharFilteringType charFilteringType,
-            String tempDir,
-            String pythonVenvDir,
-            String pythonScriptDir,
-            String modelDirPath) throws IOException
+            String              stopWordFileName,
+            TokenizerType       tokenizerType,
+            boolean             lowercaseNormalization,
+            CharFilteringType   charFilteringType,
+            String              tempDir,
+            String              pythonVirtualEnvironmentDir,
+            String              pythonScriptDir,
+            String              modelDirPath) throws IOException
     {   
         return (new WordProcessing(tokenizerType, lowercaseNormalization,
                 stopWordFileName, charFilteringType, tempDir,
-                pythonVenvDir, pythonScriptDir, modelDirPath));
+                pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath));
     }
 }

@@ -36,7 +36,6 @@ import java.util.HashSet;
 
 class WordProcessing implements IWordProcessing
 {
-    
     // Configure if the text would be lowercased.
     
     private final boolean m_lowercaseNormalization; 
@@ -86,18 +85,19 @@ class WordProcessing implements IWordProcessing
             String              strStopWordsFileName,
             CharFilteringType   charFilteringType) throws IOException
     {
+        // We save the preprocessing parameters
         
-        m_tokenizerType             = tokenizerType;
-        m_lowercaseNormalization    = lowercaseNormalization;
-        m_strStopWordsFileName      = strStopWordsFileName;
-        m_charFilteringType         = charFilteringType;
+        m_tokenizerType = tokenizerType;
+        m_lowercaseNormalization = lowercaseNormalization;
+        m_strStopWordsFileName = strStopWordsFileName;
+        m_charFilteringType = charFilteringType;
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir           = null;
-        m_PythonVenvDir     = null;
-        m_PythonScriptDir   = null;
-        m_modelDirPath      = null;
+        m_TempDir = null;
+        m_PythonVenvDir = null;
+        m_PythonScriptDir = null;
+        m_modelDirPath = null;
     }
     
     /**
@@ -120,18 +120,19 @@ class WordProcessing implements IWordProcessing
             String              pythonScriptDir,
             String              modelDirPath) throws IOException
     {
+        // We saev the tokeniztion parameters
         
-        m_tokenizerType             = tokenizerType;
-        m_lowercaseNormalization    = lowercaseNormalization;
-        m_strStopWordsFileName      = strStopWordsFileName;
-        m_charFilteringType         = charFilteringType;
+        m_tokenizerType = tokenizerType;
+        m_lowercaseNormalization = lowercaseNormalization;
+        m_strStopWordsFileName = strStopWordsFileName;
+        m_charFilteringType = charFilteringType;
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir           = tempDir;
-        m_PythonVenvDir     = pythonVenvDir;
-        m_PythonScriptDir   = pythonScriptDir;
-        m_modelDirPath      = modelDirPath;
+        m_TempDir = tempDir;
+        m_PythonVenvDir = pythonVenvDir;
+        m_PythonScriptDir = pythonScriptDir;
+        m_modelDirPath = modelDirPath;
     }
 
     /**
@@ -142,17 +143,15 @@ class WordProcessing implements IWordProcessing
     
     @Override
     public String[] getWordTokens(
-            String  strRawSentence) 
-            throws IOException, InterruptedException
+            String  strRawSentence) throws IOException, InterruptedException
     {
-        
         // Initialize tokens
         
         String[] tokens = {};
         
         // Lowercase if true
         
-        if(m_lowercaseNormalization)
+        if (m_lowercaseNormalization)
         {
             strRawSentence = strRawSentence.toLowerCase();
         }
@@ -165,14 +164,14 @@ class WordProcessing implements IWordProcessing
         // If there is a valid file name for stop words, 
         // get the stop words in the hashSet
         
-        if(m_strStopWordsFileName.length() > 0 
+        if ((m_strStopWordsFileName.length() > 0)
             && Files.exists(Paths.get(m_strStopWordsFileName)))
         {
             HashSet<String> stopWordsSet = getStopWords();
             
             // If the set of stop words is not empty, remove the stop words
             
-            if(stopWordsSet != null && !stopWordsSet.isEmpty())
+            if ((stopWordsSet != null) && !stopWordsSet.isEmpty())
             {
                 strRawSentence = removeStopwords(strRawSentence, stopWordsSet);
             }
@@ -185,20 +184,18 @@ class WordProcessing implements IWordProcessing
         
         // Check if the sentence is not empty
         
-        if(strRawSentence.length() > 0)
+        if (strRawSentence.length() > 0)
         {
-            if(m_tokenizerType != TokenizerType.WordPieceTokenizer)
+            if (m_tokenizerType != TokenizerType.WordPieceTokenizer)
             {
                 ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
                 tokens = tokenizer.getTokens(strRawSentence);
             }
             else
             { 
-                ITokenizer tokenizer = new Tokenizer(
-                        m_tokenizerType,
-                        m_PythonVenvDir,
-                        m_PythonScriptDir,
-                        m_modelDirPath);
+                ITokenizer tokenizer = new Tokenizer(m_tokenizerType, m_PythonVenvDir,
+                                            m_PythonScriptDir, m_modelDirPath);
+                
                 tokens = tokenizer.getTokens(strRawSentence);
             }
         }
@@ -216,9 +213,8 @@ class WordProcessing implements IWordProcessing
      * @throws IOException 
      */
     
-    private  final HashSet<String> getStopWords() throws FileNotFoundException, IOException
+    private final HashSet<String> getStopWords() throws FileNotFoundException, IOException
     {
-        
         // Initialize the hash set for stop words
         
         HashSet<String> stopWordsSet = new HashSet<>();
@@ -242,7 +238,7 @@ class WordProcessing implements IWordProcessing
         
         // Return the set of stop words
         
-        return stopWordsSet;
+        return (stopWordsSet);
     }
     
     /**
@@ -252,10 +248,9 @@ class WordProcessing implements IWordProcessing
      */
     
     private String removeStopwords(
-            String strRawSentence,
+            String          strRawSentence,
             HashSet<String> stopWordsSet)
     {
-
         // Split the sentence into words
         
         String [] splitArray = strRawSentence.split("\\s+"); 
@@ -270,9 +265,12 @@ class WordProcessing implements IWordProcessing
         {
             if (!stopWordsSet.contains(strWord))
             {
-                sentenceString = sentenceString + strWord + " ";
+                sentenceString += (strWord + " ");
             }
         }
-        return sentenceString;
+        
+        // We return the result
+        
+        return (sentenceString);
     }
 }

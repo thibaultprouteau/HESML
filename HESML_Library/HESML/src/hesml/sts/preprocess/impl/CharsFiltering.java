@@ -18,6 +18,7 @@ package hesml.sts.preprocess.impl;
 
 import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.ICharsFiltering;
+import java.util.HashMap;
 
 /**
  *  This class implements the punctuation marks 
@@ -27,13 +28,13 @@ import hesml.sts.preprocess.ICharsFiltering;
 
 public class CharsFiltering implements ICharsFiltering
 {
-
     /**
-     * Type of filtering method
+     * Mapping holding the pairs (input chain, output chain) for all
+     * detailed string replacements.
      */
     
-    private CharFilteringType m_charFilteringType;
-
+    private HashMap<String, String> m_ReplacingMap;
+    
     /**
      *  Constructor
      * @param charFilteringType
@@ -42,10 +43,40 @@ public class CharsFiltering implements ICharsFiltering
     public CharsFiltering(
             CharFilteringType charFilteringType)
     {
+        // We create the replcament mapping
         
-        // Set the char filtering type
+        m_ReplacingMap = new HashMap<>();
         
-        m_charFilteringType = charFilteringType;
+        // We set the replcament patterns for each pre-defined method.
+        
+        switch (charFilteringType)
+        {
+            case Default:
+                
+                // Remove all the punctuation marks using the Java preexisting regex.
+                // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+                // strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
+                
+                m_ReplacingMap.put("[^\\p{Alpha}\\p{Digit}]+"," ");
+                
+                break;
+                
+            case BIOSSES:
+                
+                setBiosssesFilteringPatterns();
+                
+                break;
+                
+            case Blagec2019:
+                
+                setBlagecFilteringPatterns();
+                
+                break;
+        }
+        
+        // We also register the last extra words applied as last filtering
+        
+        m_ReplacingMap.put("\\s{2,}", " ");
     }
     
     /**
@@ -58,57 +89,27 @@ public class CharsFiltering implements ICharsFiltering
     public String filter(
             String strRawSentence)
     {
-        // Initialize the output
+        // We apply the first triming
         
-        String strFilteredSentence = null; 
+        String strFilteredSentence = strRawSentence.trim(); 
         
-        // Filter the punctuation marks by the selected type
+        // We apply all replacements by substituting all search patterns
+        // registered in the global mapping.
         
-        switch (m_charFilteringType)
+        for (String strToBeReplaced : m_ReplacingMap.keySet())
         {
-            case None:
-                
-                // Skip the filtering 
-                
-                strFilteredSentence = strRawSentence; 
-                break;
-                
-            case DefaultJava:
-                
-                // Remove all the punctuation marks using the Java preexisting regex.
-                // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-                // strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
-                
-                strFilteredSentence = strRawSentence.replaceAll("[^\\p{Alpha}\\p{Digit}]+"," ");
-                
-                break;
-                
-            case BIOSSES2017:
-                
-                // Remove the punctuation marks defined in BIOSSES2017
-                
-                strFilteredSentence = replacePunctuationsBIOSSES2017(strRawSentence);
-                
-                break;
-                
-            case Blagec2019:
-                
-                // Remove the punctuation marks defined in Blagec2019
-                
-                strFilteredSentence = replacePunctuationsBlagec2019(strRawSentence);
-                
-                break;
+            strFilteredSentence = strFilteredSentence.replaceAll(strToBeReplaced,
+                                    m_ReplacingMap.get(strToBeReplaced));
         }
         
-        // Remove extra whitespaces
+        // We apply the last triming. Extra words are removed by the last replcament pattern.
                 
-        strFilteredSentence = strRawSentence.replaceAll("\\s{2,}", " ").trim();
+        strFilteredSentence = strFilteredSentence.trim();
         
         // Return the result
         
-        return strFilteredSentence;
+        return (strFilteredSentence);
     }
-    
     
     /**
      * Replace the punctuation marks as the BIOSSES2017 original code does.
@@ -116,29 +117,24 @@ public class CharsFiltering implements ICharsFiltering
      * @return 
      */
     
-    public static String replacePunctuationsBIOSSES2017(
-            String strRawSentence)
+    private void setBiosssesFilteringPatterns()
     {
+        // We register all string replcaments
         
-        strRawSentence = strRawSentence.trim();
-        strRawSentence = strRawSentence.replaceAll("\\.","");
-        strRawSentence = strRawSentence.replaceAll(";","");
-        strRawSentence = strRawSentence.replaceAll("-","");
-        strRawSentence = strRawSentence.replaceAll(":","");
-        strRawSentence = strRawSentence.replaceAll(",","");
-        strRawSentence = strRawSentence.replaceAll("_","");
-        strRawSentence = strRawSentence.replaceAll("!", "");
-        strRawSentence = strRawSentence.replaceAll("\\(", "");
-        strRawSentence = strRawSentence.replaceAll("\\)", "");
-        strRawSentence = strRawSentence.replaceAll("\\[", "");
-        strRawSentence = strRawSentence.replaceAll("\\]", "");
-        strRawSentence = strRawSentence.replaceAll("\\*", "");
-        strRawSentence = strRawSentence.replaceAll("/", "");
-        strRawSentence = strRawSentence.replaceAll("\\?", "");
-        
-        // Return the result
-        
-        return strRawSentence;
+        m_ReplacingMap.put("\\.","");
+        m_ReplacingMap.put(";","");
+        m_ReplacingMap.put("-","");
+        m_ReplacingMap.put(":","");
+        m_ReplacingMap.put(",","");
+        m_ReplacingMap.put("_","");
+        m_ReplacingMap.put("!", "");
+        m_ReplacingMap.put("\\(", "");
+        m_ReplacingMap.put("\\)", "");
+        m_ReplacingMap.put("\\[", "");
+        m_ReplacingMap.put("\\]", "");
+        m_ReplacingMap.put("\\*", "");
+        m_ReplacingMap.put("/", "");
+        m_ReplacingMap.put("\\?", "");
     }
     
     /**
@@ -147,36 +143,17 @@ public class CharsFiltering implements ICharsFiltering
      * @return 
      */
     
-    public static String replacePunctuationsBlagec2019(
-            String strRawSentence)
+    private void setBlagecFilteringPatterns()
     {
-        strRawSentence = strRawSentence.trim();
-        strRawSentence = strRawSentence.replaceAll("\\.","");
-        strRawSentence = strRawSentence.replaceAll(",","");
-        strRawSentence = strRawSentence.replaceAll(":","");
-        strRawSentence = strRawSentence.replaceAll(";","");
-        strRawSentence = strRawSentence.replaceAll("\\?", "");
-        strRawSentence = strRawSentence.replaceAll("!", "");
-        strRawSentence = strRawSentence.replaceAll("/", "");     
-        strRawSentence = strRawSentence.replaceAll("-","");
+        // We set the filtering chain
         
-        // Return the result
-        
-        return strRawSentence;
-    }
-    
-    /**
-     * Get and set the current char filtering type
-     * @return 
-     */
-    
-    @Override
-    public CharFilteringType getCharFilteringType(){return m_charFilteringType;}
-
-    @Override
-    public void setCharFilteringType(
-            CharFilteringType charFilteringType)
-    {
-        m_charFilteringType = charFilteringType;
+        m_ReplacingMap.put("\\.","");
+        m_ReplacingMap.put(",","");
+        m_ReplacingMap.put(":","");
+        m_ReplacingMap.put(";","");
+        m_ReplacingMap.put("\\?", "");
+        m_ReplacingMap.put("!", "");
+        m_ReplacingMap.put("/", "");     
+        m_ReplacingMap.put("-","");
     }
 }
