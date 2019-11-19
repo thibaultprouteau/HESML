@@ -16,7 +16,7 @@
 			<xs:sequence>
 				<xs:element name="OutputFileName" type="xs:string"/>
 				<xs:element name="DatasetDirectory" type="xs:string"/>
-				<xs:element name="DatasetFileName" type="xs:string"/>
+				<xs:element name="DatasetFilename" type="xs:string"/>
 				<xs:element name="SentenceSimilarityMeasures">
 					<xs:complexType>
 						<xs:choice>
@@ -59,8 +59,24 @@
 				<xs:element name="StopWordsFileDir" type="xs:string"/>
 				<xs:element name="StopWordsFilename" type="xs:string"/>
 				<xs:element name="TokenizerType" type="TokenizerType"/>
-				<xs:element name="CharFilteringType" type="CharFilteringType"/>
 				<xs:element name="TemporaryDir"/>
+				<xs:choice>
+					<xs:element name="CharFilteringType" type="CharFilteringType" minOccurs="0"/>
+					<xs:element name="ReplacementPatterns" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Pattern">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="InputText" type="xs:string"/>
+											<xs:element name="OutputText" type="xs:string"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
