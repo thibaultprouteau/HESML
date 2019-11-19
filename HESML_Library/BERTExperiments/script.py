@@ -8,13 +8,13 @@ import logging
 logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
-strModelPath = sys.argv[1]
-absPathTempSentencesFile = sys.argv[2] # the preprocessed sentences path in format: s1 \t s2 \n
-absPathTempVectorsFile = sys.argv[3] # the output path
+# strModelPath = sys.argv[1]
+# absPathTempSentencesFile = sys.argv[2] # the preprocessed sentences path in format: s1 \t s2 \n
+# absPathTempVectorsFile = sys.argv[3] # the output path
 
-# strModelPath = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/BertPretrainedModels/NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"
-# absPathTempSentencesFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempSentences.txt"
-# absPathTempVectorsFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempVecs.txt"
+strModelPath = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/PretrainedModels/NCBIBERT/NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"
+absPathTempSentencesFile = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/tempSentences.txt"
+absPathTempVectorsFile = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/tempVecs.txt"
 
 ## INIT THE SERVER CODE ##
 

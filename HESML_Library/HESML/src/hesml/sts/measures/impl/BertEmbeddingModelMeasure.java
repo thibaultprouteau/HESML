@@ -21,6 +21,7 @@ import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -203,8 +204,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // Remove the temporal files
         
-        tempFileSentences.delete();
-        tempFileVectors.delete();
+//        tempFileSentences.delete();
+//        tempFileVectors.delete();
         
         // We traverse the collection of sentence pairs and compute
         // the similarity score for each pair.

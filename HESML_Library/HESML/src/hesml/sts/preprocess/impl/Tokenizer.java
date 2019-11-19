@@ -169,9 +169,6 @@ class Tokenizer implements ITokenizer
         String[] tokenizedText = null;
                 
         // Fill the command params and execute the script
-        
-        String python_command = m_PythonVenvDir + " -W ignore " + m_PythonScriptDir;
-
         // Create the command 
         
         Process proc = new ProcessBuilder(

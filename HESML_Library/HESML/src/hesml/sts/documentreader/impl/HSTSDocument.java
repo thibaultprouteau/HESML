@@ -124,21 +124,23 @@ class HSTSDocument implements HSTSIDocument{
      */
     
     @Override
-    public void preprocessDocument() throws FileNotFoundException, IOException, InterruptedException
+    public void preprocessDocument() 
+            throws FileNotFoundException, IOException, InterruptedException
     {
+        // Create a pattern for checking if there is an alphanumeric character in the sentence
+        
         Pattern p = Pattern.compile("[[:alnum:]]");
         
-        System.out.println("ID Document: " + this.m_idDocument);
-        for (HSTSIParagraph paragraph : m_paragraphList) {
-//            System.out.println("ID paragraph: " + paragraph.getId());
+        // For each paragraph iterate the sentences
+        
+        for (HSTSIParagraph paragraph : m_paragraphList) 
+        {
+            // For each sentence get word tokens if it's not empty and has alphanumeric characters.
+            
             HSTSISentenceList sentenceList = paragraph.getSentenceList();
-            for (HSTSISentence sentence : sentenceList) {
-//                System.out.println("ID sentence: " + sentence.getIdSentence());
-//                
-//                if(this.m_idDocument == 1018 && paragraph.getId() == 6)
-//                {
-//                    System.err.println("AA");
-//                }
+            for (HSTSISentence sentence : sentenceList) 
+            {
+                // Get the sentence
                 
                 String strSentence = sentence.getText();
                 if(strSentence.length() > 0 && p.matcher(strSentence).find())
@@ -146,11 +148,14 @@ class HSTSDocument implements HSTSIDocument{
                     String[] tokens = m_preprocessing.getWordTokens(strSentence);
                     if(tokens.length > 0)
                     {
+                        // Join the tokens and create a new preprocessed sentence
+                        
                         String newSentence = String.join(" ", tokens);
                         sentence.setText(newSentence); 
                     }
                 }
-                else{
+                else
+                {
                     sentence.setText(""); 
                 }
             }

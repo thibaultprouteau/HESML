@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package hesml.sts.documentreader.impl;
-
-
+import hesml.sts.documentreader.HSTSIDocument;
+import hesml.sts.documentreader.HSTSIParagraph;
+import hesml.sts.preprocess.IWordProcessing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,10 +34,10 @@ import bioc.BioCPassage;
 import bioc.io.BioCCollectionReader;
 import bioc.io.BioCFactory;
 import bioc.preprocessing.pipeline.PreprocessingPipeline;
-import edu.stanford.nlp.ling.CoreLabel; // Used for extracting sentences
-import hesml.sts.documentreader.HSTSIDocument;
-import hesml.sts.documentreader.HSTSIParagraph;
-import hesml.sts.preprocess.IWordProcessing;
+
+// Used Stanford CoreNLP for extracting sentences
+
+import edu.stanford.nlp.ling.CoreLabel; 
 
 /**
  * The BioCReader class gets the directory path of the document and the 
