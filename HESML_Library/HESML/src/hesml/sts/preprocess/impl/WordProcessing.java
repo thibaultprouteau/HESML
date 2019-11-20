@@ -151,10 +151,7 @@ class WordProcessing implements IWordProcessing
         
         // Lowercase if true
         
-        if (m_lowercaseNormalization)
-        {
-            strRawSentence = strRawSentence.toLowerCase();
-        }
+        if (m_lowercaseNormalization) strRawSentence = strRawSentence.toLowerCase();
         
         // Filter the punctuation marks
         
@@ -186,18 +183,14 @@ class WordProcessing implements IWordProcessing
         
         if (strRawSentence.length() > 0)
         {
-            if (m_tokenizerType != TokenizerType.WordPieceTokenizer)
-            {
-                ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
-                tokens = tokenizer.getTokens(strRawSentence);
-            }
-            else
-            { 
-                ITokenizer tokenizer = new Tokenizer(m_tokenizerType, m_PythonVenvDir,
+            ITokenizer tokenizer = (m_tokenizerType != TokenizerType.WordPieceTokenizer) ?
+                                    new Tokenizer(m_tokenizerType) :
+                                    new Tokenizer(m_tokenizerType, m_PythonVenvDir,
                                             m_PythonScriptDir, m_modelDirPath);
-                
-                tokens = tokenizer.getTokens(strRawSentence);
-            }
+            
+            // We spli the wsentence into tokens
+            
+            tokens = tokenizer.getTokens(strRawSentence);
         }
         
         // Return the tokens

@@ -12,8 +12,8 @@
 					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
-					<TemporaryDir>Text</TemporaryDir>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
@@ -22,8 +22,8 @@
 					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
-					<TemporaryDir>Text</TemporaryDir>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
@@ -32,8 +32,8 @@
 					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
-					<TemporaryDir>Text</TemporaryDir>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
@@ -42,8 +42,8 @@
 					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
-					<TemporaryDir>Text</TemporaryDir>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
@@ -52,8 +52,8 @@
 					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
-					<TemporaryDir>Text</TemporaryDir>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 		</SentenceSimilarityMeasures>

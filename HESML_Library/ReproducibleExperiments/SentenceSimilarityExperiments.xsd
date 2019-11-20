@@ -59,7 +59,7 @@
 				<xs:element name="StopWordsFileDir" type="xs:string"/>
 				<xs:element name="StopWordsFilename" type="xs:string"/>
 				<xs:element name="TokenizerType" type="TokenizerType"/>
-				<xs:element name="TemporaryDir"/>
+				<xs:element name="LowercaseNormalization"/>
 				<xs:choice>
 					<xs:element name="CharFilteringType" type="CharFilteringType" minOccurs="0"/>
 					<xs:element name="ReplacementPatterns" minOccurs="0">

@@ -25,9 +25,13 @@ import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.measures.impl.SentenceSimilarityFactory;
+import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
+import hesml.sts.preprocess.TokenizerType;
+import hesml.sts.preprocess.impl.PreprocessingFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.management.BadAttributeValueExpException;
 import javax.xml.parsers.DocumentBuilder;
@@ -163,7 +167,7 @@ public class SentenceSimBenchmarkFactory
      */
     
     private static ISentenceSimilarityBenchmark readBenchmark(
-            Element experimentRoot)
+            Element experimentRoot) throws IOException
     {
         // We read the configuration of the experiment
         
@@ -191,26 +195,19 @@ public class SentenceSimBenchmarkFactory
 
                 Element measureNode = (Element) measureNodes.item(i);
 
-                // We get the word processing node
-                
-                Element wordProcessingNod = measureNode.getElementsByTagName("SentenceSimilarityMeasures").item(0)
-                IWordProcessing wordProcessing = readWordProcessing(measureNode);
                 // We read the measure
                 
                 switch (measureNode.getTagName())
                 {
                     case "StringBasedSentenceSimilarityMeasure":
                     
-                        SentenceSimilarityFactory.getStringBasedMeasure(
+                        tempMeasureList.add(SentenceSimilarityFactory.getStringBasedMeasure(
                                 convertToStringBasedSentenceSimilarityMethod(readStringField(measureNode, "Method")),
-                                wordPreprocessing);
+                                readWordProcessing(measureNode)));
 
                         break;
                                 
                 }
-                // We create the proper sentence similarity measure
-                
-                tempMeasureList.add(readStringBasedMeasure(measureNode));
             }
         }
         
@@ -221,7 +218,7 @@ public class SentenceSimBenchmarkFactory
         // We copy yhr measures to the vector and release the temporrary list
         
         tempMeasureList.toArray(measures);
-        tempMeasureList.clear();;
+        tempMeasureList.clear();
         
         // We return the result
         
@@ -235,8 +232,28 @@ public class SentenceSimBenchmarkFactory
      */
     
     private static IWordProcessing readWordProcessing(
-            Element measureRootNode)
+            Element measureRootNode) throws IOException
     {
+        // We get the word processing node
+
+        Element wordProcessingNode = (Element) measureRootNode.getElementsByTagName("WordProcessing").item(0);
+        
+        // We read the word processing attributes
+        
+        String strStopWordsFileDir = readStringField(wordProcessingNode, "StopWordsFileDir");
+        String strStopWordsFilename = readStringField(wordProcessingNode, "StopWordsFilename"); 
+
+        // We parse the chracter filtering method
+        
+        IWordProcessing processer = PreprocessingFactory.getWordProcessing(
+                                        strStopWordsFileDir + "/" + strStopWordsFilename,
+                                        convertToTokenizerType(readStringField(wordProcessingNode, "TokenizerType")),
+                                        readBooleanField(wordProcessingNode, "LowercaseNormalization"),
+                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")));
+        
+        // We return the result
+        
+        return (processer);
     }
     
     /**
@@ -265,6 +282,34 @@ public class SentenceSimBenchmarkFactory
         // We return the result
         
         return (strText);
+    }
+
+    /**
+     * This function reads a Boolean value of a child element.
+     * @param parent
+     * @param strFieldName
+     * @return 
+     */
+    
+    private static boolean readBooleanField(
+            Element parent,
+            String  strFieldName)
+    {
+        // We get the child node matching the input name
+
+        Element child = getFirstChildWithTagName(parent, strFieldName);
+        
+        // We check the existence of the child node
+        
+        if (child == null) throw (new IllegalArgumentException(strFieldName));
+        
+        // We get the output value
+        
+        boolean value = Boolean.parseBoolean(child.getFirstChild().getNodeValue());
+        
+        // We return the result
+        
+        return (value);
     }
     
     /**
@@ -402,6 +447,64 @@ public class SentenceSimBenchmarkFactory
         return (recoveredPooling);
     }
 
+    /**
+     * This function converts the input string into a TokenizerType value.
+     * @param strICmodelType
+     * @return 
+     */
+    
+    private static TokenizerType convertToTokenizerType(
+            String  strMethod)
+    {
+        // We initialize the output
+        
+        TokenizerType recoveredType = TokenizerType.StanfordCoreNLPv3_9_1;
+        
+        // We look for the matching value
+        
+        for (TokenizerType tokenType: TokenizerType.values())
+        {
+            if (tokenType.toString().equals(strMethod))
+            {
+                recoveredType = tokenType;
+                break;
+            }
+        }
+        
+        // We return the result
+        
+        return (recoveredType);
+    }
+
+    /**
+     * This function converts the input string into a CharFilteringType value.
+     * @param strICmodelType
+     * @return 
+     */
+    
+    private static CharFilteringType convertToCharFilteringType(
+            String  strMethod)
+    {
+        // We initialize the output
+        
+        CharFilteringType recoveredType = CharFilteringType.BIOSSES;
+        
+        // We look for the matching value
+        
+        for (CharFilteringType tokenType: CharFilteringType.values())
+        {
+            if (tokenType.toString().equals(strMethod))
+            {
+                recoveredType = tokenType;
+                break;
+            }
+        }
+        
+        // We return the result
+        
+        return (recoveredType);
+    }
+    
     /**
      * This function converts the input string into a SentenceEmbeddingMethod value.
      * @param strICmodelType
