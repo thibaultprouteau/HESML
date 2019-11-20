@@ -92,6 +92,12 @@ public class SentenceSimBenchmarkFactory
             throw (new FileNotFoundException(strXmlBenchmarksFile));
         }
         
+        // We get the directory containg the benchmark file
+        
+        String strOutputDirectory = fileInfo.getParent();
+        
+        if (strOutputDirectory == null) strOutputDirectory = "";
+
         // We create the temporary collection to parse the experiemnts
         // defined in the XML experiment file. 
         
@@ -138,7 +144,7 @@ public class SentenceSimBenchmarkFactory
                 
                 if (experimentRoot.getNodeName().equals("SingleDatasetSimilarityValuesExperiment"))
                 {
-                    experiments.add(readBenchmark(experimentRoot));
+                    experiments.add(readBenchmark(experimentRoot, strOutputDirectory));
                 }
             }
         }
@@ -167,7 +173,8 @@ public class SentenceSimBenchmarkFactory
      */
     
     private static ISentenceSimilarityBenchmark readBenchmark(
-            Element experimentRoot) throws IOException
+            Element experimentRoot,
+            String  strOutputDirectory) throws IOException, Exception
     {
         // We read the configuration of the experiment
         
@@ -175,7 +182,14 @@ public class SentenceSimBenchmarkFactory
         String strDatasetDir = readStringField(experimentRoot, "DatasetDirectory");
         String strDatasetFileName = readStringField(experimentRoot, "DatasetFilename");
         
-        // We get the cvollection of measure nodes
+        // We compute the full path of the output file
+        
+        if (!strOutputDirectory.equals(""))
+        {
+            strOutputFileName = strOutputDirectory + "/" + strOutputFileName;
+        }
+        
+        // We get the coollection of measure nodes
         
         NodeList measureNodes = experimentRoot.getElementsByTagName("SentenceSimilarityMeasures").item(0).getChildNodes();
         
@@ -220,9 +234,15 @@ public class SentenceSimBenchmarkFactory
         tempMeasureList.toArray(measures);
         tempMeasureList.clear();
         
+        // We create the benchmark for all measuers and dataset
+        
+        ISentenceSimilarityBenchmark benchmark = new SentenceSimilaritySingleBenchmark(
+                                                    measures, strDatasetDir,
+                                                    strDatasetFileName, strOutputFileName);
+                
         // We return the result
         
-        return (null);
+        return (benchmark);
     }
     
     /**

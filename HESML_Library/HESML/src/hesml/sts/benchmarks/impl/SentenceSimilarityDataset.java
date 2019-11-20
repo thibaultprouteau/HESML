@@ -91,7 +91,7 @@ class SentenceSimilarityDataset
         {
             // We retrieve the 3 fields
             
-            String[] strFields = strLine.split("\t");
+            String[] strFields = temp.get(i).split("\t");
             
             // We create a new word pair
             
@@ -141,6 +141,16 @@ class SentenceSimilarityDataset
         // We return the result
         
         return (strSentencePair);
+    }
+    
+    /**
+     * This function returns the number of sentence pairs in the dataset.
+     * @return 
+     */
+    
+    public int getPairsCount()
+    {
+        return (m_HumanJudgementSimilarity.length);
     }
     
     /**

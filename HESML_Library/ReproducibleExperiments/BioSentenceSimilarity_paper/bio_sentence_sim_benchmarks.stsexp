@@ -3,13 +3,13 @@
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\DevV2R1_HESML_GitHub\HESML_Library\ReproducibleExperiments\SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
-		<DatasetDirectory>..\SentenceSimDatasets</DatasetDirectory>
+		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Jaccard</Method>
 				<WordProcessing>
-					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
@@ -19,7 +19,7 @@
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Qgram</Method>
 				<WordProcessing>
-					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
@@ -29,17 +29,7 @@
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>BlockDistance</Method>
 				<WordProcessing>
-					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
-				</WordProcessing>
-			</StringBasedSentenceSimilarityMeasure>
-			<StringBasedSentenceSimilarityMeasure>
-				<Method>Levenshtein</Method>
-				<WordProcessing>
-					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
@@ -49,7 +39,7 @@
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>OverlapCoefficient</Method>
 				<WordProcessing>
-					<StopWordsFileDir>..\StopWordsFiles</StopWordsFileDir>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>

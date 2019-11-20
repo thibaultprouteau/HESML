@@ -19,6 +19,8 @@ package hesml.sts.benchmarks.impl;
 
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * This class implements a sentence similarity benchmark using a normalised
@@ -108,6 +110,72 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
     public void evaluateBenchmark(
             boolean showDebugInfo) throws Exception
     {
+        // We create the similarity matrix containing the similiarity
+        // values returned by each measure for each sentence pair.
         
+        double[][] similarityMatrix = new double[m_Dataset.getPairsCount()][m_Measures.length + 1];
+        
+        // We evaluate all similarity measures
+        
+        for (int iPair = 0; iPair < m_Dataset.getPairsCount(); iPair++)
+        {
+            // We copy the human similarity judgement in the first column
+            
+            similarityMatrix[iPair][0] = m_Dataset.getHumanJudgementAt(iPair);
+            
+            // We evaluate all measures with the sentence pair
+            
+            for (int iMeasure = 0; iMeasure < m_Measures.length; iMeasure++)
+            {
+                // We get the next sentece pair
+                
+                String[] sentences = m_Dataset.getSentencePairAt(iPair);
+                
+                // We evaluate the measure
+                
+                similarityMatrix[iPair][iMeasure + 1] =
+                        m_Measures[iMeasure].getSimilarityValue(sentences[0], sentences[1]);
+            }
+        }
+        
+        // We save the raw similairy values into the output file
+        
+        writeCSVfile(similarityMatrix, m_strOutputFilename);
+    }
+        
+    /**
+     * This function writes the raw similarity matrix into a CSV file
+     * @param strMatrix 
+     */
+    
+    protected static void writeCSVfile(
+            double[][]  strMatrix,
+            String      strOutputFile) throws IOException
+    {
+        // We open for writing the file
+        
+        FileWriter writer = new FileWriter(strOutputFile, false);
+
+        // We write the matrix in row mode
+        
+        for (int i = 0; i < strMatrix.length; i++)
+        {
+            // We write a full row
+            
+            for (int j = 0; j < strMatrix[0].length; j++)
+            {
+                if (j > 0) writer.write(";");
+                
+                writer.write(Double.toString(strMatrix[i][j]));
+            }
+            
+            // Write the end of line
+            
+            writer.write("\n");
+        }
+        
+        // We close the file
+        
+        writer.close();
     }
 }
