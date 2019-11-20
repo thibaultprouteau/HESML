@@ -24,6 +24,8 @@ import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
+import hesml.sts.measures.impl.SentenceSimilarityFactory;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -155,7 +157,7 @@ public class SentenceSimBenchmarkFactory
     }
 
     /**
-     * Thuis function parses a XML node encoding an experiment.
+     * This function parses a XML node encoding an experiment.
      * @param experimentRoot
      * @return 
      */
@@ -165,28 +167,76 @@ public class SentenceSimBenchmarkFactory
     {
         // We read the configuration of the experiment
         
-        String strOutputFileName = readStringField(experimentRoot, "OutputFilname");
+        String strOutputFileName = readStringField(experimentRoot, "OutputFilename");
         String strDatasetDir = readStringField(experimentRoot, "DatasetDirectory");
         String strDatasetFileName = readStringField(experimentRoot, "DatasetFilename");
         
         // We get the cvollection of measure nodes
         
-        NodeList measureNodes = experimentRoot.getLastChild().getChildNodes();
+        NodeList measureNodes = experimentRoot.getElementsByTagName("SentenceSimilarityMeasures").item(0).getChildNodes();
         
-        // We create the vector for the collection of senntence similarity measures
+        // We create a temporary collection of sentene similarity measures
         
-        ISentenceSimilarityMeasure[] measures = new ISentenceSimilarityMeasure[measureNodes.getLength()];
+        ArrayList<ISentenceSimilarityMeasure> tempMeasureList = new ArrayList<>();
         
         // We parse all measures
 
-        /*for (Element measureNode : measureNodes)
+        for (int i = 0; i < measureNodes.getLength(); i++)
         {
-            String strMeasureTypeNode = measureNode.getTagName();
-        }*/
+            // We filter all non-element nodes
+            
+            if (measureNodes.item(i).getNodeType() == Node.ELEMENT_NODE)
+            {
+                // We get the next measure node in the list
+
+                Element measureNode = (Element) measureNodes.item(i);
+
+                // We get the word processing node
+                
+                Element wordProcessingNod = measureNode.getElementsByTagName("SentenceSimilarityMeasures").item(0)
+                IWordProcessing wordProcessing = readWordProcessing(measureNode);
+                // We read the measure
+                
+                switch (measureNode.getTagName())
+                {
+                    case "StringBasedSentenceSimilarityMeasure":
+                    
+                        SentenceSimilarityFactory.getStringBasedMeasure(
+                                convertToStringBasedSentenceSimilarityMethod(readStringField(measureNode, "Method")),
+                                wordPreprocessing);
+
+                        break;
+                                
+                }
+                // We create the proper sentence similarity measure
+                
+                tempMeasureList.add(readStringBasedMeasure(measureNode));
+            }
+        }
+        
+        // We create the vector to return the collection of senntence similarity measures
+         
+        ISentenceSimilarityMeasure[] measures = new ISentenceSimilarityMeasure[tempMeasureList.size()];
+        
+        // We copy yhr measures to the vector and release the temporrary list
+        
+        tempMeasureList.toArray(measures);
+        tempMeasureList.clear();;
         
         // We return the result
         
         return (null);
+    }
+    
+    /**
+     * This function parses a word processing object from a XML-based experiment file.
+     * @param measureRootNode
+     * @return 
+     */
+    
+    private static IWordProcessing readWordProcessing(
+            Element measureRootNode)
+    {
     }
     
     /**
@@ -239,7 +289,7 @@ public class SentenceSimBenchmarkFactory
         
         // We traverse the direct child nodes
         
-        for (int i = 0, nCount = children.getLength(); i < nCount; i++)
+        for (int i = 0; i < children.getLength(); i++)
         {
             // We get the next child node
             
@@ -271,7 +321,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private StringBasedSentenceSimilarityMethod ConvertToStringBasedSentenceSimilarityMethod(
+    private static StringBasedSentenceSimilarityMethod convertToStringBasedSentenceSimilarityMethod(
             String  strMethod)
     {
         // We initialize the output
@@ -300,7 +350,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private WordEmbeddingFileType ConvertToWordEmbeddingFileType(
+    private static WordEmbeddingFileType convertToWordEmbeddingFileType(
             String  strEmbeddingFileType)
     {
         // We initialize the output
@@ -329,7 +379,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private SWEMpoolingMethod ConvertToSWEMpoolingMethod(
+    private static SWEMpoolingMethod convertToSWEMpoolingMethod(
             String  strPoolingMethod)
     {
         // We initialize the output
@@ -358,7 +408,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private SentenceEmbeddingMethod ConvertToSentenceEmbeddingMethod(
+    private static SentenceEmbeddingMethod convertToSentenceEmbeddingMethod(
             String  strEmbeddingMethod)
     {
         // We initialize the output

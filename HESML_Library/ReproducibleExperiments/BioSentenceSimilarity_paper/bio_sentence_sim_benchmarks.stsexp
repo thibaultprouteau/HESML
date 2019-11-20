@@ -2,9 +2,9 @@
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\DevV2R1_HESML_GitHub\HESML_Library\ReproducibleExperiments\SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSimilarityValuesExperiment>
-		<OutputFilename>BIOSSESNormalized.tsv</OutputFilename>
+		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>..\SentenceSimDatasets</DatasetDirectory>
-		<DatasetFileName>BIOSSESNormalized.tsv</DatasetFileName>
+		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Jaccard</Method>
