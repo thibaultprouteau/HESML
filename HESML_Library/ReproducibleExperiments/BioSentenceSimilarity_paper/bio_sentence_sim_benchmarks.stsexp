@@ -48,4 +48,51 @@
 			</StringBasedSentenceSimilarityMeasure>
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
+	<SingleDatasetSimilarityValuesExperiment>
+		<OutputFilename>raw_similarity_MedSTSfull.csv</OutputFilename>
+		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
+		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
+		<SentenceSimilarityMeasures>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+		</SentenceSimilarityMeasures>
+	</SingleDatasetSimilarityValuesExperiment>
 </SentenceSimilarityExperiments>
