@@ -14,7 +14,7 @@
 	<xs:element name="SingleDatasetSimilarityValuesExperiment">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="OutputFileName" type="xs:string"/>
+				<xs:element name="OutputFilename" type="xs:string"/>
 				<xs:element name="DatasetDirectory" type="xs:string"/>
 				<xs:element name="DatasetFilename" type="xs:string"/>
 				<xs:element name="SentenceSimilarityMeasures">

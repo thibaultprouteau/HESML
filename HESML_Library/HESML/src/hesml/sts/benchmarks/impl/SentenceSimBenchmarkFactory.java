@@ -17,13 +17,20 @@
 
 package hesml.sts.benchmarks.impl;
 
+import hesml.benchmarks.ISimilarityBenchmark;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import javax.management.BadAttributeValueExpException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -66,12 +73,69 @@ public class SentenceSimBenchmarkFactory
      */
     
     public static ISentenceSimilarityBenchmark[] loadXmlBenchmarksFile(
-            String  strXmlBenchmarksFile)
+            String  strXmlBenchmarksFile) throws FileNotFoundException, Exception
     {
+        // We get the File information of the XML benchamrk file
+        
+        File fileInfo = new File(strXmlBenchmarksFile);
+        
+        // We check the existence of the file
+        
+        if (!fileInfo.exists())
+        {
+            throw (new FileNotFoundException(strXmlBenchmarksFile));
+        }
+        
         // We create the temporary collection to parse the experiemnts
         // defined in the XML experiment file. 
         
         ArrayList<ISentenceSimilarityBenchmark> experiments = new ArrayList<>();
+        
+        // We configure the Xml parser in order to validate the Xml file
+        // by using the schema that describes the Xml file format
+        // for the reproducible experiments.
+        
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = builderFactory.newDocumentBuilder();
+        
+        // We parse the input document
+        
+        Document xmlDocument = docBuilder.parse(fileInfo);
+        
+        // We get the root node and checks its identity
+        
+        Element rootNode = xmlDocument.getDocumentElement();
+
+        if (!rootNode.getNodeName().equals("SentenceSimilarityExperiments"))
+        {
+            String strError = "Wrong file format";
+            throw (new Exception(strError));
+        }
+        
+        // We get the node with collection of experiments 
+        
+        NodeList experimentCollection = rootNode.getChildNodes();
+        
+        // We traverse the collection of experiments parsing them
+        
+        for (int i = 0; i < experimentCollection.getLength(); i++)
+        {
+            // We get the next experiment in the Xml node collection
+            
+            if (experimentCollection.item(i).getNodeType() == Node.ELEMENT_NODE)
+            {
+                // We get the experiment root node
+                
+                Element experimentRoot = (Element) experimentCollection.item(i);
+
+                // We parse the next experiment in the XML file
+                
+                if (experimentRoot.getNodeName().equals("SingleDatasetSimilarityValuesExperiment"))
+                {
+                    experiments.add(readBenchmark(experimentRoot));
+                }
+            }
+        }
         
         // We create the output vector
         
@@ -88,31 +152,43 @@ public class SentenceSimBenchmarkFactory
         // We return the result
         
         return (benchmarks);
-    
-        // We configure the Xml parser in order to validate the Xml file
-        // by using the schema that describes the Xml file format
-        // for the reproducible experiments.
-        
-        /*builderFactory = DocumentBuilderFactory.newInstance();
-        docBuilder = builderFactory.newDocumentBuilder();
-        
-        // We parse the input document
-        
-        xmlDocument = docBuilder.parse(inputXmlExpFile);
-        
-        // We get the root node
-        
-        rootNode = xmlDocument.getDocumentElement();
-        
-        // We load the experiment definitions
-        
-        parseExperiments(rootNode);
-        
-        // We clear the document
-        
-        xmlDocument.removeChild(rootNode);*/
     }
 
+    /**
+     * Thuis function parses a XML node encoding an experiment.
+     * @param experimentRoot
+     * @return 
+     */
+    
+    private static ISentenceSimilarityBenchmark readBenchmark(
+            Element experimentRoot)
+    {
+        // We read the configuration of the experiment
+        
+        String strOutputFileName = readStringField(experimentRoot, "OutputFilname");
+        String strDatasetDir = readStringField(experimentRoot, "DatasetDirectory");
+        String strDatasetFileName = readStringField(experimentRoot, "DatasetFilename");
+        
+        // We get the cvollection of measure nodes
+        
+        NodeList measureNodes = experimentRoot.getLastChild().getChildNodes();
+        
+        // We create the vector for the collection of senntence similarity measures
+        
+        ISentenceSimilarityMeasure[] measures = new ISentenceSimilarityMeasure[measureNodes.getLength()];
+        
+        // We parse all measures
+
+        /*for (Element measureNode : measureNodes)
+        {
+            String strMeasureTypeNode = measureNode.getTagName();
+        }*/
+        
+        // We return the result
+        
+        return (null);
+    }
+    
     /**
      * This function reads a text value of a child element.
      * @param parent
@@ -120,7 +196,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private String readStringField(
+    private static String readStringField(
             Element parent,
             String  strFieldName)
     {
@@ -149,7 +225,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    private Element getFirstChildWithTagName(
+    private static Element getFirstChildWithTagName(
             Element parent,
             String  strChildTagName)
     {

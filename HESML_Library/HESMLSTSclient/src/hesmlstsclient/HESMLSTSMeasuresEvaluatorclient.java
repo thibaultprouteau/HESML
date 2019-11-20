@@ -176,9 +176,9 @@ public class HESMLSTSMeasuresEvaluatorclient
 
                 // We measure the elapsed time to run the experiments
 
-                long    endTime = System.currentTimeMillis();
-                long    minutes = (endTime - startFileProcessingTime) / 60000;
-                long    seconds = (endTime - startFileProcessingTime) / 1000;
+                long endTime = System.currentTimeMillis();
+                long minutes = (endTime - startFileProcessingTime) / 60000;
+                long seconds = (endTime - startFileProcessingTime) / 1000;
 
                 System.out.println("Overall elapsed loading and computation time (minutes) = " + minutes);
                 System.out.println("Overall elapsed loading and computation time (seconds) = " + seconds);

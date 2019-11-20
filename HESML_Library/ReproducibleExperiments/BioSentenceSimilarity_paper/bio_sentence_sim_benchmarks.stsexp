@@ -2,7 +2,7 @@
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\DevV2R1_HESML_GitHub\HESML_Library\ReproducibleExperiments\SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSimilarityValuesExperiment>
-		<OutputFileName>BIOSSESNormalized.tsv</OutputFileName>
+		<OutputFilename>BIOSSESNormalized.tsv</OutputFilename>
 		<DatasetDirectory>..\SentenceSimDatasets</DatasetDirectory>
 		<DatasetFileName>BIOSSESNormalized.tsv</DatasetFileName>
 		<SentenceSimilarityMeasures>
