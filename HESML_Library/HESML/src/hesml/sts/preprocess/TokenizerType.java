@@ -25,19 +25,32 @@ package hesml.sts.preprocess;
 public enum TokenizerType
 {
     /**
-     * Tokenize a text splitting by whitespaces
+     * Tokenize a text splitting by whitespaces.
      */
     
     WhiteSpace,
     
     /**
-     * Tokenize a text using the external Stanford CoreNLP library
+     * Tokenize a text using the external Stanford CoreNLP library.
+     * 
+     * Stanford Core NLP use an extended PTB-style tokenizer
+     * (A fast, rule-based tokenizer implementation, 
+     * which produces Penn Treebank style tokenization of English text)
+     * 
+     * Manning, Christopher, Mihai Surdeanu, John Bauer, Jenny Finkel, 
+     * Steven Bethard, and David McClosky. 2014. 
+     * “The Stanford CoreNLP Natural Language Processing Toolkit.” 
+     * In Proceedings of 52nd Annual Meeting of the Association 
+     * for Computational Linguistics: System Demonstrations, 55–60. aclweb.org.
+     * 
+     * Stanford CoreNLP can detect NER entities in general domain.
      */
     
     StanfordCoreNLPv3_9_1,
     
     /**
      * Tokenize text using the BERT approximation.
+     * 
      * Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. 
      * “BERT: Pre-Training of Deep Bidirectional Transformers for 
      * Language Understanding.” arXiv [cs.CL]. arXiv. 

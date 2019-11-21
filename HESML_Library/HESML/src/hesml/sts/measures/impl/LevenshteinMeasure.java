@@ -190,7 +190,7 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
             // Initialize the vectors cost
 
             double[] swap;
-            double[] costVector1 = new double[strSentence1.length() + 1];
+            double[] costVector1 = new double[strSentence2.length() + 1];
             double[] costVector2 = new double[strSentence2.length() + 1];
 
             // initialize v0 (the previous row of distances)
@@ -205,7 +205,7 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
             // We compute the cost of insert, delete and substitute the characters
             // of wrod2 to become word1
 
-            for (int i = 0; i < strSentence2.length(); i++) 
+            for (int i = 0; i < strSentence1.length(); i++) 
             {
                 // first element of v1 is A[i+1][0]
                 // edit distance is delete (i+1) chars from s to match empty t
