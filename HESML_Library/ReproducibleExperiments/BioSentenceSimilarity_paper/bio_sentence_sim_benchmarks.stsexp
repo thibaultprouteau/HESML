@@ -46,6 +46,32 @@
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>			
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>			
+			</SWEMMeasure>								
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 	<SingleDatasetSimilarityValuesExperiment>
@@ -93,6 +119,32 @@
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>			
+			</SWEMMeasure>		
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>			
+			</SWEMMeasure>					
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 </SentenceSimilarityExperiments>

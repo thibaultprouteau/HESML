@@ -215,12 +215,28 @@ public class SentenceSimBenchmarkFactory
                 {
                     case "StringBasedSentenceSimilarityMeasure":
                     
+                        // We loads and register a string-based measurs from the XML file 
+                        
                         tempMeasureList.add(SentenceSimilarityFactory.getStringBasedMeasure(
                                 convertToStringBasedSentenceSimilarityMethod(readStringField(measureNode, "Method")),
                                 readWordProcessing(measureNode)));
 
                         break;
-                                
+                        
+                    case "SWEMMeasure":
+                        
+                        // We loads and register a SWEM measurs from the XML file 
+                        
+                        String strPretrainedModelFilename = readStringField(measureNode, "PretrainedModelFilename");
+                        String strPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
+                        
+                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(
+                                convertToSWEMpoolingMethod(readStringField(measureNode, "Pooling")),
+                                convertToWordEmbeddingFileType(readStringField(measureNode, "WordEmbeddingFileFormat")),
+                                readWordProcessing(measureNode),
+                                strPretrainedModelDir + "/" + strPretrainedModelFilename));
+                        
+                        break;
                 }
             }
         }

@@ -198,8 +198,6 @@ class FastTextBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
         
         if (m_WordOffsetsInFile.containsKey(strWord))
         {
-            System.out.println(strWord);      
-            
             // We skip the reading cursor until the vector position
             
             reader.skip(m_WordOffsetsInFile.get(strWord));
