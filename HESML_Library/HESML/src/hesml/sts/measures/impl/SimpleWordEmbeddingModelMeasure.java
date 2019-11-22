@@ -79,6 +79,23 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     }
     
     /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    @Override
+    public void clear()
+    {       
+        // We release the embedding query structure
+        
+        m_WordEmbedding.clear();
+        
+        // We release the resoruces of the base class
+        
+        super.clear();
+    }
+    
+    /**
      * This function returns the type of method implemented by the current
      * sentence similarity measure.
      * @return 
