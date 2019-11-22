@@ -30,6 +30,12 @@ import java.util.HashSet;
 public interface IWordProcessing
 {
     /**
+     * This function releases all resoruces used by the word preprocessingmethod..
+     */
+    
+    void clear();
+    
+    /**
      * This function returns the collection of word tokens extracted from
      * the raw input sentence.
      * 

@@ -54,6 +54,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public void clear()
     {       
+        m_preprocesser.clear();
     }
     
     /**

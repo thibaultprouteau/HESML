@@ -26,7 +26,7 @@ import java.util.HashMap;
  * @author alicia
  */
 
-public class CharsFiltering implements ICharsFiltering
+class CharsFiltering implements ICharsFiltering
 {
     /**
      * Mapping holding the pairs (input chain, output chain) for all
@@ -40,7 +40,7 @@ public class CharsFiltering implements ICharsFiltering
      * @param charFilteringType
      */
     
-    public CharsFiltering(
+    CharsFiltering(
             CharFilteringType charFilteringType)
     {
         // We create the replcament mapping
@@ -77,6 +77,15 @@ public class CharsFiltering implements ICharsFiltering
         // We also register the last extra words applied as last filtering
         
         m_ReplacingMap.put("\\s{2,}", " ");
+    }
+    
+    /**
+     * This function releases all resoruces used by the object.
+     */
+    
+    public void clear()
+    {
+        m_ReplacingMap.clear();
     }
     
     /**

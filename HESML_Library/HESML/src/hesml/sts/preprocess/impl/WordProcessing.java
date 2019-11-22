@@ -46,7 +46,7 @@ class WordProcessing implements IWordProcessing
     
     // Set the filtering method
     
-    private final CharFilteringType m_charFilteringType; 
+    private final CharsFiltering m_charFilter; 
 
     // Stopwords filename and hashset. 
     // If empty, there's not a stopwords preprocessing.
@@ -90,7 +90,7 @@ class WordProcessing implements IWordProcessing
         m_tokenizerType = tokenizerType;
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
-        m_charFilteringType = charFilteringType;
+        m_charFilter = new CharsFiltering(charFilteringType);
         
         // Initialize the temporal dirs to null.
         
@@ -125,7 +125,7 @@ class WordProcessing implements IWordProcessing
         m_tokenizerType = tokenizerType;
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
-        m_charFilteringType = charFilteringType;
+        m_charFilter = new CharsFiltering(charFilteringType);
         
         // Initialize the temporal dirs to null.
         
@@ -135,6 +135,16 @@ class WordProcessing implements IWordProcessing
         m_modelDirPath = modelDirPath;
     }
 
+    /**
+     * This function releases all resoruces used by the object.
+     */
+    
+    @Override
+    public void clear()
+    {
+        m_charFilter.clear();
+    }
+    
     /**
      * Get the tokens from a string sentence.
      * @param strRawSentence
@@ -149,14 +159,17 @@ class WordProcessing implements IWordProcessing
         
         String[] tokens = {};
         
+        // We initialize the filtered sentence
+        
+        String strFilteredSentence = new String(strRawSentence);
+        
         // Lowercase if true
         
-        if (m_lowercaseNormalization) strRawSentence = strRawSentence.toLowerCase();
+        if (m_lowercaseNormalization) strFilteredSentence = strFilteredSentence.toLowerCase();
         
         // Filter the punctuation marks
         
-        CharsFiltering filtering = new CharsFiltering(m_charFilteringType);
-        strRawSentence = filtering.filter(strRawSentence);
+        strFilteredSentence = m_charFilter.filter(strFilteredSentence);
         
         // If there is a valid file name for stop words, 
         // get the stop words in the hashSet
@@ -170,7 +183,7 @@ class WordProcessing implements IWordProcessing
             
             if ((stopWordsSet != null) && !stopWordsSet.isEmpty())
             {
-                strRawSentence = removeStopwords(strRawSentence, stopWordsSet);
+                strFilteredSentence = removeStopwords(strFilteredSentence, stopWordsSet);
             }
         }
         
@@ -181,7 +194,7 @@ class WordProcessing implements IWordProcessing
         
         // Check if the sentence is not empty
         
-        if (strRawSentence.length() > 0)
+        if (strFilteredSentence.length() > 0)
         {
             ITokenizer tokenizer = (m_tokenizerType != TokenizerType.WordPieceTokenizer) ?
                                     new Tokenizer(m_tokenizerType) :
@@ -190,12 +203,12 @@ class WordProcessing implements IWordProcessing
             
             // We spli the wsentence into tokens
             
-            tokens = tokenizer.getTokens(strRawSentence);
+            tokens = tokenizer.getTokens(strFilteredSentence);
         }
         
         // Return the tokens
         
-        return tokens;
+        return (tokens);
     }
     
     /**
