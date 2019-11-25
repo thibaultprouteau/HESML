@@ -115,6 +115,12 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
         
         double[][] similarityMatrix = new double[m_Dataset.getPairsCount()][m_Measures.length + 1];
         
+        // We create the vector of column headers
+        
+        String[] strColumnHeaders = new String[m_Measures.length + 1];
+        
+        strColumnHeaders[0] = "Human";
+        
         // We evaluate all similarity measures
         
         for (int iPair = 0; iPair < m_Dataset.getPairsCount(); iPair++)
@@ -127,6 +133,10 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             
             for (int iMeasure = 0; iMeasure < m_Measures.length; iMeasure++)
             {
+                // We set the coluimn header for the current measure
+                
+                strColumnHeaders[iMeasure + 1] = m_Measures[iMeasure].getMethod().toString();
+                            
                 // We get the next sentece pair
                 
                 String[] sentences = m_Dataset.getSentencePairAt(iPair);
@@ -140,7 +150,7 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
         
         // We save the raw similairy values into the output file
         
-        writeCSVfile(similarityMatrix, m_strOutputFilename);
+        writeCSVfile(strColumnHeaders, similarityMatrix, m_strOutputFilename);
     }
         
     /**
@@ -148,14 +158,26 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
      * @param strMatrix 
      */
     
-    protected static void writeCSVfile(
+    private static void writeCSVfile(
+            String[]    strColumnHeaders,
             double[][]  strMatrix,
             String      strOutputFile) throws IOException
     {
         // We open for writing the file
         
         FileWriter writer = new FileWriter(strOutputFile, false);
-
+        
+        // We write the first row with the column headers
+        
+        for (int i = 0; i < strColumnHeaders.length; i++)
+        {
+            if (i > 0) writer.write(";");
+            
+            writer.write(strColumnHeaders[i]);
+        }            
+        
+        writer.write("\n");
+        
         // We write the matrix in row mode
         
         for (int i = 0; i < strMatrix.length; i++)
