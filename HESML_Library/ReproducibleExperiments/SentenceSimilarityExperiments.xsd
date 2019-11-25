@@ -19,7 +19,7 @@
 				<xs:element name="DatasetFilename" type="xs:string"/>
 				<xs:element name="SentenceSimilarityMeasures">
 					<xs:complexType>
-						<xs:choice>
+						<xs:choice maxOccurs="unbounded">
 							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SentenceEmbedding" minOccurs="0" maxOccurs="unbounded"/>
