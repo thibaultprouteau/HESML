@@ -48,7 +48,7 @@
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<WordProcessing>
