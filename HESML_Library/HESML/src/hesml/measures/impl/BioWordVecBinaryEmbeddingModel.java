@@ -54,7 +54,7 @@ import java.util.HashMap;
  * @author j.lastra
  */
 
-class FastTextBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
+class BioWordVecBinaryEmbeddingModel implements IPretrainedWordEmbedding
 {
     /**
      * This file contains the word vectors provided by the pre-trained
@@ -86,7 +86,7 @@ class FastTextBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
      * @param strVectorFilename 
      */
     
-    FastTextBinaryWordEmbeddingModel(
+    BioWordVecBinaryEmbeddingModel(
         String  strVectorFilename) throws IOException, ParseException
     {
         // We save the filename and cretae the indexed buffer of word vectors
@@ -107,7 +107,7 @@ class FastTextBinaryWordEmbeddingModel implements IPretrainedWordEmbedding
     @Override
     public WordEmbeddingFileType getWordEmbeddingFileType()
     {
-        return (WordEmbeddingFileType.FastTextBinaryWordEmbedding);
+        return (WordEmbeddingFileType.BioWordVecBinaryWordEmbedding);
     }
     
     /**

@@ -436,7 +436,7 @@ public class SentenceSimBenchmarkFactory
     {
         // We initialize the output
         
-        WordEmbeddingFileType recoveredType = WordEmbeddingFileType.FastTextBinaryWordEmbedding;
+        WordEmbeddingFileType recoveredType = WordEmbeddingFileType.BioWordVecBinaryWordEmbedding;
         
         // We look for the matching value
         
