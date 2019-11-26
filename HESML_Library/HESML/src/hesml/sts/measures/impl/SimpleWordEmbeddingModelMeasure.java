@@ -43,20 +43,17 @@ import java.text.ParseException;
 
 class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
-    /**
-     * Word emebedding model
-     */
+    // Word embedding model
     
     private final IPretrainedWordEmbedding    m_WordEmbedding;
     
-    /**
-     * Specific method implemented
-     */
-    
+    // Specific method implemented
+
     private final SWEMpoolingMethod    m_PoolingMethod;
     
     /**
-     * Constructor
+     * Constructor with parameters.
+     * 
      * @param embeddingType
      * @param strPretrainedModelFilename 
      */

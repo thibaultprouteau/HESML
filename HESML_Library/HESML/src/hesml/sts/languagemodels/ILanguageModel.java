@@ -50,8 +50,6 @@ public interface ILanguageModel
     /**
      * This function loads the vectors from a model path
      * 
-     * Important: In the future, the output will differ.
-     * 
      * @param strParagraphVectorModelPath
      * @return
      * @throws IOException 
@@ -75,4 +73,10 @@ public interface ILanguageModel
      */
     
     void setTrainingMethod(LanguageModelMethod method);
+    
+    /**
+     * This function set to null the paragraph vectors and clean the memory.
+     */
+    
+    void unsetParagraphVectors();
 }

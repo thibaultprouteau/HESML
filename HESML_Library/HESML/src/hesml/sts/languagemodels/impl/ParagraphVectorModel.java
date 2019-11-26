@@ -169,7 +169,7 @@ class ParagraphVectorModel implements ILanguageModel
         
         // please note, we set iterations to 1 here, just to speedup inference
         
-        m_paragraphVectors.getConfiguration().setIterations(10); 
+        m_paragraphVectors.getConfiguration().setIterations(10);
         return m_paragraphVectors;
     }
     
@@ -234,5 +234,19 @@ class ParagraphVectorModel implements ILanguageModel
             i++;
         }
         return vector;
+    }
+    
+    
+    /**
+     * This function set to null the paragraph vectors and clean the memory.
+     * 
+     * Note: It does not use an specific clear() method cause 
+     * the original DeepL4Java does not provide the implementation.
+     */
+    
+    @Override
+    public void unsetParagraphVectors()
+    {
+        m_paragraphVectors = null;
     }
 }

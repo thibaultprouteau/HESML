@@ -30,34 +30,39 @@ import java.util.Set;
 
 /**
  *  This class implements the Block Distance Measure.
+ * 
+ * Also called rectilinear distance, taxicab norm, and Manhattan distance.
+ *  
  *  Krause, Eugene F. 1986. Taxicab Geometry: 
  *  An Adventure in Non-Euclidean Geometry. Courier Corporation.
+ * 
  * @author alicia
  */
 
 class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
 {
-    
     /**
-     * Constructor with parameters
+     * Constructor with parameters.
      * @param preprocesser 
      */
     
-    public BlockDistanceMeasure(
+    BlockDistanceMeasure(
             IWordProcessing preprocesser)
     {
+        // We intialize the base class
+        
         super(preprocesser);
     }
     
     /**
-     * This function returns the current similarity method
+     * This function returns the current sentence similarity method.
      * @return SentenceSimilarityMethod
      */
     
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.BlockDistance;
+        return (SentenceSimilarityMethod.BlockDistance);
     }
 
     /**
@@ -72,8 +77,8 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
     }
     
     /**
-     * Return the String method
-     * @return 
+     * Return the current string similarity method.
+     * @return StringBasedSentenceSimilarityMethod
      */
     
     @Override
@@ -102,6 +107,9 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
         // We initialize the output
 
         double similarity = 0.0;
+        
+        // We first calculate the distance between the sentences
+        
         float distance = 0;
         
         // Get the tokens for each sentence
@@ -116,45 +124,61 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
         
         // Count the total of items in each sentence (sum of the map values)
         
-        int totalWordsS1 = mapOccurrencesSentence1.values().stream().mapToInt(Integer::intValue).sum();
-        int totalWordsS2 = mapOccurrencesSentence2.values().stream().mapToInt(Integer::intValue).sum();
+        int countTotalWordsS1 = mapOccurrencesSentence1.values().stream().mapToInt(Integer::intValue).sum();
+        int countTotalWordsS2 = mapOccurrencesSentence2.values().stream().mapToInt(Integer::intValue).sum();
        
         //Calculate the distance
         
         // Get the union set of both sentences (a dictionary)
                 
-        Set<String> union = new HashSet<>();
+        Set<String> unionSentencesSet = new HashSet<>();
         
-        union.addAll(mapOccurrencesSentence1.keySet());
-        union.addAll(mapOccurrencesSentence2.keySet());
+        unionSentencesSet.addAll(mapOccurrencesSentence1.keySet());
+        unionSentencesSet.addAll(mapOccurrencesSentence2.keySet());
         
         // for each word get the abs(v1 - v2) being:
         // v1 the number of times the actual word occurs in the sentence 1
         // v2 the number of times the actual word occurs in the sentence 2
         
-        for (String word : union) 
+        for (String word : unionSentencesSet) 
         {
-            int v1 = 0;
-            int v2 = 0;
+            // Initialize the frequency a word appears in the sentences to 0
             
-            Integer iv1 = mapOccurrencesSentence1.get(word);
-            if (iv1 != null) 
+            int frequencyofWordInSentence1 = 0;
+            int frequencyofWordInSentence2 = 0;
+            
+            // Get the number of occurences of the word in the first sentence
+            
+            Integer numberOfOccurences = mapOccurrencesSentence1.get(word);
+            
+            // If there is one or more occurrences, add to the frequency
+            
+            if (numberOfOccurences != null) 
             {
-                v1 = iv1;
+                frequencyofWordInSentence1 = numberOfOccurences;
             }
             
-            Integer iv2 = mapOccurrencesSentence2.get(word);
-            if (iv2 != null) 
+            numberOfOccurences = mapOccurrencesSentence2.get(word);
+            
+            if (numberOfOccurences != null) 
             {
-                v2 = iv2;
+                frequencyofWordInSentence2 = numberOfOccurences;
             }
             
-            distance += Math.abs(v1 - v2);
+            // Add the local distance to the total distance.
+            
+            distance += Math.abs(frequencyofWordInSentence1 - frequencyofWordInSentence2);
         }
-
-        // The similarity is calculated as in BIOSSES2017 implementation.
         
-        similarity = 1.0f - distance / (totalWordsS1 + totalWordsS2);
+        // We release the auxiliary sets
+        
+        unionSentencesSet.clear();
+        mapOccurrencesSentence1.clear();
+        mapOccurrencesSentence2.clear();
+
+        // The similarity is calculated as 1 minus the normalized distance
+        
+        similarity = 1.0f - distance / (countTotalWordsS1 + countTotalWordsS2);
         
         // Return the similarity
         
@@ -168,7 +192,7 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
      * 
      * {{"this", 2}, {"word", 1}, ...}
      * 
-     * @param lstWordsSentence
+     * @param lstWordsSentence list of words in the sentence
      * @return Map<String, Integer> string occurrences.
      */
     
@@ -182,9 +206,9 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
         // For each word in the sentence, 
         // count the time the word appears in the sentence and store it.
         
-        for (String i : lstWordsSentence) { 
-            Integer j = occurrences.get(i); 
-            occurrences.put(i, (j == null) ? 1 : j + 1); 
+        for (String word : lstWordsSentence) { 
+            Integer numberOcurrencesofWordInSentence = occurrences.get(word); 
+            occurrences.put(word, (numberOcurrencesofWordInSentence == null) ? 1 : numberOcurrencesofWordInSentence + 1); 
         } 
         
         // Return the result

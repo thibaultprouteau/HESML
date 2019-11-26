@@ -18,16 +18,16 @@
 package hesml.sts.measures;
 
 /**
- *  This interface encapsulates all the String-based similarity measures
+ *  This interface encapsulates the specific functions of
+ *  the String-based similarity measures.
  * 
- * @author alicia
+ *  @author alicia
  */
 
 public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasure
 {
-    
     /**
-     * Return the string based method used.
+     * This function returns the string based method used.
      * @return StringBasedSentSimilarityMethod
      */
     

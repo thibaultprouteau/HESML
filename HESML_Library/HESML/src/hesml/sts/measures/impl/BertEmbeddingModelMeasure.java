@@ -18,10 +18,10 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
+import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,27 +35,36 @@ import java.util.Arrays;
 import org.json.simple.parser.ParseException;
 
 /**
- *  Read and evaluate BERT embedding pre-trained models
- * @author alicia
+ *  This class reads and evaluates BERT embedding pre-trained models
+ *  and return the similarity between sentences using the model.
+ *  @author alicia
  */
 
 class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
-    // Path to the model to evaluate.
-    
-    private final String m_modelDirPath;
-    
-    // Paths to the BERT directory.
+    // Path to the BERT base directory (usually BERTExperiments/).
     
     private final String m_BERTDir;
     
-    // Python executable using the virtual environment.
+    // Path to the BERT pretrained model to evaluate.
     
-    private final String m_PythonVenvDir;
+    private final String m_modelDirPath;
     
-    // Python script wrapper to extract the embeddings.
+    // Path to the python executable using the virtual environment (venv directory).
     
-    private final String m_PythonScriptDir;
+    private final String m_pythonVenvDir;
+    
+    // Path to the python script wrapper to extract the embeddings (extractBERTvectors.py).
+    
+    private final String m_pythonScriptDir;
+    
+    // Define the pooling strategy
+    
+    private final BERTpoolingMethod m_poolingStrategy;
+    
+    // Define the list of layers used with the pooling strategy
+    
+    private final String[] m_poolingLayers;
     
     /**
      * Constructor
@@ -68,8 +77,11 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             IWordProcessing     preprocesser,
             String              bertDir,
             String              pythonVenvDir,
-            String              pythonScriptDir) throws InterruptedException,
-            IOException, FileNotFoundException, ParseException
+            String              pythonScriptDir,
+            BERTpoolingMethod   poolingStrategy,
+            String[]               poolingLayers) 
+            throws InterruptedException, IOException, 
+                FileNotFoundException, ParseException
     {
         // We intialize the base class
         
@@ -79,13 +91,15 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         m_modelDirPath = modelDirPath;
         m_BERTDir = bertDir;
-        m_PythonScriptDir = pythonScriptDir;
-        m_PythonVenvDir = pythonVenvDir;
+        m_pythonScriptDir = pythonScriptDir;
+        m_pythonVenvDir = pythonVenvDir;
+        m_poolingStrategy = poolingStrategy;
+        m_poolingLayers = poolingLayers;
     }
 
     /**
      * This function returns the sentence similarity method implemented by the object.
-     * @return 
+     * @return SentenceSimilarityMethod
      */
     
     @Override
@@ -96,7 +110,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -204,8 +218,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // Remove the temporal files
         
-//        tempFileSentences.delete();
-//        tempFileVectors.delete();
+        tempFileSentences.delete();
+        tempFileVectors.delete();
         
         // We traverse the collection of sentence pairs and compute
         // the similarity score for each pair.
@@ -223,7 +237,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     }
    
     /**
-     * Preprocess and write the input sentences into the temporal file.
+     * This function preprocess and write the input sentences into the temporal file.
      * 
      * @param lstSentences1
      * @param lstSentences2
@@ -250,7 +264,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String strRawSentence1 = lstSentences1[i];
             String strRawSentence2 = lstSentences2[i];
             
-            // Preprocess the sentences
+            // Preprocess and join the sentences
             
             String[] lstWordsSentence1 = m_preprocesser.getWordTokens(strRawSentence1);
             String[] lstWordsSentence2 = m_preprocesser.getWordTokens(strRawSentence2);
@@ -323,7 +337,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         }
         
         // We close the file
-        
+        fileReader.close();
         reader.close();
         
         // We return the result
@@ -346,11 +360,15 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // Fill the command params and execute the script
         // Ignore the Tensorflow warnings
         
-        String python_command = m_PythonVenvDir + " -W ignore " + m_PythonScriptDir;
+        String python_command = m_pythonVenvDir + " -W ignore" 
+                                    + " " + m_pythonScriptDir;
 
         // We fill the command line for the Python call
         
-        String command = python_command + " " + m_modelDirPath + " "
+        String command = python_command + " " 
+                + m_poolingStrategy + " " 
+                + String.join(",", m_poolingLayers) + " " 
+                + m_modelDirPath + " "
                 + absPathTempSentencesFile + " " + absPathTempVectorsFile;
         
         System.out.print("Python command executed: \n");
@@ -363,7 +381,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         String lineTerminal = "";
         
         InputStreamReader inputStreamReader = new InputStreamReader(proc.getErrorStream());
-        BufferedReader readerTerminal       = new BufferedReader(inputStreamReader);
+        BufferedReader readerTerminal = new BufferedReader(inputStreamReader);
         
         System.out.print("\n\n ----------------------------- \n");
         System.out.print("--- Python script output: --- \n");
@@ -373,6 +391,11 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         System.out.print("\n --- End Python script output: --- \n");
         System.out.print("--------------------------------- \n\n");
+        
+        // Close the input reader
+        
+        readerTerminal.close();
+        inputStreamReader.close();
         
         // Destroy the process
         
@@ -388,7 +411,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws IOException 
      */
     
-    private static File createTempFile(
+    private File createTempFile(
             String strTempFilePath) throws IOException
     {
         // We create a temporal file, remove if previously exists.
@@ -402,5 +425,18 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // Return true if ok
         
         return (tempFile);
+    }
+    
+    /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    @Override
+    public void clear()
+    {       
+        // We release the resoruces of the base class
+        
+        super.clear();
     }
 }

@@ -24,6 +24,7 @@ package hesmlstsclient;
 import hesml.HESMLversion;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.benchmarks.impl.SentenceSimBenchmarkFactory;
+import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
@@ -59,8 +60,6 @@ public class HESMLSTSMeasuresEvaluatorclient
      * m_strStopWordsDir: Subdirectory with all the stop words files
      * m_BERTDir: Subdirectory for all the BERT-based experiments 
      * m_strBERTPretrainedModelsDir: Subdirectory with all the pretrained models for BERT
-     * m_strNCBIBERTModelsDir: Subdirectory with all the NCBI BERT pretrained models
-     * m_strBioBERTModelsDir: Subdirectory with all the BioBERT pretrained models
      * m_PythonVenvExecutable: Path to the Python executable virtual environment
      * m_PythonBERTWrapperScript: Path to the Python script that extracts the inferred vectors for a list of sentences
      * m_PythonWordPieceTokenizerWrapperScript: Path to the Python script for word piece tokenize the texts.
@@ -71,11 +70,9 @@ public class HESMLSTSMeasuresEvaluatorclient
     private static final String  m_BERTDir = m_strBaseDir + "BERTExperiments/";
     
     private static final String  m_strBERTPretrainedModelsDir = m_BERTDir + "PretrainedModels/";
-    private static final String  m_strNCBIBERTModelsDir = m_strBERTPretrainedModelsDir + "NCBIBERT/";
-    private static final String  m_strBioBERTModelsDir = m_strBERTPretrainedModelsDir + "BioBERT/";
     
-    private static final String  m_PythonVenvExecutable = m_BERTDir + "venv/bin/python3.6";
-    private static final String  m_PythonBERTWrapperScript = m_BERTDir + "script.py";
+    private static final String  m_PythonVenvExecutable = m_BERTDir + "venv/bin/python3";
+    private static final String  m_PythonBERTWrapperScript = m_BERTDir + "extractBERTvectors.py";
     private static final String  m_PythonWordPieceTokenizerWrapperScript = m_BERTDir + "WordPieceTokenization.py";
     
     /**
@@ -87,13 +84,13 @@ public class HESMLSTSMeasuresEvaluatorclient
      * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1906.05474.
      */
     
-    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed        = m_strNCBIBERTModelsDir 
+    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed        = m_strBERTPretrainedModelsDir 
             + "NCBI_BERT_pubmed_uncased_L-12_H-768_A-12/";
-    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed_Mimic  = m_strNCBIBERTModelsDir 
+    private static final String  NCBI_BERT_NCBI_BERT_Base_Pubmed_Mimic  = m_strBERTPretrainedModelsDir 
             + "NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12/";
-    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed       = m_strNCBIBERTModelsDir 
+    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed       = m_strBERTPretrainedModelsDir 
             + "NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16/";
-    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed_Mimic = m_strNCBIBERTModelsDir 
+    private static final String  NCBI_BERT_NCBI_BERT_Large_Pubmed_Mimic = m_strBERTPretrainedModelsDir 
             + "NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16/";
     
     /**
@@ -106,13 +103,13 @@ public class HESMLSTSMeasuresEvaluatorclient
      * http://arxiv.org/abs/1901.08746.
      */
     
-    private static final String BioBert_Base_Pubmed     = m_strBioBERTModelsDir 
+    private static final String BioBert_Base_Pubmed     = m_strBERTPretrainedModelsDir 
             + "biobert_v1.0_pubmed/";
-    private static final String BioBert_Large_Pubmed    = m_strBioBERTModelsDir 
+    private static final String BioBert_Large_Pubmed    = m_strBERTPretrainedModelsDir 
             + "biobert_v1.1_pubmed/";
-    private static final String BioBert_Base_PMC        = m_strBioBERTModelsDir 
+    private static final String BioBert_Base_PMC        = m_strBERTPretrainedModelsDir 
             + "biobert_v1.0_pmc/";
-    private static final String BioBert_Base_Pubmed_PMC = m_strBioBERTModelsDir 
+    private static final String BioBert_Base_Pubmed_PMC = m_strBERTPretrainedModelsDir 
             + "biobert_v1.0_pubmed_pmc/";
     
     /**
@@ -200,7 +197,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         
         // We call the SampleExperiments() function
         
-        //SampleExperiments();
+        SampleExperiments();
     }
     
     /**
@@ -208,13 +205,13 @@ public class HESMLSTSMeasuresEvaluatorclient
      * of HEMSL-STS library.
      */
     
-    private static void SampleExperiments() throws IOException, InterruptedException
+    private static void SampleExperiments() throws IOException, InterruptedException, ParseException
     {
         // Initialize the sentences to be tested.
         // sentences1 are first sentences
         // sentences2 are second sentences
         
-        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
+        String[] sentences1 = { "It it it has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
                                 "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives "
                                 + "are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, "
                                 + "and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
@@ -227,7 +224,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Execute the tests
         
         testStringMeasures(sentences1, sentences2);
-//        testBertMeasures(sentences1, sentences2);
+        testBertMeasures(sentences1, sentences2);
         testWBSMMeasures(sentences1, sentences2);
     }
     
@@ -259,7 +256,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         wordPreprocessing = PreprocessingFactory.getWordProcessing(
                         m_strBaseDir + m_strStopWordsDir + "nltk2018StopWords.txt", 
                         TokenizerType.StanfordCoreNLPv3_9_1, 
-                        false, 
+                        true, 
                         CharFilteringType.Blagec2019);
         
         // Add the string based methods to test
@@ -334,13 +331,17 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Initialize the measure
         // Test a BioBert model measure
         
+        String[] poolingLayers = {"-2"};
+        
         measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
                 SentenceEmbeddingMethod.BERTEmbeddingModel, 
                 wordPreprocessing, 
                 BioBert_Base_PMC,
                 m_BERTDir,
                 m_PythonVenvExecutable,
-                m_PythonBERTWrapperScript);
+                m_PythonBERTWrapperScript,
+                BERTpoolingMethod.REDUCE_MEAN,
+                poolingLayers);
         
         // Get the similarity scores for the lists of sentences
             

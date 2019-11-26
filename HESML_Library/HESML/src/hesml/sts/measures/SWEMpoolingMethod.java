@@ -24,7 +24,6 @@ package hesml.sts.measures;
 
 public enum SWEMpoolingMethod
 {
-
     /**
      *  Average pooling method
      */

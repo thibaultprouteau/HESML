@@ -44,7 +44,7 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
 
     // Language Model 
     
-    private final ILanguageModel m_model; 
+    private final ILanguageModel m_pretrainedModel; 
     
     /**
      * Constructor with parameters
@@ -66,23 +66,23 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         
         // Load the model
         
-        m_model = LanguageModelFactory.loadModel(m_strModelDirPath);
+        m_pretrainedModel = LanguageModelFactory.loadModel(m_strModelDirPath);
     }
 
     /**
-     * Get the current method.
-     * @return 
+     * Get the current sentence similarity method.
+     * @return SentenceSimilarityMethod
      */
     
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.ParagraphVector;
+        return (SentenceSimilarityMethod.ParagraphVector);
     }
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -120,8 +120,8 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
        
         // Join the words and generate the preprocessed sentences
         
-        double[] sentence1Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
-        double[] sentence2Vector = m_model.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
+        double[] sentence1Vector = m_pretrainedModel.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
+        double[] sentence2Vector = m_pretrainedModel.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
 
         // We check the validity of the word vectors. They could be null if
         // any word is not contained in the vocabulary of the embedding.
@@ -144,5 +144,22 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         // We return the result
         
         return (similarity);
+    }
+    
+    /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    @Override
+    public void clear()
+    {
+        // We release the paragraph vectors
+        
+        m_pretrainedModel.unsetParagraphVectors();
+        
+        // We release the resoruces of the base class
+        
+        super.clear();
     }
 }

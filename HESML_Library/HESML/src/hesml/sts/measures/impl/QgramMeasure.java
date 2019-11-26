@@ -30,32 +30,37 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *  This function implements the Qgram similarity between two sentences 
- * 
- * @author alicia
- */
+  *  This function implements the Qgram similarity between two sentences.
+  * 
+  *     Ukkonen, Esko. 1992. “Approximate String-Matching with Q-Grams 
+  *     and Maximal Matches.” Theoretical Computer Science 92 (1): 191–211.
+  * 
+  * @author alicia
+  */
 
-class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class QgramMeasure extends SentenceSimilarityMeasure 
+                   implements IStringBasedSentenceSimMeasure
 {
-    /**
-     * Padding used by the measure
-     */
+    // Padding used by the measure
     
-    private int m_Padding;
+    private final int m_padding;
     
     /**
      * Constructor
      * @param preprocesser 
      */
     
-    public QgramMeasure(
-            IWordProcessing preprocesser)
+    QgramMeasure(
+            IWordProcessing preprocesser,
+            int padding)
     {
+        // We intialize the base class
+        
         super(preprocesser);
         
         // We set the default padding value
         
-        m_Padding = 3;
+        m_padding = padding;
     }
     
     /**
@@ -68,7 +73,7 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.Qgram;
+        return (SentenceSimilarityMethod.Qgram);
     }
 
     /**
@@ -83,8 +88,9 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
     }
     
     /**
-     * Return the String method
-     * @return 
+     * This function returns the String method implemented by the current
+     * sentence similarity measure.
+     * @return StringBasedSentenceSimilarityMethod
      */
     
     @Override
@@ -97,12 +103,14 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
      * This function returns the similarity value (score) between two
      * raw sentences using the Qgram similarity.
      * 
-     * The implementation is based on the BIOSSES2017 library 
+     * The string-distance measure is based on counting the number of 
+     * the occurrences of different q-grams in the two strings; 
+     * the strings are the closer relatives the more they have q-grams in common. 
      * 
      * @param strRawSentence1
      * @param strRawSentence2
      * @return similarity score
-     * @throws java.io.IOException
+     * @throws java.io.IOException, FileNotFoundException, InterruptedException 
      */
     
     @Override
@@ -138,20 +146,20 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
         {
             // Create the maps for the ngrams 
 
-            Map<String, Integer> mapQgramsS1 = getQGramsWithPadding(lstWordsSentence1, m_Padding);
-            Map<String, Integer> mapQgramsS2 = getQGramsWithPadding(lstWordsSentence2, m_Padding);
+            Map<String, Integer> mapQgramsSentence1 = getQGramsWithPadding(lstWordsSentence1, m_padding);
+            Map<String, Integer> mapQgramsSentence2 = getQGramsWithPadding(lstWordsSentence2, m_padding);
 
             // We get the total values for each map.
 
-            int totalQgramsS1 = mapQgramsS1.values().stream().mapToInt(Integer::intValue).sum();
-            int totalQgramsS2 = mapQgramsS2.values().stream().mapToInt(Integer::intValue).sum();
+            int totalQgramsS1 = mapQgramsSentence1.values().stream().mapToInt(Integer::intValue).sum();
+            int totalQgramsS2 = mapQgramsSentence2.values().stream().mapToInt(Integer::intValue).sum();
 
             // We build a globat set with all q-grams
             
             Set<String> union = new HashSet<>();
 
-            union.addAll(mapQgramsS1.keySet());
-            union.addAll(mapQgramsS2.keySet());
+            union.addAll(mapQgramsSentence1.keySet());
+            union.addAll(mapQgramsSentence2.keySet());
 
             // We initialize the accummulated distance
             
@@ -161,8 +169,8 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
             {
                 // We get the frequency for each q-gram in each sentence
                 
-                int qgramFreqInSentence1 = !mapQgramsS1.containsKey(key) ? 0 : mapQgramsS1.get(key);
-                int qgramFreqInSentence2 = !mapQgramsS2.containsKey(key) ? 0 : mapQgramsS2.get(key);
+                int qgramFreqInSentence1 = !mapQgramsSentence1.containsKey(key) ? 0 : mapQgramsSentence1.get(key);
+                int qgramFreqInSentence2 = !mapQgramsSentence2.containsKey(key) ? 0 : mapQgramsSentence2.get(key);
 
                 // We compute the frequency difference for the q-gram
                 
@@ -175,8 +183,8 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
             
             // We release the mappins
             
-            mapQgramsS1.clear();
-            mapQgramsS2.clear();
+            mapQgramsSentence1.clear();
+            mapQgramsSentence2.clear();
             union.clear();
         }
         
@@ -197,7 +205,6 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
             String[]    strings, 
             int         padding) 
     {
-        
         // Initialize a hashmap with the qgram
         
         HashMap<String, Integer> mapQgrams = new HashMap<>();

@@ -37,14 +37,14 @@ public interface ISentenceSimilarityMeasure
     /**
      * This function returns the type of method implemented by the current
      * of sentence similarity measure.
-     * @return 
+     * @return SentenceSimilarityMethod 
      */
     
     SentenceSimilarityMethod getMethod();
     
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     SentenceSimilarityFamily getFamily();
@@ -55,7 +55,7 @@ public interface ISentenceSimilarityMeasure
      * methods, such as lowercase normalziation, tokenization, etc.
      * @param strRawSentence1
      * @param strRawSentence2
-     * @return 
+     * @return double score
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
      */
@@ -69,7 +69,7 @@ public interface ISentenceSimilarityMeasure
      * 
      * @param lstSentences1
      * @param lstSentences2
-     * @return
+     * @return double[] the list of scores
      * @throws IOException
      * @throws InterruptedException
      */

@@ -30,18 +30,17 @@ import java.io.IOException;
 
 abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
 {
-    /**
-     * Word preprocessing object
-     */
+    // Word preprocessing object
     
     protected IWordProcessing m_preprocesser;
     
     /**
-     * Constructor
+     * Constructor with parameters.
      * @param preprocesser 
      */
     
-    SentenceSimilarityMeasure(IWordProcessing preprocesser)
+    SentenceSimilarityMeasure(
+            IWordProcessing preprocesser)
     {
         m_preprocesser = preprocesser;
     }
@@ -58,8 +57,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     }
     
     /**
-     * Get the current method.
-     * @return 
+     * This function returns the current method.
+     * @return SentenceSimilarityMethod
      */
     
     @Override
@@ -69,8 +68,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     }
 
     /**
-     * Get the current family of STS method
-     * @return 
+     * This function returns the current family of STS method
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -111,7 +110,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public double[] getSimilarityValues(
             String[] firstSentencesVector,
-            String[] secondSentencesVector) throws IOException, InterruptedException
+            String[] secondSentencesVector) 
+                throws IOException, InterruptedException
     {
         // We check that the length of the lists has to be equal
         

@@ -18,13 +18,13 @@
 package hesml.sts.measures;
 
 /**
- * Types of sentence similarity methods
+ * This enumeration groups all of sentence similarity methods.
+ * 
  * @author j.lastra
  */
 
 public enum SentenceSimilarityMethod
 {
-    
     /**
      * Simple Word Embedding Model Measure by AveragePooling
      */

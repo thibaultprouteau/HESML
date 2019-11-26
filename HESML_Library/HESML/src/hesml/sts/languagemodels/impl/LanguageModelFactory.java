@@ -68,4 +68,15 @@ public class LanguageModelFactory
         trainingModel.loadVectors(strTrainedModelDirPath);
         return trainingModel;
     }
+    
+    /**
+     * This function set to null the paragraph vectors and clean the memory.
+     * @param trainingModel 
+     */
+    
+    public static void clear(
+            ILanguageModel trainingModel)
+    {
+        trainingModel.unsetParagraphVectors();
+    }
 }

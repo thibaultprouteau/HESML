@@ -8,17 +8,22 @@ import logging
 logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
-# strModelPath = sys.argv[1]
-# absPathTempSentencesFile = sys.argv[2] # the preprocessed sentences path in format: s1 \t s2 \n
-# absPathTempVectorsFile = sys.argv[3] # the output path
+strPoolingStrategy = sys.argv[1]
+strPoolingLayer = sys.argv[2]
+strModelPath = sys.argv[3]
+absPathTempSentencesFile = sys.argv[4] # the preprocessed sentences path in format: s1 \t s2 \n
+absPathTempVectorsFile = sys.argv[5] # the output path
 
-strModelPath = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/PretrainedModels/NCBIBERT/NCBI_BERT_pubmed_uncased_L-12_H-768_A-12"
-absPathTempSentencesFile = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/tempSentences.txt"
-absPathTempVectorsFile = "/home/alicia/Desktop/HESML_19nov/HESML_Library/BERTExperiments/tempVecs.txt"
+# The pooling layer is modified from "-2,-1" to "-2 -1"
+
+strPoolingLayer = " ".join(strPoolingLayer.split(","))
 
 ## INIT THE SERVER CODE ##
 
-args = get_args_parser().parse_args(['-model_dir', strModelPath,
+args = get_args_parser().parse_args([
+                                 '-pooling_strategy', strPoolingStrategy,
+                                 '-pooling_layer', strPoolingLayer,
+                                 '-model_dir', strModelPath,
                                  '-port', '5555',
                                  '-port_out', '5556',
                                 # '-max_seq_len', 'NONE',

@@ -33,20 +33,22 @@ import java.util.Set;
  *  JACCARD, and P. 1908. “Nouvelles Recherches Sur La Distribution Florale.” 
  *  Bulletin de La SociÃ©tÃ© Vaudoise Des Sciences Naturelles 44: 223–70.
  * 
- * @author alicia
+ *  @author alicia
  */
 
 class JaccardMeasure extends SentenceSimilarityMeasure
-    implements IStringBasedSentenceSimMeasure
+                     implements IStringBasedSentenceSimMeasure
 {
     /**
-     * Constructor
+     * Constructor with parameters.
      * @param preprocesser 
      */
     
-    public JaccardMeasure(
+    JaccardMeasure(
             IWordProcessing preprocesser)
     {
+        // We intialize the base class
+        
         super(preprocesser);
     }
 
@@ -70,12 +72,12 @@ class JaccardMeasure extends SentenceSimilarityMeasure
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.Jaccard;
+        return (SentenceSimilarityMethod.Jaccard);
     }
     
     /**
-     * Return the String method
-     * @return 
+     * This function returns the String similarity method
+     * @return StringBasedSentenceSimilarityMethod
      */
     
     @Override

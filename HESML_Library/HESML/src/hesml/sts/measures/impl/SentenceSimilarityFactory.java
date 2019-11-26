@@ -17,6 +17,7 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.WordEmbeddingFileType;
+import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
@@ -28,13 +29,12 @@ import java.io.IOException;
 import java.text.ParseException;
 
 /**
- * This class builds the sentence similarity measures
+ * This class builds the sentence similarity measures.
  * @author j.lastra
  */
 
 public class SentenceSimilarityFactory
 {
-    
     /**
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
@@ -94,7 +94,9 @@ public class SentenceSimilarityFactory
                 
             case Levenshtein:
                 
-                measure = new LevenshteinMeasure(wordPreprocessing);
+                // We use the default values provided in other state-of-the-art implementations.
+                
+                measure = new LevenshteinMeasure(wordPreprocessing, 1, 1);
                 
                 break;
                 
@@ -106,7 +108,9 @@ public class SentenceSimilarityFactory
                 
             case Qgram:
                 
-                measure = new QgramMeasure(wordPreprocessing);
+                // We use the default values provided in other state-of-the-art implementations.
+                
+                measure = new QgramMeasure(wordPreprocessing, 3);
                 
                 break;
         }
@@ -125,6 +129,8 @@ public class SentenceSimilarityFactory
      * @param strPretrainedModelDir
      * @param strPythonVirtualEnvironmentDir
      * @param pythonScriptDir
+     * @param poolingStrategy
+     * @param poolingLayers
      * @return 
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
@@ -137,7 +143,9 @@ public class SentenceSimilarityFactory
             String                  strPretrainedModelFilename,
             String                  strPretrainedModelDir,
             String                  strPythonVirtualEnvironmentDir,
-            String                  pythonScriptDir) throws IOException,
+            String                  pythonScriptDir,
+            BERTpoolingMethod       poolingStrategy,
+            String[]                poolingLayers) throws IOException,
             InterruptedException, org.json.simple.parser.ParseException
     {
         // We check the existence of the pre-trained model file
@@ -169,7 +177,8 @@ public class SentenceSimilarityFactory
                 
                 measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, 
                         wordPreprocessor, strPretrainedModelDir,
-                        strPythonVirtualEnvironmentDir, pythonScriptDir);
+                        strPythonVirtualEnvironmentDir, pythonScriptDir,
+                        poolingStrategy, poolingLayers);
                 
                 break;
         }

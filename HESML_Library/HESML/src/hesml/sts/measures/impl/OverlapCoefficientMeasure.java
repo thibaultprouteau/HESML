@@ -28,23 +28,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *  This function implements the Overlap coefficient similarity between two sentences 
+ *  This function implements the Overlap coefficient similarity between two sentences.
  * 
  *  Lawlor, Lawrence R. 1980. “Overlap, Similarity, 
  *  and Competition Coefficients.” Ecology 61 (2): 245–51.
  * 
- * @author alicia
+ *  @author alicia
  */
 
 class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
-    implements IStringBasedSentenceSimMeasure
+                                implements IStringBasedSentenceSimMeasure
 {
     /**
      * Constructor
      * @param preprocesser 
      */
     
-    public OverlapCoefficientMeasure(
+    OverlapCoefficientMeasure(
             IWordProcessing preprocesser)
     {
         super(preprocesser);
@@ -59,12 +59,12 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.OverlapCoefficient;
+        return (SentenceSimilarityMethod.OverlapCoefficient);
     }
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override
@@ -74,8 +74,8 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
     }
     
     /**
-     * Return the String method
-     * @return 
+     * This function returns the String method
+     * @return StringBasedSentenceSimilarityMethod
      */
     
     @Override
@@ -156,22 +156,22 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
      * This function calculates the intersection between two sets 
      * to compute the Overlap Coefficient Similarity.
      * 
-     * @param s1
-     * @param s2
+     * @param sentence1Set
+     * @param sentence2Set
      * @return 
      */
     
     static Set<String> intersection(
-            Set<String> s1, 
-            Set<String> s2) 
+            Set<String> sentence1Set, 
+            Set<String> sentence2Set) 
     {
         // Initialize the intersection set with the first set.
         
-        Set<String> intersection = new HashSet<>(s1);
+        Set<String> intersection = new HashSet<>(sentence1Set);
         
         // Intersect with the second set
         
-        intersection.retainAll(s2);
+        intersection.retainAll(sentence2Set);
         
         // Return the intersected set.
         

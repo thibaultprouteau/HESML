@@ -24,7 +24,6 @@ package hesml.sts.measures;
 
 public enum SentenceSimilarityFamily
 {
-
     /**
      *  This type encapsulates all the string-based sentence measures.
      */
