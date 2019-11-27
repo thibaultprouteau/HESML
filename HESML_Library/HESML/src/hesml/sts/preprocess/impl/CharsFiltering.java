@@ -23,7 +23,7 @@ import java.util.HashMap;
 /**
  *  This class implements the punctuation marks 
  *  filtering methods used in the papers.
- * @author alicia
+ *  @author alicia
  */
 
 class CharsFiltering implements ICharsFiltering
@@ -36,14 +36,14 @@ class CharsFiltering implements ICharsFiltering
     private HashMap<String, String> m_ReplacingMap;
     
     /**
-     *  Constructor
-     * @param charFilteringType
+     *  Constructor with parameters.
+     *  @param charFilteringType
      */
     
     CharsFiltering(
             CharFilteringType charFilteringType)
     {
-        // We create the replcament mapping
+        // We create the replacement mapping
         
         m_ReplacingMap = new HashMap<>();
         
@@ -55,9 +55,9 @@ class CharsFiltering implements ICharsFiltering
                 
                 // Remove all the punctuation marks using the Java preexisting regex.
                 // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-                // strFilteredSentence = strRawSentence.replaceAll("\\p{Punct}",""); 
+                // m_ReplacingMap.put("[^\\p{Alpha}\\p{Digit}]+"," ");
                 
-                m_ReplacingMap.put("[^\\p{Alpha}\\p{Digit}]+"," ");
+                m_ReplacingMap.put("\\p{Punct}"," ");
                 
                 break;
                 
@@ -80,7 +80,7 @@ class CharsFiltering implements ICharsFiltering
     }
     
     /**
-     * This function releases all resoruces used by the object.
+     * This function releases all resources used by the object.
      */
     
     public void clear()
@@ -91,7 +91,7 @@ class CharsFiltering implements ICharsFiltering
     /**
      * Filter the sentence punctuation marks
      * @param strRawSentence
-     * @return 
+     * @return String
      */
     
     @Override
@@ -122,8 +122,6 @@ class CharsFiltering implements ICharsFiltering
     
     /**
      * Replace the punctuation marks as the BIOSSES2017 original code does.
-     * @param strRawSentence
-     * @return 
      */
     
     private void setBiosssesFilteringPatterns()
@@ -148,8 +146,6 @@ class CharsFiltering implements ICharsFiltering
     
     /**
      * Replace the punctuation marks for string measures described in Blagec2019.
-     * @param strRawSentence
-     * @return 
      */
     
     private void setBlagecFilteringPatterns()

@@ -51,7 +51,7 @@ import org.json.simple.parser.ParseException;
  * @author j.lastra
  */
 
-public class HESMLSTSMeasuresEvaluatorclient
+public class HESMLSTSEvaluatorclient
 {
     /**
      * Resources directories.
@@ -224,7 +224,7 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Execute the tests
         
         testStringMeasures(sentences1, sentences2);
-        testBertMeasures(sentences1, sentences2);
+//        testBertMeasures(sentences1, sentences2);
         testWBSMMeasures(sentences1, sentences2);
     }
     

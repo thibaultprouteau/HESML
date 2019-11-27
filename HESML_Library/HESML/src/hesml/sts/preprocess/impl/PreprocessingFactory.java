@@ -79,5 +79,5 @@ public class PreprocessingFactory
         return (new WordProcessing(tokenizerType, lowercaseNormalization,
                 stopWordFileName, charFilteringType, tempDir,
                 pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath));
-    }
+    }    
 }

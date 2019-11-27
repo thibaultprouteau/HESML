@@ -18,7 +18,7 @@ package hesml.sts.preprocess;
 
 /**
  *  Abstract class for filtering punctuation methods
- * @author alicia
+ *  @author alicia
  */
 
 public interface ICharsFiltering
@@ -26,7 +26,7 @@ public interface ICharsFiltering
     /**
      * Given a sentence, filter the chars using the method selected.
      * @param strRawSentence
-     * @return
+     * @return String
      */
     
     String filter(String strRawSentence);

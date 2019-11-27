@@ -26,10 +26,10 @@ import java.io.IOException;
 
 public interface ITokenizer
 {
-    
     /**
-     * Get the tokenizer method
-     * @return
+     * Get the tokenizer method.
+     * 
+     * @return TokenizerType
      */
     
     TokenizerType getTokenizerType();
@@ -37,8 +37,9 @@ public interface ITokenizer
     
     /**
      * Given a sentence, get the tokens using the method selected.
+     * 
      * @param strRawSentence
-     * @return
+     * @return String[]
      * @throws java.lang.InterruptedException
      * @throws java.io.IOException
      */

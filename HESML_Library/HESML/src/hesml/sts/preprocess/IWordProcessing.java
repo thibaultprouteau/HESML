@@ -19,7 +19,6 @@ package hesml.sts.preprocess;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
 
 /**
  * This interface sets the abstract methods which must be implemented by
@@ -40,7 +39,7 @@ public interface IWordProcessing
      * the raw input sentence.
      * 
      * @param strRawSentence
-     * @return 
+     * @return String[]
      * @throws java.io.FileNotFoundException 
      * @throws java.lang.InterruptedException 
      */
@@ -48,5 +47,4 @@ public interface IWordProcessing
     String[] getWordTokens(
             String strRawSentence)  
             throws FileNotFoundException, IOException, InterruptedException;
-    
 }

@@ -43,7 +43,6 @@ public class HSTSDocumentFactory {
      * @throws FileNotFoundException
      * @throws XMLStreamException
      * 
-     * @todo switch case! Exception if null!! try catch en el main!
      */
     
     public static HSTSIDocument loadDocument(

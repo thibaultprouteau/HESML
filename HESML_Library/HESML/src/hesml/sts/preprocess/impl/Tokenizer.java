@@ -16,6 +16,8 @@
  */
 package hesml.sts.preprocess.impl;
 
+import bioc.preprocessing.pipeline.PreprocessingPipeline;
+import edu.stanford.nlp.ling.CoreLabel;
 import hesml.sts.preprocess.ITokenizer;
 import hesml.sts.preprocess.TokenizerType;
 
@@ -23,6 +25,8 @@ import edu.stanford.nlp.simple.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,14 +54,13 @@ class Tokenizer implements ITokenizer
     private final String m_modelDirPath;
     
     /**
-     * Constructor
+     * Constructor with parameters.
      * @param tokenizerType 
      */
     
     Tokenizer(
             TokenizerType tokenizerType)
     {
-        
         // Set the tokenizer type 
         
         m_tokenizerType = tokenizerType;
@@ -70,7 +73,7 @@ class Tokenizer implements ITokenizer
     }
     
     /**
-     * Constructor using the python wrapper.
+     * Constructor with parameters using the python wrapper.
      * 
      * @param TempDir
      * @param PythonVenvDir
@@ -84,7 +87,6 @@ class Tokenizer implements ITokenizer
             String          PythonScriptDir,
             String          modelDirPath) throws IOException
     {
-        
         // Set the variables by constructor
         
         m_tokenizerType = tokenizerType;
@@ -93,10 +95,9 @@ class Tokenizer implements ITokenizer
         m_modelDirPath = modelDirPath;
     }
     
-    
     /**
-     * Get the tokenizer method
-     * @return 
+     * This function returns the current tokenizer method.
+     * @return TokenizerType
      */
     
     @Override
@@ -108,14 +109,13 @@ class Tokenizer implements ITokenizer
     /**
      * Get the tokens from a sentence
      * @param strRawSentence
-     * @return 
+     * @return String[] list of tokens of the current sentence
      */
     
     @Override
     public String[] getTokens(
             String  strRawSentence) throws InterruptedException, IOException
     {
-        
         // Initialize the output
         
         String[] tokens = null; 
@@ -124,7 +124,6 @@ class Tokenizer implements ITokenizer
         
         switch (m_tokenizerType)
         {
-            
             case WhiteSpace:
                 
                 // Split words by whitespace.
@@ -135,9 +134,12 @@ class Tokenizer implements ITokenizer
                 
             case StanfordCoreNLPv3_9_1:
                 
-                // convert to a corenlp sentence and get the tokens.
+                // Convert to a Stanford CoreNLP Sentence object and get the tokens.
                 
                 Sentence sent = new Sentence(strRawSentence);
+                
+                // Get the list of tokenized words and convert to array.
+                
                 tokens = sent.words().toArray(new String[0]); 
                 
                 break;
@@ -147,7 +149,17 @@ class Tokenizer implements ITokenizer
                 tokens = this.getTokensUsingWordPiecePythonWrapper(strRawSentence);
                 
                 break;
+                
+            case BioCNLPTokenizer:
+                
+                // Use the BioC NLP library to tokenize the sentence.
+                
+                tokens = this.getTokensBioCNLPLibrary(strRawSentence);
+                
+                break;
         }
+        
+        // Return the tokens
             
         return tokens;
     }
@@ -157,13 +169,13 @@ class Tokenizer implements ITokenizer
      * 
      * @throws InterruptedException
      * @throws IOException 
+     * @return String[] array of tokens
      */
     
     private String[] getTokensUsingWordPiecePythonWrapper(
             String  strSentence) 
             throws InterruptedException, IOException
     {
-        
         //Initialize the output
         
         String[] tokenizedText = null;
@@ -191,6 +203,10 @@ class Tokenizer implements ITokenizer
         sentence = sentence.trim();
         tokenizedText = sentence.split(" ");
         
+        // Close the reader
+        readerTerminal.close();
+        inputStreamReader.close();
+        
         // Destroy the process
         
         proc.waitFor();  
@@ -199,5 +215,64 @@ class Tokenizer implements ITokenizer
         // Return the result
         
         return tokenizedText;
+    }
+    
+    /**
+     * Use the BioC NLP library to tokenize the text.
+     * 
+     * Comeau, Donald C., Rezarta Islamaj Doğan, Paolo Ciccarese, 
+     * Kevin Bretonnel Cohen, Martin Krallinger, Florian Leitner, 
+     * Zhiyong Lu, et al. 2013. “BioC: A Minimalist Approach to Interoperability 
+     * for Biomedical Text Processing.” Database: The Journal of Biological 
+     * Databases and Curation 2013 (September): bat064.
+     * 
+     * @param strSentence
+     * @return String[] array with the tokens of the sentence
+     */
+    
+    private String[] getTokensBioCNLPLibrary(
+            String strSentence)
+    {
+        // Initialize the output
+        
+        String[] tokens = {};
+        
+        // Create a BioC Processing Pipeline object and set the sentence text.
+        
+        PreprocessingPipeline preprocessingPipeline = new PreprocessingPipeline("sentence");
+        preprocessingPipeline.setParseText(strSentence);
+        
+        // Perform the sentence splitting (which firstly performs a tokenization process)
+        
+        List<List<CoreLabel>> sentencesCoreLabels = preprocessingPipeline.performSentenceSplit();
+
+        // Iterate the tokens in the sentence and write the token in the list
+        
+        ArrayList<String> tokenizedTokens = new ArrayList();
+        
+        List<CoreLabel> sentenceCoreLabel = sentencesCoreLabels.get(0);
+
+        for(CoreLabel token: sentenceCoreLabel)
+        {
+            // Extract the token from the sentence
+
+            String word = strSentence.substring(token.beginPosition(), token.endPosition());
+
+            // Add the token to the list
+
+            tokenizedTokens.add(word);
+        }
+        
+        // Convert the arraylist to an array
+        
+        tokens = tokenizedTokens.toArray(new String[0]);
+        
+        // Clear the arraylist
+        
+        tokenizedTokens.clear();
+        
+        // Return the results
+        
+        return tokens;
     }
 }

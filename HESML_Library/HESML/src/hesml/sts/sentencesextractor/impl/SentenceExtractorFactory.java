@@ -41,17 +41,19 @@ import hesml.sts.preprocess.IWordProcessing;
 public class SentenceExtractorFactory {
     
     /**
-     * This function preprocess file-by-file.For each file in the directory:
-     *   (1) check if the file is preprocessed.(2.1) If the file is processed, continue.(2.2) If the file is not processed:
-       (3) Extract the paragraphs
-       (5) Split into sentences
-       (6) Write to output directory
- 
- This method is efficient if there is a large number of files in the directory.
+     * This function preprocess file-by-file. 
      * 
+     * For each file in the directory:
+     * 
+     * (1) check if the file is preprocessed
+     * (2.1) If the file is processed, continue
+     * (2.2) If the file is not processed:
+     * (3) Extract the paragraphs
+     * (4) Split into sentences(5) Write to output directory
      * 
      * @param strDocumentsPathInput: Directory where are the input files.
      * @param strDocumentsPathOutput: Directory for writing the results.
+     * @param strDocumentsNameOutput: Name of the output directory.
      * @param documentType: Type of input document.
      * @param sentenceSplitterType: Sentence Splitter method used.
      * @param preprocessType
@@ -60,27 +62,25 @@ public class SentenceExtractorFactory {
      * @throws IOException
      * @throws FileNotFoundException
      * @throws XMLStreamException
+     * @throws java.lang.InterruptedException
      * 
-     * 
-     * @todo Process file-by-file if the file is not processed!.
-     * @todo Write the output with subdirectories info!
      */
     
     public static void runSentenceExtractorPipeline(
             String                  strDocumentsPathInput,
             String                  strDocumentsPathOutput,
+            String                  strDocumentsNameOutput,
             HSTSDocumentType        documentType,
             SentenceSplitterType    sentenceSplitterType,
             SentenceExtractorType   preprocessType,
             IWordProcessing         preprocessing,
             boolean                 allInOneFile) 
-            throws IOException, FileNotFoundException, XMLStreamException, InterruptedException 
+            throws IOException, FileNotFoundException, 
+                XMLStreamException, InterruptedException 
     {
-
         // List all directories in the path
         
         File[] directories = new File(strDocumentsPathInput).listFiles(File::isDirectory);
-        
         
         //For each directory, list all files
         
@@ -119,13 +119,10 @@ public class SentenceExtractorFactory {
                 
                 documentWithSentences.preprocessDocument();
                 
-                /**
-                 * Write the output sentences into the correct subdirectories
-                 */
-                
+                // Write the output sentences into the correct subdirectories
+                 
                 if(!allInOneFile)
                 {
-                    
                     String strFileOutput = strDocumentsPathOutput
                         .concat(directory.getName())
                         .concat("/")
@@ -136,8 +133,7 @@ public class SentenceExtractorFactory {
                 } 
                 else
                 {
-                    
-                    String strFileOutput = strDocumentsPathOutput.concat("allSentencesInAFile.txt");
+                    String strFileOutput = strDocumentsPathOutput.concat(strDocumentsNameOutput);
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
                 }
@@ -147,11 +143,12 @@ public class SentenceExtractorFactory {
     
     /**
      * Automatically create the output directories.
+     * 
      * @param subdirectory
      * @param strDocumentsPathOutput 
      */
     
-    public static void createOutputDirectoryStructure(
+    private static void createOutputDirectoryStructure(
             File        subdirectory, 
             String      strDocumentsPathOutput) 
     {

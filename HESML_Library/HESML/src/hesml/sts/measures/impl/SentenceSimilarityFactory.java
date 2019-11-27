@@ -123,6 +123,8 @@ public class SentenceSimilarityFactory
     /**
      * This function creates a sentence embedding method.
      * 
+     * @todo SPLIT IN TWO FUNCTIONS FOR EACH METHOD
+     * 
      * @param method
      * @param wordPreprocessor
      * @param strPretrainedModelFilename

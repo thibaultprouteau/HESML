@@ -27,17 +27,23 @@ import hesml.sts.documentreader.HSTSISentence;
 import hesml.sts.documentreader.HSTSISentenceList;
 import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author Alicia Lara-Clares
  */
+
 class HSTSDocument implements HSTSIDocument{
+    
+    // Id of the document
     
     private final int m_idDocument;
     
+    // Document path
+    
     private final String m_strDocumentPath;
+    
+    // List of paragraphs of the document
     
     private HSTSIParagraphList m_paragraphList;
     
@@ -55,6 +61,8 @@ class HSTSDocument implements HSTSIDocument{
             String strDocumentPath,
             IWordProcessing wordPreprocessing) 
     {
+        // Set the variables
+        
         m_idDocument = idDocument;
         m_strDocumentPath = strDocumentPath;
         m_preprocessing = wordPreprocessing;
@@ -84,16 +92,22 @@ class HSTSDocument implements HSTSIDocument{
         m_paragraphList = paragraphList;
     }
     
+    /**
+     * Append the sentences into a file
+     * @param fileOutput
+     * @throws IOException 
+     */
+    
     @Override
     public void saveSentencesToFile(
         File fileOutput) throws IOException
     {
-        
-        /**
-         * Create a StringBuilder object and fill with the sentences
-         */
+        // Create a StringBuilder object and fill with the sentences
         
         StringBuilder sb = new StringBuilder();
+        
+        // Iterate the paragraphs. Then, iterate the sentences of each paragraph. 
+        
         for (HSTSIParagraph paragraph : m_paragraphList) {
             HSTSISentenceList sentenceList = paragraph.getSentenceList();
             for (HSTSISentence sentence : sentenceList) {
@@ -111,11 +125,17 @@ class HSTSDocument implements HSTSIDocument{
         String strFinalText = sb.toString();
         
         // Write the file
+        FileWriter fileWriter = new FileWriter(fileOutput, true);
+        BufferedWriter writer = new BufferedWriter(fileWriter);
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput, true))) {
-            writer.write(strFinalText);
-        }
+        // Append the text to the document
         
+        writer.write(strFinalText);
+        
+        // Close the file
+        
+        writer.close();
+        fileWriter.close();
     }
 
     /**
@@ -127,10 +147,6 @@ class HSTSDocument implements HSTSIDocument{
     public void preprocessDocument() 
             throws FileNotFoundException, IOException, InterruptedException
     {
-        // Create a pattern for checking if there is an alphanumeric character in the sentence
-        
-        Pattern p = Pattern.compile("[[:alnum:]]");
-        
         // For each paragraph iterate the sentences
         
         for (HSTSIParagraph paragraph : m_paragraphList) 
@@ -143,7 +159,7 @@ class HSTSDocument implements HSTSIDocument{
                 // Get the sentence
                 
                 String strSentence = sentence.getText();
-                if(strSentence.length() > 0 && p.matcher(strSentence).find())
+                if(strSentence.length() > 0)
                 {
                     String[] tokens = m_preprocessing.getWordTokens(strSentence);
                     if(tokens.length > 0)
@@ -161,5 +177,4 @@ class HSTSDocument implements HSTSIDocument{
             }
         }
     }
-    
 }

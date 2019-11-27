@@ -46,7 +46,7 @@ import javax.xml.stream.XMLStreamException;
  * @author alicia
  */
 
-public class HESMLSTSPreprocessingclient
+public class HESMLSTSDatasetPreprocessingclient
 {
     /**
      * Resources directories.
@@ -63,7 +63,10 @@ public class HESMLSTSPreprocessingclient
     private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
     // private static final String  m_bioCManuscriptCorpusDir = m_strBaseDir + "BioCCorpus/BioCManuscriptCorpus/";
     private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/BioCManuscriptCorpus/";
-    private static final String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "BioCCorpus/BioC_sentencesSplitted_D0/";
+    //private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/datasetBioCPruebas/";
+    //private static final String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "BioCCorpus/BioC_sentencesSplitted_D0/";
+    private static final String  m_preprocessedDocumentsOutputDir = "/home/alicia/Desktop/HESML_dependencies_directories/BioCCorpus/";
+    private static final String  m_preprocessedDocumentsOutputName = "BioCsentences_BioCNLPToken_charFilter.txt";
     
     /**
      * This function loads an input XML file detailing a
@@ -123,9 +126,18 @@ public class HESMLSTSPreprocessingclient
 
         // Create a Wordpreprocessing object
         
+//        wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
+//                                TokenizerType.StanfordCoreNLPv3_9_1, 
+//                                true, CharFilteringType.Default);
+        
         wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
-                                TokenizerType.StanfordCoreNLPv3_9_1, 
+                                TokenizerType.BioCNLPTokenizer, 
                                 true, CharFilteringType.Default);
+
+//      TESTING FUNCTION
+
+//        wordPreprocessing = PreprocessingFactory.getWordProcessingBioC(
+//                        "", true, CharFilteringType.Default);
         
         // Create the output subdirectories
         
@@ -137,6 +149,7 @@ public class HESMLSTSPreprocessingclient
         SentenceExtractorFactory.runSentenceExtractorPipeline(
                                 m_bioCManuscriptCorpusDir, 
                                 m_preprocessedDocumentsOutputDir, 
+                                m_preprocessedDocumentsOutputName,
                                 documentType, 
                                 sentenceSplitterType,
                                 preprocessType,

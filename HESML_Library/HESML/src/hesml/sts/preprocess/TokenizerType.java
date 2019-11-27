@@ -57,5 +57,17 @@ public enum TokenizerType
      * http://arxiv.org/abs/1810.04805.
      */
     
-    WordPieceTokenizer
+    WordPieceTokenizer,
+    
+    /**
+     * Tokenize the text using the BioC NLP Tokenizer.
+     * 
+     * Comeau, Donald C., Rezarta Islamaj Doğan, Paolo Ciccarese, 
+     * Kevin Bretonnel Cohen, Martin Krallinger, Florian Leitner, 
+     * Zhiyong Lu, et al. 2013. “BioC: A Minimalist Approach to Interoperability 
+     * for Biomedical Text Processing.” Database: The Journal of Biological 
+     * Databases and Curation 2013 (September): bat064.
+     */
+    
+    BioCNLPTokenizer
 }

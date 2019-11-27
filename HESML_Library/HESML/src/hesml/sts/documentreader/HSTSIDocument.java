@@ -39,7 +39,8 @@ public interface HSTSIDocument
      * @param paragraphList
      */
     
-    void setParagraphList(HSTSIParagraphList paragraphList);
+    void setParagraphList(
+            HSTSIParagraphList paragraphList);
     
     /**
      * Preprocess the document
@@ -47,7 +48,8 @@ public interface HSTSIDocument
      * @throws java.lang.InterruptedException
      */
     
-    void preprocessDocument() throws FileNotFoundException, IOException, InterruptedException;
+    void preprocessDocument() 
+            throws FileNotFoundException, IOException, InterruptedException;
 
     /**
      * Save sentences for each paragraph to an output file.
@@ -55,5 +57,6 @@ public interface HSTSIDocument
      * @throws IOException
      */
     
-    void saveSentencesToFile(File fileOutput) throws IOException;
+    void saveSentencesToFile(
+            File fileOutput) throws IOException;
 }
