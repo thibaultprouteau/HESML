@@ -93,7 +93,7 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
      */
     
     @Override
-    public String  getDefaultOutputFilename()
+    public String  getOutputFilename()
     {
         return (m_strOutputFilename);
     }
@@ -129,6 +129,18 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             
             similarityMatrix[iPair][0] = m_Dataset.getHumanJudgementAt(iPair);
             
+            // We get the next sentece pair
+
+            String[] sentences = m_Dataset.getSentencePairAt(iPair);
+            
+            // We show the debug info
+            
+            if (showDebugInfo)
+            {
+                System.out.println("Computing sentence pair " + (iPair + 1) + " of "
+                        + m_Dataset.getPairsCount());
+            }
+            
             // We evaluate all measures with the sentence pair
             
             for (int iMeasure = 0; iMeasure < m_Measures.length; iMeasure++)
@@ -136,10 +148,6 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
                 // We set the coluimn header for the current measure
                 
                 strColumnHeaders[iMeasure + 1] = m_Measures[iMeasure].getMethod().toString();
-                            
-                // We get the next sentece pair
-                
-                String[] sentences = m_Dataset.getSentencePairAt(iPair);
                 
                 // We evaluate the measure
                 

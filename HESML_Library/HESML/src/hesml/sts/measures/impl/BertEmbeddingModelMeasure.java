@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.apache.commons.lang.NotImplementedException;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -106,6 +107,26 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     }
     
     /**
+     * Get the similarity value of two sentences.
+     * Each measure implements its own method.
+     * BERTEmbeddingModelMeasure does not implement this method.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException 
+     */
+    
+    @Override
+    public double getSimilarityValue(
+            String strRawSentence1, 
+            String strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
+    {
+        throw (new Exception("Non-implemented function = getSimilarityValue"));
+    }
+    
+    /**
      * Get the similarity value between two vectors
      * @param strRawSentence1
      * @param strRawSentence2
@@ -113,9 +134,10 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws IOException 
      */
     
-    private double getSimilarityValue(
+    private double getVectorSimilarityValue(
             double[]    sentence1Vector,
-            double[]    sentence2Vector) throws FileNotFoundException, IOException
+            double[]    sentence2Vector) throws FileNotFoundException,
+            IOException, Exception
     {
         
         // We initialize the output value
@@ -157,7 +179,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public double[] getSimilarityValues(
             String[] lstSentences1, 
-            String[] lstSentences2) throws IOException, InterruptedException
+            String[] lstSentences2) throws IOException,
+            InterruptedException, Exception
     {
         
         // We check that input vectors have the same length
@@ -214,7 +237,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         for (ArrayList<double[]> listSentences : vectors)
         {
-            scores[i++] = this.getSimilarityValue(listSentences.get(0), listSentences.get(1));
+            scores[i++] = this.getVectorSimilarityValue(listSentences.get(0), listSentences.get(1));
         }
        
         // We return the result

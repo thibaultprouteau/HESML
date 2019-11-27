@@ -163,16 +163,7 @@ public class HESMLSTSMeasuresEvaluatorclient
                 // STS experiments. Schema file is assumed to be in
                 // same folder that the experiments file.
 
-                ISentenceSimilarityBenchmark[] reproExperiments = 
-                        SentenceSimBenchmarkFactory.loadXmlBenchmarksFile(inputFile.getPath());
-
-                // We execute all the experiments defined in the input file
-
-                for (ISentenceSimilarityBenchmark experiment : reproExperiments)
-                {
-                    experiment.evaluateBenchmark(false);
-                    experiment.clear();
-                }
+                SentenceSimBenchmarkFactory.runXmlBenchmarksFile(inputFile.getPath());
 
                 // We measure the elapsed time to run the experiments
 
@@ -208,7 +199,7 @@ public class HESMLSTSMeasuresEvaluatorclient
      * of HEMSL-STS library.
      */
     
-    private static void SampleExperiments() throws IOException, InterruptedException
+    private static void SampleExperiments() throws IOException, InterruptedException, Exception
     {
         // Initialize the sentences to be tested.
         // sentences1 are first sentences
@@ -243,7 +234,7 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static void testStringMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, InterruptedException
+            String[] sentences2) throws IOException, InterruptedException, Exception
     {
         // Initialize the preprocessing method and measures
         
@@ -312,7 +303,7 @@ public class HESMLSTSMeasuresEvaluatorclient
     
     private static void testBertMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, InterruptedException, ParseException
+            String[] sentences2) throws IOException, InterruptedException, ParseException, Exception
     {
         // Initialize the preprocessing method and measures
         

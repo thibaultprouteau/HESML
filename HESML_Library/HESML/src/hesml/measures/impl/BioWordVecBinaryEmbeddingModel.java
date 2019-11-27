@@ -36,7 +36,7 @@ import java.util.HashMap;
 
 /**
  * This class implements an evaluator of pre-trained BioWordVec
- * embedding models provided in FastText binary file format [2].
+ * embedding models trained with the FastText embedding method [2].
  * BioWordvec embeddings are introduced in the papers [1,2] below,
  * whilst fastText is introduced by Bojanowksi wt al. [3]
  * 

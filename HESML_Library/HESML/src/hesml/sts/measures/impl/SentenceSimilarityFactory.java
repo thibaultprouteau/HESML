@@ -54,7 +54,7 @@ public class SentenceSimilarityFactory
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) 
-            throws IOException, ParseException
+            throws IOException, ParseException, Exception
     {
         return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
                 embeddingType, preprocesser, strPretrainedWEFilename));

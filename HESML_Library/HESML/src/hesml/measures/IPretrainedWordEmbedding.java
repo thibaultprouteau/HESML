@@ -54,7 +54,7 @@ public interface IPretrainedWordEmbedding extends IWordSimilarityMeasure
      * @return 
      */
     
-    double[] getWordVector(String strWord)  throws IOException;
+    double[] getWordVector(String strWord)  throws IOException, Exception;
     
     /**
      * This function returns the dimensions of the vectors in the model.

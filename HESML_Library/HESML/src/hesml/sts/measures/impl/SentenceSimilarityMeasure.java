@@ -20,6 +20,7 @@ import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -91,12 +92,10 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public double getSimilarityValue(
+    public abstract double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, InterruptedException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+            String strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception;
 
     /**
      * Get the similarity value between a list of pairs of sentences.
@@ -111,7 +110,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public double[] getSimilarityValues(
             String[] firstSentencesVector,
-            String[] secondSentencesVector) throws IOException, InterruptedException
+            String[] secondSentencesVector) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
     {
         // We check that the length of the lists has to be equal
         

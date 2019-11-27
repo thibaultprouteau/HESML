@@ -424,9 +424,32 @@ public class MeasureFactory
     
     public static IPretrainedWordEmbedding getWordEmbeddingModel(
             WordEmbeddingFileType   embeddingType,
-            String                  strRawVectorFile) throws IOException, ParseException
+            String                  strRawVectorFile) throws IOException, ParseException, Exception
     {
-        return (new BioWordVecBinaryEmbeddingModel(strRawVectorFile));
+        // We initialize the output
+        
+        IPretrainedWordEmbedding model = null;
+        
+        // We create the word mebedding model
+        
+        switch(embeddingType)
+        {
+            case BioWordVecBinaryWordEmbedding:
+             
+                model = new BioWordVecBinaryEmbeddingModel(strRawVectorFile);
+                
+                break;
+                
+            case FastTextVecWordEmbedding:
+             
+                model = new FastTextVecWordEmbeddingModel(strRawVectorFile);
+                
+                break;
+        }
+        
+        // We return the result
+        
+        return (model);
     }
 
     /**

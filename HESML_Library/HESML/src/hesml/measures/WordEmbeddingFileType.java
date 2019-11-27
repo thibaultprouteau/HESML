@@ -29,5 +29,6 @@ package hesml.measures;
 
 public enum WordEmbeddingFileType
 {
-    BioWordVecBinaryWordEmbedding
+    BioWordVecBinaryWordEmbedding,
+    FastTextVecWordEmbedding
 }

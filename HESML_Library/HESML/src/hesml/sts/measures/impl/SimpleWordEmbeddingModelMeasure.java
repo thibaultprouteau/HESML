@@ -65,7 +65,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
-            String                  strPretrainedModelFilename) throws IOException, ParseException
+            String                  strPretrainedModelFilename) throws IOException, ParseException, Exception
     {
         // We initialize the base class
         
@@ -165,7 +165,8 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public double getSimilarityValue(
             String  strRawSentence1,
-            String  strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
+            String  strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
     {
         // We initialize the output
 
@@ -210,7 +211,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private double[] getSentenceEmbedding(
             String      strRawSentence) 
-            throws IOException, FileNotFoundException, InterruptedException
+            throws IOException, FileNotFoundException, InterruptedException, Exception
     {
         // We obtain the words in the input sentence
         

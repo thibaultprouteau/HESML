@@ -35,7 +35,7 @@ public interface ISentenceSimilarityBenchmark
      * @return Output filename
      */
     
-    String  getDefaultOutputFilename();
+    String  getOutputFilename();
     
     /**
      * This function executes the test and save the raw similarity values into
