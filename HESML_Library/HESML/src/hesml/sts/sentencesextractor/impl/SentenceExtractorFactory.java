@@ -130,7 +130,7 @@ public class SentenceExtractorFactory {
                         .concat(".txt"));
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
-                } 
+                }
                 else
                 {
                     String strFileOutput = strDocumentsPathOutput.concat(strDocumentsNameOutput);

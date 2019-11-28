@@ -58,6 +58,7 @@ class CharsFiltering implements ICharsFiltering
                 // m_ReplacingMap.put("[^\\p{Alpha}\\p{Digit}]+"," ");
                 
                 m_ReplacingMap.put("\\p{Punct}"," ");
+                m_ReplacingMap.put("[^\\x00-\\x7F]+","");
                 
                 break;
                 

@@ -19,7 +19,7 @@
  *
  */
 
-package hesmlstsclient;
+package hesmlstsdatasetpreprocessingclient;
 
 import hesml.HESMLversion;
 import hesml.sts.documentreader.HSTSDocumentType;
@@ -66,7 +66,7 @@ public class HESMLSTSDatasetPreprocessingclient
     //private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/datasetBioCPruebas/";
     //private static final String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "BioCCorpus/BioC_sentencesSplitted_D0/";
     private static final String  m_preprocessedDocumentsOutputDir = "/home/alicia/Desktop/HESML_dependencies_directories/BioCCorpus/";
-    private static final String  m_preprocessedDocumentsOutputName = "BioCsentences_BioCNLPToken_charFilter.txt";
+    private static String  m_preprocessedDocumentsOutputName = "";
     
     /**
      * This function loads an input XML file detailing a
@@ -92,7 +92,84 @@ public class HESMLSTSDatasetPreprocessingclient
         // We read the incoming parameters and load the reproducible
         // experiments defined by the user in a XML-based file.
         
-        testD0();
+        // Set the commom arguments
+            
+        HSTSDocumentType documentType = HSTSDocumentType.BioCXMLASCII;
+        SentenceSplitterType sentenceSplitterType = SentenceSplitterType.BioCSentenceSplitter;
+        SentenceExtractorType preprocessType = SentenceExtractorType.D0;
+        boolean saveAllSentencesToASingleFile = Boolean.TRUE;
+        TokenizerType tokenizerType = null;
+        CharFilteringType charFilteringType = null;
+
+        if ((args.length > 0))
+        {
+            // Get the preprocessing experiment
+            
+            String experimentName = new String(args[0]);
+            
+            switch(experimentName)
+            {
+                case "BioCNLPTokenizer_Default":
+
+                    tokenizerType = TokenizerType.BioCNLPTokenizer;
+                    charFilteringType = CharFilteringType.Default;
+                    
+                    // Set the output filename automatically
+                    
+                    m_preprocessedDocumentsOutputName = "BioCNLPTokenizer_Default.txt";
+                    
+                    break;
+                    
+                case "BioCNLPTokenizer_None":
+                    
+                    tokenizerType = TokenizerType.BioCNLPTokenizer;
+                    charFilteringType = CharFilteringType.None;
+                    
+                    // Set the output filename automatically
+                    
+                    m_preprocessedDocumentsOutputName = "BioCNLPTokenizer_None.txt";
+                    
+                    break;
+                    
+                case "StanfordCoreNLP_Default":
+                    
+                    tokenizerType = TokenizerType.StanfordCoreNLPv3_9_1;
+                    charFilteringType = CharFilteringType.Default;
+                    
+                    // Set the output filename automatically
+                    
+                    m_preprocessedDocumentsOutputName = "StanfordCoreNLP_Default.txt";
+                    
+                    break;
+                    
+                case "StanfordCoreNLP_None":
+                    
+                    tokenizerType = TokenizerType.StanfordCoreNLPv3_9_1;
+                    charFilteringType = CharFilteringType.None;
+                    
+                    // Set the output filename automatically
+                    
+                    m_preprocessedDocumentsOutputName = "StanfordCoreNLP_None.txt";
+                    
+                    break;
+            }
+            
+            // If the file output exists, remove before append the new sentences
+            
+            File outputFile = new File(m_preprocessedDocumentsOutputDir 
+                    + m_preprocessedDocumentsOutputName);
+            outputFile.delete();
+        }
+        else
+        {
+            System.err.println("\nIn order to properly use the HESMLSTSClient program");
+            System.err.println("you should call it using any of the two methods shown below:\n");
+            System.err.println("(1) C:> java -jar dist/HESMLSTSDatasetPreprocessingclient.jar <BioCNLPTokenizer_None>");
+        }
+        
+        // Perform the preprocess
+
+        testD0(documentType, sentenceSplitterType, preprocessType, tokenizerType, charFilteringType, saveAllSentencesToASingleFile);
     }
     
     /**
@@ -107,37 +184,27 @@ public class HESMLSTSDatasetPreprocessingclient
      * @todo establish input directory and read the tree. Output the results using the same structure than the input directories.
      */
     
-    private static void testD0() throws IOException, XMLStreamException, FileNotFoundException, InterruptedException
+    private static void testD0(
+            HSTSDocumentType        documentType,
+            SentenceSplitterType    sentenceSplitterType,
+            SentenceExtractorType   preprocessType,
+            TokenizerType           tokenizerType,
+            CharFilteringType       charFilteringType,
+            boolean                 saveAllSentencesToASingleFile) 
+            throws IOException, XMLStreamException, 
+            FileNotFoundException, InterruptedException
     {
         //Calculate the execution time of the method
         
         Instant start = Instant.now();
         
-        // Initialize the preprocessing method
+        // Create a Wordpreprocessing object
         
         IWordProcessing wordPreprocessing = null;
         
-        // Select BioC XML files and the default BioC Project Sentences Splitter (from Stanford CoreNLP)
-        
-        HSTSDocumentType documentType = HSTSDocumentType.BioCXMLASCII;
-        SentenceSplitterType sentenceSplitterType = SentenceSplitterType.BioCSentenceSplitter;
-        SentenceExtractorType preprocessType = SentenceExtractorType.D0;
-        boolean saveAllSentencesToASingleFile = Boolean.TRUE;
-
-        // Create a Wordpreprocessing object
-        
-//        wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
-//                                TokenizerType.StanfordCoreNLPv3_9_1, 
-//                                true, CharFilteringType.Default);
-        
         wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
-                                TokenizerType.BioCNLPTokenizer, 
-                                true, CharFilteringType.Default);
-
-//      TESTING FUNCTION
-
-//        wordPreprocessing = PreprocessingFactory.getWordProcessingBioC(
-//                        "", true, CharFilteringType.Default);
+                                tokenizerType, 
+                                true, charFilteringType);
         
         // Create the output subdirectories
         

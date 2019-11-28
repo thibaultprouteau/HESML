@@ -19,7 +19,7 @@
  *
  */
 
-package hesmlstsclient;
+package hesmlststrainingclient;
 
 import hesml.HESMLversion;
 import hesml.sts.languagemodels.ILanguageModel;

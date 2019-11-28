@@ -29,6 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
 /**
  *  This class configures the preprocess method and preprocess the sentences.
@@ -74,7 +75,12 @@ class WordProcessing implements IWordProcessing
     
     // Set with all the stop words
     
-    private HashSet<String> m_stopWordsSet;
+    private HashSet<String> m_stopWordsHashSet;
+    
+    // Define an internal Pattern parameter for checking if the input sentence 
+    // has at least one alphanumeric character.
+    
+    private final Pattern m_pattern;
 
     /**
      * Constructor with parameters
@@ -104,9 +110,13 @@ class WordProcessing implements IWordProcessing
         m_PythonScriptDir = null;
         m_modelDirPath = null;
         
-        // loads the stop words in the constructor once
+        // load the stop words in the constructor once
         
-        HashSet<String> m_stopWordsSet = getStopWords();
+        getStopWords();
+        
+        // Compile the pattern in the constructor for efficiency reasons.
+        
+        m_pattern = Pattern.compile("[[:alnum:]]");
     }
     
     /**
@@ -143,9 +153,13 @@ class WordProcessing implements IWordProcessing
         m_PythonScriptDir = pythonScriptDir;
         m_modelDirPath = modelDirPath;
         
-        // loads the stop words
+        // load the stop words
         
-        HashSet<String> m_stopWordsSet = getStopWords();
+        getStopWords();
+        
+        // Compile the pattern in the constructor for efficiency reasons.
+        
+        m_pattern = Pattern.compile("[[:alnum:]]");
     }
 
     /**
@@ -158,7 +172,7 @@ class WordProcessing implements IWordProcessing
         // Clear the objects after use them.
         
         m_charFilter.clear();
-        m_stopWordsSet.clear();
+        m_stopWordsHashSet.clear();
     }
     
     /**
@@ -179,64 +193,60 @@ class WordProcessing implements IWordProcessing
         
         String strFilteredSentence = new String(strRawSentence);
         
-        // Tokenize the text
+        // If the sentence has at least one alphanumeric character, preprocess it.
         
-        // Check if the sentence is not empty
-        
-        if (strFilteredSentence.length() == 0)
+        if(strFilteredSentence.length() > 0 
+                && m_pattern.matcher(strRawSentence).find())
         {
-            String exception = "The sentence is empty";
-            throw new IllegalArgumentException(exception);
-        }
-        
-        // Tokenize the text
-        
-        ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
+            // Tokenize the text
 
-        // We split the sentence into tokens
+            ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
 
-        String[] tokens_tokenized = tokenizer.getTokens(strFilteredSentence);
-        
-        // Preprocess each token and add to the output
-        
-        // Initialize an auxiliary arraylist to store the preprocessed words
-        
-        ArrayList<String> lstWordsPreprocessed = new ArrayList();
-        
-        // Iterate the tokens and preprocess them
-        
-        for (String token : tokens_tokenized)
-        {
-            String preprocessedToken = token;
-            
-            // Lowercase if true
-        
-            if (m_lowercaseNormalization) preprocessedToken = preprocessedToken.toLowerCase();
+            // We split the sentence into tokens
 
-            // Filter the punctuation marks
+            String[] tokens_tokenized = tokenizer.getTokens(strFilteredSentence);
 
-            preprocessedToken = m_charFilter.filter(preprocessedToken);
+            // Preprocess each token and add to the output
 
-            // Remove the word if its a stop word
-            
-            if(isStopword(preprocessedToken))
-                preprocessedToken = "";
-            
-            // Is there is a word, add to the new sentence
-            
-            if(preprocessedToken.length() > 0)
+            // Initialize an auxiliary arraylist to store the preprocessed words
+
+            ArrayList<String> lstWordsPreprocessed = new ArrayList();
+
+            // Iterate the tokens and preprocess them
+
+            for (String token : tokens_tokenized)
             {
-                lstWordsPreprocessed.add(preprocessedToken);
+                String preprocessedToken = token;
+
+                // Lowercase if true
+
+                if (m_lowercaseNormalization) preprocessedToken = preprocessedToken.toLowerCase();
+
+                // Filter the punctuation marks
+
+                preprocessedToken = m_charFilter.filter(preprocessedToken);
+
+                // Remove the word if its a stop word
+
+                if(isStopword(preprocessedToken))
+                    preprocessedToken = "";
+
+                // Is there is a word, add to the new sentence
+
+                if(preprocessedToken.length() > 0)
+                {
+                    lstWordsPreprocessed.add(preprocessedToken);
+                }
             }
+
+            // Convert the arraylist to a string array
+
+            tokens = lstWordsPreprocessed.toArray(new String[0]);
+
+            // Clear the arraylist
+
+            lstWordsPreprocessed.clear();
         }
-        
-        // Convert the arraylist to a string array
-        
-        tokens = lstWordsPreprocessed.toArray(new String[0]);
-        
-        // Clear the arraylist
-        
-        lstWordsPreprocessed.clear();
         
         // Return the tokens
         
@@ -246,17 +256,18 @@ class WordProcessing implements IWordProcessing
     /**
      * Get the stop words list
      * 
-     * @return
      * @throws FileNotFoundException
      * @throws IOException 
      */
     
-    private HashSet<String> getStopWords() throws FileNotFoundException, IOException
+    private void getStopWords() throws FileNotFoundException, IOException
     {
-        // Initialize the hash set for stop words
+        // Initialize the set
         
-        HashSet<String> stopWordsSet = new HashSet<>();
-    
+        m_stopWordsHashSet = new HashSet<>();
+        
+        // Check if there is a stop words file and load it
+        
         if ((m_strStopWordsFileName.length() > 0)
                 && Files.exists(Paths.get(m_strStopWordsFileName)))
         {
@@ -270,7 +281,7 @@ class WordProcessing implements IWordProcessing
             while((line=buffer.readLine()) != null)
             {
                 String stop = line.replaceAll(" ", "");
-                stopWordsSet.add(stop);
+                m_stopWordsHashSet.add(stop);
             }
 
             // Close the file
@@ -278,10 +289,6 @@ class WordProcessing implements IWordProcessing
             buffer.close();
             fileReader.close();
         }
-        
-        // Return the set of stop words
-        
-        return (stopWordsSet);
     }
     
     /**
@@ -299,11 +306,11 @@ class WordProcessing implements IWordProcessing
         
         // If the set of stop words is not empty, remove the stop words
 
-        if ((m_stopWordsSet != null) && !m_stopWordsSet.isEmpty())
+        if ((m_stopWordsHashSet != null) && !m_stopWordsHashSet.isEmpty())
         {
             // If the token is a stop word, remove
 
-            if(m_stopWordsSet.contains(strWord))
+            if(m_stopWordsHashSet.contains(strWord))
             {
                 isStopWord = true;
             }

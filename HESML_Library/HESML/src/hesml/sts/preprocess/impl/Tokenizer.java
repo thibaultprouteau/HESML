@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 /**
@@ -118,44 +119,44 @@ class Tokenizer implements ITokenizer
     {
         // Initialize the output
         
-        String[] tokens = null; 
+        String[] tokens = {}; 
         
         // We create the tokenizer
-        
+
         switch (m_tokenizerType)
         {
             case WhiteSpace:
-                
+
                 // Split words by whitespace.
-                
+
                 tokens = strRawSentence.split("\\s+"); 
-                
+
                 break;
-                
+
             case StanfordCoreNLPv3_9_1:
-                
+
                 // Convert to a Stanford CoreNLP Sentence object and get the tokens.
-                
+
                 Sentence sent = new Sentence(strRawSentence);
-                
+
                 // Get the list of tokenized words and convert to array.
-                
+
                 tokens = sent.words().toArray(new String[0]); 
-                
+
                 break;
-            
+
             case WordPieceTokenizer:
-                
+
                 tokens = this.getTokensUsingWordPiecePythonWrapper(strRawSentence);
-                
+
                 break;
-                
+
             case BioCNLPTokenizer:
-                
+
                 // Use the BioC NLP library to tokenize the sentence.
-                
+
                 tokens = this.getTokensBioCNLPLibrary(strRawSentence);
-                
+
                 break;
         }
         
@@ -178,7 +179,7 @@ class Tokenizer implements ITokenizer
     {
         //Initialize the output
         
-        String[] tokenizedText = null;
+        String[] tokenizedText = {};
                 
         // Fill the command params and execute the script
         // Create the command 
@@ -234,22 +235,22 @@ class Tokenizer implements ITokenizer
             String strSentence)
     {
         // Initialize the output
-        
+
         String[] tokens = {};
-        
+
         // Create a BioC Processing Pipeline object and set the sentence text.
-        
+
         PreprocessingPipeline preprocessingPipeline = new PreprocessingPipeline("sentence");
         preprocessingPipeline.setParseText(strSentence);
-        
+
         // Perform the sentence splitting (which firstly performs a tokenization process)
-        
+
         List<List<CoreLabel>> sentencesCoreLabels = preprocessingPipeline.performSentenceSplit();
 
         // Iterate the tokens in the sentence and write the token in the list
-        
+
         ArrayList<String> tokenizedTokens = new ArrayList();
-        
+
         List<CoreLabel> sentenceCoreLabel = sentencesCoreLabels.get(0);
 
         for(CoreLabel token: sentenceCoreLabel)
@@ -262,17 +263,17 @@ class Tokenizer implements ITokenizer
 
             tokenizedTokens.add(word);
         }
-        
+
         // Convert the arraylist to an array
-        
+
         tokens = tokenizedTokens.toArray(new String[0]);
-        
+
         // Clear the arraylist
-        
+
         tokenizedTokens.clear();
-        
+
         // Return the results
-        
+
         return tokens;
     }
 }
