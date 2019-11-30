@@ -333,7 +333,7 @@ public class HESMLSTSEvaluatorclient
         
         String[] poolingLayers = {"-2"};
         
-        measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
+        measure = SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(
                 SentenceEmbeddingMethod.BERTEmbeddingModel, 
                 wordPreprocessing, 
                 BioBert_Base_PMC,

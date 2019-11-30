@@ -55,10 +55,8 @@ class CharsFiltering implements ICharsFiltering
                 
                 // Remove all the punctuation marks using the Java preexisting regex.
                 // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-                // m_ReplacingMap.put("[^\\p{Alpha}\\p{Digit}]+"," ");
                 
                 m_ReplacingMap.put("\\p{Punct}"," ");
-                m_ReplacingMap.put("[^\\x00-\\x7F]+","");
                 
                 break;
                 
@@ -75,9 +73,13 @@ class CharsFiltering implements ICharsFiltering
                 break;
         }
         
-        // We also register the last extra words applied as last filtering
+        // We register the last extra words applied as last filtering
         
         m_ReplacingMap.put("\\s{2,}", " ");
+        
+        // We also remove the special symbols from \x00 to \x7f
+        
+        m_ReplacingMap.put("[^\\x00-\\x7F]+","");
     }
     
     /**

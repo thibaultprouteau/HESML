@@ -123,7 +123,46 @@ public class SentenceSimilarityFactory
     /**
      * This function creates a sentence embedding method.
      * 
-     * @todo SPLIT IN TWO FUNCTIONS FOR EACH METHOD
+     * @param method
+     * @param wordPreprocessor
+     * @param strPretrainedModelFilename
+     * @param strPretrainedModelDir
+     * @return 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
+     * @throws org.json.simple.parser.ParseException 
+     */
+    
+    public static ISentenceSimilarityMeasure getParagraphVectorSentenceMethod(
+            SentenceEmbeddingMethod method,
+            IWordProcessing         wordPreprocessor,
+            String                  strPretrainedModelFilename,
+            String                  strPretrainedModelDir) throws IOException,
+            InterruptedException, org.json.simple.parser.ParseException
+    {
+        // We check the existence of the pre-trained model file
+        
+        File pretainedModelFileInfo = new File(strPretrainedModelDir + "/" +
+                                            strPretrainedModelFilename);
+        
+        if (!pretainedModelFileInfo.exists())
+        {
+            throw (new FileNotFoundException(pretainedModelFileInfo.getAbsolutePath()));
+        }
+            
+        // We initialize the output
+        
+        ISentenceSimilarityMeasure measure = new ParagraphVectorMeasure(
+                        pretainedModelFileInfo.getAbsolutePath(),
+                        wordPreprocessor);
+
+        // We return the result
+        
+        return (measure);
+    }
+    
+    /**
+     * This function creates a sentence embedding method.
      * 
      * @param method
      * @param wordPreprocessor
@@ -139,7 +178,7 @@ public class SentenceSimilarityFactory
      * @throws org.json.simple.parser.ParseException 
      */
     
-    public static ISentenceSimilarityMeasure getSentenceEmbeddingMethod(
+    public static ISentenceSimilarityMeasure getBERTSentenceEmbeddingMethod(
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
@@ -162,29 +201,11 @@ public class SentenceSimilarityFactory
             
         // We initialize the output
         
-        ISentenceSimilarityMeasure measure = null;
-        
-        // We creates an instance of the required method
-        
-        switch (method)
-        {
-            case ParagraphVector:
-                
-                measure = new ParagraphVectorMeasure(pretainedModelFileInfo.getAbsolutePath(),
-                                    wordPreprocessor);
-                
-                break;
-                
-            case BERTEmbeddingModel:
-                
-                measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, 
-                        wordPreprocessor, strPretrainedModelDir,
-                        strPythonVirtualEnvironmentDir, pythonScriptDir,
-                        poolingStrategy, poolingLayers);
-                
-                break;
-        }
-        
+        ISentenceSimilarityMeasure measure = new BertEmbeddingModelMeasure(
+                        strPretrainedModelFilename, wordPreprocessor, 
+                        strPretrainedModelDir, strPythonVirtualEnvironmentDir,
+                        pythonScriptDir, poolingStrategy, poolingLayers);
+
         // We return the result
         
         return (measure);

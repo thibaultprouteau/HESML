@@ -61,11 +61,8 @@ public class HESMLSTSDatasetPreprocessingclient
     
     private static final String  m_strBaseDir = "../";
     private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
-    // private static final String  m_bioCManuscriptCorpusDir = m_strBaseDir + "BioCCorpus/BioCManuscriptCorpus/";
-    private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/BioCManuscriptCorpus/";
-    //private static final String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/datasetBioCPruebas/";
-    //private static final String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "BioCCorpus/BioC_sentencesSplitted_D0/";
-    private static final String  m_preprocessedDocumentsOutputDir = "/home/alicia/Desktop/HESML_dependencies_directories/BioCCorpus/";
+    private static String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/BioCManuscriptCorpus/";
+    private static String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "/PreprocessedPMCOpenAccessSubset/";
     private static String  m_preprocessedDocumentsOutputName = "";
     
     /**
@@ -106,6 +103,7 @@ public class HESMLSTSDatasetPreprocessingclient
             // Get the preprocessing experiment
             
             String experimentName = new String(args[0]);
+            String is_server = new String(args[1]);
             
             switch(experimentName)
             {
@@ -152,6 +150,12 @@ public class HESMLSTSDatasetPreprocessingclient
                     m_preprocessedDocumentsOutputName = "StanfordCoreNLP_None.txt";
                     
                     break;
+            }
+            
+            if("server".equals(is_server))
+            {
+                m_bioCManuscriptCorpusDir = "/datos/alara/BioCCorpus/XMLBioCFormat_PMCOpenAccesSubset/";
+                m_preprocessedDocumentsOutputDir = "/datos/alara/BioCCorpus/PreprocessedPMCOpenAccessSubset/";
             }
             
             // If the file output exists, remove before append the new sentences
