@@ -33,7 +33,7 @@ import java.io.IOException;
  *  Correcting Deletions, Insertions, and Reversals.” 
  *  In Soviet Physics Doklady, 10:707–10. nymity.ch.
  * 
- * @author alicia
+ *  @author alicia
  */
 
 class LevenshteinMeasure extends SentenceSimilarityMeasure
@@ -58,6 +58,8 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
             int insertDeleteCost,
             int substituteCost)
     {
+        // We intialize the base class
+        
         super(preprocesser);
         
         // Initialize the default internal variables
@@ -218,10 +220,13 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
 
                 for (int j = 0; j < strSentence2.length(); j++) 
                 {
-                    double substitutionCost = (strSentence1.charAt(i) == strSentence2.charAt(j)) ? 0.0 : m_substituteCost;
+                    double substitutionCost = (strSentence1.charAt(i) 
+                            == strSentence2.charAt(j)) ? 0.0 : m_substituteCost;
 
-                    costVectorSentence2[j + 1] = Math.min(costVectorSentence2[j] + m_insertDeleteCost, costVectorSentence1[j + 1] + m_insertDeleteCost);
-                    costVectorSentence2[j + 1] = Math.min(costVectorSentence2[j + 1], costVectorSentence1[j] + substitutionCost);
+                    costVectorSentence2[j + 1] = Math.min(costVectorSentence2[j] 
+                            + m_insertDeleteCost, costVectorSentence1[j + 1] + m_insertDeleteCost);
+                    costVectorSentence2[j + 1] = Math.min(costVectorSentence2[j + 1], 
+                            costVectorSentence1[j] + substitutionCost);
                 }
 
                 // We swap both cost vectors

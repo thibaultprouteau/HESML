@@ -18,8 +18,8 @@
 package hesml.sts.preprocess;
 
 /**
- *  Enumeration class for filtering the punctuation marks.
- * @author alicia
+ *  Enumeration class for group all filtering punctuation marks.
+ *  @author alicia
  */
 
 public enum CharFilteringType

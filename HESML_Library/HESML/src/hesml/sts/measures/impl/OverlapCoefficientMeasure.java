@@ -47,6 +47,8 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
     OverlapCoefficientMeasure(
             IWordProcessing preprocesser)
     {
+        // We intialize the base class
+        
         super(preprocesser);
     }
     

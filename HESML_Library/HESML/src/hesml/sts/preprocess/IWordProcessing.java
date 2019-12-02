@@ -23,13 +23,14 @@ import java.io.IOException;
 /**
  * This interface sets the abstract methods which must be implemented by
  * any specific word preprocessing method.
+ * 
  * @author alicia
  */
 
 public interface IWordProcessing
 {
     /**
-     * This function releases all resoruces used by the word preprocessingmethod..
+     * This function releases all resoruces used by the word preprocessingmethod.
      */
     
     void clear();

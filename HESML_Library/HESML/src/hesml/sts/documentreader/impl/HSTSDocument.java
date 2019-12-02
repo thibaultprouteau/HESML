@@ -82,7 +82,7 @@ class HSTSDocument implements HSTSIDocument
     @Override
     public HSTSIParagraphList getParagraphList()
     {
-        return m_paragraphList;
+        return (m_paragraphList);
     }
     
     /**

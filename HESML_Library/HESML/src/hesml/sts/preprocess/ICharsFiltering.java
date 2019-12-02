@@ -26,8 +26,9 @@ public interface ICharsFiltering
     /**
      * Given a sentence, filter the chars using the method selected.
      * @param strRawSentence
-     * @return String
+     * @return String sentence with the characters filtered.
      */
     
-    String filter(String strRawSentence);
+    String filter(
+            String strRawSentence);
 }

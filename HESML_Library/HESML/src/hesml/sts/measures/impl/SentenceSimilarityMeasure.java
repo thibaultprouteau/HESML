@@ -42,6 +42,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     SentenceSimilarityMeasure(
             IWordProcessing preprocesser)
     {
+        // Initialize the preprocesser object.
+        
         m_preprocesser = preprocesser;
     }
     
@@ -52,7 +54,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     
     @Override
     public void clear()
-    {       
+    {
         m_preprocesser.clear();
     }
     

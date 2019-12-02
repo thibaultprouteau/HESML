@@ -79,7 +79,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String              pythonVenvDir,
             String              pythonScriptDir,
             BERTpoolingMethod   poolingStrategy,
-            String[]               poolingLayers) 
+            String[]            poolingLayers) 
             throws InterruptedException, IOException, 
                 FileNotFoundException, ParseException
     {
@@ -129,7 +129,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private double getSimilarityValue(
             double[]    sentence1Vector,
-            double[]    sentence2Vector) throws FileNotFoundException, IOException
+            double[]    sentence2Vector) 
+            throws FileNotFoundException, IOException
     {
         
         // We initialize the output value
@@ -356,7 +357,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String absPathTempSentencesFile,
             String absPathTempVectorsFile) throws InterruptedException, IOException
     {
-        
         // Fill the command params and execute the script
         // Ignore the Tensorflow warnings
         

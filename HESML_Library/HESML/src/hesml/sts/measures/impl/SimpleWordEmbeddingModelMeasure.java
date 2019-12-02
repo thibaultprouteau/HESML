@@ -141,7 +141,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override

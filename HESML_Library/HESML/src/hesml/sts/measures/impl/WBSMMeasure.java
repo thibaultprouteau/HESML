@@ -61,6 +61,8 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     
     WBSMMeasure(IWordProcessing  preprocesser)
     {
+        // We intialize the base class
+        
         super(preprocesser);
         
         // Initialize the set
@@ -74,18 +76,18 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     
     /**
      * Return the current method.
-     * @return 
+     * @return SentenceSimilarityMethod
      */
     
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return SentenceSimilarityMethod.WBSMMeasure;
+        return (SentenceSimilarityMethod.WBSMMeasure);
     }
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override

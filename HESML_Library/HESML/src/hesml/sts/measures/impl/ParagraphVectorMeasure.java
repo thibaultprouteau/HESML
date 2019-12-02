@@ -23,7 +23,6 @@ import hesml.sts.languagemodels.impl.LanguageModelFactory;
 import hesml.sts.languagemodels.ILanguageModel;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import java.io.FileNotFoundException;
-
 import java.io.IOException;
 
 /**
