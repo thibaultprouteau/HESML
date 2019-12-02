@@ -41,11 +41,11 @@ class Tokenizer implements ITokenizer
     
     // Python executable using the virtual environment.
     
-    private final String m_PythonVenvDir;
+    private final String m_pythonVenvDir;
     
     // Python script wrapper
     
-    private final String m_PythonScriptDir;
+    private final String m_pythonScriptDir;
     
     // Path to the model dir path
     
@@ -65,8 +65,8 @@ class Tokenizer implements ITokenizer
         
         // If the Python wrapper is not used, set the variables null.
         
-        m_PythonVenvDir = null;
-        m_PythonScriptDir = null;
+        m_pythonVenvDir = null;
+        m_pythonScriptDir = null;
         m_modelDirPath = null;
     }
     
@@ -88,8 +88,8 @@ class Tokenizer implements ITokenizer
         // Set the variables by constructor
         
         m_tokenizerType = tokenizerType;
-        m_PythonScriptDir = PythonScriptDir;
-        m_PythonVenvDir = PythonVenvDir;
+        m_pythonScriptDir = PythonScriptDir;
+        m_pythonVenvDir = PythonVenvDir;
         m_modelDirPath = modelDirPath;
     }
     
@@ -182,10 +182,10 @@ class Tokenizer implements ITokenizer
         // Create the command 
         
         Process proc = new ProcessBuilder(
-                m_PythonVenvDir,
+                m_pythonVenvDir,
                 "-W",
                 "ignore",
-                m_PythonScriptDir,
+                m_pythonScriptDir,
                 m_modelDirPath + "vocab.txt",
                 strSentence).start();
 

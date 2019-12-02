@@ -59,15 +59,15 @@ class WordProcessing implements IWordProcessing
     // tokenizer methods that uses the Python wrapper.
     // Path to the temp directory.
     
-    private final String m_TempDir;
+    private final String m_tempDir;
     
     // Python executable using the virtual environment.
     
-    private final String m_PythonVenvDir;
+    private final String m_pythonVenvDir;
     
     // Python script wrapper
     
-    private final String m_PythonScriptDir;
+    private final String m_pythonScriptDir;
     
     // Path to the pretrained model embedding 
     
@@ -105,9 +105,9 @@ class WordProcessing implements IWordProcessing
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir = null;
-        m_PythonVenvDir = null;
-        m_PythonScriptDir = null;
+        m_tempDir = null;
+        m_pythonVenvDir = null;
+        m_pythonScriptDir = null;
         m_modelDirPath = null;
         
         // load the stop words in the constructor once
@@ -148,9 +148,9 @@ class WordProcessing implements IWordProcessing
         
         // Initialize the temporal dirs to null.
         
-        m_TempDir = tempDir;
-        m_PythonVenvDir = pythonVenvDir;
-        m_PythonScriptDir = pythonScriptDir;
+        m_tempDir = tempDir;
+        m_pythonVenvDir = pythonVenvDir;
+        m_pythonScriptDir = pythonScriptDir;
         m_modelDirPath = modelDirPath;
         
         // load the stop words

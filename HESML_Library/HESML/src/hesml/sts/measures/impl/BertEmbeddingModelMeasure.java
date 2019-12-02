@@ -44,7 +44,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
     // Path to the BERT base directory (usually BERTExperiments/).
     
-    private final String m_BERTDir;
+    private final String m_bertDir;
     
     // Path to the BERT pretrained model to evaluate.
     
@@ -90,7 +90,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // We initialize main attributes
         
         m_modelDirPath = modelDirPath;
-        m_BERTDir = bertDir;
+        m_bertDir = bertDir;
         m_pythonScriptDir = pythonScriptDir;
         m_pythonVenvDir = pythonVenvDir;
         m_poolingStrategy = poolingStrategy;
@@ -189,8 +189,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // Initialize the temporal file for writing the sentences and read the vectors
         
-        File tempFileSentences = createTempFile(m_BERTDir + "tempSentences.txt");
-        File tempFileVectors   = createTempFile(m_BERTDir + "tempVecs.txt");
+        File tempFileSentences = createTempFile(m_bertDir + "tempSentences.txt");
+        File tempFileVectors   = createTempFile(m_bertDir + "tempVecs.txt");
         
         // Get the canonical path for the temporal files
         

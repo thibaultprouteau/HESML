@@ -33,7 +33,7 @@ class CharsFiltering implements ICharsFiltering
      * detailed string replacements.
      */
     
-    private HashMap<String, String> m_ReplacingMap;
+    private HashMap<String, String> m_replacingMap;
     
     /**
      *  Constructor with parameters.
@@ -45,7 +45,7 @@ class CharsFiltering implements ICharsFiltering
     {
         // We create the replacement mapping
         
-        m_ReplacingMap = new HashMap<>();
+        m_replacingMap = new HashMap<>();
         
         // We set the replcament patterns for each pre-defined method.
         
@@ -56,7 +56,7 @@ class CharsFiltering implements ICharsFiltering
                 // Remove all the punctuation marks using the Java preexisting regex.
                 // 	Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
                 
-                m_ReplacingMap.put("\\p{Punct}"," ");
+                m_replacingMap.put("\\p{Punct}"," ");
                 
                 break;
                 
@@ -75,11 +75,11 @@ class CharsFiltering implements ICharsFiltering
         
         // We register the last extra words applied as last filtering
         
-        m_ReplacingMap.put("\\s{2,}", " ");
+        m_replacingMap.put("\\s{2,}", " ");
         
         // We also remove the special symbols from \x00 to \x7f
         
-        m_ReplacingMap.put("[^\\x00-\\x7F]+","");
+        m_replacingMap.put("[^\\x00-\\x7F]+","");
     }
     
     /**
@@ -88,7 +88,7 @@ class CharsFiltering implements ICharsFiltering
     
     public void clear()
     {
-        m_ReplacingMap.clear();
+        m_replacingMap.clear();
     }
     
     /**
@@ -108,10 +108,10 @@ class CharsFiltering implements ICharsFiltering
         // We apply all replacements by substituting all search patterns
         // registered in the global mapping.
         
-        for (String strToBeReplaced : m_ReplacingMap.keySet())
+        for (String strToBeReplaced : m_replacingMap.keySet())
         {
             strFilteredSentence = strFilteredSentence.replaceAll(strToBeReplaced,
-                                    m_ReplacingMap.get(strToBeReplaced));
+                                    m_replacingMap.get(strToBeReplaced));
         }
         
         // We apply the last triming. Extra words are removed by the last replcament pattern.
@@ -131,20 +131,20 @@ class CharsFiltering implements ICharsFiltering
     {
         // We register all string replcaments
         
-        m_ReplacingMap.put("\\.","");
-        m_ReplacingMap.put(";","");
-        m_ReplacingMap.put("-","");
-        m_ReplacingMap.put(":","");
-        m_ReplacingMap.put(",","");
-        m_ReplacingMap.put("_","");
-        m_ReplacingMap.put("!", "");
-        m_ReplacingMap.put("\\(", "");
-        m_ReplacingMap.put("\\)", "");
-        m_ReplacingMap.put("\\[", "");
-        m_ReplacingMap.put("\\]", "");
-        m_ReplacingMap.put("\\*", "");
-        m_ReplacingMap.put("/", "");
-        m_ReplacingMap.put("\\?", "");
+        m_replacingMap.put("\\.","");
+        m_replacingMap.put(";","");
+        m_replacingMap.put("-","");
+        m_replacingMap.put(":","");
+        m_replacingMap.put(",","");
+        m_replacingMap.put("_","");
+        m_replacingMap.put("!", "");
+        m_replacingMap.put("\\(", "");
+        m_replacingMap.put("\\)", "");
+        m_replacingMap.put("\\[", "");
+        m_replacingMap.put("\\]", "");
+        m_replacingMap.put("\\*", "");
+        m_replacingMap.put("/", "");
+        m_replacingMap.put("\\?", "");
     }
     
     /**
@@ -155,13 +155,13 @@ class CharsFiltering implements ICharsFiltering
     {
         // We set the filtering chain
         
-        m_ReplacingMap.put("\\.","");
-        m_ReplacingMap.put(",","");
-        m_ReplacingMap.put(":","");
-        m_ReplacingMap.put(";","");
-        m_ReplacingMap.put("\\?", "");
-        m_ReplacingMap.put("!", "");
-        m_ReplacingMap.put("/", "");     
-        m_ReplacingMap.put("-","");
+        m_replacingMap.put("\\.","");
+        m_replacingMap.put(",","");
+        m_replacingMap.put(":","");
+        m_replacingMap.put(";","");
+        m_replacingMap.put("\\?", "");
+        m_replacingMap.put("!", "");
+        m_replacingMap.put("/", "");     
+        m_replacingMap.put("-","");
     }
 }

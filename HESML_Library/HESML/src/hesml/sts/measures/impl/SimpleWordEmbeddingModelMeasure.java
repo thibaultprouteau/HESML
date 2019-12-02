@@ -45,11 +45,11 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 {
     // Word embedding model
     
-    private final IPretrainedWordEmbedding    m_WordEmbedding;
+    private final IPretrainedWordEmbedding    m_wordEmbedding;
     
     // Specific method implemented
 
-    private final SWEMpoolingMethod    m_PoolingMethod;
+    private final SWEMpoolingMethod    m_poolingMethod;
     
     /**
      * Constructor with parameters.
@@ -70,8 +70,8 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We initializer the object
         
-        m_PoolingMethod = poolingMethod;
-        m_WordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
+        m_poolingMethod = poolingMethod;
+        m_wordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
                             strPretrainedModelFilename);
     }
     
@@ -85,7 +85,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     {       
         // We release the embedding query structure
         
-        m_WordEmbedding.clear();
+        m_wordEmbedding.clear();
         
         // We release the resoruces of the base class
         
@@ -107,7 +107,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We return the method
         
-        switch (m_PoolingMethod)
+        switch (m_poolingMethod)
         {
             case Average:
                 
@@ -215,7 +215,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
 
         // We initialize the accumulated word vector
         
-        double[] sentenceVector = new double[m_WordEmbedding.getVectorDimension()];
+        double[] sentenceVector = new double[m_wordEmbedding.getVectorDimension()];
         
         // We obtain the vectors for each word
         
@@ -229,17 +229,17 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
             
             // We extract the word vector from the pre-trained embedding
             
-            if (m_WordEmbedding.ContainsWord(strWord))
+            if (m_wordEmbedding.ContainsWord(strWord))
             {
                 // We obtaion the word vector
                 
-                double[] wordVector = m_WordEmbedding.getWordVector(strWord);
+                double[] wordVector = m_wordEmbedding.getWordVector(strWord);
                 
                 // We accumulate the result
                         
                 for (int i = 0; i < wordVector.length; i++)
                 {
-                    switch (m_PoolingMethod)
+                    switch (m_poolingMethod)
                     {
                         case Average:
                         case Sum:
@@ -268,7 +268,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
             }
         }
         
-        // For the case of avergae pooling, we divde by the vector count @alicia: if (m_PoolingMethod == Average)¿?
+        // For the case of avergae pooling, we divde by the vector count @alicia: if (m_poolingMethod == Average)¿?
         
         for (int i = 0; i < sentenceVector.length; i++)
         {
