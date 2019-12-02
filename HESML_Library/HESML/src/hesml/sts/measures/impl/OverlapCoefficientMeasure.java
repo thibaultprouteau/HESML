@@ -163,7 +163,7 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
      * @return 
      */
     
-    static Set<String> intersection(
+    private Set<String> intersection(
             Set<String> sentence1Set, 
             Set<String> sentence2Set) 
     {

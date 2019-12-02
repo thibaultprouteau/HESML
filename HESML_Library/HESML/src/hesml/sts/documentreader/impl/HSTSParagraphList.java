@@ -62,7 +62,8 @@ public class HSTSParagraphList implements HSTSIParagraphList
      */
     
     @Override
-    public HSTSIParagraph getParagraph(int idParagraph)
+    public HSTSIParagraph getParagraph(
+            int idParagraph)
     {
         return (m_paragraphs.get(idParagraph));
     }
@@ -73,7 +74,8 @@ public class HSTSParagraphList implements HSTSIParagraphList
      */
     
     @Override
-    public void addParagraph(HSTSIParagraph paragraph)
+    public void addParagraph(
+            HSTSIParagraph paragraph)
     {
         m_paragraphs.add(paragraph);
     }

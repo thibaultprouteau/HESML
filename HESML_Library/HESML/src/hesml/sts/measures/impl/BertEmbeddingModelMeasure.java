@@ -132,7 +132,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             double[]    sentence2Vector) 
             throws FileNotFoundException, IOException
     {
-        
         // We initialize the output value
         
         double similarity = 0.0;
@@ -174,7 +173,6 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String[] lstSentences1, 
             String[] lstSentences2) throws IOException, InterruptedException
     {
-        
         // We check that input vectors have the same length
         
         if(lstSentences1.length != lstSentences2.length)

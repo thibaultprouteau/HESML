@@ -73,13 +73,13 @@ class CharsFiltering implements ICharsFiltering
                 break;
         }
         
+        // We remove the special symbols from \x00 to \x7f
+        
+        m_replacingMap.put("[^\\x00-\\x7F]+","");
+        
         // We register the last extra words applied as last filtering
         
         m_replacingMap.put("\\s{2,}", " ");
-        
-        // We also remove the special symbols from \x00 to \x7f
-        
-        m_replacingMap.put("[^\\x00-\\x7F]+","");
     }
     
     /**

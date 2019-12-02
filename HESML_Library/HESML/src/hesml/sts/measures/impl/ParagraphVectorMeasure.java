@@ -119,8 +119,10 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
        
         // Join the words and generate the preprocessed sentences
         
-        double[] sentence1Vector = m_pretrainedModel.getVectorFromStrSentence(String.join(" ", lstWordsSentence1));
-        double[] sentence2Vector = m_pretrainedModel.getVectorFromStrSentence(String.join(" ", lstWordsSentence2));
+        double[] sentence1Vector = m_pretrainedModel.getVectorFromStrSentence(
+                String.join(" ", lstWordsSentence1));
+        double[] sentence2Vector = m_pretrainedModel.getVectorFromStrSentence(
+                String.join(" ", lstWordsSentence2));
 
         // We check the validity of the word vectors. They could be null if
         // any word is not contained in the vocabulary of the embedding.

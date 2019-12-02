@@ -104,12 +104,14 @@ class ParagraphVectorModel implements ILanguageModel
             String strTrainningOutputDocumentPath) 
             throws FileNotFoundException, IOException
     {
-        
         // Read the file, initialize configuration as BIOSSES2017
         
         File file = new File(strTrainningInputDocumentPath);
         SentenceIterator iter = new BasicLineIterator(file);
         AbstractCache<VocabWord> cache = new AbstractCache<>();
+        
+        // Initialize the tokenizer by default (whitespace).
+        // The sentences has been previously preprocessed in HESML.
         
         TokenizerFactory t = new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());

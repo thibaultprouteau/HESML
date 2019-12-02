@@ -21,7 +21,7 @@ import java.io.IOException;
 
 /**
  *  Tokenizer for preprocessing the texts
- * @author alicia
+ *  @author alicia
  */
 
 public interface ITokenizer
@@ -33,7 +33,6 @@ public interface ITokenizer
      */
     
     TokenizerType getTokenizerType();
-    
     
     /**
      * Given a sentence, get the tokens using the method selected.

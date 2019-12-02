@@ -21,10 +21,10 @@ package hesml.sts.documentreader;
  * @author Alicia Lara-Clares
  */
 
-public enum HSTSDocumentType {
-    
+public enum HSTSDocumentType 
+{
     /**
-     * PubMed Central Open Access in BioC format extracted from https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/BioC-PMC/
+     * PubMed Central Open Access in BioC format
      */
     
     BioCXMLUnicode

@@ -34,27 +34,41 @@ public class HSTSDocumentFactory
 {
     /**
      * This function load a file and creates an HSTSIDocument object 
-     * filling the paragrapms and sentences.
+     * filling the paragraphs and sentences.
      * 
      * @param iDocument
      * @param fileInput
      * @param documentType
-     * @param wordPreprocessing
+     * @param preprocesser
      * @return
      * @throws FileNotFoundException
      * @throws XMLStreamException
      */
     
     public static HSTSIDocument loadDocument(
-            int             iDocument,
-            File            fileInput,
+            int                 iDocument,
+            File                fileInput,
             HSTSDocumentType    documentType,
-            IWordProcessing wordPreprocessing) throws FileNotFoundException, XMLStreamException
+            IWordProcessing     preprocesser) 
+            throws FileNotFoundException, XMLStreamException
     {
         // We initialize the output document
+        HSTSIDocument document = null;
         
-        HSTSIDocument document = (documentType == HSTSDocumentType.BioCXMLUnicode) ?
-                        BioCReader.loadFile(iDocument, fileInput, wordPreprocessing) : null;
+        if(documentType == HSTSDocumentType.BioCXMLUnicode)
+        {
+            // Initialize the reader
+            
+            BioCReader biocReader = new BioCReader(iDocument, fileInput, preprocesser);
+            
+            // Read the bioc file
+            
+            document = biocReader.readFile();
+            
+            // Clean the internal variables.
+            
+            biocReader.clean();
+        }
 
         // We return the result
         

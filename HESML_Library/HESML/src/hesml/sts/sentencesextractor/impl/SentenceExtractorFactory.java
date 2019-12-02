@@ -86,6 +86,8 @@ public class SentenceExtractorFactory
         
         for (File directory : directories) 
         {
+            // Create output directory structure
+            
             if(!allInOneFile)
                 SentenceExtractorFactory.createOutputDirectoryStructure(directory, strDocumentsPathOutput);
             

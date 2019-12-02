@@ -49,8 +49,25 @@ import edu.stanford.nlp.ling.CoreLabel;
  * @todo STATIC FUNCTIONS!
  */
 
-class BioCReader { 
-
+class BioCReader 
+{ 
+    private final int m_idDocument;
+    private final File m_biocFile;
+    private final IWordProcessing m_preprocessing;
+    
+    
+    BioCReader(
+            int idDocument,
+            File biocFile,
+            IWordProcessing preprocessing)
+    {
+        // Initialize the variables
+        
+        m_idDocument = idDocument;
+        m_biocFile = biocFile;
+        m_preprocessing = preprocessing;
+    }
+    
     /**
      * Loads the BioC file, extract the documents and paragraphs.
      * -> A BioCColection has one or more BioCDocuments.
@@ -63,15 +80,12 @@ class BioCReader {
      * @throws XMLStreamException 
      */
     
-    static HSTSIDocument loadFile(
-            int             idDocument,
-            File            biocFile,
-            IWordProcessing wordPreprocessing) 
+    public HSTSIDocument readFile() 
             throws FileNotFoundException, XMLStreamException
     {
         // read BioC XML collection
         
-        BioCCollection collection = readBioCCollection(biocFile);
+        BioCCollection collection = this.readBioCCollection();
         
         // Extract the documents from the BioC collection
         
@@ -79,8 +93,8 @@ class BioCReader {
 
         // Create an IDocument
         
-        String str_documentPath = biocFile.getAbsolutePath();
-        HSTSDocument document = new HSTSDocument(idDocument, str_documentPath, wordPreprocessing);
+        String str_documentPath = m_biocFile.getAbsolutePath();
+        HSTSDocument document = new HSTSDocument(m_idDocument, str_documentPath, m_preprocessing);
 
         // Create a ParagraphList
         
@@ -99,12 +113,13 @@ class BioCReader {
             // Iterate over passages and extract the texts
             
             int idParagraph = 0;
-            for (Iterator<BioCPassage> iterator1 = bioCPassages.iterator(); iterator1.hasNext();) {
+            for (Iterator<BioCPassage> iterator1 = bioCPassages.iterator(); iterator1.hasNext();) 
+            {
                 BioCPassage nextBioCPassage = iterator1.next();
 
                 // Create an IParagraph
                 
-                HSTSParagraph paragraph = new HSTSParagraph(idParagraph, idDocument);
+                HSTSParagraph paragraph = new HSTSParagraph(idParagraph, m_idDocument);
                 
                 // Get and set the text in the paragraph.
                 
@@ -113,7 +128,7 @@ class BioCReader {
                 
                 // In BioC, the sentences are collected using the BioC library.
                 
-                paragraph.setSentenceList(BioCReader.extractBioCSentences(paragraph));
+                paragraph.setSentenceList(this.extractBioCSentences(paragraph));
                 
                 // Add the text to the paragraph
                 
@@ -122,6 +137,14 @@ class BioCReader {
                 idParagraph++;
             }
         }
+        
+        // Clear the list of documents
+        
+        biocDocuments.clear();
+        
+        // Set the collection to null 
+        
+        collection = null;
         
         // Add the paragraphs to the document
         
@@ -133,27 +156,27 @@ class BioCReader {
     }
     
     /**
-    * Call to the BioC Java Pipeline library to perform the sentence splitting.
-    * 
-    * "Sentence segmenter.
-    * An efficient sentence segmenter, DocumentPreprocessor, is used to produce a list of sentences from a plain text. 
-    * It is a creation of the Stanford NLP group using a heuristic finite-state machine that assumes the sentence 
-    * ending is always signaled by a fixed set of characters. Tokenization is performed by the default rule-based 
-    * tokenizer of the sentence segmenter, PTBTokenizer, before the segmenting process to divide text into a sequence of tokens. 
-    * The ‘invertible’ option of the tokenizer is invoked to ensure that multiple whitespaces 
-    * are reflected in token offsets so that the resulting tokens can be faithfully converted back to the original text. 
-    * Sentence segmentation is then a deterministic consequence of tokenization."
-    * Cited from:
-    * Comeau, D. C., Liu, H., Islamaj Doğan, R., & Wilbur, W. J. (2014). 
-    * Natural language processing pipelines to annotate BioC collections with 
-    * an application to the NCBI disease corpus. Database : the journal of 
-    * biological databases and curation, 2014, bau056. doi:10.1093/database/bau056
-    * 
-    * @param HSTSIParagraph
-    * @return HSTSSentenceList
-    */
+     * Call to the BioC Java Pipeline library to perform the sentence splitting.
+     * 
+     * "Sentence segmenter.
+     * An efficient sentence segmenter, DocumentPreprocessor, is used to produce a list of sentences from a plain text. 
+     * It is a creation of the Stanford NLP group using a heuristic finite-state machine that assumes the sentence 
+     * ending is always signaled by a fixed set of characters. Tokenization is performed by the default rule-based 
+     * tokenizer of the sentence segmenter, PTBTokenizer, before the segmenting process to divide text into a sequence of tokens. 
+     * The ‘invertible’ option of the tokenizer is invoked to ensure that multiple whitespaces 
+     * are reflected in token offsets so that the resulting tokens can be faithfully converted back to the original text. 
+     * Sentence segmentation is then a deterministic consequence of tokenization."
+     * Cited from:
+     * Comeau, D. C., Liu, H., Islamaj Doğan, R., & Wilbur, W. J. (2014). 
+     * Natural language processing pipelines to annotate BioC collections with 
+     * an application to the NCBI disease corpus. Database : the journal of 
+     * biological databases and curation, 2014, bau056. doi:10.1093/database/bau056
+     * 
+     * @param HSTSIParagraph
+     * @return HSTSSentenceList
+     */
     
-    static HSTSSentenceList extractBioCSentences(
+    private HSTSSentenceList extractBioCSentences(
             HSTSIParagraph paragraph)
     {
         // Initialize a bioc preprocessing pipeline
@@ -195,6 +218,10 @@ class BioCReader {
             idSentence++;
         }
         
+        // Clear the list of sentences
+        
+        sentencesCoreLabels.clear();
+        
         // Return the result
         
         return (sentenceList);
@@ -210,12 +237,12 @@ class BioCReader {
      * @throws XMLStreamException 
      */
     
-    static BioCCollection readBioCCollection(
-            File biocFile) throws FileNotFoundException, XMLStreamException
+    private BioCCollection readBioCCollection() 
+            throws FileNotFoundException, XMLStreamException
     {
         // read BioC XML collection
         
-        Reader inputReader = new FileReader(biocFile);
+        Reader inputReader = new FileReader(m_biocFile);
         BioCFactory bioCFactory = BioCFactory.newFactory("STANDARD");
         
         // Now I create a BioCCollection item. 
@@ -227,5 +254,16 @@ class BioCReader {
         // Return the collection
         
         return (collection);
+    }
+        
+    /**
+     * Once the proccess has finished, clean the variables from memory.
+     */
+    
+    public void clean()
+    {
+        // Clean the preprocessing object
+        
+        m_preprocessing.clear();
     }
 }

@@ -55,8 +55,8 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
     
     LevenshteinMeasure(
             IWordProcessing preprocesser,
-            int insertDeleteCost,
-            int substituteCost)
+            int             insertDeleteCost,
+            int             substituteCost)
     {
         // We intialize the base class
         

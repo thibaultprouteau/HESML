@@ -24,21 +24,22 @@ package hesml.sts.sentencesextractor;
 
 public enum SentenceSplitterType 
 {    
-    /* 
-    The Stanford CoreNLP Splitter for English Language downloaded from https://stanfordnlp.github.io/CoreNLP/
-    */
+    /**
+     * The Stanford CoreNLP Splitter for English Language downloaded from https://stanfordnlp.github.io/CoreNLP/
+     */
     
     StanfordCoreNLP,
     
-    /*
-    The BioC sentence splitter for Biomedical Domain
-    */
+    /**
+     * The BioC sentence splitter for Biomedical Domain
+     */
     
     BioCSentenceSplitter,
     
-    /*
-    The GENIA Splitted for Biomedical Domain
-    */
+    /**
+     * The GENIA Splitted for Biomedical Domain
+     * @todo NOT IMPLEMENTED YED
+     */
     
     GENIA
 }

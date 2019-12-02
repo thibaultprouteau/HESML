@@ -41,7 +41,8 @@ import java.util.Set;
 class QgramMeasure extends SentenceSimilarityMeasure 
                    implements IStringBasedSentenceSimMeasure
 {
-    // Padding used by the measure
+    // Padding parameter used by the measure
+    // The padding defines the character window used by the method.
     
     private final int m_padding;
     
@@ -78,7 +79,7 @@ class QgramMeasure extends SentenceSimilarityMeasure
 
     /**
      * This function returns the family of the current sentence similarity method.
-     * @return 
+     * @return SentenceSimilarityFamily
      */
     
     @Override

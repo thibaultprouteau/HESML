@@ -30,7 +30,7 @@ public class HSTSSentenceList implements HSTSISentenceList
 {
     // We store a list of sentences.
     
-    private ArrayList<HSTSISentence> m_sentences;
+    private final ArrayList<HSTSISentence> m_sentences;
 
     /**
      * Constructor by default
@@ -88,6 +88,4 @@ public class HSTSSentenceList implements HSTSISentenceList
     {
         return (m_sentences.iterator());
     }
-    
-    
 }
