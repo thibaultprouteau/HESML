@@ -17,9 +17,10 @@
 package hesml.sts.languagemodels;
 
 /**
- *
- * @author alicia
+ *  This enum groups all the language models implemented in HESML STS.
+ *  @author alicia
  */
+
 public enum LanguageModelMethod
 {
     /**

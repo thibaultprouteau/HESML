@@ -24,7 +24,7 @@ import hesml.sts.languagemodels.ILanguageModel;
 /**
  *  This class encapsulates the creation of language model objects.
  * 
- * @author alicia
+ *  @author alicia
  */
 
 public class LanguageModelFactory
@@ -37,24 +37,28 @@ public class LanguageModelFactory
      * @param method
      * @param strTrainningInputDocumentPath
      * @param strTrainningOutputDocumentPath
-     * @return 
+     * @return ILanguageModel
      * @throws java.io.FileNotFoundException
      */
     
     public static ILanguageModel executeTraining(
-            LanguageModelMethod    method,
-            String strTrainningInputDocumentPath,
-            String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException
+            LanguageModelMethod     method,
+            String                  strTrainningInputDocumentPath,
+            String                  strTrainningOutputDocumentPath) 
+            throws FileNotFoundException, IOException
     {   
         // There is only implemented PV model, so there is not a TrainingModel implementation.
         
         ILanguageModel trainingModel = new ParagraphVectorModel(method);
         trainingModel.train(strTrainningInputDocumentPath, strTrainningOutputDocumentPath);
-        return trainingModel;
+        
+        // Return the trained model
+        
+        return (trainingModel);
     }
     
     /**
-     * This function loads a model and return a ILanguageModel object.
+     * This function load the model vectors and return a ILanguageModel object.
      * 
      * @param strTrainedModelDirPath
      * @return
@@ -66,7 +70,10 @@ public class LanguageModelFactory
     {
         ILanguageModel trainingModel = new ParagraphVectorModel();
         trainingModel.loadVectors(strTrainedModelDirPath);
-        return trainingModel;
+        
+        // Return the model
+        
+        return (trainingModel);
     }
     
     /**

@@ -18,11 +18,9 @@ package hesml.sts.languagemodels.impl;
 
 import hesml.sts.languagemodels.LanguageModelMethod;
 import hesml.sts.languagemodels.ILanguageModel;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 import org.deeplearning4j.models.word2vec.VocabWord;
@@ -45,8 +43,13 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 
 class ParagraphVectorModel implements ILanguageModel
 {
+    // Declare the language model method used.
+    
     private LanguageModelMethod m_trainingMethod;
-    private ParagraphVectors m_paragraphVectors; // language model loaded
+    
+    // Declare the ParagraphVectors object from Deepl4Java library.
+    
+    private ParagraphVectors m_paragraphVectors; 
     
     /**
      * Constructor by default
@@ -54,28 +57,35 @@ class ParagraphVectorModel implements ILanguageModel
     
     ParagraphVectorModel()
     {
+        // Initialize the paragraph vectors
+        
         m_paragraphVectors = null;
     }
     
     /**
-     * Constructor
+     * Constructor with parameters
      * @param trainingMethod 
      */
     
     ParagraphVectorModel(
             LanguageModelMethod trainingMethod)
     {
+        // Initialize the training method and the paragraph vectors.
+        
         m_trainingMethod = trainingMethod;
         m_paragraphVectors = null;
     }
     
     /**
      * Get the training method
-     * @return
+     * @return LanguageModelMethod
      */
     
     @Override
-    public LanguageModelMethod getTrainingMethod(){return m_trainingMethod;}
+    public LanguageModelMethod getTrainingMethod()
+    {
+        return (m_trainingMethod);
+    }
 
     /**
      * Execute the training method.
@@ -91,7 +101,8 @@ class ParagraphVectorModel implements ILanguageModel
     @Override
     public void train(
             String strTrainningInputDocumentPath,
-            String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException
+            String strTrainningOutputDocumentPath) 
+            throws FileNotFoundException, IOException
     {
         
         // Read the file, initialize configuration as BIOSSES2017
@@ -102,12 +113,6 @@ class ParagraphVectorModel implements ILanguageModel
         
         TokenizerFactory t = new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());
-        
-        /*
-             if you don't have LabelAwareIterator handy, you can use synchronized labels generator
-              it will be used to label each document/sequence/line with it's own label.
-              But if you have LabelAwareIterator ready, you can can provide it, for your in-house labels
-        */
         
         // Set the training method
         
@@ -170,7 +175,10 @@ class ParagraphVectorModel implements ILanguageModel
         // please note, we set iterations to 1 here, just to speedup inference
         
         m_paragraphVectors.getConfiguration().setIterations(10);
-        return m_paragraphVectors;
+        
+        // Return the vectors
+        
+        return (m_paragraphVectors);
     }
     
     /**
@@ -191,8 +199,10 @@ class ParagraphVectorModel implements ILanguageModel
         
         inferredVector = m_paragraphVectors.inferVector(strSentence);
         double[] vector = transformINDArraytoDoubleArray(inferredVector);
-        return vector;
-
+        
+        // Return the vector
+        
+        return (vector);
     }
 
     /**
@@ -201,14 +211,17 @@ class ParagraphVectorModel implements ILanguageModel
      */
     
     @Override
-    public void setTrainingMethod(LanguageModelMethod method){m_trainingMethod = method;}
+    public void setTrainingMethod(LanguageModelMethod method)
+    {
+        m_trainingMethod = method;
+    }
     
     
     /**
      * This function transform an INDArray object to double array.
      * 
      * @param iNDArray
-     * @return 
+     * @return double[]
      */
     
     private double[] transformINDArraytoDoubleArray(
@@ -229,13 +242,18 @@ class ParagraphVectorModel implements ILanguageModel
         int i = 0;
         while (iter.hasNext()) {
             int[] nextIndex = iter.next();
+            
+            // Get the iterator value and add to the vector
+            
             double nextVal = iNDArray.getDouble(nextIndex);
             vector[i] = nextVal;
             i++;
         }
-        return vector;
+        
+        // Return the result
+        
+        return (vector);
     }
-    
     
     /**
      * This function set to null the paragraph vectors and clean the memory.

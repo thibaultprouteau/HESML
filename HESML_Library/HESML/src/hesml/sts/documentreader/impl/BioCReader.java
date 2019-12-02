@@ -126,6 +126,9 @@ class BioCReader {
         // Add the paragraphs to the document
         
         document.setParagraphList(paragraphList);
+        
+        // Return the result
+        
         return (document);
     }
     

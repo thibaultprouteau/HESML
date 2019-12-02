@@ -18,7 +18,6 @@ package hesml.sts.languagemodels;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import org.deeplearning4j.models.paragraphvectors.ParagraphVectors;
 
 /**
@@ -30,22 +29,24 @@ public interface ILanguageModel
 {
     /**
      * Get the training method
-     * @return
+     * @return LanguageModelMethod
      */
     
     LanguageModelMethod getTrainingMethod();
     
     /**
-     *  Execute the training method
-     * @param strTrainningInputDocumentPath
-     * @param strTrainningOutputDocumentPath
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     *  Execute the training method.
+     * 
+     *  @param strTrainningInputDocumentPath
+     *  @param strTrainningOutputDocumentPath
+     *  @throws java.io.FileNotFoundException
+     *  @throws java.io.IOException
      */
     
     void train(
             String strTrainningInputDocumentPath,
-            String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException;
+            String strTrainningOutputDocumentPath) 
+            throws FileNotFoundException, IOException;
     
     /**
      * This function loads the vectors from a model path
@@ -72,7 +73,8 @@ public interface ILanguageModel
      * @param method 
      */
     
-    void setTrainingMethod(LanguageModelMethod method);
+    void setTrainingMethod(
+            LanguageModelMethod method);
     
     /**
      * This function set to null the paragraph vectors and clean the memory.
