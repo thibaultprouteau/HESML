@@ -38,8 +38,8 @@ import hesml.sts.preprocess.IWordProcessing;
  * @author Alicia Lara-Clares
  */
 
-public class SentenceExtractorFactory {
-    
+public class SentenceExtractorFactory 
+{
     /**
      * This function preprocess file-by-file. 
      * 

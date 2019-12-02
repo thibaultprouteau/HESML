@@ -178,7 +178,7 @@ class WordProcessing implements IWordProcessing
     /**
      * Get the tokens from a string sentence.
      * @param strRawSentence
-     * @return 
+     * @return String[] array of ordered tokens
      */
     
     @Override

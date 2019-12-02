@@ -22,15 +22,14 @@ package hesml.sts.sentencesextractor;
  * @author Alicia Lara-Clares
  */
 
-public enum SentenceExtractorType {
-    
+public enum SentenceExtractorType 
+{    
     /**
      * D0 type: From input documents to sentences in plain text. 
      * One line per sentence
      */
     
     D0,
-    
     
     /**
      * D0 type: From input documents to sentences annotated with NER (METAMAP). 

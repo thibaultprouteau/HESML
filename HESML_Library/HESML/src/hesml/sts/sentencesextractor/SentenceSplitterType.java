@@ -22,8 +22,8 @@ package hesml.sts.sentencesextractor;
  * @author Alicia Lara-Clares
  */
 
-public enum SentenceSplitterType {
-    
+public enum SentenceSplitterType 
+{    
     /* 
     The Stanford CoreNLP Splitter for English Language downloaded from https://stanfordnlp.github.io/CoreNLP/
     */
