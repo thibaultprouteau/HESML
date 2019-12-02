@@ -21,9 +21,8 @@ package hesml.sts.documentreader;
  * @author Alicia Lara-Clares
  */
 
-public interface HSTSIDocumentList extends Iterable<HSTSIDocument>{
-    
-    
+public interface HSTSIDocumentList extends Iterable<HSTSIDocument>
+{
     /**
      * This function returns the number of documents existing.
      * @return int number of documents.
@@ -37,12 +36,14 @@ public interface HSTSIDocumentList extends Iterable<HSTSIDocument>{
      * @return HSTSIDocument document object.
      */
     
-    HSTSIDocument getDocument(int idDocument);
+    HSTSIDocument getDocument(
+            int idDocument);
     
     /**
      * Add a document
      * @param document
      */
     
-    void addDocument(HSTSIDocument document);
+    void addDocument(
+            HSTSIDocument document);
 }

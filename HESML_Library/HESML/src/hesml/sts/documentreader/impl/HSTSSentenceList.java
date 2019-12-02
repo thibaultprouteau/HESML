@@ -16,7 +16,6 @@
  */
 package hesml.sts.documentreader.impl;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import hesml.sts.documentreader.HSTSISentence;
@@ -27,32 +26,62 @@ import hesml.sts.documentreader.HSTSISentenceList;
  * @author Alicia Lara-Clares
  */
 
-public class HSTSSentenceList implements HSTSISentenceList{
+public class HSTSSentenceList implements HSTSISentenceList
+{
+    // We store a list of sentences.
     
     private ArrayList<HSTSISentence> m_sentences;
 
+    /**
+     * Constructor by default
+     */
     public HSTSSentenceList() 
     {
+        // Initialize the sentences.
+        
         this.m_sentences = new ArrayList<>();
     }
     
+    /**
+     * Add a new sentence to the list.
+     * @param sentence 
+     */
+    
     @Override
-    public void addSentence(HSTSISentence sentence)
+    public void addSentence(
+            HSTSISentence sentence)
     {
         m_sentences.add(sentence);
     }
     
+    /**
+     * Get the sentence by id
+     * @param idSentence
+     * @return 
+     */
+    
     @Override
-    public HSTSISentence getSentence(int idSentence)
+    public HSTSISentence getSentence(
+            int idSentence)
     {
-        return this.m_sentences.get(idSentence);
+        return (this.m_sentences.get(idSentence));
     }
+    
+    /**
+     * Get the total of sentences.
+     * @return 
+     */
     
     @Override
     public int getCount()
     {
-        return this.m_sentences.size();
+        return (this.m_sentences.size());
     }
+    
+    /**
+     * Return the sentence iterator
+     * @return Iterator<HSTSISentence>
+     */
     
     @Override
     public Iterator<HSTSISentence> iterator() 

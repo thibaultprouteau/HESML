@@ -43,7 +43,7 @@ public interface HSTSIDocument
             HSTSIParagraphList paragraphList);
     
     /**
-     * Preprocess the document
+     * Preprocess the document and store in the object.
      * @throws java.io.FileNotFoundException
      * @throws java.lang.InterruptedException
      */
@@ -52,7 +52,7 @@ public interface HSTSIDocument
             throws FileNotFoundException, IOException, InterruptedException;
 
     /**
-     * Save sentences for each paragraph to an output file.
+     * Save sentences for each document to an output file.
      * @param fileOutput
      * @throws IOException
      */

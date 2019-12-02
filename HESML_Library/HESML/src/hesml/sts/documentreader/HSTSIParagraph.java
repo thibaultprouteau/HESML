@@ -20,8 +20,9 @@ package hesml.sts.documentreader;
  * Interface that encapsulates the creation of a Document.
  * @author Alicia Lara-Clares
  */
-public interface HSTSIParagraph {
-    
+
+public interface HSTSIParagraph 
+{
     /**
      * This function extracts the paragraphs from the document
      * @return list with the sentences
@@ -34,14 +35,16 @@ public interface HSTSIParagraph {
      * @param sentenceList
      */
     
-    void setSentenceList(HSTSISentenceList sentenceList);
+    void setSentenceList(
+            HSTSISentenceList sentenceList);
     
     /**
      * Set a text to the paragraph
      * @param text
      */
     
-    void setText(String text);
+    void setText(
+            String text);
     
     /**
      * Get the text from a paragraph

@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
 import hesml.sts.documentreader.HSTSIDocument;
-import hesml.sts.documentreader.HSTSIDocumentList;
 import hesml.sts.preprocess.IWordProcessing;
 
 /**
@@ -31,10 +30,12 @@ import hesml.sts.preprocess.IWordProcessing;
  * @author Alicia Lara-Clares
  */
 
-public class HSTSDocumentFactory {
-    
+public class HSTSDocumentFactory 
+{
     /**
-     * This function load a file and creates an HSTSIDocument object.
+     * This function load a file and creates an HSTSIDocument object 
+     * filling the paragrapms and sentences.
+     * 
      * @param iDocument
      * @param fileInput
      * @param documentType
@@ -42,7 +43,6 @@ public class HSTSDocumentFactory {
      * @return
      * @throws FileNotFoundException
      * @throws XMLStreamException
-     * 
      */
     
     public static HSTSIDocument loadDocument(
@@ -51,20 +51,21 @@ public class HSTSDocumentFactory {
             HSTSDocumentType    documentType,
             IWordProcessing wordPreprocessing) throws FileNotFoundException, XMLStreamException
     {
-        
         // We initialize the output document
         
-        HSTSIDocument doc = (documentType == HSTSDocumentType.BioCXMLASCII) ?
+        HSTSIDocument document = (documentType == HSTSDocumentType.BioCXMLUnicode) ?
                         BioCReader.loadFile(iDocument, fileInput, wordPreprocessing) : null;
 
         // We return the result
         
-        return doc;
+        return (document);
     }
     
     
     /**
-     * This function encapsulates the writing of sentences from an HSTSIDocument object to a file
+     * This function encapsulates the writing of 
+     * sentences from an HSTSIDocument object to a file.
+     * 
      * @param document
      * @param fileOutput
      * @throws IOException
@@ -76,7 +77,4 @@ public class HSTSDocumentFactory {
     {
         document.saveSentencesToFile(fileOutput);
     }
-    
-    
-
 }

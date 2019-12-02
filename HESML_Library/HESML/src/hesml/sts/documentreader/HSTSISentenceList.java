@@ -17,13 +17,13 @@
 package hesml.sts.documentreader;
 
 /**
- * 
  * A SentenceList is an object for iterating between sentences.
+ * 
  * @author Alicia Lara-Clares
  */
 
-public interface HSTSISentenceList extends Iterable<HSTSISentence>{
-    
+public interface HSTSISentenceList extends Iterable<HSTSISentence>
+{
     /**
      * This function returns the number of paragraphs.
      * @return int number of documents.
@@ -37,7 +37,8 @@ public interface HSTSISentenceList extends Iterable<HSTSISentence>{
      * @return idParagraph document object.
      */
     
-    HSTSISentence getSentence(int idSentence);
+    HSTSISentence getSentence(
+            int idSentence);
     
     /**
      * Add a paragraph to the object.
@@ -45,5 +46,6 @@ public interface HSTSISentenceList extends Iterable<HSTSISentence>{
      * @param paragraph
      */
     
-    void addSentence(HSTSISentence sentence);
+    void addSentence(
+            HSTSISentence sentence);
 }

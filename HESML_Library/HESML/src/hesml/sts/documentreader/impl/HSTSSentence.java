@@ -16,23 +16,49 @@
  */
 package hesml.sts.documentreader.impl;
 
-import hesml.sts.documentreader.HSTSIDocument;
 import hesml.sts.documentreader.HSTSISentence;
 
 /**
- * HSTSSentence object.
+ * This class implements a HSTS sentence object.
+ * 
  * @author Alicia Lara-Clares
  */
 
 class HSTSSentence implements HSTSISentence
 {  
+    // A sentence belongs to a document
+    
     private final int m_idDocument;
+    
+    // A sentence belongs to a paragraph
+    
     private final int m_idParagraph;
+    
+    // The sentence has an id sentence.
+    
     private final int m_idSentence;
+    
+    // Text of the sentence.
     
     private String m_text;
 
-    public HSTSSentence(int idSentence, int idParagraph, int idDocument, String text) {
+    /**
+     * HSTS sentence constructor
+     * This class initializes the internal variables.
+     * @param idSentence
+     * @param idParagraph
+     * @param idDocument
+     * @param text 
+     */
+    
+    HSTSSentence(
+            int     idSentence, 
+            int     idParagraph, 
+            int     idDocument, 
+            String  text) 
+    {
+        // Initialize the internal variables
+        
         this.m_idSentence = idSentence;
         this.m_idParagraph = idParagraph;
         this.m_idDocument = idDocument;
@@ -40,39 +66,56 @@ class HSTSSentence implements HSTSISentence
     }
     
     /**
-     * Add a text to the paragraph
+     * Set the text to the sentence
      * @param text 
      */
+    
     @Override
-    public void setText(String text)
+    public void setText(
+            String text)
     {
         m_text = text;
     }
     
     /**
-     * Get the paragraph text
+     * Get the sentence text
      * @param text 
      */
+    
     @Override
     public String getText()
     {
-        return m_text;
+        return (m_text);
     }
 
+    /**
+     * Return the id sentence.
+     * 
+     * @return int id sentence
+     */
+    
     @Override
     public int getIdSentence() {
-        return m_idSentence;
+        return (m_idSentence);
     }
 
+    /**
+     * Return the id paragraph
+     * @return 
+     */
+    
     @Override
     public int getIdParagraph() {
-        return m_idParagraph;
+        return (m_idParagraph);
     }
 
+    /**
+     * Return the id document
+     * @return 
+     */
+    
     @Override
     public int getIdDocument() {
-        return m_idDocument;
+        return (m_idDocument);
     }
-
-  
 }

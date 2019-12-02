@@ -27,8 +27,5 @@ public enum HSTSDocumentType {
      * PubMed Central Open Access in BioC format extracted from https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/BioC-PMC/
      */
     
-//    BioCJson,
-//    BioCXMLUnicode,
-    
-    BioCXMLASCII
+    BioCXMLUnicode
 }

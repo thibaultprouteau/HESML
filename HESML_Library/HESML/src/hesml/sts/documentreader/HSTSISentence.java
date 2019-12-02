@@ -20,9 +20,9 @@ package hesml.sts.documentreader;
  * This interface encapsulates the creation of a Sentence object.
  * @author Alicia Lara-Clares
  */
+
 public interface HSTSISentence
 {
-    
     /**
      * Set a text to the sentence
      * @param text

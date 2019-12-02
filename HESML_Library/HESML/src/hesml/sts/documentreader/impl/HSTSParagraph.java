@@ -20,42 +20,58 @@ import hesml.sts.documentreader.HSTSIParagraph;
 import hesml.sts.documentreader.HSTSISentenceList;
 
 /**
- * Paragraph object. Contains a SentenceList and a text field.
+ * This functions implements a paragraph object.
+ * A document has a list of paragraph.
+ * Each paragraph has a list of sentences.
+ * 
  * @author Alicia Lara-Clares
  */
 
-class HSTSParagraph implements HSTSIParagraph{
+class HSTSParagraph implements HSTSIParagraph
+{
+    // Each paragraph is identified by an id
     
     private final int m_idParagraph;
+    
+    // Each paragraph belongs to a document
+    
     private final int m_idDocument;
     
+    // Each paragraph has a list of sentences.
+    
     private HSTSISentenceList m_sentenceList;
+    
+    // The text of a paragraph
+    
     private String m_text;
    
-    
     /**
      * Creates an object document and extract the sentences.
      * @param strDocumentPath Path to the document.
      * @param documentType Type of input document.
      */
     
-    public HSTSParagraph(int idParagraph, int idDocument) 
+    HSTSParagraph(
+            int idParagraph, 
+            int idDocument) 
     {
+        // Initialize the variables.
+        
         m_idParagraph = idParagraph;
         m_idDocument = idDocument;
         m_sentenceList = new HSTSSentenceList();
         m_text = "";
     }
+    
     /**
      * Read the paragraphs from the document
      * @return ArrayList<IParagraphList> the list of paragraphs in the document.
-     * @todo IMPLEMENT
      */
     
     @Override
     public HSTSISentenceList getSentenceList()
     {
-        return m_sentenceList;
+        return (m_sentenceList);
     }
     
     /**
@@ -90,7 +106,7 @@ class HSTSParagraph implements HSTSIParagraph{
     @Override
     public String getText()
     {
-        return m_text;
+        return (m_text);
     }
     
     /**
@@ -101,11 +117,16 @@ class HSTSParagraph implements HSTSIParagraph{
     @Override
     public int getIdDocument()
     {
-        return m_idDocument;
+        return (m_idDocument);
     }
+    
+    /**
+     * Get the paragraph id
+     * @return int
+     */
 
     @Override
     public int getId() {
-        return m_idParagraph;
+        return (m_idParagraph);
     }
 }

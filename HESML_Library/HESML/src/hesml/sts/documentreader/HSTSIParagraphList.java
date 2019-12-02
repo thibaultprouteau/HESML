@@ -21,9 +21,8 @@ package hesml.sts.documentreader;
  * @author Alicia Lara-Clares
  */
 
-public interface HSTSIParagraphList extends Iterable<HSTSIParagraph> {
-    
-    
+public interface HSTSIParagraphList extends Iterable<HSTSIParagraph> 
+{
     /**
      * This function returns the number of paragraphs.
      * @return int number of documents.
@@ -37,14 +36,14 @@ public interface HSTSIParagraphList extends Iterable<HSTSIParagraph> {
      * @return idParagraph document object.
      */
     
-    HSTSIParagraph getParagraph(int idParagraph);
+    HSTSIParagraph getParagraph(
+            int idParagraph);
     
     /**
      * Add a paragraph to the object.
      * @param paragraph
      */
     
-    void addParagraph(HSTSIParagraph paragraph);
-    
-    
+    void addParagraph(
+            HSTSIParagraph paragraph);
 }

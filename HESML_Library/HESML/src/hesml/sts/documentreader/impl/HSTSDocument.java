@@ -29,12 +29,14 @@ import hesml.sts.preprocess.IWordProcessing;
 import java.io.FileNotFoundException;
 
 /**
- *
- * @author Alicia Lara-Clares
+ *  This class implements a HESMLSTS Document.
+ *  A document is an object with a list of paragraphs.
+ * 
+ *  @author Alicia Lara-Clares
  */
 
-class HSTSDocument implements HSTSIDocument{
-    
+class HSTSDocument implements HSTSIDocument
+{
     // Id of the document
     
     private final int m_idDocument;
@@ -57,8 +59,8 @@ class HSTSDocument implements HSTSIDocument{
      */
     
     public HSTSDocument(
-            int idDocument,
-            String strDocumentPath,
+            int             idDocument,
+            String          strDocumentPath,
             IWordProcessing wordPreprocessing) 
     {
         // Set the variables
@@ -66,6 +68,9 @@ class HSTSDocument implements HSTSIDocument{
         m_idDocument = idDocument;
         m_strDocumentPath = strDocumentPath;
         m_preprocessing = wordPreprocessing;
+        
+        // Initialize the paragraph list.
+        
         m_paragraphList = new HSTSParagraphList();
     }
 
@@ -86,14 +91,17 @@ class HSTSDocument implements HSTSIDocument{
      */
     
     @Override
-    public void setParagraphList(HSTSIParagraphList paragraphList)
+    public void setParagraphList(
+            HSTSIParagraphList paragraphList)
     {
-        //ITerate paragraphs... and add to the list
+        //Iterate paragraphs and add them to the list
+        
         m_paragraphList = paragraphList;
     }
     
     /**
-     * Append the sentences into a file
+     * Append the sentences into a file.
+     * 
      * @param fileOutput
      * @throws IOException 
      */
@@ -106,11 +114,17 @@ class HSTSDocument implements HSTSIDocument{
         
         StringBuilder sb = new StringBuilder();
         
-        // Iterate the paragraphs. Then, iterate the sentences of each paragraph. 
+        // Iterate the paragraphs.  
         
         for (HSTSIParagraph paragraph : m_paragraphList) {
             HSTSISentenceList sentenceList = paragraph.getSentenceList();
+            
+            // iterate the sentences of each paragraph.
+            
             for (HSTSISentence sentence : sentenceList) {
+                
+                // Get the sentence text and append it.
+                
                 String strSentence = sentence.getText();
                 if(strSentence.length() > 0)
                 {
@@ -139,8 +153,7 @@ class HSTSDocument implements HSTSIDocument{
     }
 
     /**
-     * Get the document and preprocess using IWordProcesser 
-     * 
+     * Get the document and preprocess it using IWordProcesser
      */
     
     @Override
@@ -161,6 +174,8 @@ class HSTSDocument implements HSTSIDocument{
                 String strSentence = sentence.getText();
                 if(strSentence.length() > 0)
                 {
+                    // Get the word tokens using the HESML STS preprocessed object
+                    
                     String[] tokens = m_preprocessing.getWordTokens(strSentence);
                     if(tokens.length > 0)
                     {

@@ -22,19 +22,24 @@ import hesml.sts.documentreader.HSTSIParagraph;
 import hesml.sts.documentreader.HSTSIParagraphList;
 
 /**
- * Iterable for Paragraph objects.
+ * Iterable object for storing a list of paragraph objects.
+ * 
  * @author Alicia Lara-Clares
  */
 
-public class HSTSParagraphList implements HSTSIParagraphList{
+public class HSTSParagraphList implements HSTSIParagraphList
+{
+    // This object has a list of paragraphs.
+    
     private ArrayList<HSTSIParagraph> m_paragraphs;
     
+    /**
+     * Paragraph list constructor
+     */
     
-    public HSTSParagraphList()
+    HSTSParagraphList()
     {
-        /**
-         * Initialize the mapping table in blank.
-         */
+        // Initialize the mapping table in blank.
         
         m_paragraphs = new ArrayList<>();
     }
@@ -62,12 +67,21 @@ public class HSTSParagraphList implements HSTSIParagraphList{
         return (m_paragraphs.get(idParagraph));
     }
     
+    /**
+     * Add a paragraph to the list
+     * @param paragraph 
+     */
     
     @Override
     public void addParagraph(HSTSIParagraph paragraph)
     {
         m_paragraphs.add(paragraph);
     }
+    
+    /**
+     * Return the iterator
+     * @return Iterator<HSTSIParagraph>
+     */
     
     @Override
     public Iterator<HSTSIParagraph> iterator() 
