@@ -106,7 +106,7 @@ for (iDataset in 1:nDatasets)
 
 # ------------------------------------------------------------
 # We merge all metrics (Pearson, Spearman and Harmonic score)
-# into a same data table.
+# into a same data table by concatening previouos data tables.
 # ------------------------------------------------------------
 
 table_allMetrics <- cbind(table_Pearson, table_Spearman, table_Harmonic, Avg = rowMeans(table_Harmonic[1:nrow(table_Harmonic),]))
