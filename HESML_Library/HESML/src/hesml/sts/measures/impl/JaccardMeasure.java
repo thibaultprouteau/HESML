@@ -44,8 +44,7 @@ class JaccardMeasure extends SentenceSimilarityMeasure
      * @param preprocesser 
      */
     
-    public JaccardMeasure(
-            IWordProcessing preprocesser)
+    JaccardMeasure(IWordProcessing preprocesser)
     {
         super(preprocesser);
     }

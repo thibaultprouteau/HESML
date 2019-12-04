@@ -59,12 +59,19 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final String m_PythonScriptDir;
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor
      * @param strModelDirPath
      * @param preprocesser 
      */
     
     BertEmbeddingModelMeasure(
+            String              strLabel,
             String              modelDirPath,
             IWordProcessing     preprocesser,
             String              bertDir,
@@ -82,8 +89,25 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         m_BERTDir = bertDir;
         m_PythonScriptDir = pythonScriptDir;
         m_PythonVenvDir = pythonVenvDir;
+        m_strLabel = strLabel;
     }
 
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
+    }
+    
     /**
      * This function returns the sentence similarity method implemented by the object.
      * @return 

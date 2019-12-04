@@ -44,8 +44,7 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
      * @param preprocesser 
      */
     
-    public OverlapCoefficientMeasure(
-            IWordProcessing preprocesser)
+    OverlapCoefficientMeasure(IWordProcessing preprocesser)
     {
         super(preprocesser);
     }

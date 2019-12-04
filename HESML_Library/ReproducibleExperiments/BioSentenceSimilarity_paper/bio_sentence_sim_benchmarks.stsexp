@@ -51,6 +51,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -64,6 +65,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -77,6 +79,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -137,6 +140,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -150,6 +154,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -163,6 +168,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -223,6 +229,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -236,6 +243,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -249,6 +257,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>

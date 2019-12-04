@@ -34,7 +34,6 @@ import java.text.ParseException;
 
 public class SentenceSimilarityFactory
 {
-    
     /**
      * This function creates a Simple Word-Emebedding model for
      * sentence similarity based on a pooling strategy and one
@@ -50,13 +49,14 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getSWEMMeasure(
+            String                  strLabel,
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) 
             throws IOException, ParseException, Exception
     {
-        return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
+        return (new SimpleWordEmbeddingModelMeasure(strLabel, poolingMethod,
                 embeddingType, preprocesser, strPretrainedWEFilename));
     }
     
@@ -132,6 +132,7 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getSentenceEmbeddingMethod(
+            String                  strLabel,
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
@@ -160,16 +161,18 @@ public class SentenceSimilarityFactory
         {
             case ParagraphVector:
                 
-                measure = new ParagraphVectorMeasure(pretainedModelFileInfo.getAbsolutePath(),
-                                    wordPreprocessor);
+                measure = new ParagraphVectorMeasure(strLabel,
+                                pretainedModelFileInfo.getAbsolutePath(),
+                                wordPreprocessor);
                 
                 break;
                 
             case BERTEmbeddingModel:
                 
-                measure = new BertEmbeddingModelMeasure(strPretrainedModelFilename, 
-                        wordPreprocessor, strPretrainedModelDir,
-                        strPythonVirtualEnvironmentDir, pythonScriptDir);
+                measure = new BertEmbeddingModelMeasure(strLabel,
+                            strPretrainedModelFilename, 
+                            wordPreprocessor, strPretrainedModelDir,
+                            strPythonVirtualEnvironmentDir, pythonScriptDir);
                 
                 break;
         }

@@ -219,8 +219,9 @@ public class SentenceSimBenchmarkFactory
                         
                         String strPretrainedModelFilename = readStringField(measureNode, "PretrainedModelFilename");
                         String strPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
+                        String strLabel = readStringField(measureNode, "Label");
                         
-                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(
+                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(strLabel,
                                 convertToSWEMpoolingMethod(readStringField(measureNode, "Pooling")),
                                 convertToWordEmbeddingFileType(readStringField(measureNode, "WordEmbeddingFileFormat")),
                                 readWordProcessing(measureNode),

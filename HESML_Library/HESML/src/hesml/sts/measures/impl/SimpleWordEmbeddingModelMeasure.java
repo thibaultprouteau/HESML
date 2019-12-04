@@ -56,12 +56,19 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final SWEMpoolingMethod    m_PoolingMethod;
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor
      * @param embeddingType
      * @param strPretrainedModelFilename 
      */
     
     SimpleWordEmbeddingModelMeasure(
+            String                  strLabel,
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
@@ -73,9 +80,26 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We initializer the object
         
+        m_strLabel = strLabel;
         m_PoolingMethod = poolingMethod;
         m_WordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
                             strPretrainedModelFilename);
+    }
+    
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
     }
     
     /**

@@ -147,7 +147,7 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             {
                 // We set the coluimn header for the current measure
                 
-                strColumnHeaders[iMeasure + 1] = m_Measures[iMeasure].getMethod().toString();
+                strColumnHeaders[iMeasure + 1] = m_Measures[iMeasure].getLabel();
                 
                 // We evaluate the measure
                 

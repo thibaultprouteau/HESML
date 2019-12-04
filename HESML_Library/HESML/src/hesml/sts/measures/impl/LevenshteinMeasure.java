@@ -53,9 +53,10 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
      * @param preprocesser 
      */
     
-    public LevenshteinMeasure(
-            IWordProcessing preprocesser)
+    LevenshteinMeasure(IWordProcessing preprocesser)
     {
+        // We initialize the base class
+        
         super(preprocesser);
         
         // Initialize the default internal variables

@@ -326,12 +326,13 @@ public class HESMLSTSMeasuresEvaluatorclient
         // Test a BioBert model measure
         
         measure = SentenceSimilarityFactory.getSentenceEmbeddingMethod(
-                SentenceEmbeddingMethod.BERTEmbeddingModel, 
-                wordPreprocessing, 
-                BioBert_Base_PMC,
-                m_BERTDir,
-                m_PythonVenvExecutable,
-                m_PythonBERTWrapperScript);
+                    "BioBert_Base_PMC",
+                    SentenceEmbeddingMethod.BERTEmbeddingModel, 
+                    wordPreprocessing, 
+                    BioBert_Base_PMC,
+                    m_BERTDir,
+                    m_PythonVenvExecutable,
+                    m_PythonBERTWrapperScript);
         
         // Get the similarity scores for the lists of sentences
             

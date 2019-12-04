@@ -35,7 +35,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class QgramMeasure extends SentenceSimilarityMeasure
+        implements IStringBasedSentenceSimMeasure
 {
     /**
      * Padding used by the measure
@@ -48,8 +49,7 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
      * @param preprocesser 
      */
     
-    public QgramMeasure(
-            IWordProcessing preprocesser)
+    QgramMeasure(IWordProcessing preprocesser)
     {
         super(preprocesser);
         
@@ -57,7 +57,7 @@ class QgramMeasure extends SentenceSimilarityMeasure implements IStringBasedSent
         
         m_Padding = 3;
     }
-    
+       
     /**
      * This function returns the type of method implemented by the current
      * sentence similarity measure.

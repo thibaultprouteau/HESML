@@ -36,6 +36,18 @@ public interface ISentenceSimilarityMeasure
     void clear();
     
     /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    String getLabel();
+    
+    /**
      * This function returns the type of method implemented by the current
      * of sentence similarity measure.
      * @return 

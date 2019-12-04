@@ -25,7 +25,6 @@ package hesml.sts.measures;
 
 public interface IStringBasedSentenceSimMeasure extends ISentenceSimilarityMeasure
 {
-    
     /**
      * Return the string based method used.
      * @return StringBasedSentSimilarityMethod
