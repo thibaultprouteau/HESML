@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package hesml.sts.measures.impl;
 
 import hesml.measures.WordEmbeddingFileType;
@@ -209,5 +210,22 @@ public class SentenceSimilarityFactory
         // We return the result
         
         return (measure);
+    }
+    
+    /**
+     * This function creates a WBSM measure.
+     * 
+     * @param preprocesser
+     * @param strWordNet_Dir
+     * @return ISentenceSimilarityMeasure
+     */
+    
+    public static ISentenceSimilarityMeasure getWBSMMeasure(
+            IWordProcessing preprocesser,
+            String strWordNet_Dir)
+    {
+        // Return the result
+        
+        return (new WBSMMeasure(preprocesser, strWordNet_Dir));
     }
 }

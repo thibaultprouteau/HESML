@@ -20,6 +20,9 @@ import hesml.measures.IWordSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import hesml.taxonomy.ITaxonomy;
+import hesml.taxonomyreaders.wordnet.IWordNetDB;
+import hesml.taxonomyreaders.wordnet.impl.WordNetFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
@@ -54,12 +57,19 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     
     IWordSimilarityMeasure wordSimilarityMeasure;
     
+    // Path to WordNet directory
+    
+    private final String m_strWordNet_Dir;
+    
     /**
      * Constructor
      * @param preprocesser 
+     * @param strWordNet_Dir Path to WordNet directory
      */
     
-    WBSMMeasure(IWordProcessing  preprocesser)
+    WBSMMeasure(
+            IWordProcessing     preprocesser,
+            String              strWordNet_Dir)
     {
         // We intialize the base class
         
@@ -72,6 +82,10 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         // Initialize the word similarity measure to null
         
         wordSimilarityMeasure = null;
+        
+        // Set the WordNet dir
+        
+        m_strWordNet_Dir = strWordNet_Dir;
     }
     
     /**
@@ -186,5 +200,34 @@ class WBSMMeasure extends SentenceSimilarityMeasure
             
             m_semanticVector2.put(word, wordVectorComponent);
         } 
+    }
+    
+    private void loadWordNet() throws Exception
+    {
+        IWordNetDB  wordnet;            // WordNet DB
+        ITaxonomy   wordnetTaxonomy;    // WordNet taxonomy
+        
+        // We load the WordNet database
+        
+        wordnet = WordNetFactory.loadWordNetDatabase(m_strWordNet_Dir, "data.noun");
+        
+        // We build the taxonomy
+        
+        System.out.println("Building the WordNet taxonomy ...");
+        
+        wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);
+               
+        // We pre-process the taxonomy to compute all the parameters
+        // used by the intrinsic IC-computation methods
+        
+        System.out.println("Pre-processing the WordNet taxonomy");
+        
+        wordnetTaxonomy.computesCachedAttributes();
+        
+        
+        // We release the resources
+        
+        wordnet.clear();
+        wordnetTaxonomy.clear();
     }
 }

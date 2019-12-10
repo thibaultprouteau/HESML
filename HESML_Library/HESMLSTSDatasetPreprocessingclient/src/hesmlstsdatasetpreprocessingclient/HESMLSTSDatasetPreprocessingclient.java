@@ -91,7 +91,7 @@ public class HESMLSTSDatasetPreprocessingclient
         
         // Set the commom arguments
             
-        HSTSDocumentType documentType = HSTSDocumentType.BioCXMLASCII;
+        HSTSDocumentType documentType = HSTSDocumentType.BioCXMLUnicode;
         SentenceSplitterType sentenceSplitterType = SentenceSplitterType.BioCSentenceSplitter;
         SentenceExtractorType preprocessType = SentenceExtractorType.D0;
         boolean saveAllSentencesToASingleFile = Boolean.TRUE;

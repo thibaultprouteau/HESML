@@ -67,14 +67,15 @@ public class HESMLSTSEvaluatorclient
     
     private static final String  m_strBaseDir = "../";
     private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
+    
     private static final String  m_BERTDir = m_strBaseDir + "BERTExperiments/";
-    
     private static final String  m_strBERTPretrainedModelsDir = m_BERTDir + "PretrainedModels/";
-    
     private static final String  m_PythonVenvExecutable = m_BERTDir + "venv/bin/python3";
     private static final String  m_PythonBERTWrapperScript = m_BERTDir + "extractBERTvectors.py";
     private static final String  m_PythonWordPieceTokenizerWrapperScript = m_BERTDir + "WordPieceTokenization.py";
     
+    private static final String  m_strWordNetDatasetsDir = m_strBaseDir + "/WN_Datasets/";
+    private static final String  m_strWordNet3_0_Dir = m_strBaseDir + "/Wordnet-3.0/dict";
     /**
      * Subdirectories with the NCBI BERT existing pretrained models.
      * 
@@ -366,21 +367,36 @@ public class HESMLSTSEvaluatorclient
     
     private static void testWBSMMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException
+            String[] sentences2) throws IOException, InterruptedException
     {
          // Initialize the preprocessing method and measures
         
-        IWordProcessing wordPreprocessing = null;
+        IWordProcessing preprocesser = null;
         ISentenceSimilarityMeasure measure = null;
         
         // Create a Wordpreprocessing object using WordPieceTokenizer
         
-        wordPreprocessing = PreprocessingFactory.getWordProcessing(
+        preprocesser = PreprocessingFactory.getWordProcessing(
                         "", 
                         TokenizerType.WhiteSpace, 
                         true, 
                         CharFilteringType.None);
         
-//        measure = SentenceSimilarityFactory. @TODO!!
+        // Create the measure
+        
+        measure = SentenceSimilarityFactory.getWBSMMeasure(preprocesser);
+        
+        // Get the similarity scores for the lists of sentences
+            
+        double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
+        
+        // Print the results - For testing purposes
+
+        System.out.println("Scores for SWEM measure: ");
+        for (int i = 0; i < simScores.length; i++)
+        {
+            double score = simScores[i];
+            System.out.println("---- Sentence " + i + " : " + score);
+        }
     }
 }
