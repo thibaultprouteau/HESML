@@ -94,7 +94,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, InterruptedException
+            String strRawSentence2) throws IOException, InterruptedException, Exception
     {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
@@ -113,7 +113,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     public double[] getSimilarityValues(
             String[] firstSentencesVector,
             String[] secondSentencesVector) 
-                throws IOException, InterruptedException
+                throws IOException, InterruptedException, Exception
     {
         // We check that the length of the lists has to be equal
         

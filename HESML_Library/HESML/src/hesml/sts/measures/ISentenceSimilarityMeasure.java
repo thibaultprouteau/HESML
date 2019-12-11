@@ -62,7 +62,7 @@ public interface ISentenceSimilarityMeasure
     
     double getSimilarityValue(
             String  strRawSentence1,
-            String  strRawSentence2)  throws IOException, InterruptedException;
+            String  strRawSentence2)  throws IOException, InterruptedException, Exception;
     
     /**
      *  Given a list of sentences, calculate the similarity for its inferred vectors.
@@ -76,5 +76,5 @@ public interface ISentenceSimilarityMeasure
     
     double[] getSimilarityValues(
             String[] lstSentences1,
-            String[] lstSentences2) throws IOException, InterruptedException;
+            String[] lstSentences2) throws IOException, InterruptedException, Exception;
 }

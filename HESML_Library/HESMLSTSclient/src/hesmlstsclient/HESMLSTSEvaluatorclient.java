@@ -22,6 +22,10 @@
 package hesmlstsclient;
 
 import hesml.HESMLversion;
+import hesml.configurators.ITaxonomyInfoConfigurator;
+import hesml.measures.ISimilarityMeasure;
+import hesml.measures.SimilarityMeasureType;
+import hesml.measures.impl.MeasureFactory;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.benchmarks.impl.SentenceSimBenchmarkFactory;
 import hesml.sts.measures.BERTpoolingMethod;
@@ -33,6 +37,9 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.TokenizerType;
 import hesml.sts.preprocess.impl.PreprocessingFactory;
+import hesml.taxonomy.ITaxonomy;
+import hesml.taxonomyreaders.wordnet.IWordNetDB;
+import hesml.taxonomyreaders.wordnet.impl.WordNetFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -206,13 +213,13 @@ public class HESMLSTSEvaluatorclient
      * of HEMSL-STS library.
      */
     
-    private static void SampleExperiments() throws IOException, InterruptedException, ParseException
+    private static void SampleExperiments() throws IOException, InterruptedException, ParseException, Exception
     {
         // Initialize the sentences to be tested.
         // sentences1 are first sentences
         // sentences2 are second sentences
         
-        String[] sentences1 = { "It it it has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
+        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
                                 "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives "
                                 + "are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, "
                                 + "and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
@@ -224,7 +231,7 @@ public class HESMLSTSEvaluatorclient
 
         // Execute the tests
         
-        testStringMeasures(sentences1, sentences2);
+//        testStringMeasures(sentences1, sentences2);
 //        testBertMeasures(sentences1, sentences2);
         testWBSMMeasures(sentences1, sentences2);
     }
@@ -241,7 +248,7 @@ public class HESMLSTSEvaluatorclient
     
     private static void testStringMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, InterruptedException
+            String[] sentences2) throws IOException, InterruptedException, Exception
     {
         // Initialize the preprocessing method and measures
         
@@ -310,7 +317,7 @@ public class HESMLSTSEvaluatorclient
     
     private static void testBertMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, InterruptedException, ParseException
+            String[] sentences2) throws IOException, InterruptedException, ParseException, Exception
     {
         // Initialize the preprocessing method and measures
         
@@ -367,12 +374,35 @@ public class HESMLSTSEvaluatorclient
     
     private static void testWBSMMeasures(
             String[] sentences1,
-            String[] sentences2) throws IOException, InterruptedException
+            String[] sentences2) throws IOException, InterruptedException, Exception
     {
          // Initialize the preprocessing method and measures
         
         IWordProcessing preprocesser = null;
         ISentenceSimilarityMeasure measure = null;
+        ISimilarityMeasure wordSimilarityMeasure = null;
+        
+        IWordNetDB  wordnet;            // WordNet DB
+        ITaxonomy   wordnetTaxonomy;    // WordNet taxonomy
+        
+        ITaxonomyInfoConfigurator   secoICmodel;        // IC model used
+        
+        // We load the WordNet database
+        
+        wordnet = WordNetFactory.loadWordNetDatabase(m_strWordNet3_0_Dir, "data.noun");
+        
+        // We build the taxonomy
+        
+        System.out.println("Building the WordNet taxonomy ...");
+        
+        wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);
+               
+        // We pre-process the taxonomy to compute all the parameters
+        // used by the intrinsic IC-computation methods
+        
+        System.out.println("Pre-processing the WordNet taxonomy");
+        
+        wordnetTaxonomy.computesCachedAttributes();
         
         // Create a Wordpreprocessing object using WordPieceTokenizer
         
@@ -382,21 +412,41 @@ public class HESMLSTSEvaluatorclient
                         true, 
                         CharFilteringType.None);
         
+        // We obtain an instance of the Seco et al. (2004) IC model,
+        // then the model is computed on the taxonomy. All the IC models
+        // computes and store the IC values in the own taxonomy vertexes.
+        
+//        secoICmodel = ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco);
+        
+//        secoICmodel.setTaxonomyData(wordnetTaxonomy);
+        
+        // Create the word similarity measure
+        
+        wordSimilarityMeasure = MeasureFactory.getMeasure(wordnetTaxonomy, 
+                                    SimilarityMeasureType.LeacockChodorow);
+        
         // Create the measure
         
-        measure = SentenceSimilarityFactory.getWBSMMeasure(preprocesser);
+        measure = SentenceSimilarityFactory.getWBSMMeasure(preprocesser, 
+                wordSimilarityMeasure, wordnet, wordnetTaxonomy);
         
         // Get the similarity scores for the lists of sentences
             
         double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
         
         // Print the results - For testing purposes
-
-        System.out.println("Scores for SWEM measure: ");
+        
+        System.out.println("Scores for WBSM measure: ");
         for (int i = 0; i < simScores.length; i++)
         {
             double score = simScores[i];
             System.out.println("---- Sentence " + i + " : " + score);
         }
+        
+        // We release the resources
+        
+        wordnet.clear();
+        wordnetTaxonomy.clear();
+        measure.clear();
     }
 }

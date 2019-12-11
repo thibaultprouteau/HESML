@@ -16,18 +16,20 @@
  */
 package hesml.sts.measures.impl;
 
-import hesml.measures.IWordSimilarityMeasure;
+import hesml.measures.ISimilarityMeasure;
+import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.taxonomy.ITaxonomy;
+import hesml.taxonomy.IVertexList;
 import hesml.taxonomyreaders.wordnet.IWordNetDB;
-import hesml.taxonomyreaders.wordnet.impl.WordNetFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -44,22 +46,14 @@ import java.util.Set;
 
 class WBSMMeasure extends SentenceSimilarityMeasure
 {
-    // Set with all joint words from the sentences
-    
-    private final Set<String> m_dictionary;
-    
-    // Semantic vectors for the sentences with the words and its score.
-    
-    private HashMap<String, Double> m_semanticVector1;
-    private HashMap<String, Double> m_semanticVector2;
-    
     // Word Similarity measure used for calculating similarity between words.
     
-    IWordSimilarityMeasure wordSimilarityMeasure;
+    ISimilarityMeasure m_wordSimilarityMeasure;
     
-    // Path to WordNet directory
+    // WordNetDB and taxonomy for computing the WordNet-based word similarity measures.
     
-    private final String m_strWordNet_Dir;
+    private final IWordNetDB  m_wordnet;            // WordNet DB
+    private final ITaxonomy   m_wordnetTaxonomy;    // WordNet taxonomy
     
     /**
      * Constructor
@@ -68,24 +62,23 @@ class WBSMMeasure extends SentenceSimilarityMeasure
      */
     
     WBSMMeasure(
-            IWordProcessing     preprocesser,
-            String              strWordNet_Dir)
+            IWordProcessing         preprocesser,
+            ISimilarityMeasure      wordSimilarityMeasure,
+            IWordNetDB              wordnet,
+            ITaxonomy               wordnetTaxonomy) throws Exception
     {
         // We intialize the base class
         
         super(preprocesser);
         
-        // Initialize the set
+        // Initialize the word similarity measure 
         
-        m_dictionary = new HashSet<>();
+        m_wordSimilarityMeasure = wordSimilarityMeasure;
         
-        // Initialize the word similarity measure to null
+        // Initialize the WordNetDB and taxonomy
         
-        wordSimilarityMeasure = null;
-        
-        // Set the WordNet dir
-        
-        m_strWordNet_Dir = strWordNet_Dir;
+        m_wordnet = wordnet;
+        m_wordnetTaxonomy = wordnetTaxonomy;
     }
     
     /**
@@ -111,21 +104,34 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     }
     
     /**
-     * The method
+     * The method returns the similarity value between two sentences 
+     * using the WBSM measure.
+     * 
      * @param strRawSentence1
      * @param strRawSentence2
-     * @return
+     * @return double similarity value
      * @throws IOException 
      */
     
     @Override
     public double getSimilarityValue(
-            String strRawSentence1, 
-            String strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
+            String  strRawSentence1, 
+            String  strRawSentence2) 
+            throws IOException, FileNotFoundException, 
+            InterruptedException, Exception
     {
         // We initialize the output score
         
         double similarity = 0.0;
+        
+        // We initialize the semantic vectors
+        
+        double[] semanticVector1 = null;
+        double[] semanticVector2 = null;
+        
+        // We initialize the dictionary vector
+        
+        ArrayList<String> dictionary = null;
         
         // Preprocess the sentences and get the tokens for each sentence
         
@@ -134,15 +140,189 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // 1. Construct the joint set of distinct words from S1 and S2 (dictionary)
                 
-        this.constructDictionarySet(lstWordsSentence1, lstWordsSentence2);
+        dictionary = constructDictionaryList(lstWordsSentence1, lstWordsSentence2);
         
         // 2. Initialize the semantic vectors.
         
-        this.constructSemanticVectors(lstWordsSentence1, lstWordsSentence2);
+        semanticVector1 = constructSemanticVector(dictionary, lstWordsSentence1);
+        semanticVector2 = constructSemanticVector(dictionary, lstWordsSentence2);
+
+        // 3. Use WordNet to construct the semantic vector
+        
+        semanticVector1 = computeSemanticVector(semanticVector1, dictionary);
+        semanticVector2 = computeSemanticVector(semanticVector2, dictionary);
+        
+        // 4. Compute the cosine similarity between the semantic vectors
+        
+        similarity = computeCosineSimilarity(semanticVector1, semanticVector2);
         
         // Return the similarity value
         
         return (similarity);
+    }
+    
+    /**
+     * Compute the values from the semantic vector in the positions with zeros.
+     * 
+     * For each vector position, check if the value is zero.
+     * If the value is zero, compute the word similarity with the dictionary
+     * using word similarity measures and get the maximum value.
+     * 
+     * @param semanticVector
+     * @return 
+     */
+    
+    private double[] computeSemanticVector(
+            double[]            semanticVector,
+            ArrayList<String>   dictionary) throws Exception
+    {
+        // Initialize the result
+        
+        double[] semanticVectorComputed = new double[semanticVector.length];
+        
+        // Compute the semantic vector value in each position
+        
+        for (int i = 0; i < semanticVector.length; i++)
+        {
+            // If the value is zero, get the word similarity
+            
+            double wordVectorComponent = 
+                    semanticVector[i] == 1.0 ? 1.0 : getWordSimilarityScore(dictionary.get(i), dictionary);
+  
+            semanticVectorComputed[i] = wordVectorComponent;
+        }
+
+        // Return the result
+        
+        return semanticVectorComputed;
+    }
+    
+    /**
+     * Get the maximum similarity value comparing a word with a list of words.
+     * 
+     * @param word
+     * @param dictionary
+     * @return double
+     */
+    
+    private double getWordSimilarityScore(
+            String              word,
+            ArrayList<String>   dictionary) throws Exception
+    {
+        // Initialize the result
+        
+        double maxValue = 0.0;
+        
+        // Iterate the dictionary and compare the similarity 
+        // between the pivot word and the dictionary words to get the maximum value.
+        
+        for (String wordDict : dictionary)
+        {
+            // Get the similarity between the words
+            
+            double similarityScore = getSimilarityWordPairs(word, wordDict);
+            
+            // If the returned value is greater, set the new similarity value
+            
+            maxValue = maxValue < similarityScore ? similarityScore : maxValue;
+        }
+        
+        // Return the result
+        
+        return maxValue;
+    }
+    
+    /**
+     * Get the similarity of two words using a Wordnet-based similarity measure
+     * @param measure
+     * @param word1
+     * @param word2
+     * @return
+     * @throws Exception 
+     */
+    
+    private double getSimilarityWordPairs(
+            String              word1, 
+            String              word2) throws Exception
+    {
+        // Initialize the similarity values
+        
+        double simValue = 0.0;  
+
+        // If the concepts exists in WordNet, compute the similiarity
+        
+        if(m_wordnet.contains(word1) & m_wordnet.contains(word2))
+        {
+            // Vertexes corresponding to the concepts evoked by the word1
+            
+            IVertexList word1Concepts;  
+
+            // Vertexes corresponding to the concepts evoked by the word2
+            
+            IVertexList word2Concepts;  
+                                    
+            // We obtain the concepts evoked by the words 
+            
+            word1Concepts = m_wordnetTaxonomy.getVertexes().getByIds(
+                                m_wordnet.getWordSynsetsID(word1));
+
+            word2Concepts = m_wordnetTaxonomy.getVertexes().getByIds(
+                                m_wordnet.getWordSynsetsID(word2));
+
+            // We compute the similarity among all the pairwise
+            // combinations of Synsets (cartesian product)
+
+            simValue = m_wordSimilarityMeasure.getHighestPairwiseSimilarity(
+                                word1Concepts, word2Concepts);
+
+            // We clear the vertex lists
+
+            word1Concepts.clear();
+            word2Concepts.clear();
+        }
+        
+        // Return the value
+        
+        return simValue;
+    }
+    
+    /**
+     * This method compute the cosine similarity of the HashMap values.
+     * 
+     * @param sentence1Map
+     * @param sentence2Map
+     * @return 
+     */
+    
+    private double computeCosineSimilarity(
+            double[] sentence1Vector,
+            double[] sentence2Vector)
+    {
+        // Initialize the result
+        
+        double similarity = 0.0;
+
+        // We check the validity of the word vectors. They could be null if
+        // any word is not contained in the vocabulary of the embedding.
+        
+        if ((sentence1Vector != null) && (sentence2Vector != null))
+        {
+            // We compute the cosine similarity function (dot product)
+            
+            for (int i = 0; i < sentence1Vector.length; i++)
+            {
+                similarity += sentence1Vector[i] * sentence2Vector[i];
+            }
+            
+            // We divide by the vector norms
+            
+            similarity /= (MeasureFactory.getVectorNorm(sentence1Vector)
+                        * MeasureFactory.getVectorNorm(sentence2Vector));
+        }
+        
+        // Return the result
+        
+        return similarity;
     }
     
     /**
@@ -153,14 +333,27 @@ class WBSMMeasure extends SentenceSimilarityMeasure
      * @throws FileNotFoundException 
      */
     
-    private void constructDictionarySet(
+    private ArrayList<String> constructDictionaryList(
             String[] lstWordsSentence1, 
             String[] lstWordsSentence2) throws FileNotFoundException
     {
-        // Union of the two lists of words in a set.
+        // Initialize the set
         
-        m_dictionary.addAll(Arrays.asList(lstWordsSentence1));
-        m_dictionary.addAll(Arrays.asList(lstWordsSentence2));
+        ArrayList<String> dictionary = null;
+        
+        // Create a linked set with the ordered union of the two sentences
+        
+        Set<String> setOrderedWords = new LinkedHashSet<>();
+        setOrderedWords.addAll(Arrays.asList(lstWordsSentence1));
+        setOrderedWords.addAll(Arrays.asList(lstWordsSentence2));
+        
+        // Copy the linked set to the arraylist
+        
+        dictionary = new ArrayList<>(setOrderedWords);
+        
+        // Return the result
+        
+        return dictionary;
     }
     
     /**
@@ -173,61 +366,48 @@ class WBSMMeasure extends SentenceSimilarityMeasure
      * @throws FileNotFoundException 
      */
     
-    private void constructSemanticVectors(
-            String[] lstWordsSentence1, 
-            String[] lstWordsSentence2) throws FileNotFoundException
+    private double[] constructSemanticVector(
+            ArrayList<String>   dictionary,
+            String[]            lstWordsSentence) throws FileNotFoundException
     {
+        // Initialize the semantic vector
+        
+        double[] semanticVector = new double[dictionary.size()];
+        
         // Convert arrays to set to facilitate the operations 
         // (this method do not preserve the word order)
         
-        Set<String> setWordsSentence1 = new HashSet<>(Arrays.asList(lstWordsSentence1));
-        Set<String> setWordsSentence2 = new HashSet<>(Arrays.asList(lstWordsSentence2));
+        Set<String> setWordsSentence1 = new HashSet<>(Arrays.asList(lstWordsSentence));
 
         // For each list of words of a sentence
         // If the value is in the sentence, the value of the semantic vector will be 1.
         
-        for (String word : m_dictionary)
+        int count = 0;
+        for (String word : dictionary)
         {
             // We check if the first sentence contains the word
             
             double wordVectorComponent = setWordsSentence1.contains(word) ? 1.0 : 0.0;
 
-            m_semanticVector1.put(word, wordVectorComponent);
-            
-            // We check if the second sentence contains the word
-            
-            wordVectorComponent = setWordsSentence2.contains(word) ? 1.0 : 0.0;
-            
-            m_semanticVector2.put(word, wordVectorComponent);
+            semanticVector[count] = wordVectorComponent;
+            count++;
         } 
+        
+        // Return the result
+        
+        return semanticVector;
     }
     
-    private void loadWordNet() throws Exception
-    {
-        IWordNetDB  wordnet;            // WordNet DB
-        ITaxonomy   wordnetTaxonomy;    // WordNet taxonomy
-        
-        // We load the WordNet database
-        
-        wordnet = WordNetFactory.loadWordNetDatabase(m_strWordNet_Dir, "data.noun");
-        
-        // We build the taxonomy
-        
-        System.out.println("Building the WordNet taxonomy ...");
-        
-        wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);
-               
-        // We pre-process the taxonomy to compute all the parameters
-        // used by the intrinsic IC-computation methods
-        
-        System.out.println("Pre-processing the WordNet taxonomy");
-        
-        wordnetTaxonomy.computesCachedAttributes();
-        
-        
-        // We release the resources
-        
-        wordnet.clear();
-        wordnetTaxonomy.clear();
+    /**
+     * This function releases all resources used by the measure. Once this
+     * function is called the measure is completely disabled.
+     */
+    
+    @Override
+    public void clear()
+    {     
+       // We release the resoruces of the base class
+       
+       super.clear();
     }
 }

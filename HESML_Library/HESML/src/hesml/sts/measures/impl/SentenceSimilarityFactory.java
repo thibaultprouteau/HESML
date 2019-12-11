@@ -17,6 +17,7 @@
 
 package hesml.sts.measures.impl;
 
+import hesml.measures.ISimilarityMeasure;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
@@ -24,6 +25,8 @@ import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
 import hesml.sts.measures.StringBasedSentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import hesml.taxonomy.ITaxonomy;
+import hesml.taxonomyreaders.wordnet.IWordNetDB;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -217,15 +220,22 @@ public class SentenceSimilarityFactory
      * 
      * @param preprocesser
      * @param strWordNet_Dir
+     * @param wordSimilarityMeasure
+     * @param wordnetTaxonomy
+     * @param wordnet
      * @return ISentenceSimilarityMeasure
+     * @throws java.lang.Exception
      */
     
     public static ISentenceSimilarityMeasure getWBSMMeasure(
-            IWordProcessing preprocesser,
-            String strWordNet_Dir)
+            IWordProcessing     preprocesser,
+            ISimilarityMeasure  wordSimilarityMeasure,
+            IWordNetDB          wordnet,
+            ITaxonomy           wordnetTaxonomy) throws Exception
     {
         // Return the result
         
-        return (new WBSMMeasure(preprocesser, strWordNet_Dir));
+        return (new WBSMMeasure(preprocesser, wordSimilarityMeasure, 
+                wordnet, wordnetTaxonomy));
     }
 }
