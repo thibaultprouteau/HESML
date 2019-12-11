@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
-<SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="D:\Versiones_Git_HESML\HESML\HESML_Library\ReproducibleExperiments\SentenceSimilarityExperiments.xsd">
+<SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
@@ -48,9 +48,10 @@
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -61,9 +62,24 @@
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -121,9 +137,10 @@
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -134,9 +151,24 @@
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -194,9 +226,10 @@
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -207,9 +240,24 @@
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_intrinsic</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioCFastextCbowTrained.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>fastText-BioC</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>

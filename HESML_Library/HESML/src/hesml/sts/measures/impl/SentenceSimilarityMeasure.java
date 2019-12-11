@@ -20,6 +20,7 @@ import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -48,6 +49,22 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     }
     
     /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (getMethod().toString());
+    }
+    
+    /**
      * This function releases all resources used by the measure. Once this
      * function is called the measure is completely disabled.
      */
@@ -64,10 +81,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityMethod getMethod()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+    public abstract SentenceSimilarityMethod getMethod();
 
     /**
      * This function returns the current family of STS method
@@ -75,10 +89,7 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public SentenceSimilarityFamily getFamily()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+    public abstract SentenceSimilarityFamily getFamily();
     
     /**
      * Get the similarity value of two sentences.
@@ -92,12 +103,10 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
      */
     
     @Override
-    public double getSimilarityValue(
+    public abstract double getSimilarityValue(
             String strRawSentence1, 
-            String strRawSentence2) throws IOException, InterruptedException, Exception
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
+            String strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception;
 
     /**
      * Get the similarity value between a list of pairs of sentences.
@@ -112,8 +121,8 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     @Override
     public double[] getSimilarityValues(
             String[] firstSentencesVector,
-            String[] secondSentencesVector) 
-                throws IOException, InterruptedException, Exception
+            String[] secondSentencesVector) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
     {
         // We check that the length of the lists has to be equal
         

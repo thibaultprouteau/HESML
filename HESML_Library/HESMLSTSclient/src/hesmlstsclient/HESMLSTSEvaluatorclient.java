@@ -58,7 +58,7 @@ import org.json.simple.parser.ParseException;
  * @author j.lastra
  */
 
-public class HESMLSTSEvaluatorclient
+public class HESMLSTSMeasuresEvaluatorclient
 {
     /**
      * Resources directories.
@@ -168,16 +168,7 @@ public class HESMLSTSEvaluatorclient
                 // STS experiments. Schema file is assumed to be in
                 // same folder that the experiments file.
 
-                ISentenceSimilarityBenchmark[] reproExperiments = 
-                        SentenceSimBenchmarkFactory.loadXmlBenchmarksFile(inputFile.getPath());
-
-                // We execute all the experiments defined in the input file
-
-                for (ISentenceSimilarityBenchmark experiment : reproExperiments)
-                {
-                    experiment.evaluateBenchmark(false);
-                    experiment.clear();
-                }
+                SentenceSimBenchmarkFactory.runXmlBenchmarksFile(inputFile.getPath());
 
                 // We measure the elapsed time to run the experiments
 

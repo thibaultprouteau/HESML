@@ -36,6 +36,7 @@
 				<xs:element name="WordEmbeddingFileFormat" type="WordEmbeddingFileType"/>
 				<xs:element name="PretrainedModelFilename" type="xs:string"/>
 				<xs:element name="PretrainedModelDirectory"/>
+				<xs:element name="Label" type="xs:string"/>
 				<xs:element ref="WordProcessing"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -50,7 +51,8 @@
 	</xs:simpleType>
 	<xs:simpleType name="WordEmbeddingFileType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="FastTextBinaryWordEmbedding"/>
+			<xs:enumeration value="BioWordVecBinaryWordEmbedding"/>
+			<xs:enumeration value="FastTextVecWordEmbedding"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="WordProcessing">

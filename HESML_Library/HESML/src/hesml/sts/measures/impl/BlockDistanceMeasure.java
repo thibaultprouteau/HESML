@@ -39,7 +39,8 @@ import java.util.Set;
  * @author alicia
  */
 
-class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringBasedSentenceSimMeasure
+class BlockDistanceMeasure extends SentenceSimilarityMeasure
+    implements IStringBasedSentenceSimMeasure
 {
     /**
      * Constructor with parameters.
@@ -55,7 +56,19 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
     }
     
     /**
-     * This function returns the current sentence similarity method.
+     * This function returns the string-based sentence similarity method
+     * which is implemented by any derived class.
+     * @return 
+     */
+    
+    @Override
+    public StringBasedSentenceSimilarityMethod getStringBasedMethodType()
+    {
+        return (StringBasedSentenceSimilarityMethod.BlockDistance);
+    }
+    
+    /**
+     * This function returns the current similarity method
      * @return SentenceSimilarityMethod
      */
     
@@ -75,18 +88,7 @@ class BlockDistanceMeasure extends SentenceSimilarityMeasure implements IStringB
     {
         return (SentenceSimilarityFamily.String);
     }
-    
-    /**
-     * Return the current string similarity method.
-     * @return StringBasedSentenceSimilarityMethod
-     */
-    
-    @Override
-    public StringBasedSentenceSimilarityMethod getStringBasedMethodType()
-    {
-        return (StringBasedSentenceSimilarityMethod.BlockDistance);
-    }
-    
+        
     /**
      * This function calculates the similarity value between two sentences.
      * 

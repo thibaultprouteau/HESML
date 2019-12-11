@@ -63,7 +63,7 @@ class QgramMeasure extends SentenceSimilarityMeasure
         
         m_padding = padding;
     }
-    
+       
     /**
      * This function returns the type of method implemented by the current
      * sentence similarity measure.

@@ -54,13 +54,14 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getSWEMMeasure(
+            String                  strLabel,
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
             String                  strPretrainedWEFilename) 
-            throws IOException, ParseException
+            throws IOException, ParseException, Exception
     {
-        return (new SimpleWordEmbeddingModelMeasure(poolingMethod,
+        return (new SimpleWordEmbeddingModelMeasure(strLabel, poolingMethod,
                 embeddingType, preprocesser, strPretrainedWEFilename));
     }
     
@@ -138,6 +139,7 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getParagraphVectorSentenceMethod(
+			String                  strLabel,
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,

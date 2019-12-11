@@ -52,17 +52,23 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final SWEMpoolingMethod    m_poolingMethod;
     
     /**
-     * Constructor with parameters.
-     * 
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
+     * Constructor
      * @param embeddingType
      * @param strPretrainedModelFilename 
      */
     
     SimpleWordEmbeddingModelMeasure(
+            String                  strLabel,
             SWEMpoolingMethod       poolingMethod,
             WordEmbeddingFileType   embeddingType,
             IWordProcessing         preprocesser,
-            String                  strPretrainedModelFilename) throws IOException, ParseException
+            String                  strPretrainedModelFilename) throws IOException, ParseException, Exception
     {
         // We initialize the base class
         
@@ -70,9 +76,26 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We initializer the object
         
+        m_strLabel = strLabel;
         m_poolingMethod = poolingMethod;
         m_wordEmbedding = MeasureFactory.getWordEmbeddingModel(embeddingType,
                             strPretrainedModelFilename);
+    }
+    
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
     }
     
     /**
@@ -162,7 +185,8 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public double getSimilarityValue(
             String  strRawSentence1,
-            String  strRawSentence2) throws IOException, FileNotFoundException, InterruptedException
+            String  strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
     {
         // We initialize the output
 
@@ -207,7 +231,7 @@ class SimpleWordEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private double[] getSentenceEmbedding(
             String      strRawSentence) 
-            throws IOException, FileNotFoundException, InterruptedException
+            throws IOException, FileNotFoundException, InterruptedException, Exception
     {
         // We obtain the words in the input sentence
         

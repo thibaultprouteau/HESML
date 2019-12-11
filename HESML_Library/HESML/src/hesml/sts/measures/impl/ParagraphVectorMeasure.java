@@ -46,12 +46,19 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
     private final ILanguageModel m_pretrainedModel; 
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor with parameters
      * @param sentenceSimilarityMethod
      * @param preprocesser 
      */
     
     ParagraphVectorMeasure(
+            String          strLabel,
             String          strModelDirPath,
             IWordProcessing preprocesser) throws IOException
     {
@@ -62,6 +69,7 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
         // We save the pre-trained model file path
         
         m_strModelDirPath = strModelDirPath;
+        m_strLabel = strLabel;
         
         // Load the model
         
@@ -69,8 +77,24 @@ class ParagraphVectorMeasure extends SentenceSimilarityMeasure
     }
 
     /**
-     * Get the current sentence similarity method.
-     * @return SentenceSimilarityMethod
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
+    }
+    
+    /**
+     * Get the current method.
+     * @return 
      */
     
     @Override

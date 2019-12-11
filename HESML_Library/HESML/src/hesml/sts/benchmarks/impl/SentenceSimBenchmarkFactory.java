@@ -78,7 +78,7 @@ public class SentenceSimBenchmarkFactory
      * @return 
      */
     
-    public static ISentenceSimilarityBenchmark[] loadXmlBenchmarksFile(
+    public static void runXmlBenchmarksFile(
             String  strXmlBenchmarksFile) throws FileNotFoundException, Exception
     {
         // We get the File information of the XML benchamrk file
@@ -98,11 +98,6 @@ public class SentenceSimBenchmarkFactory
         
         if (strOutputDirectory == null) strOutputDirectory = "";
 
-        // We create the temporary collection to parse the experiemnts
-        // defined in the XML experiment file. 
-        
-        ArrayList<ISentenceSimilarityBenchmark> experiments = new ArrayList<>();
-        
         // We configure the Xml parser in order to validate the Xml file
         // by using the schema that describes the Xml file format
         // for the reproducible experiments.
@@ -144,26 +139,21 @@ public class SentenceSimBenchmarkFactory
                 
                 if (experimentRoot.getNodeName().equals("SingleDatasetSimilarityValuesExperiment"))
                 {
-                    experiments.add(readBenchmark(experimentRoot, strOutputDirectory));
+                    // We reda the next benchmark
+                    
+                    ISentenceSimilarityBenchmark benchmark = readBenchmark(experimentRoot, strOutputDirectory);
+                    
+                    // We ptint a Debug message
+                    
+                    System.out.println(benchmark.getOutputFilename());
+                    
+                    // We run and destroy the benchmark
+                    
+                    benchmark.evaluateBenchmark(true);
+                    benchmark.clear();
                 }
             }
         }
-        
-        // We create the output vector
-        
-        ISentenceSimilarityBenchmark[] benchmarks = new ISentenceSimilarityBenchmark[experiments.size()];
-        
-        // We copy the XML-based benchmarks into the output vector
-        
-        experiments.toArray(benchmarks);
-        
-        // Werelease the temporary list
-        
-        experiments.clear();
-        
-        // We return the result
-        
-        return (benchmarks);
     }
 
     /**
@@ -229,8 +219,9 @@ public class SentenceSimBenchmarkFactory
                         
                         String strPretrainedModelFilename = readStringField(measureNode, "PretrainedModelFilename");
                         String strPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
+                        String strLabel = readStringField(measureNode, "Label");
                         
-                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(
+                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(strLabel,
                                 convertToSWEMpoolingMethod(readStringField(measureNode, "Pooling")),
                                 convertToWordEmbeddingFileType(readStringField(measureNode, "WordEmbeddingFileFormat")),
                                 readWordProcessing(measureNode),
@@ -436,7 +427,7 @@ public class SentenceSimBenchmarkFactory
     {
         // We initialize the output
         
-        WordEmbeddingFileType recoveredType = WordEmbeddingFileType.FastTextBinaryWordEmbedding;
+        WordEmbeddingFileType recoveredType = WordEmbeddingFileType.BioWordVecBinaryWordEmbedding;
         
         // We look for the matching value
         

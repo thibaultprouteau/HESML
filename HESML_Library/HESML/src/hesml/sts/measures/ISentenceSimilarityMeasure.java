@@ -17,6 +17,7 @@
 
 package hesml.sts.measures;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -33,6 +34,18 @@ public interface ISentenceSimilarityMeasure
      */
     
     void clear();
+    
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    String getLabel();
     
     /**
      * This function returns the type of method implemented by the current
@@ -62,7 +75,8 @@ public interface ISentenceSimilarityMeasure
     
     double getSimilarityValue(
             String  strRawSentence1,
-            String  strRawSentence2)  throws IOException, InterruptedException, Exception;
+            String  strRawSentence2)  throws IOException,
+            FileNotFoundException, InterruptedException, Exception;
     
     /**
      *  Given a list of sentences, calculate the similarity for its inferred vectors.
@@ -76,5 +90,6 @@ public interface ISentenceSimilarityMeasure
     
     double[] getSimilarityValues(
             String[] lstSentences1,
-            String[] lstSentences2) throws IOException, InterruptedException, Exception;
+            String[] lstSentences2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception;
 }

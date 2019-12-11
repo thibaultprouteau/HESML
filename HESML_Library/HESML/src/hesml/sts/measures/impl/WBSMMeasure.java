@@ -56,12 +56,19 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     private final ITaxonomy   m_wordnetTaxonomy;    // WordNet taxonomy
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor
      * @param preprocesser 
      * @param strWordNet_Dir Path to WordNet directory
      */
     
     WBSMMeasure(
+			String           		strLabel,
             IWordProcessing         preprocesser,
             ISimilarityMeasure      wordSimilarityMeasure,
             IWordNetDB              wordnet,
@@ -79,6 +86,10 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         m_wordnet = wordnet;
         m_wordnetTaxonomy = wordnetTaxonomy;
+
+		// We define the label
+		
+		m_strLabel = srtLabel;
     }
     
     /**

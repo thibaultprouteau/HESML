@@ -22,6 +22,7 @@ import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.apache.commons.lang.NotImplementedException;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -67,12 +69,19 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     private final String[] m_poolingLayers;
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor
      * @param strModelDirPath
      * @param preprocesser 
      */
     
     BertEmbeddingModelMeasure(
+            String              strLabel,
             String              modelDirPath,
             IWordProcessing     preprocesser,
             String              bertDir,
@@ -95,8 +104,25 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         m_pythonVenvDir = pythonVenvDir;
         m_poolingStrategy = poolingStrategy;
         m_poolingLayers = poolingLayers;
+        m_strLabel = strLabel;
     }
 
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
+    }
+    
     /**
      * This function returns the sentence similarity method implemented by the object.
      * @return SentenceSimilarityMethod
@@ -120,6 +146,26 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     }
     
     /**
+     * Get the similarity value of two sentences.
+     * Each measure implements its own method.
+     * BERTEmbeddingModelMeasure does not implement this method.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return
+     * @throws IOException 
+     */
+    
+    @Override
+    public double getSimilarityValue(
+            String strRawSentence1, 
+            String strRawSentence2) throws IOException,
+            FileNotFoundException, InterruptedException, Exception
+    {
+        throw (new Exception("Non-implemented function = getSimilarityValue"));
+    }
+    
+    /**
      * Get the similarity value between two vectors
      * @param strRawSentence1
      * @param strRawSentence2
@@ -127,11 +173,12 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @throws IOException 
      */
     
-    private double getSimilarityValue(
+    private double getVectorSimilarityValue(
             double[]    sentence1Vector,
-            double[]    sentence2Vector) 
-            throws FileNotFoundException, IOException
+            double[]    sentence2Vector) throws FileNotFoundException,
+            IOException, Exception
     {
+        
         // We initialize the output value
         
         double similarity = 0.0;
@@ -171,7 +218,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public double[] getSimilarityValues(
             String[] lstSentences1, 
-            String[] lstSentences2) throws IOException, InterruptedException
+            String[] lstSentences2) throws IOException,
+            InterruptedException, Exception
     {
         // We check that input vectors have the same length
         
@@ -227,7 +275,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         for (ArrayList<double[]> listSentences : vectors)
         {
-            scores[i++] = this.getSimilarityValue(listSentences.get(0), listSentences.get(1));
+            scores[i++] = this.getVectorSimilarityValue(listSentences.get(0), listSentences.get(1));
         }
        
         // We return the result
