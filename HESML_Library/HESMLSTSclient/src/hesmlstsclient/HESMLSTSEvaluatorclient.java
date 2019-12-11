@@ -219,19 +219,22 @@ public class HESMLSTSEvaluatorclient
         // sentences1 are first sentences
         // sentences2 are second sentences
         
-        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
-                                "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives "
-                                + "are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, "
-                                + "and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
-        String[] sentences2 = { "It has recently become evident that Craf is essential for the onset of Kras-driven "
-                                + "non-small cell lung cancer.",
-                                "Recently, it has been reported that ABT-737 is not cytotoxic to all tumors cells, and "
-                                + "that chemoresistance to ABT-737 is dependent on appreciable levels of Mcl-1 expression, "
-                                + "the one Bcl-2 family member it does not effectively inhibit."};
+//        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC.",
+//                                "The Bcl-2 inhibitor ABT-737 induces regression of solid tumors  and its derivatives "
+//                                + "are in the early clinical phase as cancer therapeutics; however, it targets Bcl-2, Bcl-XL, "
+//                                + "and Bcl-w, but not Mcl-1, which induces resistance against apoptotic cell death triggered by ABT-737."};
+//        String[] sentences2 = { "It has recently become evident that Craf is essential for the onset of Kras-driven "
+//                                + "non-small cell lung cancer.",
+//                                "Recently, it has been reported that ABT-737 is not cytotoxic to all tumors cells, and "
+//                                + "that chemoresistance to ABT-737 is dependent on appreciable levels of Mcl-1 expression, "
+//                                + "the one Bcl-2 family member it does not effectively inhibit."};
+        
+        String[] sentences1 = { "It has recently been shown that Craf is essential for Kras G12D-induced NSCLC."};
+        String[] sentences2 = { "It has recently become evident that Craf is essential for the onset of Kras-driven non-small cell lung cancer."};
 
         // Execute the tests
         
-//        testStringMeasures(sentences1, sentences2);
+        testStringMeasures(sentences1, sentences2);
 //        testBertMeasures(sentences1, sentences2);
         testWBSMMeasures(sentences1, sentences2);
     }
@@ -303,6 +306,7 @@ public class HESMLSTSEvaluatorclient
                 System.out.println("---- Sentence " + i + " : " + score);
             }
         }
+        measure.clear();
     }
     
     /**
@@ -363,6 +367,7 @@ public class HESMLSTSEvaluatorclient
             double score = simScores[i];
             System.out.println("---- Sentence " + i + " : " + score);
         }
+        measure.clear();
     }
     
     /**
@@ -423,7 +428,7 @@ public class HESMLSTSEvaluatorclient
         // Create the word similarity measure
         
         wordSimilarityMeasure = MeasureFactory.getMeasure(wordnetTaxonomy, 
-                                    SimilarityMeasureType.LeacockChodorow);
+                                    SimilarityMeasureType.Lin);
         
         // Create the measure
         

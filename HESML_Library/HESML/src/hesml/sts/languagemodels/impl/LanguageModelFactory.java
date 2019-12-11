@@ -22,7 +22,7 @@ import java.io.IOException;
 import hesml.sts.languagemodels.ILanguageModel;
 
 /**
- *  This class encapsulates the creation of language model objects.
+ * This class encapsulates the creation of language model objects.
  * 
  *  @author alicia
  */

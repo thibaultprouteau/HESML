@@ -219,7 +219,6 @@ public class SentenceSimilarityFactory
      * This function creates a WBSM measure.
      * 
      * @param preprocesser
-     * @param strWordNet_Dir
      * @param wordSimilarityMeasure
      * @param wordnetTaxonomy
      * @param wordnet

@@ -51,10 +51,25 @@ import edu.stanford.nlp.ling.CoreLabel;
 
 class BioCReader 
 { 
+    // ID of the document
+    
     private final int m_idDocument;
+    
+    // File input with BioC format
+    
     private final File m_biocFile;
+    
+    // Word preprocesser
+    
     private final IWordProcessing m_preprocessing;
     
+    /**
+     * Constructor.
+     * 
+     * @param idDocument
+     * @param biocFile
+     * @param preprocessing 
+     */
     
     BioCReader(
             int idDocument,

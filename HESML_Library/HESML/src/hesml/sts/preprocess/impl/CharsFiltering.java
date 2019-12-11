@@ -28,10 +28,8 @@ import java.util.HashMap;
 
 class CharsFiltering implements ICharsFiltering
 {
-    /**
-     * Mapping holding the pairs (input chain, output chain) for all
-     * detailed string replacements.
-     */
+    // Mapping holding the pairs (input chain, output chain) for all
+    // detailed string replacements.
     
     private HashMap<String, String> m_replacingMap;
     

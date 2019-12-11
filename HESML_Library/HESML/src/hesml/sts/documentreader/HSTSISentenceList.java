@@ -43,7 +43,6 @@ public interface HSTSISentenceList extends Iterable<HSTSISentence>
     /**
      * Add a paragraph to the object.
      * @param sentence
-     * @param paragraph
      */
     
     void addSentence(

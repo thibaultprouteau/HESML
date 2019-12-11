@@ -186,15 +186,15 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         {
             // If the value is zero, get the word similarity
             
-            double wordVectorComponent = 
-                    semanticVector[i] == 1.0 ? 1.0 : getWordSimilarityScore(dictionary.get(i), dictionary);
+            double wordVectorComponent = semanticVector[i] == 1.0 ? 1.0 : 
+                        getWordSimilarityScore(dictionary.get(i), dictionary);
   
             semanticVectorComputed[i] = wordVectorComponent;
         }
 
         // Return the result
         
-        return semanticVectorComputed;
+        return (semanticVectorComputed);
     }
     
     /**
@@ -229,7 +229,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the result
         
-        return maxValue;
+        return (maxValue);
     }
     
     /**
@@ -283,7 +283,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the value
         
-        return simValue;
+        return (simValue);
     }
     
     /**
@@ -322,7 +322,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the result
         
-        return similarity;
+        return (similarity);
     }
     
     /**
@@ -353,7 +353,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the result
         
-        return dictionary;
+        return (dictionary);
     }
     
     /**
@@ -395,7 +395,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Return the result
         
-        return semanticVector;
+        return (semanticVector);
     }
     
     /**

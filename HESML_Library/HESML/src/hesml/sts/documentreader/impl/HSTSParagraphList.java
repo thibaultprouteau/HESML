@@ -31,7 +31,7 @@ public class HSTSParagraphList implements HSTSIParagraphList
 {
     // This object has a list of paragraphs.
     
-    private ArrayList<HSTSIParagraph> m_paragraphs;
+    private final ArrayList<HSTSIParagraph> m_paragraphs;
     
     /**
      * Paragraph list constructor

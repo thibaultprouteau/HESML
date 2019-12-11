@@ -17,13 +17,12 @@
 package hesml.sts.documentreader.impl;
 
 import hesml.sts.documentreader.HSTSDocumentType;
-
+import hesml.sts.documentreader.HSTSIDocument;
+import hesml.sts.preprocess.IWordProcessing;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
-import hesml.sts.documentreader.HSTSIDocument;
-import hesml.sts.preprocess.IWordProcessing;
 
 /**
  * This class is responsible of creating the input Documents readers and writers
