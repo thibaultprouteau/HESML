@@ -68,7 +68,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
      */
     
     WBSMMeasure(
-			String           		strLabel,
+            String                  strLabel,
             IWordProcessing         preprocesser,
             ISimilarityMeasure      wordSimilarityMeasure,
             IWordNetDB              wordnet,
@@ -87,9 +87,9 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         m_wordnet = wordnet;
         m_wordnetTaxonomy = wordnetTaxonomy;
 
-		// We define the label
-		
-		m_strLabel = srtLabel;
+        // We define the label
+
+        m_strLabel = strLabel;
     }
     
     /**

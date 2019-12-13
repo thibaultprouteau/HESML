@@ -44,6 +44,7 @@ public class SentenceSimilarityFactory
      * sentence similarity based on a pooling strategy and one
      * pre-traiend WE file.
      * 
+     * @param strLabel
      * @param poolingMethod
      * @param embeddingType
      * @param preprocesser
@@ -139,7 +140,7 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getParagraphVectorSentenceMethod(
-			String                  strLabel,
+            String                  strLabel,
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
@@ -159,7 +160,7 @@ public class SentenceSimilarityFactory
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = new ParagraphVectorMeasure(
-                        pretainedModelFileInfo.getAbsolutePath(),
+                        strLabel, pretainedModelFileInfo.getAbsolutePath(),
                         wordPreprocessor);
 
         // We return the result
@@ -170,6 +171,7 @@ public class SentenceSimilarityFactory
     /**
      * This function creates a sentence embedding method.
      * 
+     * @param strLabel
      * @param method
      * @param wordPreprocessor
      * @param strPretrainedModelFilename
@@ -185,6 +187,7 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getBERTSentenceEmbeddingMethod(
+            String                  strLabel,
             SentenceEmbeddingMethod method,
             IWordProcessing         wordPreprocessor,
             String                  strPretrainedModelFilename,
@@ -208,7 +211,7 @@ public class SentenceSimilarityFactory
         // We initialize the output
         
         ISentenceSimilarityMeasure measure = new BertEmbeddingModelMeasure(
-                        strPretrainedModelFilename, wordPreprocessor, 
+                        strLabel, strPretrainedModelFilename, wordPreprocessor, 
                         strPretrainedModelDir, strPythonVirtualEnvironmentDir,
                         pythonScriptDir, poolingStrategy, poolingLayers);
 
@@ -220,6 +223,7 @@ public class SentenceSimilarityFactory
     /**
      * This function creates a WBSM measure.
      * 
+     * @param strLabel
      * @param preprocesser
      * @param wordSimilarityMeasure
      * @param wordnetTaxonomy
@@ -229,6 +233,7 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getWBSMMeasure(
+            String              strLabel,
             IWordProcessing     preprocesser,
             ISimilarityMeasure  wordSimilarityMeasure,
             IWordNetDB          wordnet,
@@ -236,7 +241,7 @@ public class SentenceSimilarityFactory
     {
         // Return the result
         
-        return (new WBSMMeasure(preprocesser, wordSimilarityMeasure, 
+        return (new WBSMMeasure(strLabel, preprocesser, wordSimilarityMeasure, 
                 wordnet, wordnetTaxonomy));
     }
 }
