@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
-<SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\SentenceSimilarityExperiments.xsd">
+<SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
@@ -88,34 +88,24 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Max</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MaxPooling</Label>
+			<BERTEmbeddingMeasure>
+				<Label>biobert_v1.0_pubmed</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3/</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Min</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MinPooling</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
+			</BERTEmbeddingMeasure>
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 	<SingleDatasetSimilarityValuesExperiment>
@@ -205,34 +195,24 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Max</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MaxPooling</Label>
+			<BERTEmbeddingMeasure>
+				<Label>biobert_v1.0_pubmed</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3/</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Min</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MinPooling</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
+			</BERTEmbeddingMeasure>
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 	<SingleDatasetSimilarityValuesExperiment>
@@ -322,34 +302,29 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Max</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MaxPooling</Label>
+			<BERTEmbeddingMeasure>
+				<Label>biobert_v1.0_pubmed</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3/</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3/</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>extractBERTvectors.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
 				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Min</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-BioCTokenizer-DefaultChar-MinPooling</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>BioCNLPTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
+			</BERTEmbeddingMeasure>
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 </SentenceSimilarityExperiments>

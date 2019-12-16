@@ -22,7 +22,7 @@
 						<xs:choice maxOccurs="unbounded">
 							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="SentenceEmbedding" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="BERTEmbeddingMeasure" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>
@@ -79,6 +79,11 @@
 						</xs:complexType>
 					</xs:element>
 				</xs:choice>
+				<xs:element name="PythonScriptsDirectory" type="xs:string" minOccurs="0"/>
+				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string" minOccurs="0"/>
+				<xs:element name="PythonWordPieceTokenizerScript" type="xs:string" minOccurs="0"/>
+				<xs:element name="PretrainedModelDirectory" minOccurs="0"/>
+				<xs:element name="PretrainedModelFilename" type="xs:string" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -99,14 +104,18 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="SentenceEmbedding">
+	<xs:element name="BERTEmbeddingMeasure">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Method"/>
-				<xs:element name="PretrainedModelFilename" type="xs:string"/>
+				<xs:element name="Label" type="xs:string"/>
+				<xs:element name="Method"  type="SentenceEmbeddingMethod"/>
+				<xs:element name="Pooling" type="BERTpoolingMethod"/>
+				<xs:element name="PoolingLayers" type="xs:string"/>
 				<xs:element name="PretrainedModelDirectory"/>
+				<xs:element name="PretrainedModelName" type="xs:string"/>
+				<xs:element name="PythonScriptsDirectory" type="xs:string"/>
 				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string"/>
-				<xs:element name="PythonScriptDir" type="xs:string"/>
+				<xs:element name="PythonScriptFilename" type="xs:string"/>
 				<xs:element ref="WordProcessing"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -117,11 +126,22 @@
 			<xs:enumeration value="ParagraphVector"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="BERTpoolingMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE"/>
+			<xs:enumeration value="FIRST_TOKEN"/>
+			<xs:enumeration value="LAST_TOKEN"/>
+			<xs:enumeration value="REDUCE_MAX"/>
+			<xs:enumeration value="REDUCE_MEAN"/>
+			<xs:enumeration value="REDUCE_MEAN_MAX"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="TokenizerType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="WhiteSpace"/>
 			<xs:enumeration value="StanfordCoreNLPv3_9_1"/>
 			<xs:enumeration value="WordPieceTokenizer"/>
+			<xs:enumeration value="BioCNLPTokenizer"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CharFilteringType">

@@ -17,9 +17,9 @@
 
 package hesml.sts.benchmarks.impl;
 
-import hesml.benchmarks.ISimilarityBenchmark;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
+import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
 import hesml.sts.measures.SWEMpoolingMethod;
 import hesml.sts.measures.SentenceEmbeddingMethod;
@@ -215,7 +215,7 @@ public class SentenceSimBenchmarkFactory
                         
                     case "SWEMMeasure":
                         
-                        // We loads and register a SWEM measurs from the XML file 
+                        // We load and register a SWEM measurs from the XML file 
                         
                         String strPretrainedModelFilename = readStringField(measureNode, "PretrainedModelFilename");
                         String strPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
@@ -226,6 +226,33 @@ public class SentenceSimBenchmarkFactory
                                 convertToWordEmbeddingFileType(readStringField(measureNode, "WordEmbeddingFileFormat")),
                                 readWordProcessing(measureNode),
                                 strPretrainedModelDir + "/" + strPretrainedModelFilename));
+                        
+                        break;
+                    
+                    case "BERTEmbeddingMeasure":
+                        
+                        // We load and register a BERT measure from the XML file 
+                        
+                        String strBERTPretrainedModelFilename = readStringField(measureNode, "PretrainedModelName");
+                        String strBERTPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
+                        String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
+                        String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
+                        String strPythonScript = readStringField(measureNode, "PythonScript");
+                        String strBERTLabel = readStringField(measureNode, "Label");
+                        String strPoolingLayers = readStringField(measureNode, "PoolingLayers");
+                        
+                        String[] poolingLayers = strPoolingLayers.split(",");
+                        
+                        tempMeasureList.add(SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(
+                                strBERTLabel, 
+                                convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
+                                readWordProcessing(measureNode), 
+                                strBERTPretrainedModelDir + strBERTPretrainedModelFilename, 
+                                strPythonScriptsDirectory, 
+                                strPythonVirtualEnvironmentDir, 
+                                strPythonScriptsDirectory + strPythonScript, 
+                                convertToBERTpoolingMethod(readStringField(measureNode, "Pooling")), 
+                                poolingLayers));
                         
                         break;
                 }
@@ -277,6 +304,49 @@ public class SentenceSimBenchmarkFactory
                                         convertToTokenizerType(readStringField(wordProcessingNode, "TokenizerType")),
                                         readBooleanField(wordProcessingNode, "LowercaseNormalization"),
                                         convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")));
+        
+        // We return the result
+        
+        return (processer);
+    }
+    
+        /**
+     * This function parses a word processing object from a XML-based experiment file.
+     * @param measureRootNode
+     * @return 
+     */
+    
+    private static IWordProcessing readBERTWordProcessing(
+            Element measureRootNode) throws IOException
+    {
+        // We get the word processing node
+
+        Element wordProcessingNode = (Element) measureRootNode.getElementsByTagName("WordProcessing").item(0);
+        
+        // We read the word processing attributes
+        
+        String strStopWordsFileDir = readStringField(wordProcessingNode, "StopWordsFileDir");
+        String strStopWordsFilename = readStringField(wordProcessingNode, "StopWordsFilename"); 
+        
+        // We read the Python wrapper data
+        
+        String strBERTPretrainedModelFilename = readStringField(wordProcessingNode, "PretrainedModelName");
+        String strBERTPretrainedModelDir = readStringField(wordProcessingNode, "PretrainedModelDirectory");
+        String strPythonScriptsDirectory = readStringField(wordProcessingNode, "PythonScriptsDirectory");
+        String strPythonVirtualEnvironmentDir = readStringField(wordProcessingNode, "PythonVirtualEnvironmentDir");
+        String strPythonScript = readStringField(wordProcessingNode, "PythonScript");
+
+        // We parse the chracter filtering method
+        
+        IWordProcessing processer = PreprocessingFactory.getWordProcessing(
+                                        strStopWordsFileDir + "/" + strStopWordsFilename,
+                                        convertToTokenizerType(readStringField(wordProcessingNode, "TokenizerType")),
+                                        readBooleanField(wordProcessingNode, "LowercaseNormalization"),
+                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")),
+                                        strPythonScriptsDirectory,
+                                        strPythonVirtualEnvironmentDir,
+                                        strPythonScriptsDirectory + strPythonScript,
+                                        strBERTPretrainedModelDir + strBERTPretrainedModelFilename);
         
         // We return the result
         
@@ -415,6 +485,7 @@ public class SentenceSimBenchmarkFactory
         
         return (recoveredMethod);
     }
+    
 
     /**
      * This function converts the input string into a WordEmbeddingFileType value.
@@ -461,6 +532,35 @@ public class SentenceSimBenchmarkFactory
         // We look for the matching value
         
         for (SWEMpoolingMethod poolingType: SWEMpoolingMethod.values())
+        {
+            if (poolingType.toString().equals(strPoolingMethod))
+            {
+                recoveredPooling = poolingType;
+                break;
+            }
+        }
+        
+        // We return the result
+        
+        return (recoveredPooling);
+    }
+    
+        /**
+     * This function converts the input string into a BERTpoolingMethod value.
+     * @param strICmodelType
+     * @return 
+     */
+    
+    private static BERTpoolingMethod convertToBERTpoolingMethod(
+            String  strPoolingMethod)
+    {
+        // We initialize the output
+        
+        BERTpoolingMethod recoveredPooling = BERTpoolingMethod.REDUCE_MEAN;
+        
+        // We look for the matching value
+        
+        for (BERTpoolingMethod poolingType: BERTpoolingMethod.values())
         {
             if (poolingType.toString().equals(strPoolingMethod))
             {
