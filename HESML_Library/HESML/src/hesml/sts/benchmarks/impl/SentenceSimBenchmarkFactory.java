@@ -246,6 +246,8 @@ public class SentenceSimBenchmarkFactory
                         String strBERTLabel = readStringField(measureNode, "Label");
                         String strPoolingLayers = readStringField(measureNode, "PoolingLayers");
                         
+                        // Convert the pooling layers to an array splitted by comma's
+                        
                         String[] poolingLayers = strPoolingLayers.split(",");
                         
                         tempMeasureList.add(SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(

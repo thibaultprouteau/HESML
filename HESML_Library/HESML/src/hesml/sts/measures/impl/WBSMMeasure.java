@@ -48,7 +48,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
 {
     // Word Similarity measure used for calculating similarity between words.
     
-    ISimilarityMeasure m_wordSimilarityMeasure;
+    private final ISimilarityMeasure m_wordSimilarityMeasure;
     
     // WordNetDB and taxonomy for computing the WordNet-based word similarity measures.
     
