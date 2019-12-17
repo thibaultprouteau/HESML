@@ -19,12 +19,8 @@ package hesml.sts.benchmarks.impl;
 
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
-import hesml.sts.measures.SentenceEmbeddingMethod;
-import hesml.sts.measures.SentenceSimilarityMethod;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * This class implements a sentence similarity benchmark using a normalised

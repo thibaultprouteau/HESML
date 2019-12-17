@@ -445,8 +445,6 @@ public class HESMLSTSEvaluatorclient
         
         // We release the resources
         
-        wordnet.clear();
-        wordnetTaxonomy.clear();
         measure.clear();
     }
 }

@@ -17,7 +17,10 @@
 
 package hesml.sts.benchmarks.impl;
 
+import hesml.measures.ISimilarityMeasure;
+import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
+import hesml.measures.impl.MeasureFactory;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
@@ -29,11 +32,13 @@ import hesml.sts.preprocess.CharFilteringType;
 import hesml.sts.preprocess.IWordProcessing;
 import hesml.sts.preprocess.TokenizerType;
 import hesml.sts.preprocess.impl.PreprocessingFactory;
+import hesml.taxonomy.ITaxonomy;
+import hesml.taxonomyreaders.wordnet.IWordNetDB;
+import hesml.taxonomyreaders.wordnet.impl.WordNetFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.management.BadAttributeValueExpException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -229,7 +234,7 @@ public class SentenceSimBenchmarkFactory
                         
                         break;
                     
-                    case "BERTEmbeddingMeasure":
+                    case "BertEmbeddingModelMeasure":
                         
                         // We load and register a BERT measure from the XML file 
                         
@@ -255,6 +260,55 @@ public class SentenceSimBenchmarkFactory
                                 poolingLayers));
                         
                         break;
+                    
+                    case "WBSMMeasure":
+                        
+                        // We load and register a WBSM measure from the XML file
+                                
+                        String strWordNet3_0_Dir = readStringField(measureNode, "strWordNet3_0_Dir");
+                        String strWordSimilarityMeasureType = readStringField(measureNode, "WordSimilarityMeasureType");
+                        String strWBSMLabel = readStringField(measureNode, "Label");
+                        
+                        // Create the word similarity measure
+                        
+                        // Get the word similarity measure type
+                        
+                        SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(strWordSimilarityMeasureType);
+                        
+                        // Create the WordnetDB and Wordnet taxonomy instance
+                        
+                        // We load the WordNet database
+                        
+                        IWordNetDB  wordnet = WordNetFactory.loadWordNetDatabase(strWordNet3_0_Dir, "data.noun");    
+                        
+                        // We build the taxonomy
+                        
+                        ITaxonomy   wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
+                        
+                        // We pre-process the taxonomy to compute all the parameters
+                        // used by the intrinsic IC-computation methods
+
+                        wordnetTaxonomy.computesCachedAttributes();
+                        
+                        // We obtain an instance of the Seco et al. (2004) IC model,
+                        // then the model is computed on the taxonomy. All the IC models
+                        // computes and store the IC values in the own taxonomy vertexes.
+
+                        // secoICmodel = ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco);
+                        // secoICmodel.setTaxonomyData(wordnetTaxonomy);
+                        
+                        ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
+                                wordnetTaxonomy, 
+                                wordMeasureType);
+                        
+                        // Add the WBSM measure to the list
+                        
+                        tempMeasureList.add(SentenceSimilarityFactory.getWBSMMeasure(
+                                strWBSMLabel, 
+                                readWordProcessing(measureNode), 
+                                wordSimilarityMeasure, 
+                                wordnet, 
+                                wordnetTaxonomy));
                 }
             }
         }
@@ -652,6 +706,36 @@ public class SentenceSimBenchmarkFactory
             if (method.toString().equals(strEmbeddingMethod))
             {
                 recoveredMethod = method;
+                break;
+            }
+        }
+        
+        // We return the result
+        
+        return (recoveredMethod);
+    }
+    
+        /**
+     * This function converts the input string into a
+     * StringBasedSentenceSimilarityMethod value.
+     * @param strICmodelType
+     * @return 
+     */
+    
+    private static SimilarityMeasureType convertToWordSimilarityMeasureType(
+            String  strMethod)
+    {
+        // We initialize the output
+        
+        SimilarityMeasureType recoveredMethod = SimilarityMeasureType.Lin;
+        
+        // We look for the matching value
+        
+        for (SimilarityMeasureType methodType: SimilarityMeasureType.values())
+        {
+            if (methodType.toString().equals(strMethod))
+            {
+                recoveredMethod = methodType;
                 break;
             }
         }

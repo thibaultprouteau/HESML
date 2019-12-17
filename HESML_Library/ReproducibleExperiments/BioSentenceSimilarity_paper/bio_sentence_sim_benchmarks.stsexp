@@ -88,7 +88,7 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			<BERTEmbeddingMeasure>
+			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -110,7 +110,20 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
 				</WordProcessing>
-			</BERTEmbeddingMeasure>
+			</BertEmbeddingModelMeasure>
+			<WBSMMeasure>
+				<Label>WBSM</Label>
+				<Method>WBSMMeasure</Method>
+				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</WBSMMeasure>
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSimilarityValuesExperiment>
 	<SingleDatasetSimilarityValuesExperiment>

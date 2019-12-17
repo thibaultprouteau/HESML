@@ -420,5 +420,8 @@ class WBSMMeasure extends SentenceSimilarityMeasure
        // We release the resoruces of the base class
        
        super.clear();
+       
+       m_wordnet.clear();
+       m_wordnetTaxonomy.clear();
     }
 }

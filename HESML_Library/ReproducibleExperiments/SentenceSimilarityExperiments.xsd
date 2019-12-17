@@ -22,7 +22,8 @@
 						<xs:choice maxOccurs="unbounded">
 							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
-							<xs:element ref="BERTEmbeddingMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="BertEmbeddingModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="WBSMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>
@@ -104,14 +105,14 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="BERTEmbeddingMeasure">
+	<xs:element name="BertEmbeddingModelMeasure">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Label" type="xs:string"/>
 				<xs:element name="Method"  type="SentenceEmbeddingMethod"/>
 				<xs:element name="Pooling" type="BERTpoolingMethod"/>
 				<xs:element name="PoolingLayers" type="xs:string"/>
-				<xs:element name="PretrainedModelDirectory"/>
+				<xs:element name="PretrainedModelDirectory" type="xs:string"/>
 				<xs:element name="PretrainedModelName" type="xs:string"/>
 				<xs:element name="PythonScriptsDirectory" type="xs:string"/>
 				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string"/>
@@ -120,10 +121,27 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="WBSMMeasure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Label" type="xs:string"/>
+				<xs:element name="Method"  type="OntologyBasedMethod"/>
+				<xs:element name="strWordNet3_0_Dir" type="xs:string"/>
+				<xs:element name="WordSimilarityMeasureType" type="WordSimilarityMeasureType"/>
+				<xs:element ref="WordProcessing"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:simpleType name="SentenceEmbeddingMethod">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="BERTEmbeddingModel"/>
 			<xs:enumeration value="ParagraphVector"/>
+			<xs:enumeration value="WBSMMeasure"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OntologyBasedMethod">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WBSMMeasure"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="BERTpoolingMethod">
@@ -150,6 +168,44 @@
 			<xs:enumeration value="Default"/>
 			<xs:enumeration value="BIOSSES"/>
 			<xs:enumeration value="Blagec2019"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="WordSimilarityMeasureType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Rada"/>
+			<xs:enumeration value="LeacockChodorow"/>
+			<xs:enumeration value="WuPalmer"/>
+			<xs:enumeration value="PedersenPath"/>
+			<xs:enumeration value="Mubaid"/>
+			<xs:enumeration value="Resnik"/>
+			<xs:enumeration value="Lin"/>
+			<xs:enumeration value="JiangConrath"/>
+			<xs:enumeration value="PirroSeco"/>
+			<xs:enumeration value="FaITH"/>
+			<xs:enumeration value="Zhou"/>
+			<xs:enumeration value="Meng2012"/>
+			<xs:enumeration value="Meng2014"/>
+			<xs:enumeration value="LogisticLin"/>
+			<xs:enumeration value="CosineLin"/>
+			<xs:enumeration value="ExpNormJiangConrath"/>
+			<xs:enumeration value="LogisticNormJiangConrath"/>
+			<xs:enumeration value="CosineNormJiangConrath"/>
+			<xs:enumeration value="WeightedJiangConrath"/>
+			<xs:enumeration value="CosineNormWeightedJiangConrath"/>
+			<xs:enumeration value="Sanchez2012"/>
+			<xs:enumeration value="Taieb2014"/>
+			<xs:enumeration value="Gao2015Strategy3"/>
+			<xs:enumeration value="Li2003Strategy3"/>
+			<xs:enumeration value="Li2003Strategy4"/>
+			<xs:enumeration value="Li2003Strategy9"/>
+			<xs:enumeration value="Garla"/>
+			<xs:enumeration value="Taieb2014sim2"/>
+			<xs:enumeration value="CaiStrategy1"/>
+			<xs:enumeration value="CaiStrategy2"/>
+			<xs:enumeration value="Hao"/>
+			<xs:enumeration value="PekarStaab"/>
+			<xs:enumeration value="Stojanovic"/>
+			<xs:enumeration value="WuPalmerFast"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
