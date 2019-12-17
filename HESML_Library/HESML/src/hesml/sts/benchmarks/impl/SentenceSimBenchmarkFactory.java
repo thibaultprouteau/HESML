@@ -237,7 +237,7 @@ public class SentenceSimBenchmarkFactory
                         String strBERTPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
                         String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
                         String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
-                        String strPythonScript = readStringField(measureNode, "PythonScript");
+                        String strPythonScript = readStringField(measureNode, "PythonScriptFilename");
                         String strBERTLabel = readStringField(measureNode, "Label");
                         String strPoolingLayers = readStringField(measureNode, "PoolingLayers");
                         
@@ -246,7 +246,7 @@ public class SentenceSimBenchmarkFactory
                         tempMeasureList.add(SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(
                                 strBERTLabel, 
                                 convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
-                                readWordProcessing(measureNode), 
+                                readBERTWordProcessing(measureNode), 
                                 strBERTPretrainedModelDir + strBERTPretrainedModelFilename, 
                                 strPythonScriptsDirectory, 
                                 strPythonVirtualEnvironmentDir, 
@@ -330,11 +330,11 @@ public class SentenceSimBenchmarkFactory
         
         // We read the Python wrapper data
         
-        String strBERTPretrainedModelFilename = readStringField(wordProcessingNode, "PretrainedModelName");
+        String strBERTPretrainedModelFilename = readStringField(wordProcessingNode, "PretrainedModelFilename");
         String strBERTPretrainedModelDir = readStringField(wordProcessingNode, "PretrainedModelDirectory");
         String strPythonScriptsDirectory = readStringField(wordProcessingNode, "PythonScriptsDirectory");
         String strPythonVirtualEnvironmentDir = readStringField(wordProcessingNode, "PythonVirtualEnvironmentDir");
-        String strPythonScript = readStringField(wordProcessingNode, "PythonScript");
+        String strPythonScript = readStringField(wordProcessingNode, "PythonWordPieceTokenizerScript");
 
         // We parse the chracter filtering method
         

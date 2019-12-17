@@ -180,16 +180,15 @@ class Tokenizer implements ITokenizer
                 
         // Fill the command params and execute the script
         // Create the command 
-        
+
         Process proc = new ProcessBuilder(
                 m_pythonVenvDir,
                 "-W",
                 "ignore",
                 m_pythonScriptDir,
-                m_modelDirPath + "vocab.txt",
+                m_modelDirPath + "/vocab.txt",
                 strSentence).start();
-
-
+        
         // Read the output 
         
         InputStreamReader inputStreamReader = new InputStreamReader(proc.getInputStream());

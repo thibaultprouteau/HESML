@@ -199,8 +199,14 @@ class WordProcessing implements IWordProcessing
                 && m_pattern.matcher(strRawSentence).find())
         {
             // Tokenize the text
-
-            ITokenizer tokenizer = new Tokenizer(m_tokenizerType);
+            
+            ITokenizer tokenizer = null;
+            
+            if(m_tokenizerType == TokenizerType.WordPieceTokenizer)
+                tokenizer = new Tokenizer(m_tokenizerType, m_pythonVenvDir, 
+                                            m_pythonScriptDir, m_modelDirPath);
+            else
+                tokenizer = new Tokenizer(m_tokenizerType);
 
             // We split the sentence into tokens
 

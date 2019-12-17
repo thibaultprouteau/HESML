@@ -172,4 +172,28 @@ class SentenceSimilarityDataset
         
         return (m_HumanJudgementSimilarity[index]);
     }
+    
+    /**
+     * Get the list of first sentences
+     * @return m_FirstSentences
+     */
+    
+    public String[] getFirstSentences()
+    {
+        // Return the sentences
+        
+        return (this.m_FirstSentences);
+    }
+    
+    /**
+     * Return the list of second sentences
+     * @return m_SecondSentences
+     */
+    
+    public String[] getSecondSentences()
+    {
+        // Return the sentences
+        
+        return (this.m_SecondSentences);
+    }
 }
