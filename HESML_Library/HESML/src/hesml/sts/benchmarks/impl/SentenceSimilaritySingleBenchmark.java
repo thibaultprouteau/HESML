@@ -143,7 +143,8 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             
             // We get an array with the similarity scores for each pair of sentences
             
-            double[] similarityScores = m_Measures[iMeasure].getSimilarityValues(m_Dataset.getFirstSentences(), m_Dataset.getSecondSentences());
+            double[] similarityScores = m_Measures[iMeasure].getSimilarityValues(
+                    m_Dataset.getFirstSentences(), m_Dataset.getSecondSentences());
             
             // We iterate the scores and complete the matrix scores
             
