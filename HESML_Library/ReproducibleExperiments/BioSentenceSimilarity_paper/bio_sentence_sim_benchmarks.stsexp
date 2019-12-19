@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
-	<SingleDatasetSimilarityValuesExperiment>
+	<SingleDatasetSentenceSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
@@ -151,7 +151,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Lin</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -164,7 +165,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -177,7 +179,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -190,7 +193,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WuPalmerFast</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -203,7 +207,8 @@
 			<WBSMMeasure>
 				<Label>WBSM JiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -216,7 +221,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -229,7 +235,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -242,7 +249,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormWeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -253,8 +261,8 @@
 				</WordProcessing>
 			</WBSMMeasure>
 		</SentenceSimilarityMeasures>
-	</SingleDatasetSimilarityValuesExperiment>
-	<SingleDatasetSimilarityValuesExperiment>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
+	<SingleDatasetSentenceSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
@@ -404,7 +412,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Lin</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -417,7 +426,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -430,7 +440,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -443,7 +454,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WuPalmerFast</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -456,7 +468,8 @@
 			<WBSMMeasure>
 				<Label>WBSM JiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -469,7 +482,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -482,7 +496,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -495,7 +510,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormWeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -506,8 +522,8 @@
 				</WordProcessing>
 			</WBSMMeasure>
 		</SentenceSimilarityMeasures>
-	</SingleDatasetSimilarityValuesExperiment>
-	<SingleDatasetSimilarityValuesExperiment>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
+	<SingleDatasetSentenceSimilarityValuesExperiment>
 		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
@@ -657,7 +673,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Lin</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -670,7 +687,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -683,7 +701,8 @@
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -696,7 +715,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WuPalmerFast</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -709,7 +729,8 @@
 			<WBSMMeasure>
 				<Label>WBSM JiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -722,7 +743,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -735,7 +757,8 @@
 			<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -748,7 +771,8 @@
 			<WBSMMeasure>
 				<Label>WBSM CosineNormWeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
-				<strWordNet3_0_Dir>../Wordnet-3.0/dict</strWordNet3_0_Dir>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
@@ -759,5 +783,5 @@
 				</WordProcessing>
 			</WBSMMeasure>
 		</SentenceSimilarityMeasures>
-	</SingleDatasetSimilarityValuesExperiment>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
 </SentenceSimilarityExperiments>

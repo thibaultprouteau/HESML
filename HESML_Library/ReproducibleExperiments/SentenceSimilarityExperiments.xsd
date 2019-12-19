@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation=".\WordNetBasedExperiments.xsd"/>
 	<xs:element name="SentenceSimilarityExperiments">
 		<xs:annotation>
 			<xs:documentation>Comment describing your root element</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="SingleDatasetSimilarityValuesExperiment" maxOccurs="unbounded"/>
+				<xs:element ref="SingleDatasetSentenceSimilarityValuesExperiment" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="SingleDatasetSimilarityValuesExperiment">
+	<xs:element name="SingleDatasetSentenceSimilarityValuesExperiment">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="OutputFilename" type="xs:string"/>
@@ -109,7 +110,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Label" type="xs:string"/>
-				<xs:element name="Method"  type="SentenceEmbeddingMethod"/>
+				<xs:element name="Method" type="SentenceEmbeddingMethod"/>
 				<xs:element name="Pooling" type="BERTpoolingMethod"/>
 				<xs:element name="PoolingLayers" type="xs:string"/>
 				<xs:element name="PretrainedModelDirectory" type="xs:string"/>
@@ -125,10 +126,12 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Label" type="xs:string"/>
-				<xs:element name="Method"  type="OntologyBasedMethod"/>
-				<xs:element name="strWordNet3_0_Dir" type="xs:string"/>
-				<xs:element name="WordSimilarityMeasureType" type="WordSimilarityMeasureType"/>
+				<xs:element name="Method" type="OntologyBasedMethod"/>
+				<xs:element name="WordNetDbDir" type="xs:string"/>
+				<xs:element name="WordNetDbFilename" type="xs:string"/>
+				<xs:element name="WordSimilarityMeasureType" type="SimilarityMeasureType"/>
 				<xs:element ref="WordProcessing"/>
+				<xs:element name="IntrinsicICmodel" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -168,44 +171,6 @@
 			<xs:enumeration value="Default"/>
 			<xs:enumeration value="BIOSSES"/>
 			<xs:enumeration value="Blagec2019"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="WordSimilarityMeasureType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Rada"/>
-			<xs:enumeration value="LeacockChodorow"/>
-			<xs:enumeration value="WuPalmer"/>
-			<xs:enumeration value="PedersenPath"/>
-			<xs:enumeration value="Mubaid"/>
-			<xs:enumeration value="Resnik"/>
-			<xs:enumeration value="Lin"/>
-			<xs:enumeration value="JiangConrath"/>
-			<xs:enumeration value="PirroSeco"/>
-			<xs:enumeration value="FaITH"/>
-			<xs:enumeration value="Zhou"/>
-			<xs:enumeration value="Meng2012"/>
-			<xs:enumeration value="Meng2014"/>
-			<xs:enumeration value="LogisticLin"/>
-			<xs:enumeration value="CosineLin"/>
-			<xs:enumeration value="ExpNormJiangConrath"/>
-			<xs:enumeration value="LogisticNormJiangConrath"/>
-			<xs:enumeration value="CosineNormJiangConrath"/>
-			<xs:enumeration value="WeightedJiangConrath"/>
-			<xs:enumeration value="CosineNormWeightedJiangConrath"/>
-			<xs:enumeration value="Sanchez2012"/>
-			<xs:enumeration value="Taieb2014"/>
-			<xs:enumeration value="Gao2015Strategy3"/>
-			<xs:enumeration value="Li2003Strategy3"/>
-			<xs:enumeration value="Li2003Strategy4"/>
-			<xs:enumeration value="Li2003Strategy9"/>
-			<xs:enumeration value="Garla"/>
-			<xs:enumeration value="Taieb2014sim2"/>
-			<xs:enumeration value="CaiStrategy1"/>
-			<xs:enumeration value="CaiStrategy2"/>
-			<xs:enumeration value="Hao"/>
-			<xs:enumeration value="PekarStaab"/>
-			<xs:enumeration value="Stojanovic"/>
-			<xs:enumeration value="WuPalmerFast"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

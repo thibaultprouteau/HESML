@@ -92,10 +92,7 @@ public class SentenceSimBenchmarkFactory
         
         // We check the existence of the file
         
-        if (!fileInfo.exists())
-        {
-            throw (new FileNotFoundException(strXmlBenchmarksFile));
-        }
+        if (!fileInfo.exists()) throw (new FileNotFoundException(strXmlBenchmarksFile));
         
         // We get the directory containg the benchmark file
         
@@ -267,25 +264,24 @@ public class SentenceSimBenchmarkFactory
                         
                         // We load and register a WBSM measure from the XML file
                                 
-                        String strWordNet3_0_Dir = readStringField(measureNode, "strWordNet3_0_Dir");
+                        String strWordNetDbDir = readStringField(measureNode, "WordNetDbDir");
+                        String strWordNetDbFilename = readStringField(measureNode, "WordNetDbFilename");
                         String strWordSimilarityMeasureType = readStringField(measureNode, "WordSimilarityMeasureType");
                         String strWBSMLabel = readStringField(measureNode, "Label");
                         
                         // Create the word similarity measure
-                        
                         // Get the word similarity measure type
                         
                         SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(strWordSimilarityMeasureType);
                         
                         // Create the WordnetDB and Wordnet taxonomy instance
-                        
                         // We load the WordNet database
                         
-                        IWordNetDB  wordnet = WordNetFactory.loadWordNetDatabase(strWordNet3_0_Dir, "data.noun");    
+                        IWordNetDB wordnet = WordNetFactory.loadWordNetDatabase(strWordNetDbDir, strWordNetDbFilename);    
                         
                         // We build the taxonomy
                         
-                        ITaxonomy   wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
+                        ITaxonomy wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
                         
                         // We pre-process the taxonomy to compute all the parameters
                         // used by the intrinsic IC-computation methods
@@ -300,17 +296,13 @@ public class SentenceSimBenchmarkFactory
                         // secoICmodel.setTaxonomyData(wordnetTaxonomy);
                         
                         ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
-                                wordnetTaxonomy, 
-                                wordMeasureType);
+                                                                    wordnetTaxonomy, wordMeasureType);
                         
                         // Add the WBSM measure to the list
                         
                         tempMeasureList.add(SentenceSimilarityFactory.getWBSMMeasure(
-                                strWBSMLabel, 
-                                readWordProcessing(measureNode), 
-                                wordSimilarityMeasure, 
-                                wordnet, 
-                                wordnetTaxonomy));
+                                strWBSMLabel, readWordProcessing(measureNode), 
+                                wordSimilarityMeasure, wordnet, wordnetTaxonomy));
                 }
             }
         }
