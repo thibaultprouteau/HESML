@@ -57,6 +57,18 @@ import org.w3c.dom.NodeList;
 public class SentenceSimBenchmarkFactory
 {
     /**
+     * Singleton instance of the WOrdNet DB
+     */
+    
+    private static IWordNetDB   m_WordNetDbSingleton = null;
+    
+    /**
+     * Singleton instace of the Wordnet taxonomy
+     */
+    
+    private static ITaxonomy    m_WordNetTaxonomySingleton = null;
+    
+    /**
      * This function returns an instance of a single-dataset sentence
      * similarity benchmark.
      * @param measures
@@ -265,50 +277,9 @@ public class SentenceSimBenchmarkFactory
                     
                     case "WBSMMeasure":
                         
-                        // We load and register a WBSM measure from the XML file
-                                
-                        String strWordNetDbDir = readStringField(measureNode, "WordNetDbDir");
-                        String strWordNetDbFilename = readStringField(measureNode, "WordNetDbFilename");
-                        String strWordSimilarityMeasureType = readStringField(measureNode, "WordSimilarityMeasureType");
-                        String strWBSMLabel = readStringField(measureNode, "Label");
-                        
-                        // Create the word similarity measure
-                        // Get the word similarity measure type
-                        
-                        SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(strWordSimilarityMeasureType);
-                        
-                        // Create the WordnetDB and Wordnet taxonomy instance
-                        // We load the WordNet database
-                        
-                        IWordNetDB wordnet = WordNetFactory.loadWordNetDatabase(strWordNetDbDir, strWordNetDbFilename);    
-                        
-                        // We build the taxonomy
-                        
-                        ITaxonomy wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
-                        
-                        // We pre-process the taxonomy to compute all the parameters
-                        // used by the intrinsic IC-computation methods
-
-                        wordnetTaxonomy.computesCachedAttributes();
-                        
-                        // We obtain an instance of the Seco et al. (2004) IC model,
-                        // then the model is computed on the taxonomy. All the IC models
-                        // computes and store the IC values in the own taxonomy vertexes.
-
-                        ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
-                                                                    wordnetTaxonomy, wordMeasureType);
-                        
-                        // We get the intrinsic IC model is anyone has been defined
-                        
-                        //ICModelsFactory.getIntrinsicICmodel(
-                        ITaxonomyInfoConfigurator icModel = null;
-                                
                         // Add the WBSM measure to the list
                         
-                        tempMeasureList.add(SentenceSimilarityFactory.getWBSMMeasure(
-                                strWBSMLabel, readWordProcessing(measureNode), 
-                                wordSimilarityMeasure, wordnet, wordnetTaxonomy,
-                                icModel));
+                        tempMeasureList.add(readWBSMmeasure(measureNode));
                 }
             }
         }
@@ -342,57 +313,48 @@ public class SentenceSimBenchmarkFactory
     private static ISentenceSimilarityMeasure readWBSMmeasure(
         Element measureNode) throws Exception
     {
-        // We load and register a WBSM measure from the XML file
+        // We get the WordNet databse information
 
         String strWordNetDbDir = readStringField(measureNode, "WordNetDbDir");
         String strWordNetDbFilename = readStringField(measureNode, "WordNetDbFilename");
-        String strWordSimilarityMeasureType = readStringField(measureNode, "WordSimilarityMeasureType");
-        String strWBSMLabel = readStringField(measureNode, "Label");
+        
+        // We read the word similairty type
+        
+        SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(
+                                                readStringField(measureNode, "WordSimilarityMeasureType"));
+        
+        // We create the singleton instance of the WordNet database and taxonomy
 
-        // Create the word similarity measure
-        // Get the word similarity measure type
+        if (m_WordNetDbSingleton == null)
+        {
+            // We load the singleton instance of WordNet-related objects. It is done to
+            // avoid the memory cost of multiple instances of WordNet when multiple
+            // instances of the WBSM measure are created.
+            
+            m_WordNetDbSingleton = WordNetFactory.loadWordNetDatabase(strWordNetDbDir, strWordNetDbFilename);    
+            m_WordNetTaxonomySingleton = WordNetFactory.buildTaxonomy(m_WordNetDbSingleton);  
 
-        SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(strWordSimilarityMeasureType);
+            // We pre-process the taxonomy to compute all the parameters
+            // used by the intrinsic IC-computation methods
 
-        // Create the WordnetDB and Wordnet taxonomy instance
-        // We load the WordNet database
-
-        IWordNetDB wordnet = WordNetFactory.loadWordNetDatabase(strWordNetDbDir, strWordNetDbFilename);    
-
-        // We build the taxonomy
-
-        ITaxonomy wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
-
-        // We pre-process the taxonomy to compute all the parameters
-        // used by the intrinsic IC-computation methods
-
-        wordnetTaxonomy.computesCachedAttributes();
-
-        // We obtain an instance of the Seco et al. (2004) IC model,
-        // then the model is computed on the taxonomy. All the IC models
-        // computes and store the IC values in the own taxonomy vertexes.
-
-        ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
-                                                    wordnetTaxonomy, wordMeasureType);
+            m_WordNetTaxonomySingleton.computesCachedAttributes();
+        }
 
         // We get the intrinsic IC model if anyone has been defined
 
-        ITaxonomyInfoConfigurator icModel = null;
-        
         String strICModelTag = "IntrinsicICmodel";
         
-        if (containsChildWithTagName(measureNode, strICModelTag))
-        {
-            icModel = ICModelsFactory.getIntrinsicICmodel(
-                    convertToIntrincICmodelType(readStringField(measureNode, strICModelTag)));
-        }
+        IntrinsicICModelType icModelType = containsChildWithTagName(measureNode, strICModelTag) ?
+                                            convertToIntrincICmodelType(readStringField(measureNode, strICModelTag))
+                                            : IntrinsicICModelType.None;
 
         // Add the WBSM measure to the list
 
         ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getWBSMMeasure(
-                                                strWBSMLabel, readWordProcessing(measureNode), 
-                                                wordSimilarityMeasure, wordnet, wordnetTaxonomy,
-                                                icModel);
+                                                readStringField(measureNode, "Label"),
+                                                readWordProcessing(measureNode), 
+                                                m_WordNetDbSingleton, m_WordNetTaxonomySingleton,
+                                                wordMeasureType, icModelType);
         
         // We return the result
         

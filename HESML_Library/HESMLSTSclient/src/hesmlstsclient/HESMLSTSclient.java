@@ -404,22 +404,14 @@ public class HESMLSTSclient
         // Create a Wordpreprocessing object using WordPieceTokenizer
         
         preprocesser = PreprocessingFactory.getWordProcessing(
-                        "", 
-                        TokenizerType.WhiteSpace, 
-                        true, 
-                        CharFilteringType.None);
-        
-        // Create the word similarity measure
-        
-        wordSimilarityMeasure = MeasureFactory.getMeasure(wordnetTaxonomy, 
-                                    SimilarityMeasureType.Lin);
+                        "", TokenizerType.WhiteSpace, 
+                        true, CharFilteringType.None);
         
         // Create the measure
         
         measure = SentenceSimilarityFactory.getWBSMMeasure("WBSM test",
-                        preprocesser, wordSimilarityMeasure, 
-                        wordnet, wordnetTaxonomy,
-                        ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco));
+                        preprocesser, wordnet, wordnetTaxonomy,
+                        SimilarityMeasureType.Lin, IntrinsicICModelType.Seco);
         
         // Get the similarity scores for the lists of sentences
             

@@ -28,6 +28,12 @@ package hesml.configurators;
 
 public enum IntrinsicICModelType
 {
+    /**
+     * None model is defined
+     */
+    
+    None,
+    
      /**
      * It asks for the creation of a Seco et al. (2004) IC model introduced in
      * the paper below.

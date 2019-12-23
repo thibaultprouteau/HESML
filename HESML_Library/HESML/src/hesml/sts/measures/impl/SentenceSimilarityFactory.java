@@ -18,7 +18,9 @@
 package hesml.sts.measures.impl;
 
 import hesml.configurators.ITaxonomyInfoConfigurator;
+import hesml.configurators.IntrinsicICModelType;
 import hesml.measures.ISimilarityMeasure;
+import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
@@ -234,14 +236,14 @@ public class SentenceSimilarityFactory
      */
     
     public static ISentenceSimilarityMeasure getWBSMMeasure(
-            String                      strLabel,
-            IWordProcessing             preprocesser,
-            ISimilarityMeasure          wordSimilarityMeasure,
-            IWordNetDB                  wordnet,
-            ITaxonomy                   wordnetTaxonomy,
-            ITaxonomyInfoConfigurator   icModel) throws Exception
+            String                  strLabel,
+            IWordProcessing         preprocesser,
+            IWordNetDB              wordnet,
+            ITaxonomy               wordnetTaxonomy,
+            SimilarityMeasureType   wordSimilarityMeasureType,
+            IntrinsicICModelType    icModelType) throws Exception
     {
-        return (new WBSMMeasure(strLabel, preprocesser, wordSimilarityMeasure, 
-                wordnet, wordnetTaxonomy, icModel));
+        return (new WBSMMeasure(strLabel, preprocesser, wordnet,
+                wordnetTaxonomy, wordSimilarityMeasureType, icModelType));
     }
 }

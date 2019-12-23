@@ -17,7 +17,10 @@
 package hesml.sts.measures.impl;
 
 import hesml.configurators.ITaxonomyInfoConfigurator;
+import hesml.configurators.IntrinsicICModelType;
+import hesml.configurators.icmodels.ICModelsFactory;
 import hesml.measures.ISimilarityMeasure;
+import hesml.measures.SimilarityMeasureType;
 import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
@@ -77,10 +80,10 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     WBSMMeasure(
             String                      strLabel,
             IWordProcessing             preprocesser,
-            ISimilarityMeasure          wordSimilarityMeasure,
             IWordNetDB                  wordnet,
             ITaxonomy                   wordnetTaxonomy,
-            ITaxonomyInfoConfigurator   icModel) throws Exception
+            SimilarityMeasureType       wordSimilarityType,
+            IntrinsicICModelType        icModelType) throws Exception
     {
         // We intialize the base class
         
@@ -88,13 +91,13 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         // Initialize the word similarity measure 
         
-        m_wordSimilarityMeasure = wordSimilarityMeasure;
+        m_wordSimilarityMeasure = MeasureFactory.getMeasure(wordnetTaxonomy, wordSimilarityType);;
         
         // Initialize the WordNetDB, taxonomy and IC model
         
         m_wordnet = wordnet;
         m_wordnetTaxonomy = wordnetTaxonomy;
-        m_ICmodel = icModel;
+        m_ICmodel = ICModelsFactory.getIntrinsicICmodel(icModelType);
 
         // We save the label
 
