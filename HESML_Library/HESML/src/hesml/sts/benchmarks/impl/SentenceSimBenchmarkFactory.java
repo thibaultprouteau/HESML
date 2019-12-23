@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -236,9 +237,9 @@ public class SentenceSimBenchmarkFactory
                         
                         String strPretrainedModelFilename = readStringField(measureNode, "PretrainedModelFilename");
                         String strPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
-                        String strLabel = readStringField(measureNode, "Label");
                         
-                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(strLabel,
+                        tempMeasureList.add(SentenceSimilarityFactory.getSWEMMeasure(
+                                readStringField(measureNode, "Label"),
                                 convertToSWEMpoolingMethod(readStringField(measureNode, "Pooling")),
                                 convertToWordEmbeddingFileType(readStringField(measureNode, "WordEmbeddingFileFormat")),
                                 readWordProcessing(measureNode),
@@ -248,36 +249,11 @@ public class SentenceSimBenchmarkFactory
                     
                     case "BertEmbeddingModelMeasure":
                         
-                        // We load and register a BERT measure from the XML file 
-                        
-                        String strBERTPretrainedModelFilename = readStringField(measureNode, "PretrainedModelName");
-                        String strBERTPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
-                        String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
-                        String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
-                        String strPythonScript = readStringField(measureNode, "PythonScriptFilename");
-                        String strBERTLabel = readStringField(measureNode, "Label");
-                        String strPoolingLayers = readStringField(measureNode, "PoolingLayers");
-                        
-                        // Convert the pooling layers to an array splitted by comma's
-                        
-                        String[] poolingLayers = strPoolingLayers.split(",");
-                        
-                        tempMeasureList.add(SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(
-                                strBERTLabel, 
-                                convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
-                                readBERTWordProcessing(measureNode), 
-                                strBERTPretrainedModelDir + strBERTPretrainedModelFilename, 
-                                strPythonScriptsDirectory, 
-                                strPythonVirtualEnvironmentDir, 
-                                strPythonScriptsDirectory + strPythonScript, 
-                                convertToBERTpoolingMethod(readStringField(measureNode, "Pooling")), 
-                                poolingLayers));
+                        tempMeasureList.add(readBERTmodelSentenceMeasure(measureNode));
                         
                         break;
                     
                     case "WBSMMeasure":
-                        
-                        // Add the WBSM measure to the list
                         
                         tempMeasureList.add(readWBSMmeasure(measureNode));
                 }
@@ -392,7 +368,45 @@ public class SentenceSimBenchmarkFactory
         return (processer);
     }
     
-        /**
+    /**
+     * This fucntion parses a BERT embedding model defined in the XML-based experiemnt file.
+     * @param measureNode
+     * @return 
+     */
+    
+    private static ISentenceSimilarityMeasure readBERTmodelSentenceMeasure(
+            Element measureNode) throws IOException, InterruptedException, ParseException
+    {
+        // We load and register a BERT measure from the XML file 
+
+        String strBERTPretrainedModelFilename = readStringField(measureNode, "PretrainedModelName");
+        String strBERTPretrainedModelDir = readStringField(measureNode, "PretrainedModelDirectory");
+        String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
+        String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
+        String strPythonScript = readStringField(measureNode, "PythonScriptFilename");
+        String strPoolingLayers = readStringField(measureNode, "PoolingLayers");
+
+        // Convert the pooling layers to an array splitted by comma's
+
+        String[] poolingLayers = strPoolingLayers.split(",");
+
+        ISentenceSimilarityMeasure model = SentenceSimilarityFactory.getBERTSentenceEmbeddingMethod(
+                                                readStringField(measureNode, "Label"), 
+                                                convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
+                                                readBERTWordProcessing(measureNode), 
+                                                strBERTPretrainedModelDir + strBERTPretrainedModelFilename, 
+                                                strPythonScriptsDirectory, 
+                                                strPythonVirtualEnvironmentDir, 
+                                                strPythonScriptsDirectory + strPythonScript, 
+                                                convertToBERTpoolingMethod(readStringField(measureNode, "Pooling")), 
+                                                poolingLayers);
+        
+        // We return the result
+        
+        return (model);
+    }
+    
+    /**
      * This function parses a word processing object from a XML-based experiment file.
      * @param measureRootNode
      * @return 
