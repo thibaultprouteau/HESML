@@ -146,21 +146,15 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             double[] similarityScores = m_Measures[iMeasure].getSimilarityValues(
                     m_Dataset.getFirstSentences(), m_Dataset.getSecondSentences());
             
-            // We iterate the scores and complete the matrix scores
+            // We iterate the scores and fill the scores matrix
             
-            for(int iScore = 0; iScore < similarityScores.length; iScore++)
+            for (int iScore = 0; iScore < similarityScores.length; iScore++)
             {
-                // We get the actual score
-                
-                double score = similarityScores[iScore];
-                
-                // We write the score in the matrix
-                
-                similarityMatrix[iScore][iMeasure + 1] = score;
+                similarityMatrix[iScore][iMeasure + 1] = similarityScores[iScore];
             }
         }
         
-        // We save the raw similairy values into the output file
+        // We save the raw similarity values into the output file
         
         writeCSVfile(strColumnHeaders, similarityMatrix, m_strOutputFilename);
     }
@@ -194,7 +188,7 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
         
         for (int i = 0; i < strMatrix.length; i++)
         {
-            // We write a full row
+            // We write a full row with all values separated by semicolon
             
             for (int j = 0; j < strMatrix[0].length; j++)
             {

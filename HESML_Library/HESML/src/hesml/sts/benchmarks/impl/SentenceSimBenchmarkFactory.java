@@ -17,6 +17,9 @@
 
 package hesml.sts.benchmarks.impl;
 
+import hesml.configurators.ITaxonomyInfoConfigurator;
+import hesml.configurators.IntrinsicICModelType;
+import hesml.configurators.icmodels.ICModelsFactory;
 import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
@@ -292,17 +295,20 @@ public class SentenceSimBenchmarkFactory
                         // then the model is computed on the taxonomy. All the IC models
                         // computes and store the IC values in the own taxonomy vertexes.
 
-                        // secoICmodel = ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco);
-                        // secoICmodel.setTaxonomyData(wordnetTaxonomy);
-                        
                         ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
                                                                     wordnetTaxonomy, wordMeasureType);
                         
+                        // We get the intrinsic IC model is anyone has been defined
+                        
+                        //ICModelsFactory.getIntrinsicICmodel(
+                        ITaxonomyInfoConfigurator icModel = null;
+                                
                         // Add the WBSM measure to the list
                         
                         tempMeasureList.add(SentenceSimilarityFactory.getWBSMMeasure(
                                 strWBSMLabel, readWordProcessing(measureNode), 
-                                wordSimilarityMeasure, wordnet, wordnetTaxonomy));
+                                wordSimilarityMeasure, wordnet, wordnetTaxonomy,
+                                icModel));
                 }
             }
         }
@@ -325,6 +331,72 @@ public class SentenceSimBenchmarkFactory
         // We return the result
         
         return (benchmark);
+    }   
+    
+    /**
+     * This function parses a WBSM measure defined in the XML-based experiment file.
+     * @param measureNode
+     * @return 
+     */
+    
+    private static ISentenceSimilarityMeasure readWBSMmeasure(
+        Element measureNode) throws Exception
+    {
+        // We load and register a WBSM measure from the XML file
+
+        String strWordNetDbDir = readStringField(measureNode, "WordNetDbDir");
+        String strWordNetDbFilename = readStringField(measureNode, "WordNetDbFilename");
+        String strWordSimilarityMeasureType = readStringField(measureNode, "WordSimilarityMeasureType");
+        String strWBSMLabel = readStringField(measureNode, "Label");
+
+        // Create the word similarity measure
+        // Get the word similarity measure type
+
+        SimilarityMeasureType wordMeasureType = convertToWordSimilarityMeasureType(strWordSimilarityMeasureType);
+
+        // Create the WordnetDB and Wordnet taxonomy instance
+        // We load the WordNet database
+
+        IWordNetDB wordnet = WordNetFactory.loadWordNetDatabase(strWordNetDbDir, strWordNetDbFilename);    
+
+        // We build the taxonomy
+
+        ITaxonomy wordnetTaxonomy = WordNetFactory.buildTaxonomy(wordnet);  
+
+        // We pre-process the taxonomy to compute all the parameters
+        // used by the intrinsic IC-computation methods
+
+        wordnetTaxonomy.computesCachedAttributes();
+
+        // We obtain an instance of the Seco et al. (2004) IC model,
+        // then the model is computed on the taxonomy. All the IC models
+        // computes and store the IC values in the own taxonomy vertexes.
+
+        ISimilarityMeasure wordSimilarityMeasure = MeasureFactory.getMeasure(
+                                                    wordnetTaxonomy, wordMeasureType);
+
+        // We get the intrinsic IC model if anyone has been defined
+
+        ITaxonomyInfoConfigurator icModel = null;
+        
+        String strICModelTag = "IntrinsicICmodel";
+        
+        if (containsChildWithTagName(measureNode, strICModelTag))
+        {
+            icModel = ICModelsFactory.getIntrinsicICmodel(
+                    convertToIntrincICmodelType(readStringField(measureNode, strICModelTag)));
+        }
+
+        // Add the WBSM measure to the list
+
+        ISentenceSimilarityMeasure measure = SentenceSimilarityFactory.getWBSMMeasure(
+                                                strWBSMLabel, readWordProcessing(measureNode), 
+                                                wordSimilarityMeasure, wordnet, wordnetTaxonomy,
+                                                icModel);
+        
+        // We return the result
+        
+        return (measure);
     }
     
     /**
@@ -502,6 +574,53 @@ public class SentenceSimBenchmarkFactory
         // We return the result
         
         return (selectedChild);
+    }
+
+    /**
+     * This function returns the first child element whose tag name matches
+     * the input tag name.
+     * @param parent
+     * @param strChildTagName
+     * @return 
+     */
+    
+    private static boolean containsChildWithTagName(
+            Element parent,
+            String  strChildTagName)
+    {
+        // We initializa the output value
+        
+        boolean contaisField = false;
+        
+        // We get the collection of XML child nodes
+        
+        NodeList children = parent.getChildNodes();
+        
+        // We traverse the direct child nodes
+        
+        for (int i = 0; i < children.getLength(); i++)
+        {
+            // We get the next child node
+            
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE)
+            {
+                // We get the element
+                
+                Element child = (Element)children.item(i);
+                
+                // We look for the required child node
+
+                if (child.getTagName().equals(strChildTagName))
+                {
+                    contaisField = true;
+                    break;
+                }
+            }
+        }
+        
+        // We return the result
+        
+        return (contaisField);
     }
     
     /**
@@ -709,7 +828,7 @@ public class SentenceSimBenchmarkFactory
         return (recoveredMethod);
     }
     
-        /**
+    /**
      * This function converts the input string into a
      * StringBasedSentenceSimilarityMethod value.
      * @param strICmodelType
@@ -728,6 +847,36 @@ public class SentenceSimBenchmarkFactory
         for (SimilarityMeasureType methodType: SimilarityMeasureType.values())
         {
             if (methodType.toString().equals(strMethod))
+            {
+                recoveredMethod = methodType;
+                break;
+            }
+        }
+        
+        // We return the result
+        
+        return (recoveredMethod);
+    }
+    
+    /**
+     * This function converts the input string into a
+     * IntrinsicICModelType value.
+     * @param strICmodelType
+     * @return 
+     */
+    
+    private static IntrinsicICModelType convertToIntrincICmodelType(
+            String  strICmodelType)
+    {
+        // We initialize the output
+        
+        IntrinsicICModelType recoveredMethod = IntrinsicICModelType.Seco;
+        
+        // We look for the matching value
+        
+        for (IntrinsicICModelType methodType: IntrinsicICModelType.values())
+        {
+            if (methodType.toString().equals(strICmodelType))
             {
                 recoveredMethod = methodType;
                 break;

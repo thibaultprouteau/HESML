@@ -16,6 +16,7 @@
  */
 package hesml.sts.measures.impl;
 
+import hesml.configurators.ITaxonomyInfoConfigurator;
 import hesml.measures.ISimilarityMeasure;
 import hesml.measures.impl.MeasureFactory;
 import hesml.sts.measures.SentenceSimilarityFamily;
@@ -56,10 +57,16 @@ class WBSMMeasure extends SentenceSimilarityMeasure
     private final ITaxonomy   m_wordnetTaxonomy;    // WordNet taxonomy
     
     /**
-     * label shown in all raw matrix results
+     * User label which is shown in all raw matrix results
      */
     
     private final String m_strLabel;
+    
+    /**
+     * IC model used to evaluate the associated IC-based word similarity measure
+     */
+    
+    private final ITaxonomyInfoConfigurator m_ICmodel;
     
     /**
      * Constructor
@@ -68,11 +75,12 @@ class WBSMMeasure extends SentenceSimilarityMeasure
      */
     
     WBSMMeasure(
-            String                  strLabel,
-            IWordProcessing         preprocesser,
-            ISimilarityMeasure      wordSimilarityMeasure,
-            IWordNetDB              wordnet,
-            ITaxonomy               wordnetTaxonomy) throws Exception
+            String                      strLabel,
+            IWordProcessing             preprocesser,
+            ISimilarityMeasure          wordSimilarityMeasure,
+            IWordNetDB                  wordnet,
+            ITaxonomy                   wordnetTaxonomy,
+            ITaxonomyInfoConfigurator   icModel) throws Exception
     {
         // We intialize the base class
         
@@ -82,14 +90,31 @@ class WBSMMeasure extends SentenceSimilarityMeasure
         
         m_wordSimilarityMeasure = wordSimilarityMeasure;
         
-        // Initialize the WordNetDB and taxonomy
+        // Initialize the WordNetDB, taxonomy and IC model
         
         m_wordnet = wordnet;
         m_wordnetTaxonomy = wordnetTaxonomy;
+        m_ICmodel = icModel;
 
-        // We define the label
+        // We save the label
 
         m_strLabel = strLabel;
+    }
+    
+    /**
+     * This function is called by any client function before to evaluate
+     * the current sentence similarity measure.
+     */
+    
+    @Override
+    public void prepareForEvaluation() throws Exception
+    {
+        // This funcion is called by the sentence similairty benchmark prior
+        // to evaluate the similairty between a collection of sentence pairs.
+        // This opportunity is used to compute and set the IC values of the
+        // WordNet taxonomy in the case that IC model not being null.
+        
+        if (m_ICmodel != null) m_ICmodel.setTaxonomyData(m_wordnetTaxonomy);
     }
     
     /**

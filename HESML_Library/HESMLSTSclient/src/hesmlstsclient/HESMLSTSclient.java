@@ -23,6 +23,8 @@ package hesmlstsclient;
 
 import hesml.HESMLversion;
 import hesml.configurators.ITaxonomyInfoConfigurator;
+import hesml.configurators.IntrinsicICModelType;
+import hesml.configurators.icmodels.ICModelsFactory;
 import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
 import hesml.measures.impl.MeasureFactory;
@@ -382,8 +384,6 @@ public class HESMLSTSclient
         IWordNetDB  wordnet;            // WordNet DB
         ITaxonomy   wordnetTaxonomy;    // WordNet taxonomy
         
-        ITaxonomyInfoConfigurator   secoICmodel;        // IC model used
-        
         // We load the WordNet database
         
         wordnet = WordNetFactory.loadWordNetDatabase(m_strWordNet3_0_Dir, "data.noun");
@@ -409,13 +409,6 @@ public class HESMLSTSclient
                         true, 
                         CharFilteringType.None);
         
-        // We obtain an instance of the Seco et al. (2004) IC model,
-        // then the model is computed on the taxonomy. All the IC models
-        // computes and store the IC values in the own taxonomy vertexes.
-        
-        // secoICmodel = ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco);
-        // secoICmodel.setTaxonomyData(wordnetTaxonomy);
-        
         // Create the word similarity measure
         
         wordSimilarityMeasure = MeasureFactory.getMeasure(wordnetTaxonomy, 
@@ -423,12 +416,10 @@ public class HESMLSTSclient
         
         // Create the measure
         
-        measure = SentenceSimilarityFactory.getWBSMMeasure(
-                        "WBSM test",
-                        preprocesser, 
-                        wordSimilarityMeasure, 
-                        wordnet, 
-                        wordnetTaxonomy);
+        measure = SentenceSimilarityFactory.getWBSMMeasure("WBSM test",
+                        preprocesser, wordSimilarityMeasure, 
+                        wordnet, wordnetTaxonomy,
+                        ICModelsFactory.getIntrinsicICmodel(IntrinsicICModelType.Seco));
         
         // Get the similarity scores for the lists of sentences
             

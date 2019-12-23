@@ -65,6 +65,14 @@ abstract class SentenceSimilarityMeasure implements ISentenceSimilarityMeasure
     }
     
     /**
+     * This function is called by any client function before to evaluate
+     * the current sentence similarity measure.
+     */
+    
+    @Override
+    public void prepareForEvaluation() throws Exception {}
+    
+    /**
      * This function releases all resources used by the measure. Once this
      * function is called the measure is completely disabled.
      */
