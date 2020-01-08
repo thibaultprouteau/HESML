@@ -1,0 +1,1 @@
+./fasttext print-sentence-vectors /home/alicia/Desktop/HESML/HESML_Library/SentenceEmbeddings/BioSentVec_PubMed_MIMICIII-bigram_d700.bin < /home/alicia/Desktop/HESML/HESML_Library/SentenceEmbeddings/text.txt

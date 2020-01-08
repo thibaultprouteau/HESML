@@ -13,7 +13,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_extrinsic</Label>
+				<Label>BioWordVec_extrinsic Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -22,13 +22,12 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_intrinsic</Label>
+				<Label>BioWordVec_extrinsic Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -37,13 +36,26 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_defaultchar</Label>
+				<Label>BioWordVec_extrinsic Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -58,7 +70,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -67,28 +79,40 @@
 					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>stanford_skipgram_nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<Label>bioc_skipgram_Nonechar200dim Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -103,7 +127,49 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Average</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Max</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -126,7 +192,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_extrinsic</Label>
+				<Label>BioWordVec_extrinsic Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -135,13 +201,12 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_intrinsic</Label>
+				<Label>BioWordVec_extrinsic Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -150,13 +215,26 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_defaultchar</Label>
+				<Label>BioWordVec_extrinsic Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -171,7 +249,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -180,28 +258,40 @@
 					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>stanford_skipgram_nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<Label>bioc_skipgram_Nonechar200dim Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -216,7 +306,49 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Average</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Max</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -239,7 +371,7 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_extrinsic</Label>
+				<Label>BioWordVec_extrinsic Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -248,13 +380,12 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-			
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioWordVec_intrinsic</Label>
+				<Label>BioWordVec_extrinsic Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -263,13 +394,26 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_defaultchar</Label>
+				<Label>BioWordVec_extrinsic Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioWordVec_extrinsic Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -284,7 +428,7 @@
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Average</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -293,28 +437,40 @@
 					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>stanford_skipgram_nonechar200dim</Label>
+				<Label>bioc_skipgram_Nonechar200dim Max</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<Label>bioc_skipgram_Nonechar200dim Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -329,7 +485,49 @@
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
-				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Average</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Max</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Min</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Min</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Sum</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30 Sum</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
