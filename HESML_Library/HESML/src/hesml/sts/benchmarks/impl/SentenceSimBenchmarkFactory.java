@@ -17,13 +17,9 @@
 
 package hesml.sts.benchmarks.impl;
 
-import hesml.configurators.ITaxonomyInfoConfigurator;
 import hesml.configurators.IntrinsicICModelType;
-import hesml.configurators.icmodels.ICModelsFactory;
-import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
-import hesml.measures.impl.MeasureFactory;
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
@@ -92,11 +88,12 @@ public class SentenceSimBenchmarkFactory
     
     /**
      * This function loads a collection of sentence similarity benchmarks
-     * specified into a XML--based experiment file (*.sexp). This later
-     * file format is defined in the SentenceSimilarityExperiments.xsd
-     * schema file contained in the HESML_Library/ReproducibleExperiments folder.
+     * specified into a XML--based experiment file (*.sexp).This later
+ file format is defined in the SentenceSimilarityExperiments.xsd
+ schema file contained in the HESML_Library/ReproducibleExperiments folder.
      * @param strXmlBenchmarksFile
      * @return 
+     * @throws java.io.FileNotFoundException 
      */
     
     public static void runXmlBenchmarksFile(
@@ -155,9 +152,9 @@ public class SentenceSimBenchmarkFactory
 
                 // We parse the next experiment in the XML file
                 
-                if (experimentRoot.getNodeName().equals("SingleDatasetSimilarityValuesExperiment"))
+                if (experimentRoot.getNodeName().equals("SingleDatasetSentenceSimilarityValuesExperiment"))
                 {
-                    // We reda the next benchmark
+                    // We read the next benchmark
                     
                     ISentenceSimilarityBenchmark benchmark = readBenchmark(experimentRoot, strOutputDirectory);
                     
@@ -226,6 +223,7 @@ public class SentenceSimBenchmarkFactory
                         // We loads and register a string-based measurs from the XML file 
                         
                         tempMeasureList.add(SentenceSimilarityFactory.getStringBasedMeasure(
+                                readStringField(measureNode, "Label"),
                                 convertToStringBasedSentenceSimilarityMethod(readStringField(measureNode, "Method")),
                                 readWordProcessing(measureNode)));
 

@@ -22,12 +22,9 @@
 package hesmlstsclient;
 
 import hesml.HESMLversion;
-import hesml.configurators.ITaxonomyInfoConfigurator;
 import hesml.configurators.IntrinsicICModelType;
-import hesml.configurators.icmodels.ICModelsFactory;
 import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
-import hesml.measures.impl.MeasureFactory;
 import hesml.sts.benchmarks.impl.SentenceSimBenchmarkFactory;
 import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
@@ -150,7 +147,6 @@ public class HESMLSTSclient
 
             File inputFile = new File(args[0]);  // Get the file path
             // File inputFile = new File("../ReproducibleExperiments/BioSentenceSimilarity_paper/bio_sentence_sim_benchmarks.stsexp");  // Get the file path
-
             // We check the existence of the file
 
             if (inputFile.exists())
@@ -283,6 +279,7 @@ public class HESMLSTSclient
             // Initialize the measure
             
             measure = SentenceSimilarityFactory.getStringBasedMeasure(
+                            strMeasureName,
                             similarityMethod, 
                             wordPreprocessing);
             

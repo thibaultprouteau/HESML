@@ -40,17 +40,44 @@ class OverlapCoefficientMeasure extends SentenceSimilarityMeasure
                                 implements IStringBasedSentenceSimMeasure
 {
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor
      * @param preprocesser 
      */
     
     OverlapCoefficientMeasure(
+            String          strLabel,
             IWordProcessing preprocesser)
     {
         // We intialize the base class
         
         super(preprocesser);
+        
+        // We initialize the object
+        
+        m_strLabel = strLabel;        
     }
+
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return label
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
+    }    
     
     /**
      * This function returns the type of method implemented by the current

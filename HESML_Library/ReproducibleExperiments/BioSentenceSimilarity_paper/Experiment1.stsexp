@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
+<!-- This experiment evaluates the impact of stop words in string-based STS measures -->
+<SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
+	<SingleDatasetSentenceSimilarityValuesExperiment>
+		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
+		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
+		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
+		<SentenceSimilarityMeasures>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			
+		</SentenceSimilarityMeasures>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
+	<SingleDatasetSentenceSimilarityValuesExperiment>
+		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
+		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
+		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
+		<SentenceSimilarityMeasures>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			
+		</SentenceSimilarityMeasures>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
+	<SingleDatasetSentenceSimilarityValuesExperiment>
+		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
+		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
+		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
+		<SentenceSimilarityMeasures>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Jaccard</Method>
+				<Label>Jaccard NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Qgram</Method>
+				<Label>Qgram NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>BlockDistance</Method>
+				<Label>BlockDistance NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient Biosses2017StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient nltk2018StopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient NoneStopWords</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			
+		</SentenceSimilarityMeasures>
+	</SingleDatasetSentenceSimilarityValuesExperiment>
+</SentenceSimilarityExperiments>

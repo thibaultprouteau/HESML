@@ -172,6 +172,7 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
         // We open for writing the file
         
         FileWriter writer = new FileWriter(strOutputFile, false);
+        System.out.println(strOutputFile);
         
         // We write the first row with the column headers
         

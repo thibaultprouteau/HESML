@@ -72,12 +72,14 @@ public class SentenceSimilarityFactory
     /**
      * This function creates a string-based sentence similarity measure.
      * 
+     * @param strLabel
      * @param method
      * @param wordPreprocessing
      * @return 
      */
     
     public static ISentenceSimilarityMeasure getStringBasedMeasure(
+            String                  strLabel,
             StringBasedSentenceSimilarityMethod method,
             IWordProcessing                     wordPreprocessing)
     {
@@ -91,13 +93,13 @@ public class SentenceSimilarityFactory
         {
             case BlockDistance:
                 
-                measure = new BlockDistanceMeasure(wordPreprocessing);
+                measure = new BlockDistanceMeasure(strLabel, wordPreprocessing);
                 
                 break;
                 
             case Jaccard:
                 
-                measure = new JaccardMeasure(wordPreprocessing);
+                measure = new JaccardMeasure(strLabel, wordPreprocessing);
                 
                 break;
                 
@@ -105,13 +107,13 @@ public class SentenceSimilarityFactory
                 
                 // We use the default values provided in other state-of-the-art implementations.
                 
-                measure = new LevenshteinMeasure(wordPreprocessing, 1, 1);
+                measure = new LevenshteinMeasure(strLabel, wordPreprocessing, 1, 1);
                 
                 break;
                 
             case OverlapCoefficient:
                 
-                measure = new OverlapCoefficientMeasure(wordPreprocessing);
+                measure = new OverlapCoefficientMeasure(strLabel, wordPreprocessing);
                 
                 break;
                 
@@ -119,7 +121,7 @@ public class SentenceSimilarityFactory
                 
                 // We use the default values provided in other state-of-the-art implementations.
                 
-                measure = new QgramMeasure(wordPreprocessing, 3);
+                measure = new QgramMeasure(strLabel, wordPreprocessing, 3);
                 
                 break;
         }

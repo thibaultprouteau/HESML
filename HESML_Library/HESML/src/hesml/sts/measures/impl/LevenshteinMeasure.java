@@ -49,11 +49,18 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
     private double m_maxCost;
     
     /**
+     * label shown in all raw matrix results
+     */
+    
+    private final String m_strLabel;
+    
+    /**
      * Constructor with parameters.
      * @param preprocesser 
      */
     
     LevenshteinMeasure(
+            String          strLabel,
             IWordProcessing preprocesser,
             int             insertDeleteCost,
             int             substituteCost)
@@ -67,6 +74,23 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
         m_insertDeleteCost = insertDeleteCost;
         m_substituteCost = substituteCost;
         m_maxCost = Math.max(m_insertDeleteCost, m_substituteCost);
+        m_strLabel = strLabel;
+    }
+    
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return label
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
     }
     
     /**
