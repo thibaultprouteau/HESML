@@ -230,8 +230,9 @@ public class SentenceSimilarityFactory
      * 
      * @param strLabel
      * @param preprocesser
-     * @param wordSimilarityMeasure
      * @param wordnetTaxonomy
+     * @param wordSimilarityMeasureType
+     * @param icModelType
      * @param wordnet
      * @return ISentenceSimilarityMeasure
      * @throws java.lang.Exception

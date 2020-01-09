@@ -3,7 +3,7 @@
 <!-- This experiment evaluates the impact of stop words in string-based STS measures -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
+		<OutputFilename>raw_similarity_BIOSSES_experiment6.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -116,7 +116,7 @@
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
+		<OutputFilename>raw_similarity_MedSTSFull_experiment6.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -229,7 +229,7 @@
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
+		<OutputFilename>raw_similarity_CTR_experiment6.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>

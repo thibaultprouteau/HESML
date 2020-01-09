@@ -151,6 +151,10 @@ class BioWordVecBinaryEmbeddingModel implements IPretrainedWordEmbedding
             // We get the word of the line
             
             String strWord = readString(reader, 32);
+            
+            // Clean the word from line ends
+            
+            strWord = strWord.replace("\n", "");
                        
             // We register the word vectro offset
             

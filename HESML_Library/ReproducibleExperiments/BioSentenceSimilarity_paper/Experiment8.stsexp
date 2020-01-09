@@ -3,7 +3,7 @@
 <!-- This experiment evaluates the impact of stop words in string-based STS measures -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_BIOSSESNormalized_experiment8.csv</OutputFilename>
+		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -22,7 +22,7 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -35,7 +35,7 @@
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
@@ -120,7 +120,7 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-
+			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
@@ -143,7 +143,7 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!-- <WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -156,7 +156,7 @@
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
@@ -264,7 +264,7 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!-- <WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -277,7 +277,7 @@
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>

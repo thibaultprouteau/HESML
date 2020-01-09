@@ -3,7 +3,7 @@
 <!-- This experiment evaluates the impact of stop words in string-based STS measures -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
+		<OutputFilename>raw_similarity_BIOSSES_experiment4.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -80,7 +80,7 @@
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 
-			<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.1_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -102,7 +102,7 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.1_pubmed</PretrainedModelFilename>
 				</WordProcessing>
-			</BertEmbeddingModelMeasure>
+			</BertEmbeddingModelMeasure>-->
 
 			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
@@ -203,7 +203,7 @@
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
+		<OutputFilename>raw_similarity_MedSTSFull_experiment4.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -280,7 +280,7 @@
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 
-			<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.1_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -302,7 +302,7 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.1_pubmed</PretrainedModelFilename>
 				</WordProcessing>
-			</BertEmbeddingModelMeasure>
+			</BertEmbeddingModelMeasure>-->
 
 			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
@@ -403,7 +403,7 @@
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
+		<OutputFilename>raw_similarity_CTR_experiment4.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -480,7 +480,7 @@
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 
-			<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.1_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -502,7 +502,7 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.1_pubmed</PretrainedModelFilename>
 				</WordProcessing>
-			</BertEmbeddingModelMeasure>
+			</BertEmbeddingModelMeasure>-->
 
 			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
