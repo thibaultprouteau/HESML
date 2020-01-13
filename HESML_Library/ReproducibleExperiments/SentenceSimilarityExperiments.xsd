@@ -24,6 +24,7 @@
 							<xs:element ref="StringBasedSentenceSimilarityMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="SWEMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="BertEmbeddingModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="USEModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="WBSMMeasure" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:choice>
 					</xs:complexType>
@@ -122,6 +123,19 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="USEModelMeasure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Label" type="xs:string"/>
+				<xs:element name="Method" type="SentenceEmbeddingMethod"/>
+				<xs:element name="PretrainedModelURL" type="xs:string"/>
+				<xs:element name="PythonScriptsDirectory" type="xs:string"/>
+				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string"/>
+				<xs:element name="PythonScriptFilename" type="xs:string"/>
+				<xs:element ref="WordProcessing"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="WBSMMeasure">
 		<xs:complexType>
 			<xs:sequence>
@@ -138,6 +152,7 @@
 	<xs:simpleType name="SentenceEmbeddingMethod">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="BERTEmbeddingModel"/>
+			<xs:enumeration value="USEModel"/>
 			<xs:enumeration value="ParagraphVector"/>
 			<xs:enumeration value="WBSMMeasure"/>
 		</xs:restriction>

@@ -8,7 +8,7 @@
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			
-			<BertEmbeddingModelMeasure>
+			<!-- <BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -79,30 +79,6 @@
 					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
-
-			<!--<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.1_pubmed</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.1_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.1_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
 
 			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
@@ -198,7 +174,7 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
-			</BertEmbeddingModelMeasure>
+			</BertEmbeddingModelMeasure>-->
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>

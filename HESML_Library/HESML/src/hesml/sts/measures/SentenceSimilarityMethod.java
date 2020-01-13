@@ -95,6 +95,15 @@ public enum SentenceSimilarityMethod
     BertEmbeddingModelMeasure,
     
     /**
+     * Cer, Daniel, Yinfei Yang, Sheng-Yi Kong, Nan Hua, Nicole Limtiaco, 
+     * Rhomni St. John, Noah Constant, et al. 2018. 
+     * “Universal Sentence Encoder.” arXiv [cs.CL]. 
+     * arXiv. http://arxiv.org/abs/1803.11175.
+     */
+    
+    USEModelMeasure,
+    
+    /**
      * Le, Quoc, and Tomas Mikolov. 2014. 
      * “Distributed Representations of Sentences and Documents.” 
      * In International Conference on Machine Learning, 1188–96. jmlr.org.

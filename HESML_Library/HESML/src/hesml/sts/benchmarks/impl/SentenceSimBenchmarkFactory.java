@@ -250,6 +250,12 @@ public class SentenceSimBenchmarkFactory
                         tempMeasureList.add(readBERTmodelSentenceMeasure(measureNode));
                         
                         break;
+                        
+                    case "USEModelMeasure":
+                        
+                        tempMeasureList.add(readUSEmodelSentenceMeasure(measureNode));
+                        
+                        break;
                     
                     case "WBSMMeasure":
                         
@@ -398,6 +404,36 @@ public class SentenceSimBenchmarkFactory
                                                 strPythonScriptsDirectory + strPythonScript, 
                                                 convertToBERTpoolingMethod(readStringField(measureNode, "Pooling")), 
                                                 poolingLayers);
+        
+        // We return the result
+        
+        return (model);
+    }
+    
+    /**
+     * This function parses a Universal Sentence Embedding model defined in the XML-based experiemnt file.
+     * @param measureNode
+     * @return 
+     */
+    
+    private static ISentenceSimilarityMeasure readUSEmodelSentenceMeasure(
+            Element measureNode) throws IOException, InterruptedException, ParseException
+    {
+        // We load and register a BERT measure from the XML file 
+
+        String strUSEModelURL = readStringField(measureNode, "PretrainedModelURL");
+        String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
+        String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
+        String strPythonScript = readStringField(measureNode, "PythonScriptFilename");
+
+        ISentenceSimilarityMeasure model = SentenceSimilarityFactory.getUSESentenceEmbeddingMethod(
+                                                readStringField(measureNode, "Label"), 
+                                                convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
+                                                readWordProcessing(measureNode), 
+                                                strUSEModelURL, 
+                                                strPythonScriptsDirectory + strPythonScript,
+                                                strPythonVirtualEnvironmentDir,
+                                                strPythonScriptsDirectory);
         
         // We return the result
         

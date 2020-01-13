@@ -146,7 +146,7 @@ public class HESMLSTSclient
             // Running of a reproducible STS experiment file
 
             File inputFile = new File(args[0]);  // Get the file path
-            // File inputFile = new File("../ReproducibleExperiments/BioSentenceSimilarity_paper/bio_sentence_sim_benchmarks.stsexp");  // Get the file path
+            
             // We check the existence of the file
 
             if (inputFile.exists())

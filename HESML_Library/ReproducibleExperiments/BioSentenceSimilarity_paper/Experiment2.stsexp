@@ -3,7 +3,7 @@
 <!-- This experiment evaluates the impact of stop words in string-based STS measures -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
+		<OutputFilename>raw_similarity_BIOSSES_experiment2.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -187,11 +187,56 @@
 					<CharFilteringType>Blagec</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein NoneCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein DefaultCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BIOSSESCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BlagecCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Blagec</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
+		<OutputFilename>raw_similarity_MedSTSFull_experiment2.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -375,11 +420,56 @@
 					<CharFilteringType>Blagec</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein NoneCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein DefaultCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BIOSSESCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BlagecCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Blagec</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
+		<OutputFilename>raw_similarity_CTR_experiment2.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
@@ -555,6 +645,51 @@
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>OverlapCoefficient</Method>
 				<Label>OverlapCoefficient BlagecCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Blagec</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein NoneCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein DefaultCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BIOSSESCharfil</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>
+					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein BlagecCharfil</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt.txt</StopWordsFilename>

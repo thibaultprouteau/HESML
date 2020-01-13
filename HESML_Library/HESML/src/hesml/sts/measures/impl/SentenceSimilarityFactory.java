@@ -226,6 +226,43 @@ public class SentenceSimilarityFactory
     }
     
     /**
+     * This function creates a USE sentence embedding method.
+     * 
+     * @param strLabel
+     * @param method
+     * @param wordPreprocessor
+     * @param strModelURL
+     * @param pythonScriptFilename
+     * @param strPythonVirtualEnvironmentDir
+     * @param pythonScriptDir
+     * @return 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
+     * @throws org.json.simple.parser.ParseException 
+     */
+    
+    public static ISentenceSimilarityMeasure getUSESentenceEmbeddingMethod(
+            String                  strLabel,
+            SentenceEmbeddingMethod method,
+            IWordProcessing         wordPreprocessor,
+            String                  strModelURL,
+            String                  pythonScriptFilename,
+            String                  strPythonVirtualEnvironmentDir,
+            String                  pythonScriptDir) throws IOException,
+            InterruptedException, org.json.simple.parser.ParseException
+    {  
+        // We initialize the output
+        
+        ISentenceSimilarityMeasure measure = new USEModelMeasure(strLabel,
+                            strModelURL, wordPreprocessor, pythonScriptDir, 
+                        strPythonVirtualEnvironmentDir, pythonScriptFilename);
+        
+        // We return the result
+        
+        return (measure);
+    }
+    
+    /**
      * This function creates a WBSM measure.
      * 
      * @param strLabel

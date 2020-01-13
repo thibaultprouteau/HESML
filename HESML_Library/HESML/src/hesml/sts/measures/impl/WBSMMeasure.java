@@ -103,6 +103,22 @@ class WBSMMeasure extends SentenceSimilarityMeasure
 
         m_strLabel = strLabel;
     }
+        
+    /**
+     * This function returns the label used to identify the measure in
+     * a raw matrix results. This string attribute is set by the users
+     * to provide the column header name included in all results generated
+     * by this measure. This attribute was especially defined to
+     * provide a meaningful name to distinguish the measures based on
+     * pre-trained model files.
+     * @return 
+     */
+    
+    @Override
+    public String getLabel()
+    {
+        return (m_strLabel);
+    }
     
     /**
      * This function is called by any client function before to evaluate
@@ -449,7 +465,7 @@ class WBSMMeasure extends SentenceSimilarityMeasure
        
        super.clear();
        
-       m_wordnet.clear();
-       m_wordnetTaxonomy.clear();
+//       m_wordnet.clear();
+//       m_wordnetTaxonomy.clear();
     }
 }
