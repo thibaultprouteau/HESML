@@ -19,6 +19,7 @@ package hesml.sts.benchmarks.impl;
 
 import hesml.sts.benchmarks.ISentenceSimilarityBenchmark;
 import hesml.sts.measures.ISentenceSimilarityMeasure;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -169,6 +170,11 @@ class SentenceSimilaritySingleBenchmark implements ISentenceSimilarityBenchmark
             double[][]  strMatrix,
             String      strOutputFile) throws IOException
     {
+        // We create the directory structure (if necessary)
+        
+        File file = new File(strOutputFile);
+        file.getParentFile().mkdirs();
+        
         // We open for writing the file
         
         FileWriter writer = new FileWriter(strOutputFile, false);

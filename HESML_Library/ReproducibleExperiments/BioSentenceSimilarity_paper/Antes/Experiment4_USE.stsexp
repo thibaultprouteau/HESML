@@ -29,22 +29,50 @@
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_MedSTSFull_experiment4.csv</OutputFilename>
+		<OutputFilename>raw_similarity_MedSTSFull_experiment4_USE.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 
-			
+			<USEModelMeasure>
+				<Label>Universal Sentence Encoder 4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_CTR_experiment4.csv</OutputFilename>
+		<OutputFilename>raw_similarity_CTR_experiment4_USE.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 
-			
+			<USEModelMeasure>
+				<Label>Universal Sentence Encoder 4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
