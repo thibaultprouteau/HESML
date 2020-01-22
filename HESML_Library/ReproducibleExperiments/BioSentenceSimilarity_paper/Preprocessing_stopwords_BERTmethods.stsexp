@@ -76,9 +76,9 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
 				</WordProcessing>
+			</BertEmbeddingModelMeasure>
 			
-			<!--</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc Biosses2017</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -576,9 +576,9 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
 				</WordProcessing>
+			</BertEmbeddingModelMeasure>
 			
-			<!--</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc Biosses2017</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -1076,9 +1076,9 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
 				</WordProcessing>
+			</BertEmbeddingModelMeasure>
 			
-			<!--</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
+			<!--<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc Biosses2017</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>

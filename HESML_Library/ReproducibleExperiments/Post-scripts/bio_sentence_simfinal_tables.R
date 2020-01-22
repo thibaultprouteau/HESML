@@ -60,6 +60,24 @@ strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (
 # strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for WBSM methods.", sep="")
 
 
+# ---------------------------------------------------------------------
+# SWEM measures experiments
+# ---------------------------------------------------------------------
+
+# experimentSubdirectory = "Preprocessing_charfiltering_WBSM"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for WBSM methods.", sep="")
+
+# experimentSubdirectory = "Preprocessing_tokenizers_WBSM"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Tokenizer configurations for WBSM methods.", sep="")
+
+experimentSubdirectory = "Preprocessing_stopwords_SWEMMeasures"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for SWEM Measures.", sep="")
+
+# experimentSubdirectory = "Bestconfiguration_WBSM"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for WBSM methods.", sep="")
+
+
+
 # rootDir = "D:/Versiones_Dev_HESML/HESML_Library/ReproducibleExperiments/BioSentenceSimilarity_paper"
 rootDir = "/home/alicia/Desktop/HESML/HESML_Library/ReproducibleExperiments/BioSentenceSimilarity_paper"
 

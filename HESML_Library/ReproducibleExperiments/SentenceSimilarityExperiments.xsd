@@ -26,6 +26,7 @@
 							<xs:element ref="BertEmbeddingModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="USEModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
 							<xs:element ref="WBSMMeasure" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="Sent2vecModelMeasure" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>
@@ -136,6 +137,20 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="Sent2vecModelMeasure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Label" type="xs:string"/>
+				<xs:element name="Method" type="SentenceEmbeddingMethod"/>
+				<xs:element name="PretrainedModelDir" type="xs:string"/>
+				<xs:element name="PretrainedModelFile" type="xs:string"/>
+				<xs:element name="PythonScriptsDirectory" type="xs:string"/>
+				<xs:element name="PythonVirtualEnvironmentDir" type="xs:string"/>
+				<xs:element name="PythonScriptFilename" type="xs:string"/>
+				<xs:element ref="WordProcessing"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="WBSMMeasure">
 		<xs:complexType>
 			<xs:sequence>
@@ -155,6 +170,7 @@
 			<xs:enumeration value="USEModel"/>
 			<xs:enumeration value="ParagraphVector"/>
 			<xs:enumeration value="WBSMMeasure"/>
+			<xs:enumeration value="Sent2vecModel"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="OntologyBasedMethod">

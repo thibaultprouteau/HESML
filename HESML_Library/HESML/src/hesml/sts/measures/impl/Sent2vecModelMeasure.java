@@ -18,7 +18,6 @@
 package hesml.sts.measures.impl;
 
 import hesml.measures.impl.MeasureFactory;
-import hesml.sts.measures.BERTpoolingMethod;
 import hesml.sts.measures.SentenceSimilarityFamily;
 import hesml.sts.measures.SentenceSimilarityMethod;
 import hesml.sts.preprocess.IWordProcessing;
@@ -36,36 +35,28 @@ import java.util.Arrays;
 import org.json.simple.parser.ParseException;
 
 /**
- *  This class reads and evaluates BERT embedding pre-trained models
+ *  This class reads and evaluates sent2vec models
  *  and return the similarity between sentences using the model.
  *  @author alicia
  */
 
-class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
+class Sent2vecModelMeasure extends SentenceSimilarityMeasure
 {
-    // Path to the BERT base directory (usually BERTExperiments/).
+    // Path to the USE base directory (usually UniversalSentenceEncoderExperiments/).
     
-    private final String m_bertDir;
+    private final String m_useDir;
     
-    // Path to the BERT pretrained model to evaluate.
+    // URL to the USE pretrained model to evaluate.
     
-    private final String m_modelDirPath;
+    private final String m_modelPath;
     
     // Path to the python executable using the virtual environment (venv directory).
     
     private final String m_pythonVenvDir;
     
-    // Path to the python script wrapper to extract the embeddings (extractBERTvectors.py).
+    // Path to the python script wrapper to extract the embeddings.
     
     private final String m_pythonScriptDir;
-    
-    // Define the pooling strategy
-    
-    private final BERTpoolingMethod m_poolingStrategy;
-    
-    // Define the list of layers used with the pooling strategy
-    
-    private final String[] m_poolingLayers;
     
     /**
      * label shown in all raw matrix results
@@ -79,15 +70,13 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
      * @param preprocesser 
      */
     
-    BertEmbeddingModelMeasure(
+    Sent2vecModelMeasure(
             String              strLabel,
-            String              modelDirPath,
+            String              modelPath,
             IWordProcessing     preprocesser,
-            String              bertDir,
+            String              useDir,
             String              pythonVenvDir,
-            String              pythonScriptDir,
-            BERTpoolingMethod   poolingStrategy,
-            String[]            poolingLayers) 
+            String              pythonScriptFilename) 
             throws InterruptedException, IOException, 
                 FileNotFoundException, ParseException
     {
@@ -97,12 +86,10 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // We initialize main attributes
         
-        m_modelDirPath = modelDirPath;
-        m_bertDir = bertDir;
-        m_pythonScriptDir = pythonScriptDir;
+        m_modelPath = modelPath;
+        m_useDir = useDir;
+        m_pythonScriptDir = pythonScriptFilename;
         m_pythonVenvDir = pythonVenvDir;
-        m_poolingStrategy = poolingStrategy;
-        m_poolingLayers = poolingLayers;
         m_strLabel = strLabel;
     }
 
@@ -130,7 +117,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     @Override
     public SentenceSimilarityMethod getMethod()
     {
-        return (SentenceSimilarityMethod.BertEmbeddingModelMeasure);
+        return (SentenceSimilarityMethod.Sent2vecModelMeasure);
     }
     
     /**
@@ -234,8 +221,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         
         // Initialize the temporal file for writing the sentences and read the vectors
         
-        File tempFileSentences = createTempFile(m_bertDir + "tempSentences.txt");
-        File tempFileVectors   = createTempFile(m_bertDir + "tempVecs.txt");
+        File tempFileSentences = createTempFile(m_useDir + "tempSentences.txt");
+        File tempFileVectors   = createTempFile(m_useDir + "tempVecs.txt");
         
         // Get the canonical path for the temporal files
         
@@ -411,9 +398,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         // We fill the command line for the Python call
         
         String command = python_command + " " 
-                + m_poolingStrategy + " " 
-                + String.join(",", m_poolingLayers) + " " 
-                + m_modelDirPath + " "
+                + m_modelPath + " "
                 + absPathTempSentencesFile + " " + absPathTempVectorsFile;
         
         System.out.print("Python command executed: \n");
@@ -425,17 +410,14 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
 
         String lineTerminal = "";
         
-        System.out.print("\n\n ----------------------------- \n");
-        System.out.print("--- Python script output: --- \n");
-        
         InputStreamReader inputStreamReader = new InputStreamReader(proc.getErrorStream());
         BufferedReader readerTerminal = new BufferedReader(inputStreamReader);
         
+        System.out.print("\n\n ----------------------------- \n");
+        System.out.print("--- Python script output: --- \n");
+        
         while((lineTerminal = readerTerminal.readLine()) != null) 
             System.out.print(lineTerminal + "\n");
-        
-        inputStreamReader = new InputStreamReader(proc.getInputStream());
-        readerTerminal = new BufferedReader(inputStreamReader);
         
         System.out.print("\n --- End Python script output: --- \n");
         System.out.print("--------------------------------- \n\n");

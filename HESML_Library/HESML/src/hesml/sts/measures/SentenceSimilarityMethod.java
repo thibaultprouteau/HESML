@@ -104,6 +104,15 @@ public enum SentenceSimilarityMethod
     USEModelMeasure,
     
     /**
+     * Pagliardini, Matteo, Prakhar Gupta, and Martin Jaggi. 2017. 
+     * “Unsupervised Learning of Sentence Embeddings 
+     * Using Compositional N-Gram Features.” 
+     * arXiv [cs.CL]. arXiv. http://arxiv.org/abs/1703.02507.
+     */
+    
+    Sent2vecModelMeasure,
+    
+    /**
      * Le, Quoc, and Tomas Mikolov. 2014. 
      * “Distributed Representations of Sentences and Documents.” 
      * In International Conference on Machine Learning, 1188–96. jmlr.org.

@@ -256,6 +256,12 @@ public class SentenceSimBenchmarkFactory
                         tempMeasureList.add(readUSEmodelSentenceMeasure(measureNode));
                         
                         break;
+                        
+                    case "Sent2vecModelMeasure":
+                        
+                        tempMeasureList.add(readSent2vecModelSentenceMeasure(measureNode));
+                        
+                        break;
                     
                     case "WBSMMeasure":
                         
@@ -431,6 +437,37 @@ public class SentenceSimBenchmarkFactory
                                                 convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
                                                 readWordProcessing(measureNode), 
                                                 strUSEModelURL, 
+                                                strPythonScriptsDirectory + strPythonScript,
+                                                strPythonVirtualEnvironmentDir,
+                                                strPythonScriptsDirectory);
+        
+        // We return the result
+        
+        return (model);
+    }
+    
+    /**
+     * This function parses a Universal Sentence Embedding model defined in the XML-based experiemnt file.
+     * @param measureNode
+     * @return 
+     */
+    
+    private static ISentenceSimilarityMeasure readSent2vecModelSentenceMeasure(
+            Element measureNode) throws IOException, InterruptedException, ParseException
+    {
+        // We load and register a BERT measure from the XML file 
+
+        String strSent2vecModelDir = readStringField(measureNode, "PretrainedModelDir");
+        String strSent2vecModelFile = readStringField(measureNode, "PretrainedModelFile");
+        String strPythonScriptsDirectory = readStringField(measureNode, "PythonScriptsDirectory");
+        String strPythonVirtualEnvironmentDir = readStringField(measureNode, "PythonVirtualEnvironmentDir");
+        String strPythonScript = readStringField(measureNode, "PythonScriptFilename");
+
+        ISentenceSimilarityMeasure model = SentenceSimilarityFactory.getUSESentenceEmbeddingMethod(
+                                                readStringField(measureNode, "Label"), 
+                                                convertToSentenceEmbeddingMethod(readStringField(measureNode, "Method")),
+                                                readWordProcessing(measureNode), 
+                                                strSent2vecModelDir + strSent2vecModelFile, 
                                                 strPythonScriptsDirectory + strPythonScript,
                                                 strPythonVirtualEnvironmentDir,
                                                 strPythonScriptsDirectory);

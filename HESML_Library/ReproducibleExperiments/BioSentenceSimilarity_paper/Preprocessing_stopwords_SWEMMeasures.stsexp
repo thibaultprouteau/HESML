@@ -140,6 +140,49 @@
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>bioc_skipgram_Nonechar200dim Biosses2017</Label>
@@ -214,6 +257,49 @@
 				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>stanford_skipgram_nonechar200dim None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim None</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -449,6 +535,49 @@
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>bioc_skipgram_Nonechar200dim Biosses2017</Label>
@@ -523,6 +652,49 @@
 				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>stanford_skipgram_nonechar200dim None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim None</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -759,6 +931,49 @@
 			<SWEMMeasure>
 				<Pooling>Average</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>bioc_skipgram_Nonechar200dim Biosses2017</Label>
@@ -833,6 +1048,49 @@
 				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
 				<Label>stanford_skipgram_nonechar200dim None</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim Biosses2017</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim nltk2018</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim None</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -927,7 +1185,6 @@
 					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
-
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>

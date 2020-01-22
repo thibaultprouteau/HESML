@@ -28,6 +28,9 @@ args = get_args_parser().parse_args([
                                  '-port_out', '5556',
                                 # '-max_seq_len', 'NONE',
                                 # '-mask_cls_sep',
+                                #  '-verbose', 'True',
+                                #  '-http_max_connect', '1000',
+                                 '-num_worker', '5',
                                  '-cpu'])
 server = BertServer(args)
 server.start()
@@ -65,5 +68,6 @@ with open(absPathTempVectorsFile, 'w') as f:
             line = strVector1 + "\t" + strVector2
             f.write("%s\n" % line)
 
+bc.close()
 server.close()
 print("SCRIPTOK")
