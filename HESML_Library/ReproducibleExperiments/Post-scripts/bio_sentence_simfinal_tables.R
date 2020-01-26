@@ -40,8 +40,8 @@ rm(list = ls())
 # experimentSubdirectory = "Preprocessing_charfiltering_StringMethods"
 # strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for String-based methods.", sep="")
 
-experimentSubdirectory = "Bestconfiguration_StringMethods"
-strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for String-based methods.", sep="")
+# experimentSubdirectory = "Bestconfiguration_StringMethods"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for String-based methods.", sep="")
 
 # ---------------------------------------------------------------------
 # WBSM measures experiments
@@ -64,17 +64,18 @@ strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (
 # SWEM measures experiments
 # ---------------------------------------------------------------------
 
-# experimentSubdirectory = "Preprocessing_charfiltering_WBSM"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for WBSM methods.", sep="")
+experimentSubdirectory = "Preprocessing_charfiltering_SWEMMeasures"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for SWEM Measures.", sep="")
 
-# experimentSubdirectory = "Preprocessing_tokenizers_WBSM"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Tokenizer configurations for WBSM methods.", sep="")
 
-experimentSubdirectory = "Preprocessing_stopwords_SWEMMeasures"
-strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for SWEM Measures.", sep="")
+# experimentSubdirectory = "Preprocessing_tokenizers_SWEMMeasures"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Tokenizer configurations for SWEM Measures.", sep="")
+
+# experimentSubdirectory = "Preprocessing_stopwords_SWEMMeasures"
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for SWEM Measures.", sep="")
 
 # experimentSubdirectory = "Bestconfiguration_WBSM"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for WBSM methods.", sep="")
+# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for SWEM Measures.", sep="")
 
 
 
