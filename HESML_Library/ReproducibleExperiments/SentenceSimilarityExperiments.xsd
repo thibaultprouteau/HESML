@@ -66,6 +66,7 @@
 				<xs:element name="StopWordsFilename" type="xs:string"/>
 				<xs:element name="TokenizerType" type="TokenizerType"/>
 				<xs:element name="LowercaseNormalization"/>
+				<xs:element name="MetamapAnnotation" minOccurs="0"/>
 				<xs:choice>
 					<xs:element name="CharFilteringType" type="CharFilteringType" minOccurs="0"/>
 					<xs:element name="ReplacementPatterns" minOccurs="0">

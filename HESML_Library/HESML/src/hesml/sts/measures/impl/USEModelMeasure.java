@@ -58,9 +58,7 @@ class USEModelMeasure extends SentenceSimilarityMeasure
     
     private final String m_pythonScriptDir;
     
-    /**
-     * label shown in all raw matrix results
-     */
+    // Label shown in all raw matrix results
     
     private final String m_strLabel;
     

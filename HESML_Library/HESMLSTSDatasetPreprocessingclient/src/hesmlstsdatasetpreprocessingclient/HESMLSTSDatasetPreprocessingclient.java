@@ -208,7 +208,7 @@ public class HESMLSTSDatasetPreprocessingclient
         
         wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
                                 tokenizerType, 
-                                true, charFilteringType);
+                                true, charFilteringType, true);
         
         // Create the output subdirectories
         

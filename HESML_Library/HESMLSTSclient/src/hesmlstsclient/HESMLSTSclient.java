@@ -257,7 +257,8 @@ public class HESMLSTSclient
                         m_strBaseDir + m_strStopWordsDir + "nltk2018StopWords.txt", 
                         TokenizerType.StanfordCoreNLPv3_9_1, 
                         true, 
-                        CharFilteringType.Blagec2019);
+                        CharFilteringType.Blagec2019,
+                        true);
         
         // Add the string based methods to test
         
@@ -328,7 +329,8 @@ public class HESMLSTSclient
                         m_BERTDir,
                         m_PythonVenvExecutable,
                         m_PythonWordPieceTokenizerWrapperScript,
-                        BioBert_Base_PMC);
+                        BioBert_Base_PMC,
+                        false);
         
         // Initialize the measure
         // Test a BioBert model measure
@@ -402,7 +404,8 @@ public class HESMLSTSclient
         
         preprocesser = PreprocessingFactory.getWordProcessing(
                         "", TokenizerType.WhiteSpace, 
-                        true, CharFilteringType.None);
+                        true, CharFilteringType.None,
+                        false);
         
         // Create the measure
         

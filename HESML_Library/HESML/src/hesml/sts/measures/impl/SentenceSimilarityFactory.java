@@ -17,9 +17,7 @@
 
 package hesml.sts.measures.impl;
 
-import hesml.configurators.ITaxonomyInfoConfigurator;
 import hesml.configurators.IntrinsicICModelType;
-import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
 import hesml.measures.WordEmbeddingFileType;
 import hesml.sts.measures.BERTpoolingMethod;

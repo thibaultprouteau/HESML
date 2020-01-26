@@ -371,8 +371,9 @@ public class SentenceSimBenchmarkFactory
                                         strStopWordsFileDir + "/" + strStopWordsFilename,
                                         convertToTokenizerType(readStringField(wordProcessingNode, "TokenizerType")),
                                         readBooleanField(wordProcessingNode, "LowercaseNormalization"),
-                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")));
-        
+                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")),
+                                        containsFieldName(wordProcessingNode, "MetamapAnnotation")?readBooleanField(wordProcessingNode, 
+                                                "MetamapAnnotation"):false);
         // We return the result
         
         return (processer);
@@ -513,7 +514,9 @@ public class SentenceSimBenchmarkFactory
                                         strPythonScriptsDirectory,
                                         strPythonVirtualEnvironmentDir,
                                         strPythonScriptsDirectory + strPythonScript,
-                                        strBERTPretrainedModelDir + strBERTPretrainedModelFilename);
+                                        strBERTPretrainedModelDir + strBERTPretrainedModelFilename,
+                                        containsFieldName(wordProcessingNode, "MetamapAnnotation")?readBooleanField(wordProcessingNode, 
+                                                "MetamapAnnotation"):false);
         
         // We return the result
         
@@ -574,6 +577,35 @@ public class SentenceSimBenchmarkFactory
         // We return the result
         
         return (value);
+    }
+    
+    /**
+     * This function returns the first child element whose tag name matches
+     * the input tag name.
+     * @param parent
+     * @param strChildTagName
+     * @return 
+     */
+    
+    private static boolean containsFieldName(
+            Element parent,
+            String  strFieldName)
+    {
+        // We initializa the output value
+        
+        boolean contaisField = false;
+        
+        // We get the child node matching the input name
+
+        Element child = getFirstChildWithTagName(parent, strFieldName);
+        
+        // We check the existence of the child node
+        
+        if (child != null) contaisField = true;
+        
+        // We return the result
+        
+        return (contaisField);
     }
     
     /**

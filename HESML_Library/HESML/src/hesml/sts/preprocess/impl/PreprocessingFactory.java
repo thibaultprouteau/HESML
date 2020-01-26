@@ -38,6 +38,7 @@ public class PreprocessingFactory
      * @param tokenizerType
      * @param lowercaseNormalization
      * @param charFilteringType
+     * @param metamapAnnotation
      * @return 
      * @throws java.io.IOException
      */
@@ -46,11 +47,13 @@ public class PreprocessingFactory
             String              stopWordFileName,
             TokenizerType       tokenizerType,
             boolean             lowercaseNormalization,
-            CharFilteringType   charFilteringType) throws IOException
+            CharFilteringType   charFilteringType,
+            boolean             metamapAnnotation) throws IOException
     {   
         return (new WordProcessing(tokenizerType,lowercaseNormalization,
-                stopWordFileName, charFilteringType));
+                stopWordFileName, charFilteringType, metamapAnnotation));
     }
+    
     
     /**
      *  Constructor of the preprocess pipeline factory with Python wrapper for BERT.
@@ -63,6 +66,7 @@ public class PreprocessingFactory
      * @param modelDirPath
      * @param pythonVirtualEnvironmentDir
      * @param pythonScriptDir
+     * @param metamapAnnotation
      * @return 
      * @throws java.io.IOException
      */
@@ -75,10 +79,11 @@ public class PreprocessingFactory
             String              tempDir,
             String              pythonVirtualEnvironmentDir,
             String              pythonScriptDir,
-            String              modelDirPath) throws IOException
+            String              modelDirPath,
+            boolean             metamapAnnotation) throws IOException
     {   
         return (new WordProcessing(tokenizerType, lowercaseNormalization,
                 stopWordFileName, charFilteringType, tempDir,
-                pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath));
+                pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath, metamapAnnotation));
     }    
 }

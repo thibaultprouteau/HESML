@@ -29,6 +29,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -81,6 +83,10 @@ class WordProcessing implements IWordProcessing
     // has at least one alphanumeric character.
     
     private final Pattern m_pattern;
+    
+    // Set if the text will be annotated with METAMAP (or not).
+    
+    private final Boolean m_metamapAnnotation;
 
     /**
      * Constructor with parameters
@@ -94,7 +100,8 @@ class WordProcessing implements IWordProcessing
             TokenizerType       tokenizerType,
             boolean             lowercaseNormalization,
             String              strStopWordsFileName,
-            CharFilteringType   charFilteringType) throws IOException
+            CharFilteringType   charFilteringType,
+            boolean             metamapAnnotation) throws IOException
     {
         // We save the preprocessing parameters
         
@@ -109,6 +116,10 @@ class WordProcessing implements IWordProcessing
         m_pythonVenvDir = null;
         m_pythonScriptDir = null;
         m_modelDirPath = null;
+        
+        // Initialize the METAMAP annotation 
+        
+        m_metamapAnnotation = metamapAnnotation;
         
         // load the stop words in the constructor once
         
@@ -137,7 +148,8 @@ class WordProcessing implements IWordProcessing
             String              tempDir,
             String              pythonVenvDir,
             String              pythonScriptDir,
-            String              modelDirPath) throws IOException
+            String              modelDirPath,
+            boolean             metamapAnnotation) throws IOException
     {
         // We saev the tokeniztion parameters
         
@@ -152,6 +164,10 @@ class WordProcessing implements IWordProcessing
         m_pythonVenvDir = pythonVenvDir;
         m_pythonScriptDir = pythonScriptDir;
         m_modelDirPath = modelDirPath;
+        
+        // Initialize the METAMAP annotation 
+        
+        m_metamapAnnotation = metamapAnnotation;
         
         // load the stop words
         
@@ -198,6 +214,29 @@ class WordProcessing implements IWordProcessing
         if(strFilteredSentence.length() > 0 
                 && m_pattern.matcher(strRawSentence).find())
         {
+            
+            // Annotate the sentence if m_metamapAnnotation is true
+            
+            if(m_metamapAnnotation)
+            {
+                // Initialize the annotator 
+                
+                AnnotationProcess annotationProcess = new AnnotationProcess();
+                
+                // Annotate the sentence
+                
+                try 
+                {
+                    strFilteredSentence = annotationProcess.annotate(strFilteredSentence);
+                } 
+                catch (Exception ex) 
+                {
+                    // Throws an exception is there is an error.
+                    
+                    Logger.getLogger(WordProcessing.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
             // Tokenize the text
             
             ITokenizer tokenizer = null;

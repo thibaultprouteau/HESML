@@ -1,30 +1,39 @@
-
+# Import the dependencies
 
 import tensorflow as tf
 import tensorflow_hub as hub
 import logging
 import sys
 
+# get the arguments from the input
+
 module_url = sys.argv[1] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempSentencesFile = sys.argv[2] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempVectorsFile = sys.argv[3] # the output path
 
-# absPathTempSentencesFile = "/home/alicia/Desktop/HESML/HESML_Library/UniversalSentenceEncoderExperiments/tempSentences.txt"
-# absPathTempVectorsFile = "/home/alicia/Desktop/HESML/HESML_Library/UniversalSentenceEncoderExperiments/tempVecs.txt"
+# set up the logger info
 
 logger = tf.get_logger()
 logger.setLevel(logging.FATAL)
+
+# Load the model from the URL
 
 # module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
 model = hub.load(module_url)
 
 print ("module %s loaded" % module_url)
 
+# function for extracting the message_embeddings
+
 def embed(input):
   return model(input)
 
+# open the file sentences.txt
+
 f = open(absPathTempSentencesFile, "r")
 file = f.read().split("\n")
+
+# iterate the sentences and get the embeddings
 
 with open(absPathTempVectorsFile, 'w') as f:
     for row in file:
