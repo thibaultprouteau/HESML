@@ -410,7 +410,9 @@ public class SentenceSimBenchmarkFactory
                                                 strPythonVirtualEnvironmentDir, 
                                                 strPythonScriptsDirectory + strPythonScript, 
                                                 convertToBERTpoolingMethod(readStringField(measureNode, "Pooling")), 
-                                                poolingLayers);
+                                                poolingLayers,
+                                                containsFieldName(measureNode, "PythonServerPort")?readStringField(measureNode, 
+                                                "PythonServerPort"):"0");
         
         // We return the result
         

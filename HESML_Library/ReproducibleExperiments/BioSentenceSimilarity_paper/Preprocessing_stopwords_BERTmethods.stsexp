@@ -18,6 +18,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -41,6 +42,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -64,6 +66,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -78,7 +81,7 @@
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			
-			<!--<BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc Biosses2017</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -88,6 +91,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -101,8 +105,8 @@
 					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
+			
+			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc nltk2018</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -112,6 +116,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -125,8 +130,7 @@
 					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pmc None</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -136,6 +140,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -160,6 +165,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -183,6 +189,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -206,6 +213,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -218,7 +226,7 @@
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
 				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
+			</BertEmbeddingModelMeasure>
 
 			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 Biosses2017</Label>
@@ -230,6 +238,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -253,6 +262,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -276,6 +286,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -290,7 +301,7 @@
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			
-			<!--<BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
 				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 Biosses2017</Label>
 				<Method>BERTEmbeddingModel</Method>
 				<Pooling>REDUCE_MEAN</Pooling>
@@ -300,6 +311,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -323,6 +335,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -346,6 +359,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -370,6 +384,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -393,6 +408,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -416,6 +432,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -440,6 +457,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
@@ -463,6 +481,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
@@ -486,6 +505,7 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
@@ -508,497 +528,7 @@
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
 			
-			<!--<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
-
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<!--<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
@@ -1008,497 +538,7 @@
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
 			
-			<!--<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			</BertEmbeddingModelMeasure>
-				<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pmc None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>biobert_v1.0_pubmed_pmc None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
-
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<!--<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 Biosses2017</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 nltk2018</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>
-			<BertEmbeddingModelMeasure>
-				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16 None</Label>
-				<Method>BERTEmbeddingModel</Method>
-				<Pooling>REDUCE_MEAN</Pooling>
-				<PoolingLayers>-2</PoolingLayers>
-				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
-				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
-					<TokenizerType>WordPieceTokenizer</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
-					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
-					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
-					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
-					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
-					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
-				</WordProcessing>
-			</BertEmbeddingModelMeasure>-->
 			
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>

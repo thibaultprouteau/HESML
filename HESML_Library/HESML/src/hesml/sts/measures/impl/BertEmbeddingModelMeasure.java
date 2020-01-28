@@ -73,6 +73,10 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
     
     private final String m_strLabel;
     
+    // Define the Python server port
+    
+    private final String m_PythonServerPort;
+    
     /**
      * Constructor
      * @param strModelDirPath
@@ -87,7 +91,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
             String              pythonVenvDir,
             String              pythonScriptDir,
             BERTpoolingMethod   poolingStrategy,
-            String[]            poolingLayers) 
+            String[]            poolingLayers,
+            String              PythonServerPort) 
             throws InterruptedException, IOException, 
                 FileNotFoundException, ParseException
     {
@@ -104,6 +109,7 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
         m_poolingStrategy = poolingStrategy;
         m_poolingLayers = poolingLayers;
         m_strLabel = strLabel;
+        m_PythonServerPort = PythonServerPort;
     }
 
     /**
@@ -414,7 +420,8 @@ class BertEmbeddingModelMeasure extends SentenceSimilarityMeasure
                 + m_poolingStrategy + " " 
                 + String.join(",", m_poolingLayers) + " " 
                 + m_modelDirPath + " "
-                + absPathTempSentencesFile + " " + absPathTempVectorsFile;
+                + absPathTempSentencesFile + " " + absPathTempVectorsFile + " " 
+                + m_PythonServerPort;
         
         System.out.print("Python command executed: \n");
         System.out.print(command);

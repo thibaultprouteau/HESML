@@ -13,31 +13,41 @@ strPoolingLayer = sys.argv[2]
 strModelPath = sys.argv[3]
 absPathTempSentencesFile = sys.argv[4] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempVectorsFile = sys.argv[5] # the output path
+pythonServerPort = sys.argv[6] # the output path
 
 # The pooling layer is modified from "-2,-1" to "-2 -1"
 
 strPoolingLayer = " ".join(strPoolingLayer.split(","))
 
-## INIT THE SERVER CODE ##
+# if pythonServerPort == 0, the server is already opened in a specific port
 
-args = get_args_parser().parse_args([
-                                 '-pooling_strategy', strPoolingStrategy,
-                                 '-pooling_layer', strPoolingLayer,
-                                 '-model_dir', strModelPath,
-                                 '-port', '5555',
-                                 '-port_out', '5556',
-                                # '-max_seq_len', 'NONE',
-                                # '-mask_cls_sep',
-                                #  '-verbose', 'True',
-                                #  '-http_max_connect', '1000',
-                                 '-num_worker', '5',
-                                 '-cpu'])
-server = BertServer(args)
-server.start()
+if pythonServerPort == "0":
+
+    ## INIT THE SERVER CODE ##
+
+    args = get_args_parser().parse_args([
+                                     '-pooling_strategy', strPoolingStrategy,
+                                     '-pooling_layer', strPoolingLayer,
+                                     '-model_dir', strModelPath,
+                                     '-port', '5555',
+                                     '-port_out', '5556',
+                                    # '-max_seq_len', 'NONE',
+                                    # '-mask_cls_sep',
+                                    #  '-verbose', 'True',
+                                    #  '-http_max_connect', '1000',
+                                     '-num_worker', '5',
+                                     '-cpu'])
+    server = BertServer(args)
+    server.start()
+
+    pythonServerPort_ = 5555
+
+else:
+    pythonServerPort_ = int(pythonServerPort)
 
 ## INIT THE CLIENT CODE ##
 
-bc = BertClient(port=5555)
+bc = BertClient(port=pythonServerPort_)
 
 f = open(absPathTempSentencesFile, "r")
 file = f.read().split("\n")
@@ -69,5 +79,8 @@ with open(absPathTempVectorsFile, 'w') as f:
             f.write("%s\n" % line)
 
 bc.close()
-server.close()
+
+if pythonServerPort == "0":
+    server.close()
+
 print("SCRIPTOK")

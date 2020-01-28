@@ -346,7 +346,7 @@ public class HESMLSTSclient
                 m_PythonVenvExecutable,
                 m_PythonBERTWrapperScript,
                 BERTpoolingMethod.REDUCE_MEAN,
-                poolingLayers);
+                poolingLayers, "0");
         
         // Get the similarity scores for the lists of sentences
             
