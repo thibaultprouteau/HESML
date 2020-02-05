@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2019
+/* 
+ * Copyright (C) 2016-2020 Universidad Nacional de Educación a Distancia (UNED)
  *
  * This program is free software for non-commercial use:
  * you can redistribute it and/or modify it under the terms of the
