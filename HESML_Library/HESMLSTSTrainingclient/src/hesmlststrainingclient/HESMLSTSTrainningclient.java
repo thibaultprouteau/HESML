@@ -25,11 +25,11 @@ import hesml.HESMLversion;
 import hesml.sts.languagemodels.ILanguageModel;
 import hesml.sts.languagemodels.LanguageModelMethod;
 import hesml.sts.languagemodels.impl.LanguageModelFactory;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * This class implements a basic client application of the HESML trainning methods.
+ * This class implements a basic client application of 
+ * the HESML Sentence Embeddingstrainning methods.
  * 
  * @author alicia
  */
@@ -45,47 +45,45 @@ public class HESMLSTSTrainningclient
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception
     {
-        
         boolean   showUsage = false;  // Show usage
         
         // We print the HESML version
         
-        System.out.println("Running HESMLSTSClient V2R1 (2.1.0.0, October 2019) based on "
+        System.out.println("Running HESMLSTSClient V2R1 (2.1.0.0, February 2020) based on "
                 + HESMLversion.getReleaseName() + " " + HESMLversion.getVersionCode());
         
         System.out.println("Java heap size in Mb = "
             + (Runtime.getRuntime().totalMemory() / (1024 * 1024)));
+
         
+        // We read the incoming parameters and load the input and output files.
         
-        // Test functions
+        if ((args.length > 0))
+        {
+            // Read the arguments and start the training.
+            
+            String strTrainningInputDocumentPath = args[0];  // Get the input file path
+            String strTrainningOutputDocumentPath = args[1];  // Get the output file path
+
+            // Create the paragraph vector model and execute the training.
         
-        // @todo create automatically the 
+            ILanguageModel model = LanguageModelFactory.executeTraining(
+                    LanguageModelMethod.ParagraphVectorDM,
+                    strTrainningInputDocumentPath, 
+                    strTrainningOutputDocumentPath);
+        }
+        else
+        {
+            showUsage = true;
+        }
         
-        String strTrainningInputDocumentPath = "../BioCCorpus/BioC_sentencesSplitted_D0/allSentencesInAFile.txt";
-        String strTrainningOutputDocumentPath = "/home/alicia/Desktop/HESML/HESML_Library/STSTrainedModels/ParagraphVectorDM/vectors.zip";
+        // For a wrong calling to the program, we show the usage.
         
-        ILanguageModel model = testParagraphVectorDMModelTraining(
-                strTrainningInputDocumentPath, 
-                strTrainningOutputDocumentPath);
-    }
-    
-    /**
-     * Test function for train the paragraph vector example
-     * @throws IOException
-     * @throws ParseException 
-     */
-    
-    private static ILanguageModel testParagraphVectorDMModelTraining(
-            String strTrainningInputDocumentPath,
-            String strTrainningOutputDocumentPath) throws FileNotFoundException, IOException
-    {
-        
-        // Create the paragraph vector model and execute the training.
-        
-        ILanguageModel model = LanguageModelFactory.executeTraining(
-                LanguageModelMethod.ParagraphVectorDM,
-                strTrainningInputDocumentPath, 
-                strTrainningOutputDocumentPath);
-        return model;
+        if (showUsage)
+        {
+            System.err.println("\nIn order to properly use the HESMLSTSTrainingclient program");
+            System.err.println("you should call it using any of the two methods shown below:\n");
+            System.err.println("(1) C:> java -jar dist\\HESMLSTSTrainingclient.jar <inputFilePath.txt> <outputFilePath.zip>");
+        }
     }
 }

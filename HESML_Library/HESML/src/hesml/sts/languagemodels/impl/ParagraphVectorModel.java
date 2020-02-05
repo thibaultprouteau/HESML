@@ -38,7 +38,8 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFac
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.nd4j.linalg.api.iter.NdIndexIterator;
 import org.nd4j.linalg.api.ndarray.INDArray;
-
+import org.deeplearning4j.models.embeddings.learning.SequenceLearningAlgorithm;
+import org.deeplearning4j.models.embeddings.learning.impl.sequence.*;
 
 /**
  *  This class implements the Paragraph vector model.
@@ -123,12 +124,9 @@ class ParagraphVectorModel implements ILanguageModel
         
         // Set the training method
         
-        String trainingMethod = "";
-        if(m_trainingMethod == LanguageModelMethod.ParagraphVectorDBOW)
-            trainingMethod = "org.deeplearning4j.models.embeddings.learning.impl.sequence.DBOW";
-        else if (m_trainingMethod == LanguageModelMethod.ParagraphVectorDBOW)
-            trainingMethod = "org.deeplearning4j.models.embeddings.learning.impl.sequence.DM";
-        
+        SequenceLearningAlgorithm<VocabWord> learner = 
+                m_trainingMethod == LanguageModelMethod.ParagraphVectorDM?new DM<>():new DBOW<>();
+
         // Configuration from BIOSSES2017
         
         LabelsSource source = new LabelsSource("DOC_");
@@ -145,7 +143,7 @@ class ParagraphVectorModel implements ILanguageModel
                 .vocabCache(cache)
                 .tokenizerFactory(t)
                 .sampling(0)
-                .sequenceLearningAlgorithm(trainingMethod) 
+                .sequenceLearningAlgorithm(new DM<VocabWord>()) 
                 .build();
 
         vec.fit();
