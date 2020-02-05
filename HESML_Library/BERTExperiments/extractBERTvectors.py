@@ -8,12 +8,23 @@ import logging
 logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
+
 strPoolingStrategy = sys.argv[1]
 strPoolingLayer = sys.argv[2]
 strModelPath = sys.argv[3]
 absPathTempSentencesFile = sys.argv[4] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempVectorsFile = sys.argv[5] # the output path
 pythonServerPort = sys.argv[6] # the output path
+
+# ../BERTExperiments/venv/bin/python3 -W ignore ../BERTExperiments/extractBERTvectors.py NONE -2
+# ../BERTExperiments/PretrainedModels/biobert_v1.0_pubmed /home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempSentences.txt /home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempVecs.txt 5555
+
+# strPoolingStrategy = "NONE"
+# strPoolingLayer = "-2"
+# strModelPath = "../BERTExperiments/PretrainedModels/biobert_v1.0_pubmed"
+# absPathTempSentencesFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempSentences.txt"
+# absPathTempVectorsFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempVecs.txt"
+# pythonServerPort = "5555"
 
 # The pooling layer is modified from "-2,-1" to "-2 -1"
 
@@ -45,16 +56,18 @@ if pythonServerPort == "0":
 else:
     pythonServerPort_ = int(pythonServerPort)
 
+port_out_ = pythonServerPort_+1
+
 ## INIT THE CLIENT CODE ##
 
-bc = BertClient(port=pythonServerPort_)
+bc = BertClient(port=pythonServerPort_, ip='localhost', port_out=port_out_)
 
 f = open(absPathTempSentencesFile, "r")
 file = f.read().split("\n")
 
 with open(absPathTempVectorsFile, 'w') as f:
     for row in file:
-        if not row == "":
+        if (not row == "") and (len(row)>1):
             data = row.split("\t")
 
             # get the sentences

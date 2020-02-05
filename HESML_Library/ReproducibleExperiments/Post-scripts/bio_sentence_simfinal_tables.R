@@ -79,10 +79,10 @@ strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (
 
 experiments$set(experimentSubdirectory, strCaption)
 
-# experimentSubdirectory = "Bestconfiguration_WBSM"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for WBSM methods.", sep="")
-# 
-# experiments$set(experimentSubdirectory, strCaption)
+experimentSubdirectory = "Bestconfiguration_WBSM"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for WBSM methods.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
 
 # We define the subdirectory experiment and the caption for showing the results in Latex and HTML format
 # and we add to the dictionary all the SWEM measures experiments
@@ -102,15 +102,93 @@ strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (
 
 experiments$set(experimentSubdirectory, strCaption)
 
-# experimentSubdirectory = "Pooling_SWEMMeasures"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different pooling configurations for SWEM Measures.", sep="")
-# 
-# experiments$set(experimentSubdirectory, strCaption)
+experimentSubdirectory = "Pooling_SWEMMeasures"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different pooling configurations for SWEM Measures.", sep="")
 
-# experimentSubdirectory = "Bestconfiguration_SWEMMeasures"
-# strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for SWEM Measures.", sep="")
-#
-# experiments$set(experimentSubdirectory, strCaption)
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Bestconfiguration_SWEMMeasures"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for SWEM Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+# We define the subdirectory experiment and the caption for showing the results in Latex and HTML format
+# and we add to the dictionary all the BERT measures experiments
+
+experimentSubdirectory = "Preprocessing_charfiltering_BERTMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for BERT Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Preprocessing_stopwords_BERTMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for BERT Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+ experimentSubdirectory = "Pooling_BERTMethods"
+ strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different pooling configurations for BERT Measures.", sep="")
+
+ experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Bestconfiguration_BERTMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for BERT Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+# We define the subdirectory experiment and the caption for showing the results in Latex and HTML format
+# and we add to the dictionary all the USE measures experiments
+
+experimentSubdirectory = "Preprocessing_charfiltering_USEMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for USE Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Preprocessing_stopwords_USEMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for USE Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Preprocessing_tokenizers_USEMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Tokenizer configurations for USE Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Bestconfiguration_USEMethods"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for USE Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+
+# We define the subdirectory experiment and the caption for showing the results in Latex and HTML format
+# and we add to the dictionary all the Sent2vec measures experiments
+
+experimentSubdirectory = "Preprocessing_charfiltering_Sent2vec"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for Sent2vec Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Preprocessing_stopwords_Sent2vec"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for Sent2vec Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Preprocessing_tokenizers_Sent2vec"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating different Tokenizer configurations for Sent2vec Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+experimentSubdirectory = "Bestconfiguration_Sent2vec"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters for Sent2vec Measures.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
+
+
+# Configure BEST configurations with Metamap
+
+experimentSubdirectory = "Bestconfiguration_WithMetamap"
+strCaption = paste("Table \\label{table:", experimentSubdirectory, "}: Pearson (r), Spearman ($\\rho$) and Harmonic score (h) obtained evaluating the best configuration parameters using Metamap annotations.", sep="")
+
+experiments$set(experimentSubdirectory, strCaption)
 
 # We create a Dictionary object for printing the Latex tables with the captions
 

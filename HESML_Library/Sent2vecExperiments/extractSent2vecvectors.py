@@ -7,6 +7,10 @@ strModelPath = sys.argv[1]
 absPathTempSentencesFile = sys.argv[2] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempVectorsFile = sys.argv[3] # the output path
 
+# strModelPath = "/home/alicia/Desktop/HESML/HESML_Library/SentenceEmbeddings/BioSentVec_PubMed_MIMICIII-bigram_d700.bin"
+# absPathTempSentencesFile = "/home/alicia/Desktop/HESML/HESML_Library/Sent2vecExperiments/tempSentences.txt"
+# absPathTempVectorsFile = "/home/alicia/Desktop/HESML/HESML_Library/Sent2vecExperiments/tempVecs.txt"
+
 # initialize the sent2vec model
 
 model = sent2vec.Sent2vecModel()
@@ -38,8 +42,8 @@ with open(absPathTempVectorsFile, 'w') as f:
 
             message_embeddings = model.embed_sentences(messages)
 
-            v1 = message_embeddings[0].numpy()
-            v2 = message_embeddings[1].numpy()
+            v1 = message_embeddings[0]
+            v2 = message_embeddings[1]
 
             # format and write the output
 
@@ -50,6 +54,6 @@ with open(absPathTempVectorsFile, 'w') as f:
 
 # release the model from memory
 
-model.release_shared_mem()
+# model.release_shared_mem()
 
 print("SCRIPTOK")

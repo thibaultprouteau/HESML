@@ -97,14 +97,19 @@ public class HESMLSTSDatasetPreprocessingclient
         boolean saveAllSentencesToASingleFile = Boolean.TRUE;
         TokenizerType tokenizerType = null;
         CharFilteringType charFilteringType = null;
-
+        
+        boolean metamapAnnotation = false;
+        
         if ((args.length > 0))
         {
             // Get the preprocessing experiment
-            
+
             String experimentName = new String(args[0]);
-            String is_server = new String(args[1]);
-            
+            String metamap = new String(args[1]);
+            String is_server = new String(args[2]);
+
+            if(metamap == "true") metamapAnnotation = true;
+
             switch(experimentName)
             {
                 case "BioCNLPTokenizer_Default":
@@ -152,10 +157,17 @@ public class HESMLSTSDatasetPreprocessingclient
                     break;
             }
             
-            if("server".equals(is_server))
+            if("albali_server".equals(is_server))
             {
-                m_bioCManuscriptCorpusDir = "/datos/alara/BioCCorpus/XMLBioCFormat_PMCOpenAccesSubset/";
-                m_preprocessedDocumentsOutputDir = "/datos/alara/BioCCorpus/PreprocessedPMCOpenAccessSubset/";
+                m_bioCManuscriptCorpusDir = "/data/ALICIA_THESIS/HESML_Library/BioCManuscriptCorpus/";
+                m_preprocessedDocumentsOutputDir = "/data/ALICIA_THESIS/HESML_Library/PreprocessedPMCOpenAccessSubset/";
+            }
+            
+            // If the texts are annotated with Metamap, change the output file name to _metamap.txt
+            
+            if(metamapAnnotation)
+            {
+                m_preprocessedDocumentsOutputName = m_preprocessedDocumentsOutputName.replace(".txt", "") + "_metamap.txt";
             }
             
             // If the file output exists, remove before append the new sentences
@@ -173,7 +185,7 @@ public class HESMLSTSDatasetPreprocessingclient
         
         // Perform the preprocess
 
-        testD0(documentType, sentenceSplitterType, preprocessType, tokenizerType, charFilteringType, saveAllSentencesToASingleFile);
+        testD0(documentType, sentenceSplitterType, preprocessType, tokenizerType, charFilteringType, saveAllSentencesToASingleFile, metamapAnnotation);
     }
     
     /**
@@ -194,7 +206,8 @@ public class HESMLSTSDatasetPreprocessingclient
             SentenceExtractorType   preprocessType,
             TokenizerType           tokenizerType,
             CharFilteringType       charFilteringType,
-            boolean                 saveAllSentencesToASingleFile) 
+            boolean                 saveAllSentencesToASingleFile,
+            boolean                 metamapAnnotation) 
             throws IOException, XMLStreamException, 
             FileNotFoundException, InterruptedException
     {
@@ -208,7 +221,7 @@ public class HESMLSTSDatasetPreprocessingclient
         
         wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
                                 tokenizerType, 
-                                true, charFilteringType, true);
+                                true, charFilteringType, metamapAnnotation);
         
         // Create the output subdirectories
         

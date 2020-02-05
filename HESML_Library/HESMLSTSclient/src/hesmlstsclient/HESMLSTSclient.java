@@ -349,7 +349,7 @@ public class HESMLSTSclient
                 poolingLayers, "0");
         
         // Get the similarity scores for the lists of sentences
-            
+
         double[] simScores = measure.getSimilarityValues(sentences1, sentences2);
 
         // Print the results - For testing purposes
@@ -362,7 +362,7 @@ public class HESMLSTSclient
         }
         measure.clear();
     }
-    
+
     /**
      * Test WBSM Measures from BIOSSES2017
      * 

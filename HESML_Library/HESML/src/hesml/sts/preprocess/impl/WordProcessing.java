@@ -87,6 +87,10 @@ class WordProcessing implements IWordProcessing
     // Set if the text will be annotated with METAMAP (or not).
     
     private final Boolean m_metamapAnnotation;
+    
+    // Set the annotation process
+    
+    private AnnotationProcess m_annotationProcess;
 
     /**
      * Constructor with parameters
@@ -109,6 +113,7 @@ class WordProcessing implements IWordProcessing
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
         m_charFilter = new CharsFiltering(charFilteringType);
+        m_annotationProcess = null;
         
         // Initialize the temporal dirs to null.
         
@@ -119,7 +124,10 @@ class WordProcessing implements IWordProcessing
         
         // Initialize the METAMAP annotation 
         
-        m_metamapAnnotation = metamapAnnotation;
+        m_metamapAnnotation= metamapAnnotation;
+
+        String semanticTypesExcluded = "";
+        m_annotationProcess = new AnnotationProcess(semanticTypesExcluded);
         
         // load the stop words in the constructor once
         
@@ -157,6 +165,7 @@ class WordProcessing implements IWordProcessing
         m_lowercaseNormalization = lowercaseNormalization;
         m_strStopWordsFileName = strStopWordsFileName;
         m_charFilter = new CharsFiltering(charFilteringType);
+        m_annotationProcess = null;
         
         // Initialize the temporal dirs to null.
         
@@ -167,7 +176,10 @@ class WordProcessing implements IWordProcessing
         
         // Initialize the METAMAP annotation 
         
-        m_metamapAnnotation = metamapAnnotation;
+        m_metamapAnnotation= metamapAnnotation;
+
+        String semanticTypesExcluded = "";
+        m_annotationProcess = new AnnotationProcess(semanticTypesExcluded);
         
         // load the stop words
         
@@ -189,6 +201,7 @@ class WordProcessing implements IWordProcessing
         
         m_charFilter.clear();
         m_stopWordsHashSet.clear();
+        m_annotationProcess.clear();
     }
     
     /**
@@ -209,32 +222,32 @@ class WordProcessing implements IWordProcessing
         
         String strFilteredSentence = new String(strRawSentence);
         
+         // If Metamap finds Non-ASCII characteres, it doesn't parse the text.
+        
+        if(m_metamapAnnotation) strFilteredSentence = strFilteredSentence.replaceAll("[^\\p{ASCII}]", "");
+        
         // If the sentence has at least one alphanumeric character, preprocess it.
         
-        if(strFilteredSentence.length() > 0 
+        if(strFilteredSentence.length() > 1 
                 && m_pattern.matcher(strRawSentence).find())
         {
-            
             // Annotate the sentence if m_metamapAnnotation is true
             
             if(m_metamapAnnotation)
             {
-                // Initialize the annotator 
-                
-                AnnotationProcess annotationProcess = new AnnotationProcess();
-                
                 // Annotate the sentence
-                
+
                 try 
                 {
-                    strFilteredSentence = annotationProcess.annotate(strFilteredSentence);
+                    strFilteredSentence = m_annotationProcess.annotate(strFilteredSentence);
                 } 
                 catch (Exception ex) 
                 {
                     // Throws an exception is there is an error.
-                    
+
                     Logger.getLogger(WordProcessing.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
             
             // Tokenize the text
@@ -251,13 +264,12 @@ class WordProcessing implements IWordProcessing
 
             String[] tokens_tokenized = tokenizer.getTokens(strFilteredSentence);
 
-            // Preprocess each token and add to the output
-
             // Initialize an auxiliary arraylist to store the preprocessed words
 
             ArrayList<String> lstWordsPreprocessed = new ArrayList();
 
             // Iterate the tokens and preprocess them
+            // Preprocess each token and add to the output
 
             for (String token : tokens_tokenized)
             {

@@ -1,0 +1,36 @@
+\begin{table}[!h]
+\centering
+\caption{Table \label{table:Preprocessing_charfiltering_WBSM}: Pearson (r), Spearman ($\rho$) and Harmonic score (h) obtained evaluating different Char Filtering configurations for SWEM Measures.} 
+\begingroup\tiny
+\begin{tabular}{rrrrrrrrrrr}
+  \hline \multicolumn{1}{c}{ } & \multicolumn{3}{c}{BIOSSES} & \multicolumn{3}{c}{MedSTS} & \multicolumn{3}{c}{CTR} & \multicolumn{1}{c}{Avg} \\  \hline
+ & r & $\rho$ & h & r & $\rho$ & h & r & $\rho$ & h & Avg \\ 
+  \hline
+WBSM.Lin.BIOSSES & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Lin.Blagec & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Cai.BIOSSES & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Cai.Blagec & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Resnik.BIOSSES & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Resnik.Blagec & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.CosineNormJiangConrath.BIOSSES & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.CosineNormJiangConrath.Blagec & 0.717 & 0.764 & 0.740 & 0.718 & 0.672 & 0.694 & 0.718 & 0.717 & 0.718 & 0.717 \\ 
+  WBSM.Lin.Default & 0.711 & 0.760 & 0.735 & 0.718 & 0.673 & 0.695 & 0.720 & 0.720 & 0.720 & 0.716 \\ 
+  WBSM.Cai.Default & 0.711 & 0.760 & 0.735 & 0.718 & 0.673 & 0.695 & 0.720 & 0.720 & 0.720 & 0.716 \\ 
+  WBSM.Resnik.Default & 0.711 & 0.760 & 0.735 & 0.718 & 0.673 & 0.695 & 0.720 & 0.720 & 0.720 & 0.716 \\ 
+  WBSM.CosineNormJiangConrath.Default & 0.711 & 0.760 & 0.735 & 0.718 & 0.673 & 0.695 & 0.720 & 0.720 & 0.720 & 0.716 \\ 
+  WBSM.Lin.None & 0.697 & 0.720 & 0.709 & 0.706 & 0.656 & 0.680 & 0.686 & 0.688 & 0.687 & 0.692 \\ 
+  WBSM.Cai.None & 0.697 & 0.720 & 0.709 & 0.706 & 0.656 & 0.680 & 0.686 & 0.688 & 0.687 & 0.692 \\ 
+  WBSM.Resnik.None & 0.697 & 0.720 & 0.709 & 0.706 & 0.656 & 0.680 & 0.686 & 0.688 & 0.687 & 0.692 \\ 
+  WBSM.CosineNormJiangConrath.None & 0.697 & 0.720 & 0.709 & 0.706 & 0.656 & 0.680 & 0.686 & 0.688 & 0.687 & 0.692 \\ 
+  WBSM.JiangConrath.BIOSSES & 0.352 & 0.406 & 0.377 & 0.497 & 0.484 & 0.490 & 0.319 & 0.275 & 0.295 & 0.388 \\ 
+  WBSM.JiangConrath.Blagec & 0.352 & 0.406 & 0.377 & 0.497 & 0.484 & 0.490 & 0.319 & 0.275 & 0.295 & 0.388 \\ 
+  WBSM.WuPalmerFast.BIOSSES & 0.349 & 0.406 & 0.376 & 0.497 & 0.484 & 0.491 & 0.319 & 0.275 & 0.295 & 0.387 \\ 
+  WBSM.WuPalmerFast.Blagec & 0.349 & 0.406 & 0.376 & 0.497 & 0.484 & 0.491 & 0.319 & 0.275 & 0.295 & 0.387 \\ 
+  WBSM.JiangConrath.Default & 0.339 & 0.404 & 0.368 & 0.493 & 0.487 & 0.490 & 0.320 & 0.279 & 0.298 & 0.386 \\ 
+  WBSM.WuPalmerFast.Default & 0.336 & 0.404 & 0.367 & 0.493 & 0.488 & 0.490 & 0.321 & 0.279 & 0.298 & 0.385 \\ 
+  WBSM.JiangConrath.None & 0.333 & 0.408 & 0.367 & 0.473 & 0.460 & 0.466 & 0.331 & 0.304 & 0.317 & 0.383 \\ 
+  WBSM.WuPalmerFast.None & 0.330 & 0.406 & 0.364 & 0.473 & 0.460 & 0.466 & 0.331 & 0.306 & 0.318 & 0.383 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}

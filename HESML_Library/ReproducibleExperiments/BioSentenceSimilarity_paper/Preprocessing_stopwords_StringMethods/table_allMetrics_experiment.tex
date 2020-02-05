@@ -1,0 +1,27 @@
+\begin{table}[!h]
+\centering
+\caption{Table \label{table:Preprocessing_stopwords_StringMethods}: Pearson (r), Spearman ($\rho$) and Harmonic score (h) obtained evaluating different Stop Words configurations for String-based methods.} 
+\begingroup\tiny
+\begin{tabular}{rrrrrrrrrrr}
+  \hline \multicolumn{1}{c}{ } & \multicolumn{3}{c}{BIOSSES} & \multicolumn{3}{c}{MedSTS} & \multicolumn{3}{c}{CTR} & \multicolumn{1}{c}{Avg} \\  \hline
+ & r & $\rho$ & h & r & $\rho$ & h & r & $\rho$ & h & Avg \\ 
+  \hline
+BlockDistance.nltk2018 & 0.77 & 0.77 & 0.77 & 0.73 & 0.68 & 0.70 & 0.73 & 0.71 & 0.72 & 0.73 \\ 
+  BlockDistance.Biosses2017 & 0.76 & 0.77 & 0.77 & 0.73 & 0.68 & 0.70 & 0.73 & 0.71 & 0.72 & 0.73 \\ 
+  Qgram.nltk2018 & 0.74 & 0.76 & 0.75 & 0.70 & 0.67 & 0.69 & 0.74 & 0.75 & 0.74 & 0.73 \\ 
+  Qgram.Biosses2017 & 0.74 & 0.76 & 0.75 & 0.70 & 0.67 & 0.69 & 0.73 & 0.74 & 0.74 & 0.72 \\ 
+  Qgram.None & 0.72 & 0.75 & 0.73 & 0.71 & 0.69 & 0.70 & 0.72 & 0.75 & 0.73 & 0.72 \\ 
+  Jaccard.nltk2018 & 0.76 & 0.78 & 0.77 & 0.70 & 0.67 & 0.69 & 0.70 & 0.71 & 0.71 & 0.72 \\ 
+  Jaccard.Biosses2017 & 0.76 & 0.78 & 0.77 & 0.70 & 0.67 & 0.69 & 0.70 & 0.71 & 0.70 & 0.72 \\ 
+  OverlapCoefficient.nltk2018 & 0.76 & 0.77 & 0.76 & 0.68 & 0.55 & 0.61 & 0.71 & 0.70 & 0.71 & 0.69 \\ 
+  OverlapCoefficient.Biosses2017 & 0.75 & 0.76 & 0.76 & 0.69 & 0.55 & 0.61 & 0.71 & 0.70 & 0.70 & 0.69 \\ 
+  Jaccard.None & 0.70 & 0.74 & 0.72 & 0.68 & 0.67 & 0.67 & 0.66 & 0.68 & 0.67 & 0.69 \\ 
+  BlockDistance.None & 0.68 & 0.71 & 0.70 & 0.67 & 0.66 & 0.66 & 0.66 & 0.67 & 0.67 & 0.68 \\ 
+  OverlapCoefficient.None & 0.69 & 0.74 & 0.71 & 0.65 & 0.55 & 0.59 & 0.65 & 0.66 & 0.66 & 0.65 \\ 
+  Levenshtein.Biosses2017 & 0.53 & 0.51 & 0.52 & 0.62 & 0.64 & 0.63 & 0.43 & 0.45 & 0.44 & 0.53 \\ 
+  Levenshtein.nltk2018 & 0.54 & 0.52 & 0.53 & 0.62 & 0.64 & 0.63 & 0.43 & 0.44 & 0.44 & 0.53 \\ 
+  Levenshtein.None & 0.52 & 0.52 & 0.52 & 0.59 & 0.62 & 0.60 & 0.43 & 0.42 & 0.42 & 0.52 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}

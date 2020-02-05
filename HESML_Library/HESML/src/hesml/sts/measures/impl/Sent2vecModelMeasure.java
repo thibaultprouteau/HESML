@@ -42,7 +42,7 @@ import org.json.simple.parser.ParseException;
 
 class Sent2vecModelMeasure extends SentenceSimilarityMeasure
 {
-    // Path to the USE base directory (usually UniversalSentenceEncoderExperiments/).
+    // Path to the sent2vec base directory 
     
     private final String m_useDir;
     
