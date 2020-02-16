@@ -119,7 +119,8 @@ class AnnotationProcess implements IAnnotationProcess
         
         // Add the configuration for Metamap
         
-        String optionsApiJavaMetamap = "-dtyI";
+//        String optionsApiJavaMetamap = "-dy";
+        String optionsApiJavaMetamap = "-d";
         
         // Add the excluded semantic types (if exists)
         
@@ -128,7 +129,7 @@ class AnnotationProcess implements IAnnotationProcess
         // Set the options to the Java API
         
         m_apiJavaMetamap.setOptions(optionsApiJavaMetamap);  
-        
+    
         // Parse the text with Metamap and iterate the results
         
         List<Result> resultList = m_apiJavaMetamap.processCitationsFromString(strRawSentence);

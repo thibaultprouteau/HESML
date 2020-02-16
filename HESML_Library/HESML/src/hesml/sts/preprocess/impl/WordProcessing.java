@@ -217,7 +217,7 @@ class WordProcessing implements IWordProcessing
     
     @Override
     public String[] getWordTokens(
-            String  strRawSentence) throws IOException, InterruptedException
+            String  strRawSentence) throws IOException, InterruptedException, Exception
     {
         // Initialize tokens
         
@@ -228,30 +228,27 @@ class WordProcessing implements IWordProcessing
         String strFilteredSentence = new String(strRawSentence);
         
          // If Metamap finds Non-ASCII characteres, it doesn't parse the text.
+         // If Metamap finds EOL or double spaces, it doesn't parse the text.
         
-        if(m_metamapAnnotation) strFilteredSentence = strFilteredSentence.replaceAll("[^\\p{ASCII}]", "");
+        if(m_metamapAnnotation)
+        {
+            strFilteredSentence = strFilteredSentence.replaceAll("[^\\p{ASCII}]", "");
+            strFilteredSentence = strFilteredSentence.replaceAll("\n", " ");
+            strFilteredSentence = strFilteredSentence.replaceAll("  ", " ");
+        }
         
         // If the sentence has at least one alphanumeric character, preprocess it.
         
-        if(strFilteredSentence.length() > 1 
-                && m_pattern.matcher(strRawSentence).find())
-        {
+        if(strFilteredSentence.length() > 2 
+                && m_pattern.matcher(strFilteredSentence).find())
+        {           
             // Annotate the sentence if m_metamapAnnotation is true
             
-            if(m_metamapAnnotation)
-            {
+            if(m_metamapAnnotation && !strFilteredSentence.contains("\t"))
+            {               
                 // Annotate the sentence
-
-                try 
-                {
-                    strFilteredSentence = m_annotationProcess.annotate(strFilteredSentence);
-                } 
-                catch (Exception ex) 
-                {
-                    // Throws an exception is there is an error.
-
-                    Logger.getLogger(WordProcessing.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                strFilteredSentence = m_annotationProcess.annotate(strFilteredSentence);
             }
             
             // Tokenize the text

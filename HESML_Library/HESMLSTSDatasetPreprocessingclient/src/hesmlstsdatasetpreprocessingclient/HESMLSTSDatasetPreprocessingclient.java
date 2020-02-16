@@ -108,7 +108,9 @@ public class HESMLSTSDatasetPreprocessingclient
             String metamap = new String(args[1]);
             String is_server = new String(args[2]);
 
-            if(metamap == "true") metamapAnnotation = true;
+            if(metamap.equals("true")) metamapAnnotation = true;
+            
+            System.out.println("Metamap annotation set to " + metamap);
 
             switch(experimentName)
             {
@@ -159,13 +161,13 @@ public class HESMLSTSDatasetPreprocessingclient
             
             if("albali_server".equals(is_server))
             {
-                m_bioCManuscriptCorpusDir = "/data/ALICIA_THESIS/HESML_Library/BioCManuscriptCorpus/";
+                m_bioCManuscriptCorpusDir = "/data/ALICIA_THESIS/HESML_Library/BioCCorpus/";
                 m_preprocessedDocumentsOutputDir = "/data/ALICIA_THESIS/HESML_Library/PreprocessedPMCOpenAccessSubset/";
             }
             
             // If the texts are annotated with Metamap, change the output file name to _metamap.txt
             
-            if(metamapAnnotation)
+            if(metamapAnnotation == true)
             {
                 m_preprocessedDocumentsOutputName = m_preprocessedDocumentsOutputName.replace(".txt", "") + "_metamap.txt";
             }
@@ -209,7 +211,7 @@ public class HESMLSTSDatasetPreprocessingclient
             boolean                 saveAllSentencesToASingleFile,
             boolean                 metamapAnnotation) 
             throws IOException, XMLStreamException, 
-            FileNotFoundException, InterruptedException
+            FileNotFoundException, InterruptedException, Exception
     {
         //Calculate the execution time of the method
         

@@ -284,7 +284,7 @@ class Sent2vecModelMeasure extends SentenceSimilarityMeasure
             File        tempFileSentences,
             String[]    lstSentences1,
             String[]    lstSentences2) 
-            throws FileNotFoundException, IOException, InterruptedException
+            throws FileNotFoundException, IOException, InterruptedException, Exception
     {
         // We create the file to trasnfer the sentences to the BERT library
         

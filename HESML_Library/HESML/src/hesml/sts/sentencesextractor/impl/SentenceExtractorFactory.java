@@ -81,11 +81,15 @@ public class SentenceExtractorFactory
             IWordProcessing         preprocessing,
             boolean                 allInOneFile) 
             throws IOException, FileNotFoundException, 
-                XMLStreamException, InterruptedException 
+                XMLStreamException, InterruptedException, Exception 
     {
         // List all directories in the path
         
         File[] directories = new File(strDocumentsPathInput).listFiles(File::isDirectory);
+        
+        // Define a counter for reading files, for debugging purposes.
+        
+        Integer filesCounter = 0;
         
         //For each directory, list all files
         
@@ -144,6 +148,11 @@ public class SentenceExtractorFactory
                     File fileOutput = new File(strFileOutput);
                     HSTSDocumentFactory.writeSentencesToFile(documentWithSentences, fileOutput);
                 }
+                
+                // Every 100 files print the system logs.
+                
+                if(filesCounter%100 == 0) System.out.println("Total processed files: " + filesCounter.toString());
+                filesCounter++;
             }
         }
     }

@@ -54,7 +54,7 @@ public interface HSTSIDocument
      */
     
     void preprocessDocument() 
-            throws FileNotFoundException, IOException, InterruptedException;
+            throws FileNotFoundException, IOException, InterruptedException, Exception;
 
     /**
      * Save sentences for each document to an output file.

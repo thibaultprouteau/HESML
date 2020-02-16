@@ -147,7 +147,7 @@ class QgramMeasure extends SentenceSimilarityMeasure
     public double getSimilarityValue(
             String  strRawSentence1, 
             String  strRawSentence2) 
-            throws IOException, FileNotFoundException, InterruptedException 
+            throws IOException, FileNotFoundException, InterruptedException, Exception
     {
         // We initialize the output
 

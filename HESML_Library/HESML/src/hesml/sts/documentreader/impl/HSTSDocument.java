@@ -163,7 +163,7 @@ class HSTSDocument implements HSTSIDocument
     
     @Override
     public void preprocessDocument() 
-            throws FileNotFoundException, IOException, InterruptedException
+            throws FileNotFoundException, IOException, InterruptedException, Exception
     {
         // For each paragraph iterate the sentences
         

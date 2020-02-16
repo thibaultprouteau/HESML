@@ -51,5 +51,5 @@ public interface IWordProcessing
     
     String[] getWordTokens(
             String strRawSentence)  
-            throws FileNotFoundException, IOException, InterruptedException;
+            throws FileNotFoundException, IOException, InterruptedException, Exception;
 }

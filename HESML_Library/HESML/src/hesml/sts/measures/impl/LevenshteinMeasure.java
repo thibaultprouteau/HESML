@@ -144,7 +144,7 @@ class LevenshteinMeasure extends SentenceSimilarityMeasure
     public double getSimilarityValue(
             String strRawSentence1, 
             String strRawSentence2) 
-            throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException
+            throws IOException, FileNotFoundException, FileNotFoundException, InterruptedException, Exception
     {
         // We initialize the output
 
