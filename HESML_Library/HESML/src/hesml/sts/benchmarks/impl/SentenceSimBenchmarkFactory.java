@@ -375,9 +375,7 @@ public class SentenceSimBenchmarkFactory
                                         strStopWordsFileDir + "/" + strStopWordsFilename,
                                         convertToTokenizerType(readStringField(wordProcessingNode, "TokenizerType")),
                                         readBooleanField(wordProcessingNode, "LowercaseNormalization"),
-                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")),
-                                        containsFieldName(wordProcessingNode, "MetamapAnnotation")?readBooleanField(wordProcessingNode, 
-                                                "MetamapAnnotation"):false);
+                                        convertToCharFilteringType(readStringField(wordProcessingNode, "CharFilteringType")));
         // We return the result
         
         return (processer);
@@ -520,9 +518,7 @@ public class SentenceSimBenchmarkFactory
                                         strPythonScriptsDirectory,
                                         strPythonVirtualEnvironmentDir,
                                         strPythonScriptsDirectory + strPythonScript,
-                                        strBERTPretrainedModelDir + strBERTPretrainedModelFilename,
-                                        containsFieldName(wordProcessingNode, "MetamapAnnotation")?readBooleanField(wordProcessingNode, 
-                                                "MetamapAnnotation"):false);
+                                        strBERTPretrainedModelDir + strBERTPretrainedModelFilename);
         
         // We return the result
         

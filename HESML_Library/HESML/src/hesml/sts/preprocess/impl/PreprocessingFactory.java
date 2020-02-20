@@ -42,7 +42,6 @@ public class PreprocessingFactory
      * @param tokenizerType
      * @param lowercaseNormalization
      * @param charFilteringType
-     * @param metamapAnnotation
      * @return 
      * @throws java.io.IOException
      */
@@ -51,11 +50,10 @@ public class PreprocessingFactory
             String              stopWordFileName,
             TokenizerType       tokenizerType,
             boolean             lowercaseNormalization,
-            CharFilteringType   charFilteringType,
-            boolean             metamapAnnotation) throws IOException
+            CharFilteringType   charFilteringType) throws IOException
     {   
         return (new WordProcessing(tokenizerType,lowercaseNormalization,
-                stopWordFileName, charFilteringType, metamapAnnotation));
+                stopWordFileName, charFilteringType));
     }
     
     
@@ -70,7 +68,6 @@ public class PreprocessingFactory
      * @param modelDirPath
      * @param pythonVirtualEnvironmentDir
      * @param pythonScriptDir
-     * @param metamapAnnotation
      * @return 
      * @throws java.io.IOException
      */
@@ -83,11 +80,10 @@ public class PreprocessingFactory
             String              tempDir,
             String              pythonVirtualEnvironmentDir,
             String              pythonScriptDir,
-            String              modelDirPath,
-            boolean             metamapAnnotation) throws IOException
+            String              modelDirPath) throws IOException
     {   
         return (new WordProcessing(tokenizerType, lowercaseNormalization,
                 stopWordFileName, charFilteringType, tempDir,
-                pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath, metamapAnnotation));
+                pythonVirtualEnvironmentDir, pythonScriptDir, modelDirPath));
     }    
 }

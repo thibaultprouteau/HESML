@@ -61,8 +61,8 @@ public class HESMLSTSDatasetPreprocessingclient
     
     private static final String  m_strBaseDir = "../";
     private static final String  m_strStopWordsDir = m_strBaseDir + "StopWordsFiles/";
-    private static String  m_bioCManuscriptCorpusDir = "/home/alicia/Desktop/BioCManuscriptCorpus/";
-    private static String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "/PreprocessedPMCOpenAccessSubset/";
+    private static String  m_bioCManuscriptCorpusDir = m_strBaseDir + "BioCManuscriptCorpus/";
+    private static String  m_preprocessedDocumentsOutputDir = m_strBaseDir + "PreprocessedPMCOpenAccessSubset/";
     private static String  m_preprocessedDocumentsOutputName = "";
     
     /**
@@ -98,19 +98,12 @@ public class HESMLSTSDatasetPreprocessingclient
         TokenizerType tokenizerType = null;
         CharFilteringType charFilteringType = null;
         
-        boolean metamapAnnotation = false;
-        
         if ((args.length > 0))
         {
             // Get the preprocessing experiment
 
             String experimentName = new String(args[0]);
-            String metamap = new String(args[1]);
-            String is_server = new String(args[2]);
-
-            if(metamap.equals("true")) metamapAnnotation = true;
-            
-            System.out.println("Metamap annotation set to " + metamap);
+            String is_server = new String(args[1]);
 
             switch(experimentName)
             {
@@ -165,13 +158,6 @@ public class HESMLSTSDatasetPreprocessingclient
                 m_preprocessedDocumentsOutputDir = "/data/ALICIA_THESIS/HESML_Library/PreprocessedPMCOpenAccessSubset/";
             }
             
-            // If the texts are annotated with Metamap, change the output file name to _metamap.txt
-            
-            if(metamapAnnotation == true)
-            {
-                m_preprocessedDocumentsOutputName = m_preprocessedDocumentsOutputName.replace(".txt", "") + "_metamap.txt";
-            }
-            
             // If the file output exists, remove before append the new sentences
             
             File outputFile = new File(m_preprocessedDocumentsOutputDir 
@@ -187,7 +173,8 @@ public class HESMLSTSDatasetPreprocessingclient
         
         // Perform the preprocess
 
-        testD0(documentType, sentenceSplitterType, preprocessType, tokenizerType, charFilteringType, saveAllSentencesToASingleFile, metamapAnnotation);
+        testD0(documentType, sentenceSplitterType, preprocessType, 
+                tokenizerType, charFilteringType, saveAllSentencesToASingleFile);
     }
     
     /**
@@ -208,8 +195,7 @@ public class HESMLSTSDatasetPreprocessingclient
             SentenceExtractorType   preprocessType,
             TokenizerType           tokenizerType,
             CharFilteringType       charFilteringType,
-            boolean                 saveAllSentencesToASingleFile,
-            boolean                 metamapAnnotation) 
+            boolean                 saveAllSentencesToASingleFile) 
             throws IOException, XMLStreamException, 
             FileNotFoundException, InterruptedException, Exception
     {
@@ -223,7 +209,7 @@ public class HESMLSTSDatasetPreprocessingclient
         
         wordPreprocessing = PreprocessingFactory.getWordProcessing("", 
                                 tokenizerType, 
-                                true, charFilteringType, metamapAnnotation);
+                                true, charFilteringType);
         
         // Create the output subdirectories
         
