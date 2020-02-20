@@ -8,55 +8,47 @@ import logging
 logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
+# get the input parameters
+
+# get the pooling strategy an layers
 
 strPoolingStrategy = sys.argv[1]
 strPoolingLayer = sys.argv[2]
+
+# get the model path
+
 strModelPath = sys.argv[3]
+
+# get the input sentences and the output embedding paths.
+
 absPathTempSentencesFile = sys.argv[4] # the preprocessed sentences path in format: s1 \t s2 \n
 absPathTempVectorsFile = sys.argv[5] # the output path
-pythonServerPort = sys.argv[6] # the output path
 
-# ../BERTExperiments/venv/bin/python3 -W ignore ../BERTExperiments/extractBERTvectors.py NONE -2
-# ../BERTExperiments/PretrainedModels/biobert_v1.0_pubmed /home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempSentences.txt /home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempVecs.txt 5555
+# get the server port
 
-# strPoolingStrategy = "NONE"
-# strPoolingLayer = "-2"
-# strModelPath = "../BERTExperiments/PretrainedModels/biobert_v1.0_pubmed"
-# absPathTempSentencesFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempSentences.txt"
-# absPathTempVectorsFile = "/home/alicia/Desktop/HESML/HESML_Library/BERTExperiments/tempVecs.txt"
-# pythonServerPort = "5555"
+pythonServerPort = sys.argv[6]
 
 # The pooling layer is modified from "-2,-1" to "-2 -1"
 
 strPoolingLayer = " ".join(strPoolingLayer.split(","))
 
-# if pythonServerPort == 0, the server is already opened in a specific port
+# Set the python input and output server ports
 
-if pythonServerPort == "0":
-
-    ## INIT THE SERVER CODE ##
-
-    args = get_args_parser().parse_args([
-                                     '-pooling_strategy', strPoolingStrategy,
-                                     '-pooling_layer', strPoolingLayer,
-                                     '-model_dir', strModelPath,
-                                     '-port', '5555',
-                                     '-port_out', '5556',
-                                    # '-max_seq_len', 'NONE',
-                                    # '-mask_cls_sep',
-                                    #  '-verbose', 'True',
-                                    #  '-http_max_connect', '1000',
-                                     '-num_worker', '5',
-                                     '-cpu'])
-    server = BertServer(args)
-    server.start()
-
-    pythonServerPort_ = 5555
-
-else:
-    pythonServerPort_ = int(pythonServerPort)
-
+pythonServerPort_ = int(pythonServerPort)
 port_out_ = pythonServerPort_+1
+
+## INIT THE SERVER CODE ##
+
+args = get_args_parser().parse_args([
+                                 '-pooling_strategy', strPoolingStrategy,
+                                 '-pooling_layer', strPoolingLayer,
+                                 '-model_dir', strModelPath,
+                                 '-port', pythonServerPort_,
+                                 '-port_out', port_out_,
+                                 '-num_worker', '5',
+                                 '-cpu'])
+server = BertServer(args)
+server.start()
 
 ## INIT THE CLIENT CODE ##
 
