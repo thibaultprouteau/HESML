@@ -2,52 +2,67 @@
 <!-- edited with XMLSPY v5 U (http://www.xmlspy.com) by Ramon Yepes (Investronica) -->
 <SentenceSimilarityExperiments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../SentenceSimilarityExperiments.xsd">
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_BIOSSES.csv</OutputFilename>
+		<OutputFilename>BioSentenceSimFinalRawOutputFiles/raw_similarity_BIOSSES.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>BIOSSESNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Jaccard</Method>
+				<Label>Jaccard</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Qgram</Method>
+				<Label>Qgram</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>BlockDistance</Method>
+				<Label>BlockDistance</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -55,13 +70,13 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -69,39 +84,171 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Average</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Max</Label>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_defaultchar</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanford_skipgram_nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec2</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
 			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
@@ -112,17 +259,114 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pubmed_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<BertEmbeddingModelMeasure>
@@ -135,17 +379,42 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<WBSMMeasure>
@@ -156,13 +425,27 @@
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
+				<Label>WBSM Cai</Label>
+				<Method>WBSMMeasure</Method>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
+				<WordSimilarityMeasureType>Cai</WordSimilarityMeasureType>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -170,12 +453,12 @@
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure> -->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
@@ -184,8 +467,8 @@
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -198,8 +481,8 @@
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -212,27 +495,27 @@
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
-				<Label>WBSM CosineNormJiangConrath</Label>
+				<Label>WBSM CosNormJConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
 				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -240,8 +523,8 @@
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -254,61 +537,76 @@
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_MedSTSFull.csv</OutputFilename>
+		<OutputFilename>BioSentenceSimFinalRawOutputFiles/raw_similarity_MedSTSFull.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>MedStsFullNormalized.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Jaccard</Method>
+				<Label>Jaccard</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Qgram</Method>
+				<Label>Qgram</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>BlockDistance</Method>
+				<Label>BlockDistance</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -316,13 +614,13 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -330,39 +628,171 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Average</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Max</Label>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_defaultchar</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanford_skipgram_nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec2</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
 			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
@@ -373,17 +803,114 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pubmed_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<BertEmbeddingModelMeasure>
@@ -396,17 +923,42 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<WBSMMeasure>
@@ -417,13 +969,27 @@
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
+				<Label>WBSM Cai</Label>
+				<Method>WBSMMeasure</Method>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
+				<WordSimilarityMeasureType>Cai</WordSimilarityMeasureType>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -431,12 +997,12 @@
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure> -->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
@@ -445,8 +1011,8 @@
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -459,8 +1025,8 @@
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -473,27 +1039,27 @@
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
-				<Label>WBSM CosineNormJiangConrath</Label>
+				<Label>WBSM CosNormJConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
 				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -501,8 +1067,8 @@
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -515,61 +1081,76 @@
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 	<SingleDatasetSentenceSimilarityValuesExperiment>
-		<OutputFilename>raw_similarity_CTR.csv</OutputFilename>
+		<OutputFilename>BioSentenceSimFinalRawOutputFiles/raw_similarity_CTR.csv</OutputFilename>
 		<DatasetDirectory>../SentenceSimDatasets</DatasetDirectory>
 		<DatasetFilename>CTRNormalized_averagedScore.tsv</DatasetFilename>
 		<SentenceSimilarityMeasures>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Jaccard</Method>
+				<Label>Jaccard</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>Qgram</Method>
+				<Label>Qgram</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>BlockDistance</Method>
+				<Label>BlockDistance</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<StringBasedSentenceSimilarityMeasure>
 				<Method>OverlapCoefficient</Method>
+				<Label>OverlapCoefficient</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</StringBasedSentenceSimilarityMeasure>
+			<StringBasedSentenceSimilarityMeasure>
+				<Method>Levenshtein</Method>
+				<Label>Levenshtein</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
 				</WordProcessing>
 			</StringBasedSentenceSimilarityMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_extrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -577,13 +1158,13 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
-				<Pooling>Average</Pooling>
+				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bio_embedding_intrinsic</PretrainedModelFilename>
 				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
@@ -591,39 +1172,171 @@
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
-					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>BIOSSES</CharFilteringType>
-				</WordProcessing>
-			</SWEMMeasure>
-			<SWEMMeasure>
-				<Pooling>Average</Pooling>
-				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
-				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Average</Label>
-				<WordProcessing>
-					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
 			<SWEMMeasure>
 				<Pooling>Max</Pooling>
 				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
 				<PretrainedModelFilename>bioc_skipgram_defaultchar.vec</PretrainedModelFilename>
-				<PretrainedModelDirectory>../pretrainedModels</PretrainedModelDirectory>
-				<Label>fastText-BioC-skipgram-Max</Label>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_defaultchar</Label>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
 					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
 					<TokenizerType>BioCNLPTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>Default</CharFilteringType>
+					<CharFilteringType>None</CharFilteringType>
 				</WordProcessing>
 			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Defaultchar200dim_8ene.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Defaultchar200dim_8ene</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>bioc_skipgram_Nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>bioc_skipgram_Nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanford_skipgram_nonechar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanford_skipgram_nonechar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Max</Pooling>
+				<WordEmbeddingFileFormat>FastTextVecWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>stanf_skipgram_defaultchar200dim.vec</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>stanf_skipgram_defaultchar200dim</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-2.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-2</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<SWEMMeasure>
+				<Pooling>Average</Pooling>
+				<WordEmbeddingFileFormat>BioWordVecBinaryWordEmbedding</WordEmbeddingFileFormat>
+				<PretrainedModelFilename>BioNLP2016_PubMed-shuffle-win-30.bin</PretrainedModelFilename>
+				<PretrainedModelDirectory>../WordEmbeddings</PretrainedModelDirectory>
+				<Label>BioNLP2016_PubMed-shuffle-win-30</Label>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>BioCNLPTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</SWEMMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<USEModelMeasure>
+				<Label>universal-sentence-encoder-4</Label>
+				<Method>USEModel</Method>
+				<PretrainedModelURL>https://tfhub.dev/google/universal-sentence-encoder/4</PretrainedModelURL>
+				<PythonScriptsDirectory>../UniversalSentenceEncoderExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../UniversalSentenceEncoderExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractUniversalSentenceEncoderVectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</USEModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>Default</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
+			<Sent2vecModelMeasure>
+				<Label>sent2vec BioSentVec2</Label>
+				<Method>Sent2vecModel</Method>
+				<PretrainedModelDir>../SentenceEmbeddings/</PretrainedModelDir>
+				<PretrainedModelFile>BioSentVec_PubMed_MIMICIII-bigram_d700.bin</PretrainedModelFile>
+				<PythonScriptsDirectory>../Sent2vecExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../Sent2vecExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractSent2vecvectors.py</PythonScriptFilename>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>None</CharFilteringType>
+				</WordProcessing>
+			</Sent2vecModelMeasure>
 			<BertEmbeddingModelMeasure>
 				<Label>biobert_v1.0_pubmed</Label>
 				<Method>BERTEmbeddingModel</Method>
@@ -634,17 +1347,114 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5555</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>biobert_v1.0_pubmed</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5557</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>biobert_v1.0_pubmed_pmc</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>biobert_v1.0_pubmed_pmc</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5559</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>biobert_v1.0_pubmed_pmc</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5561</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5563</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_mimic_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<BertEmbeddingModelMeasure>
@@ -657,17 +1467,42 @@
 				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5565</PythonServerPort>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>NoneStopWords.txt</StopWordsFilename>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
 					<TokenizerType>WordPieceTokenizer</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
-					<CharFilteringType>None</CharFilteringType>
+					<CharFilteringType>BIOSSES</CharFilteringType>
 					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
 					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
 					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
 					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
 					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-12_H-768_A-12</PretrainedModelFilename>
+				</WordProcessing>
+			</BertEmbeddingModelMeasure>
+			<BertEmbeddingModelMeasure>
+				<Label>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</Label>
+				<Method>BERTEmbeddingModel</Method>
+				<Pooling>REDUCE_MEAN</Pooling>
+				<PoolingLayers>-2</PoolingLayers>
+				<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+				<PretrainedModelName>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelName>
+				<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+				<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+				<PythonScriptFilename>extractBERTvectors.py</PythonScriptFilename>
+				<PythonServerPort>5567</PythonServerPort>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
+					<TokenizerType>WordPieceTokenizer</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+					<PythonScriptsDirectory>../BERTExperiments/</PythonScriptsDirectory>
+					<PythonVirtualEnvironmentDir>../BERTExperiments/venv/bin/python3</PythonVirtualEnvironmentDir>
+					<PythonWordPieceTokenizerScript>WordPieceTokenization.py</PythonWordPieceTokenizerScript>
+					<PretrainedModelDirectory>../BERTExperiments/PretrainedModels/</PretrainedModelDirectory>
+					<PretrainedModelFilename>NCBI_BERT_pubmed_uncased_L-24_H-1024_A-16</PretrainedModelFilename>
 				</WordProcessing>
 			</BertEmbeddingModelMeasure>
 			<WBSMMeasure>
@@ -678,13 +1513,27 @@
 				<WordSimilarityMeasureType>Lin</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
+				<Label>WBSM Cai</Label>
+				<Method>WBSMMeasure</Method>
+				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
+				<WordNetDbFilename>data.noun</WordNetDbFilename>
+				<WordSimilarityMeasureType>Cai</WordSimilarityMeasureType>
+				<WordProcessing>
+					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
+					<LowercaseNormalization>true</LowercaseNormalization>
+					<CharFilteringType>BIOSSES</CharFilteringType>
+				</WordProcessing>
+			</WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM Rada</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -692,12 +1541,12 @@
 				<WordSimilarityMeasureType>Rada</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure> -->
 			<WBSMMeasure>
 				<Label>WBSM Resnik</Label>
 				<Method>WBSMMeasure</Method>
@@ -706,8 +1555,8 @@
 				<WordSimilarityMeasureType>Resnik</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -720,8 +1569,8 @@
 				<WordSimilarityMeasureType>WuPalmerFast</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -734,27 +1583,27 @@
 				<WordSimilarityMeasureType>JiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
 			<WBSMMeasure>
-				<Label>WBSM CosineNormJiangConrath</Label>
+				<Label>WBSM CosNormJConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
 				<WordNetDbFilename>data.noun</WordNetDbFilename>
 				<WordSimilarityMeasureType>CosineNormJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
 			</WBSMMeasure>
-			<WBSMMeasure>
+			<!--<WBSMMeasure>
 				<Label>WBSM WeightedJiangConrath</Label>
 				<Method>WBSMMeasure</Method>
 				<WordNetDbDir>../Wordnet-3.0/dict</WordNetDbDir>
@@ -762,8 +1611,8 @@
 				<WordSimilarityMeasureType>WeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
@@ -776,12 +1625,12 @@
 				<WordSimilarityMeasureType>CosineNormWeightedJiangConrath</WordSimilarityMeasureType>
 				<WordProcessing>
 					<StopWordsFileDir>../StopWordsFiles</StopWordsFileDir>
-					<StopWordsFilename>Biosses2017StopWords.txt</StopWordsFilename>
-					<TokenizerType>StanfordCoreNLPv3_9_1</TokenizerType>
+					<StopWordsFilename>nltk2018StopWords.txt</StopWordsFilename>
+					<TokenizerType>WhiteSpace</TokenizerType>
 					<LowercaseNormalization>true</LowercaseNormalization>
 					<CharFilteringType>BIOSSES</CharFilteringType>
 				</WordProcessing>
-			</WBSMMeasure>
+			</WBSMMeasure>-->
 		</SentenceSimilarityMeasures>
 	</SingleDatasetSentenceSimilarityValuesExperiment>
 </SentenceSimilarityExperiments>
