@@ -52,6 +52,27 @@ public abstract class SnomedSimilarityLibrary
     private static final int CONCEPT_ID = 0;
     private static final int ACTIVE_ID = 2;
     
+    
+    /**
+     * Constructor by default to build the Snomed HESML database
+     * @param strSnomedDir
+     * @param strSnomedDBconceptFileName
+     * @param strSnomedDBRelationshipsFileName
+     * @param strSnomedDBdescriptionFileName
+     * @throws Exception 
+     */
+
+    SnomedSimilarityLibrary() throws Exception
+    {
+        // We save the SNOMED filenames
+        
+        m_strSnomedDir = null;
+        m_strSnomedDBconceptFileName = null;
+        m_strSnomedDBRelationshipsFileName = null;
+        m_strSnomedDBdescriptionFileName = null;
+        m_strSNOMED_CUI_mappingfilename = null;
+    }
+    
     /**
      * Constructor to build the Snomed HESML database
      * @param strSnomedDir

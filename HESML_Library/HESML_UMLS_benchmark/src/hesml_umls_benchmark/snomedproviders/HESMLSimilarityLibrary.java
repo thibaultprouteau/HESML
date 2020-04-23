@@ -237,4 +237,20 @@ class HESMLSimilarityLibrary extends SnomedSimilarityLibrary
     {
         if (m_hesmlSnomedDatabase != null) m_hesmlSnomedDatabase.clear();
     }
+    
+    /**
+     * This function calculates the similarity given a list of CUI pairs. 
+     * 
+     * @param umlsCuiPairs
+     * @param strfirstUmlsCUI
+     * @param strSecondUmlsCUI
+     * @return
+     * @throws Exception 
+     */
+
+    @Override
+    public double[][] getSimilarity(String[][] umlsCuiPairs) throws Exception 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

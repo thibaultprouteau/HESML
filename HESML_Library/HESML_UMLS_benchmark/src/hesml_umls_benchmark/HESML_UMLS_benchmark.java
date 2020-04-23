@@ -72,8 +72,10 @@ public class HESML_UMLS_benchmark
          */
         
         SnomedBasedLibraryType[] libraries = new SnomedBasedLibraryType[]{
-                                                    SnomedBasedLibraryType.HESML,
-                                                    SnomedBasedLibraryType.SML};
+//                                                    SnomedBasedLibraryType.HESML,
+//                                                    SnomedBasedLibraryType.SML,
+                                                    SnomedBasedLibraryType.UMLS_SIMILARITY
+        };
         
         /**
          * We set the number of random concept pairs evaluated by each lirbary
