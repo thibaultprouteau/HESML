@@ -29,9 +29,11 @@ import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * * This class implements the SNOMED similarity library based on UMLS::Similarity.
@@ -45,7 +47,7 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      * SNOMED database
      */
     
-    private ISnomedCtDatabase   m_hesmlSnomedDatabase;
+    private final ISnomedCtDatabase   m_hesmlSnomedDatabase;
     
     /**
      * Vertexes contained in the HESML taxonomy encoding SNOMED
@@ -87,295 +89,87 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      */
     
     @Override
-    public double[][] getSimilarity(String[][] umlsCuiPairs) throws Exception 
+    public double[][] getSimilarity(String[][] umlsCuiPairs) throws FileNotFoundException, IOException, InterruptedException 
     {
         // Initialize the result
         
         double[][] similarity = new double[umlsCuiPairs.length][2];
         
-        similarity[0][0] = 1;
-        similarity[0][1] = 1.5;
-        similarity[1][0] = 3;
-        similarity[1][1] = 3.5;
+        // We write the temporal file with all the CUI pairs
         
         String temporalFile = "../UMLS_Similarity_Perl/tempFile.csv";
         this.writeCSVfile(umlsCuiPairs, temporalFile);
         
+        // Get the measure as Perl script input format
+
+        String measure = "";
+        
+        switch (this.m_measureType) 
+        {
+            case Lin:
+                measure = "lin";
+                break;
+            case FastRada:
+                measure = "cdist";
+                break;
+            case WuPalmer:
+                measure = "wup";
+                break;
+        }
+        
+        this.executePerlScript(measure);
+        
+        // We read the output from the Perl script
+        
+        String row = "";
+        BufferedReader csvReader = new BufferedReader(new FileReader("../UMLS_Similarity_Perl/tempFileOutput.csv"));
+        
+        for (int i = 0; i < umlsCuiPairs.length; i++)
+        {
+            row = csvReader.readLine();
+            String[] data = row.split(",");
+            similarity[i][0] = Double.valueOf(data[2]);
+            similarity[i][1] = Double.valueOf(data[3]);
+        }
+        
+        csvReader.close();
         
         // Return the result
         
         return similarity;
     }
-    
+   
     /**
-     * This function returns the degree of similarity between two
-     * SNOMED-CT concepts.
-     * @param word1
-     * @param word2
-     * @return 
-     */
-
-    @Override
-    public double getSimilarity(
-            String    str_firstCUID,
-            String    str_secondCUID)  throws Exception
-    {
-        // We evaluate the similarity measure
-        
-        double similarity = 0.0;
-        
-//        similarity = test_queryInputStream(str_firstCUID, str_secondCUID);
-        similarity = test_perlPredefinedScript(str_firstCUID, str_secondCUID);
-//        similarity = test_queryNotInputStream(str_firstCUID, str_secondCUID);
-        
-        // We return the result
-        
-        return (similarity);
-    }
-    
-//    /**
-//     * FUNCTION FOR TESTING PURPOSES ONLY. REMOVE.
-//     * 
-//     * Get the similarity using my own script.
-//     *  -> The Perl script waits for cuis codes and print similarity
-//     *  -> Load at once the Perl dependencies and then calculates the sim.
-//     * 
-//     * Working: NOTOK - Problems with 
-//     * 
-//     * 
-//     * @param str_firstCUID
-//     * @param str_secondCUID
-//     * @return 
-//     */
-//    
-//    private double test_queryInputStream(
-//            String str_firstCUID,
-//            String str_secondCUID) throws InterruptedException, IOException
-//    {
-//        //Initialize the result
-//        
-//        double similarity = 0;
-//        
-//        // The proccess is working, waiting for an user input
-//        
-//        System.out.print("Sending CUIs to the input buffer..." + str_firstCUID + " " + str_secondCUID);
-//        PrintWriter printer = new PrintWriter(m_process.getOutputStream());
-//        printer.print(str_firstCUID + "-" + str_secondCUID);
-//        printer.close();
-//
-//        // Wait for the Perl process
-//        
-//        m_process.waitFor();
-//
-//        // Read the results    
-//       
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(m_process.getInputStream()));
-//        String line;
-//        line = reader.readLine();
-//        if (line == null) {
-//            System.out.print("ERROR");
-//        }
-//        if (line.contains(str_firstCUID) && line.contains(str_secondCUID)) 
-//        {
-//            String[] split = line.split("<>");
-//            similarity = Double.parseDouble(split[1]);
-//        }
-//        else
-//        {
-//            System.out.print("ERROR");
-//        }
-//        
-//        // Return the result
-//        
-//        return similarity;
-//    }
-//    
-//    /**
-//     * FUNCTION FOR TESTING PURPOSES ONLY. REMOVE.
-//     * 
-//     * Get the similarity using my own script.
-//     *  -> The Perl script waits for cuis codes and print similarity
-//     *  -> Load every time the Perl dependencies and then calculates the sim.
-//     * 
-//     * Working: NOTOK - Problems with 
-//     * 
-//     * 
-//     * @param str_firstCUID
-//     * @param str_secondCUID
-//     * @return 
-//     */
-//    
-//    private double test_queryNotInputStream(
-//            String str_firstCUID,
-//            String str_secondCUID) throws InterruptedException, IOException
-//    {
-//        // Initialize the result
-//        
-//        double similarity = 0;
-//        
-//        // Initialize the execution time from Perl
-//        
-//        String execution_time = "";
-//        
-//        // Create the command line for Perl
-//        
-//        String perl_path = "perl "; // default to linux
-//
-//        String cmd = perl_path + "/home/alicia/HESML_UMLS/HESML_Library/UMLS_Similarity_Perl/getSimilarityFromCUIS.t "
-//                + str_firstCUID + " " + str_secondCUID;
-//        
-//        // System.out.println(cmd);
-//        
-//        m_process = Runtime.getRuntime().exec(cmd);
-//        
-//        // Wait for the Perl process result
-//        
-//        m_process.waitFor();
-//        
-//        // Read the similarity value from the buffer
-//        
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(m_process.getInputStream()));
-//        String line;
-//        line = reader.readLine();
-//        if (line == null) {
-//            System.out.print("ERROR");
-//        }
-//        if (line.contains(str_firstCUID) && line.contains(str_secondCUID)) 
-//        {
-//            String[] split = line.split("<>");
-//            similarity = Double.parseDouble(split[1]);
-//            // execution_time = split[2];
-//        }
-//        
-//        // Return the result
-//        
-//        return similarity;
-//    }
-    
-    /**
-     * FUNCTION FOR TESTING PURPOSES ONLY. REMOVE.
-     * 
-     * Get the similarity using the similarity perl script.
-     * 
-     * - Working OK
-     * - Problem:
-     *  (a) VERY SLOWLY - Loads every time the configuration...
-     * 
-     * @param firstConceptSnomedID
-     * @param secondConceptSnomedID
-     * @return
-     * @throws Exception 
+     * Execute the Perl script.
+     * This function executes the script that call the UMLS::Similarity library 
+     * and writes in an output file the result.
      */
     
-    private double test_perlPredefinedScript(
-            String str_firstCUID,
-            String str_secondCUID)  throws Exception
+    private void executePerlScript(
+            String measure) throws InterruptedException, IOException
     {
-        //Initialize the result
+        // Create the command line for Perl
         
-        double similarity = 0;
-        
-        // Initialize and execute the Perl command
-        
-        String perl_path = "perl /"; // default to linux
+        String perl_path = "perl "; // default to linux
 
-        String cmd = perl_path
-                + "home/alicia/Desktop/UMLS-Similarity-1.47/utils/umls-similarity.pl "
-                + "--measure lin "
-                + "--realtime "
-                + "--config /home/alicia/HESML_UMLS/HESML_Library/UMLS_Similarity_Perl/measures.config "
-                + str_firstCUID + " " + str_secondCUID;
+        String cmd = perl_path + "../UMLS_Similarity_Perl/getSimilarityFromCUIS.t "
+                + measure;
+        
+        System.out.println("Executing the Perl script for calculating UMLS::Similarity");
+        System.out.println(cmd);
+        
+        // Execute the script
+        
         Process process = Runtime.getRuntime().exec(cmd);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        bw.write("Perlumls2020\n"); 
+        bw.flush();
         
-        // Wait for the Perl process
-
+        // Wait for the Perl process result
+        
         process.waitFor();
-
-        // Read the results
-
-        BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while (true) {
-            line = r.readLine();
-            if (line == null) {
-                break;
-            }
-            //System.out.println(line);
-            if (line.contains(str_firstCUID) && line.contains(str_secondCUID)) {
-                String[] split = line.split("<>");
-                try {
-                    similarity = Double.parseDouble(split[0]);
-                    System.out.println(similarity);
-                } catch (NumberFormatException e) {
-                }
-            }
-        }
         
-        // Return the results 
-        
-        return similarity;
-    }
-    
-    /**
-     * FUNCTION FOR TESTING PURPOSES ONLY. REMOVE.
-     * 
-     * Get the similarity using the web interface.
-     * 
-     * - Working OK
-     * - Problem:
-     *  (a) VERY SLOWLY
-     *  (b) Not working with SNOMED-CT only.
-     * 
-     * @param firstConceptSnomedID
-     * @param secondConceptSnomedID
-     * @return
-     * @throws Exception 
-     */
-    
-    private double test_webInterface(
-            long    firstConceptSnomedID,
-            long    secondConceptSnomedID)  throws Exception
-    {
-        // Initialize the result
-        
-        double similarity = 0;
-        
-        // Create and execute the perl command
-        
-        String perl_path = "perl /"; // default to linux
-
-        String cmd = perl_path
-                + "home/alicia/Desktop/UMLS-Similarity-1.47/utils/"
-                + "query-umls-similarity-webinterface.pl --measure cdist "
-                + "head" + " " + "foot";
-        Process process = Runtime.getRuntime().exec(cmd);
-        
-        // Wait the Perl process
-
-        process.waitFor();
-
-        // Read the result
-        
-        BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while (true) {
-            line = r.readLine();
-            if (line == null) {
-                break;
-            }
-            if (line.contains("head") && line.contains("foot")) {
-                String[] split = line.split("<>");
-                try {
-                    similarity = Double.parseDouble(split[0]);
-                    System.out.println(similarity);
-                } catch (NumberFormatException e) {
-                }
-            }
-        }
-        
-        // Return the result
-        
-        return similarity;
+        System.out.println("Finished the execution of the Perl script");
     }
     
     /**
@@ -484,5 +278,10 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // We close the file
         
         writer.close();
+    }
+
+    @Override
+    public double getSimilarity(String strfirstUmlsCUI, String strSecondUmlsCUI) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

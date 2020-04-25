@@ -81,7 +81,9 @@ public class SnomedLibraryFactory
                 
             case UMLS_SIMILARITY:
                 
-                throw (new Exception("Nor impleented"));
+                library = new UMLSSimilarityLibrary();
+                
+                break;
         }
         
         // We return the result

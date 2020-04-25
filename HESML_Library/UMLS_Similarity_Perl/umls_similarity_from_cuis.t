@@ -1,21 +1,4 @@
 #!/usr/bin/perl
-
-
-use lib '/home/alicia/perl5/lib/perl5';
-use lib '/home/alicia/perl5/lib/perl5/5.26.1/x86_64-linux-gnu-thread-multi';
-use lib '/home/alicia/perl5/lib/perl5/5.26.1';
-use lib '/home/alicia/perl5/lib/perl5/x86_64-linux-gnu-thread-multi';
-use lib '/etc/perl';
-use lib '/usr/local/lib/x86_64-linux-gnu/perl/5.26.1';
-use lib '/usr/local/share/perl/5.26.1';
-use lib '/usr/lib/x86_64-linux-gnu/perl5/5.26';
-use lib '/usr/share/perl';
-use lib '/usr/lib/x86_64-linux-gnu/perl/5.26';
-use lib '/usr/share/perl/5.26o';
-use lib '/home/alicia/perl5/lib/perl5/5.26.0';
-use lib '/home/alicia/perl5/lib/perl5/5.26.0/x86_64-linux-gnu-thread-multi';
-use lib '/usr/local/lib/site_perl';
-use lib '/usr/lib/x86_64-linux-gnu/perl-base';
 use Time::HiRes qw[gettimeofday tv_interval];
 use Text::CSV;
 
@@ -42,26 +25,14 @@ my %pathoptions = ();
 # Initialize the options hash
 
 
-
- my %option_hash = ();
-#  check the realtime option
- #%option_hash{"verbose"} = 1;
-# $option_hash{"config"} = "measures.config";
-#$option_hash{"forcerun"} = 1;
 my $umls = UMLS::Interface->new({
     #"realtime"      => "1",
     #"verbose"       => "1",
     "config"        => "measure.config",
     #"debugpath"     => "file"
 });
-
-#$umls->reConfig({
-#    "realtime"      => "1",
-#    "verbose"       => "1",
-#    "config"        => "measure.config",
-#    "debugpath"     => "file"});
-
 die "Unable to create UMLS::Interface object." if(!$umls);
+
 my $sab   = "SNOMEDCT_US";
 #  load the module implementing the Leacock and
 #  Chodorow (1998) measure
@@ -131,6 +102,7 @@ if($measure eq "zhong")
 
 if($measure eq "path")
 {
+    $umls->reConfig({"config" => "pathmeasures.config"});
     use UMLS::Similarity::path;
     $meas = UMLS::Similarity::path->new($umls);
 }
@@ -140,6 +112,7 @@ if($measure eq "path")
 
 if($measure eq "upath")
 {
+    $umls->reConfig({"config" => "pathmeasures.config"});
     use UMLS::Similarity::upath;
     $meas = UMLS::Similarity::upath->new($umls, %pathoptions);
 }
@@ -204,6 +177,12 @@ die "Unable to create UMLS::Similarity object." if(!$meas);
 
 my $csv = Text::CSV->new({ sep_char => ';' });
 
+my $csv_write = Text::CSV->new({ binary => 1, auto_diag => 1, eol => "\n"})
+        or die "Cannot use CSV: " . Text::CSV->error_diag();
+
+# open in append mode
+open my $fh, ">>", "tempFileOutput.csv" or die "Failed to open file: $!";
+
 # Reading the file
 
 while (my $line = <$cuis_csv_codes>)
@@ -213,19 +192,27 @@ while (my $line = <$cuis_csv_codes>)
     # Parsing the line
     if ($csv->parse($line))
     {
-        # Extracting elements
         my @words = $csv->fields();
         my $cui1 = $words[0];
         my $cui2 = $words[1];
 
-        my $start_run = [gettimeofday()];
+        # my $start_run = [gettimeofday()];
+	my $start_run = time();
 
         my $pvalue = $meas->getRelatedness($cui1, $cui2);
+	
+	my $end_run = time();
+	my $run_time = $end_run - $start_run;
+        # my $run_time = tv_interval($start_run)*1000;
 
-        my $run_time = tv_interval($start_run)*1000;
+        # print "The similarity between $cui1 and $cui2 is <> $pvalue <> $run_time";
 
-        print "The path similarity between $cui1 and $cui2 is <> $pvalue <> $run_time";
+	$csv_write->print($fh, [ $cui1, $cui2, $pvalue, $run_time ]);
 
-        print "\n";
+        # print "\n";
     }
 }
+
+# close the file
+
+close $fh;
