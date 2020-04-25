@@ -312,4 +312,18 @@ class SMLSimilarityLibrary extends SnomedSimilarityLibrary
         // We force the release of memory
         System.gc();
     }
+    
+    /**
+     * This function calculates the similarity given a list of CUI pairs. 
+     * 
+     * @param umlsCuiPairs
+     * @return
+     * @throws Exception 
+     */
+
+    @Override
+    public double[][] getSimilarity(String[][] umlsCuiPairs) throws Exception 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 }

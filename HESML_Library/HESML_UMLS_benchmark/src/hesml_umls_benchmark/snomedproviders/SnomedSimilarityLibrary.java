@@ -45,12 +45,33 @@ public abstract class SnomedSimilarityLibrary
     protected String  m_strSNOMED_CUI_mappingfilename;
     
     /**
-     * Column offset for the main attributes extratec from concept and
-     * relationsship files.
+     * Column offset for the main attributes EXTRACTED
+     * from concept and
+     * relationship files.
      */
     
     private static final int CONCEPT_ID = 0;
     private static final int ACTIVE_ID = 2;
+    
+    /**
+     * Constructor by default to build the Snomed HESML database
+     * @param strSnomedDir
+     * @param strSnomedDBconceptFileName
+     * @param strSnomedDBRelationshipsFileName
+     * @param strSnomedDBdescriptionFileName
+     * @throws Exception 
+     */
+
+    SnomedSimilarityLibrary() throws Exception
+    {
+        // We save the SNOMED filenames
+        
+        m_strSnomedDir = null;
+        m_strSnomedDBconceptFileName = null;
+        m_strSnomedDBRelationshipsFileName = null;
+        m_strSnomedDBdescriptionFileName = null;
+        m_strSNOMED_CUI_mappingfilename = null;
+    }
     
     /**
      * Constructor to build the Snomed HESML database

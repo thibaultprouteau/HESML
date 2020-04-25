@@ -32,11 +32,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 /**
  * * This class implements the SNOMED similarity library based on UMLS::Similarity.
@@ -57,10 +52,10 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      */
     
     private IVertexList m_hesmlVertexes;
-   
+    
     private IntrinsicICModelType    m_icModel;
     private SimilarityMeasureType   m_measureType;
-
+    
     /**
      * Constructor to build the Snomed HESML database
      * @param strSnomedDir
@@ -81,7 +76,7 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         m_hesmlSnomedDatabase = null;
     }
     
-        /**
+    /**
      * This function calculates the similarity given a list of CUI pairs. 
      * 
      * @param umlsCuiPairs
@@ -90,7 +85,7 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      * @return
      * @throws Exception 
      */
-
+    
     @Override
     public double[][] getSimilarity(String[][] umlsCuiPairs) throws Exception 
     {
@@ -105,7 +100,6 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         String temporalFile = "../UMLS_Similarity_Perl/tempFile.csv";
         this.writeCSVfile(umlsCuiPairs, temporalFile);
-
         
         
         // Return the result
