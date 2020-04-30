@@ -32,8 +32,6 @@ import hesml.taxonomyreaders.snomed.ISnomedCtDatabase;
 import hesml.taxonomyreaders.snomed.impl.SnomedCtFactory;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
-import java.util.HashSet;
-import org.openrdf.model.URI;
 
 /**
  * This class implementes the SNOMED similarity library based on HESML.
@@ -236,19 +234,5 @@ class HESMLSimilarityLibrary extends SnomedSimilarityLibrary
     public void unloadSnomed()
     {
         if (m_hesmlSnomedDatabase != null) m_hesmlSnomedDatabase.clear();
-    }
-    
-    /**
-     * This function calculates the similarity given a list of CUI pairs. 
-     * 
-     * @param umlsCuiPairs
-     * @return
-     * @throws Exception 
-     */
-
-    @Override
-    public double[][] getSimilarity(String[][] umlsCuiPairs) throws Exception 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

@@ -26,6 +26,7 @@ import hesml.measures.SimilarityMeasureType;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
 import hesml_umls_benchmark.snomedproviders.SnomedSimilarityLibrary;
+import hesml_umls_benchmark.snomedproviders.UMLSSimilarityLibrary;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -209,17 +210,21 @@ class RandomConceptsEvalBenchmark extends UMLSLibBenchmark
         
         if(library.getLibraryType() == SnomedBasedLibraryType.UMLS_SIMILARITY)
         {
-            // We evaluate the similarity of a list of pairs of concepts at once
+            // We make a casting to the UMLS::Similarity library
+            
+            UMLSSimilarityLibrary pedersenLib = (UMLSSimilarityLibrary) library;
+            
+            // We evaluate the similarity of a list of pairs of concepts at once.
             // The function also returns the running times for each run
             // similarityWithRunningTimes[similarity_i][runningTime_ị]
             
-            double[][] similarityWithRunningTimes = library.getSimilarity(umlsCuiPairs);
+            double[][] similarityWithRunningTimes = pedersenLib.getSimilaritiesAndRunningTimes(umlsCuiPairs);
             
             // Calculate the accumulated time for each iteration
 
-            for(double[] similarityWithRunningTime : similarityWithRunningTimes)
+            for (int i = 0; i < similarityWithRunningTimes.length; i++)
             {
-                accumulatedTime += similarityWithRunningTime[1];
+                accumulatedTime += similarityWithRunningTimes[i][1];
             }
         }
         else

@@ -76,17 +76,6 @@ public interface ISnomedSimilarityLibrary
             String  strSecondUmlsCUI) throws Exception;
     
     /**
-     * This function returns the degree of similarity between a set of pairs of
-     * UMLS concepts.
-     * @param umlsCuiPairs
-     * @return List of pairs similarityValue-runningTime for each pair of concepts
-     * @throws java.lang.Exception
-     */
-    
-    double[][] getSimilarity(
-            String[][] umlsCuiPairs) throws Exception;
-    
-    /**
      * We release the resources associated to this object
      */
     

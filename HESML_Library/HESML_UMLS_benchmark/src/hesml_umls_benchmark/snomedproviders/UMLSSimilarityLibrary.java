@@ -23,8 +23,6 @@ package hesml_umls_benchmark.snomedproviders;
 
 import hesml.configurators.IntrinsicICModelType;
 import hesml.measures.SimilarityMeasureType;
-import hesml.taxonomy.IVertexList;
-import hesml.taxonomyreaders.snomed.ISnomedCtDatabase;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
 import java.io.BufferedReader;
@@ -34,29 +32,29 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 
 /**
  * * This class implements the SNOMED similarity library based on UMLS::Similarity.
  * @author alicia
  */
 
-class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
+public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         implements ISnomedSimilarityLibrary
 {
     /**
-     * SNOMED database
+     * IC model and measure type evaluated by the library
      */
-    
-    private final ISnomedCtDatabase   m_hesmlSnomedDatabase;
-    
-    /**
-     * Vertexes contained in the HESML taxonomy encoding SNOMED
-     */
-    
-    private IVertexList m_hesmlVertexes;
     
     private IntrinsicICModelType    m_icModel;
     private SimilarityMeasureType   m_measureType;
+    
+    /**
+     * Directory used to create the Perl script which calls the 
+     * UMLS:Similarity libray
+     */
+    
+    private final String    m_PerlScriptDir;
     
     /**
      * Constructor to build the Snomed HESML database
@@ -73,14 +71,16 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         super();   
         
-        // We initialize the object
+        // We obtain the temporary directory used for the evaluatio script
         
-        m_hesmlSnomedDatabase = null;
+        m_PerlScriptDir = System.getProperty("java.io.tmpdir");
+        //"../UMLS_Similarity_Perl";
     }
     
     /**
-     * This function calculates the similarity given a list of CUI pairs. 
-     * 
+     * This function calculates the degre of similairity for each concept pairs.
+     * In addition, this function returns the running time in seconds for each
+     * independent evaluation.
      * @param umlsCuiPairs
      * @param strfirstUmlsCUI
      * @param strSecondUmlsCUI
@@ -88,8 +88,9 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      * @throws Exception 
      */
     
-    @Override
-    public double[][] getSimilarity(String[][] umlsCuiPairs) throws FileNotFoundException, IOException, InterruptedException 
+    public double[][] getSimilaritiesAndRunningTimes(
+            String[][]  umlsCuiPairs) throws FileNotFoundException, IOException,
+                                        InterruptedException, Exception 
     {
         // Initialize the result
         
@@ -97,37 +98,33 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         // We write the temporal file with all the CUI pairs
         
-        String temporalFile = "../UMLS_Similarity_Perl/tempFile.csv";
-        this.writeCSVfile(umlsCuiPairs, temporalFile);
+        String tempFile = m_PerlScriptDir + "/tempFile.csv";
+        
+        // We write the input file for the Perl script
+        
+        writeCSVfile(umlsCuiPairs, tempFile);
         
         // Get the measure as Perl script input format
 
-        String measure = "";
+        String measure = convertHesmlMeasureTypeToUMLS_Sim(m_measureType);
+
+        // We execute the Perl script
         
-        switch (this.m_measureType) 
-        {
-            case Lin:
-                measure = "lin";
-                break;
-            case FastRada:
-                measure = "cdist";
-                break;
-            case WuPalmer:
-                measure = "wup";
-                break;
-        }
+        executePerlScript(measure);
         
-        this.executePerlScript(measure);
+        // We read the output from the Perl script.
+        // Each row has the following format: CUI1 | CUI2 | similarity | time
         
-        // We read the output from the Perl script
-        
-        String row = "";
-        BufferedReader csvReader = new BufferedReader(new FileReader("../UMLS_Similarity_Perl/tempFileOutput.csv"));
+        BufferedReader csvReader = new BufferedReader(new FileReader(m_PerlScriptDir + "/tempFileOutput.csv"));
         
         for (int i = 0; i < umlsCuiPairs.length; i++)
         {
-            row = csvReader.readLine();
-            String[] data = row.split(",");
+            // We read the next output line and retrieve
+            
+            String[] data = csvReader.readLine().split(",");
+            
+            // We read the degree of similarity and running time
+            
             similarity[i][0] = Double.valueOf(data[2]);
             similarity[i][1] = Double.valueOf(data[3]);
         }
@@ -136,24 +133,79 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         // Return the result
         
-        return similarity;
+        return (similarity);
+    }
+    
+    /**
+     * This function converts a HESML similarity measure type to the
+     * closest measure type in UMLS::Similarity.
+     * @param hesmlMeasureType
+     * @return
+     * @throws Exception 
+     */
+    
+    private String convertHesmlMeasureTypeToUMLS_Sim(
+            SimilarityMeasureType   hesmlMeasureType) throws Exception
+    {
+        // We fill a hasmMap with the conversion
+        
+        HashMap<SimilarityMeasureType, String> conversionMap = new HashMap<>();
+        
+        // We fill the conversion map
+        
+        conversionMap.put(SimilarityMeasureType.Lin, "lin");
+        conversionMap.put(SimilarityMeasureType.Resnik, "res");
+        conversionMap.put(SimilarityMeasureType.JiangConrath, "jcn");
+        conversionMap.put(SimilarityMeasureType.CosineNormJiangConrath, "jcn");
+        conversionMap.put(SimilarityMeasureType.CosineNormWeightedJiangConrath, "jcn");
+        conversionMap.put(SimilarityMeasureType.WeightedJiangConrath, "jcn");
+        conversionMap.put(SimilarityMeasureType.FaITH, "faith");
+        conversionMap.put(SimilarityMeasureType.WuPalmer, "wup");
+        conversionMap.put(SimilarityMeasureType.WuPalmerFast, "wup");
+        conversionMap.put(SimilarityMeasureType.Rada, "cdist");
+        conversionMap.put(SimilarityMeasureType.LeacockChodorow, "lch");
+        conversionMap.put(SimilarityMeasureType.PedersenPath, "path");
+        conversionMap.put(SimilarityMeasureType.PekarStaab, "pks");
+        conversionMap.put(SimilarityMeasureType.Sanchez2012, "sanchez");
+
+        // We check that the measure is implemented by thius library
+        
+        if (!conversionMap.containsKey(hesmlMeasureType))
+        {
+            throw (new Exception(hesmlMeasureType.toString() +
+                    " is not implemented by UMLS::Similarity"));
+        }
+        
+        // We get the output measure tyoe
+        
+        String strUMLSimMeasureType = conversionMap.get(hesmlMeasureType);
+        
+        // We release the conversion table
+        
+        conversionMap.clear();
+        
+        // We return the result
+        
+        return (strUMLSimMeasureType);
     }
    
     /**
      * Execute the Perl script.
      * This function executes the script that call the UMLS::Similarity library 
      * and writes in an output file the result.
+     * @param measureType
      */
     
     private void executePerlScript(
-            String measure) throws InterruptedException, IOException
+            String measureType) throws InterruptedException, IOException
     {
         // Create the command line for Perl
         
         String perl_path = "perl "; // default to linux
 
-        String cmd = perl_path + "../UMLS_Similarity_Perl/getSimilarityFromCUIS.t "
-                + measure;
+        // We build the command to call the evaluation Perl script
+        
+        String cmd = perl_path + m_PerlScriptDir + "//getSimilarityFromCUIS.t " + measureType;
         
         System.out.println("Executing the Perl script for calculating UMLS::Similarity");
         System.out.println(cmd);
@@ -161,7 +213,9 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // Execute the script
         
         Process process = Runtime.getRuntime().exec(cmd);
+        
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        
         bw.write("Perlumls2020\n"); 
         bw.flush();
         
@@ -179,7 +233,6 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
     @Override
     public void clear()
     {
-        unloadSnomed();
     }
 
     /**
@@ -216,8 +269,6 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
     @Override
     public void loadSnomed() throws Exception
     {
-        // We load the SNOMED database and get the vertex list of its taxonomy
-        String a = "empty method";
     }
     
     /**
@@ -227,7 +278,6 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
     @Override
     public void unloadSnomed()
     {
-        if (m_hesmlSnomedDatabase != null) m_hesmlSnomedDatabase.clear();
     }
     
     /**
@@ -254,15 +304,8 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
             
             String strLine = "\n" + strDataMatrix[iRow][0];
             
-            if(iRow == 0)
-            {
-                strLine = strDataMatrix[iRow][0];
-            }
+            if(iRow == 0) strLine = strDataMatrix[iRow][0];
                 
-            // We initialize the line
-            
-            
-            
             // We build the row
             
             for (int iCol = 1; iCol < strDataMatrix[0].length; iCol++)
@@ -280,8 +323,20 @@ class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         writer.close();
     }
 
+    /**
+     * This function evaluates the degreee of similarity between a pair od
+     * UMLS concepts.
+     * @param strfirstUmlsCUI
+     * @param strSecondUmlsCUI
+     * @return
+     * @throws Exception 
+     */    
+    
     @Override
-    public double getSimilarity(String strfirstUmlsCUI, String strSecondUmlsCUI) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double getSimilarity(
+            String  strfirstUmlsCUI,
+            String  strSecondUmlsCUI) throws Exception
+    {
+        throw new UnsupportedOperationException("This function is not supported.");
     }
 }
