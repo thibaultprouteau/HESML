@@ -27,11 +27,13 @@ import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
@@ -55,6 +57,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      */
     
     private final String    m_PerlScriptDir;
+    private final String    m_PerlTempDir;
     
     /**
      * Constructor to build the Snomed HESML database
@@ -71,10 +74,13 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         super();   
         
-        // We obtain the temporary directory used for the evaluatio script
+        // We obtain the temporary directory used for the evaluation script
         
-        m_PerlScriptDir = System.getProperty("java.io.tmpdir");
-        //"../UMLS_Similarity_Perl";
+        m_PerlScriptDir = new File("../UMLS_Similarity_Perl").getCanonicalPath();
+        
+        // We obtain the directory for temporary files
+        
+        m_PerlTempDir = System.getProperty("java.io.tmpdir");
     }
     
     /**
@@ -82,10 +88,10 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      * In addition, this function returns the running time in seconds for each
      * independent evaluation.
      * @param umlsCuiPairs
-     * @param strfirstUmlsCUI
-     * @param strSecondUmlsCUI
      * @return
+     * @throws java.io.FileNotFoundException
      * @throws Exception 
+     * @throws java.lang.InterruptedException 
      */
     
     public double[][] getSimilaritiesAndRunningTimes(
@@ -98,7 +104,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         
         // We write the temporal file with all the CUI pairs
         
-        String tempFile = m_PerlScriptDir + "/tempFile.csv";
+        String tempFile = m_PerlTempDir + "/tempFile.csv";
         
         // We write the input file for the Perl script
         
@@ -115,7 +121,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // We read the output from the Perl script.
         // Each row has the following format: CUI1 | CUI2 | similarity | time
         
-        BufferedReader csvReader = new BufferedReader(new FileReader(m_PerlScriptDir + "/tempFileOutput.csv"));
+        BufferedReader csvReader = new BufferedReader(new FileReader(m_PerlTempDir + "/tempFileOutput.csv"));
         
         for (int i = 0; i < umlsCuiPairs.length; i++)
         {
@@ -163,6 +169,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         conversionMap.put(SimilarityMeasureType.WuPalmer, "wup");
         conversionMap.put(SimilarityMeasureType.WuPalmerFast, "wup");
         conversionMap.put(SimilarityMeasureType.Rada, "cdist");
+        conversionMap.put(SimilarityMeasureType.FastRada, "cdist");
         conversionMap.put(SimilarityMeasureType.LeacockChodorow, "lch");
         conversionMap.put(SimilarityMeasureType.PedersenPath, "path");
         conversionMap.put(SimilarityMeasureType.PekarStaab, "pks");
@@ -205,7 +212,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
 
         // We build the command to call the evaluation Perl script
         
-        String cmd = perl_path + m_PerlScriptDir + "//getSimilarityFromCUIS.t " + measureType;
+        String cmd = perl_path + m_PerlScriptDir + "/umls_similarity_from_cuis.t " + measureType;
         
         System.out.println("Executing the Perl script for calculating UMLS::Similarity");
         System.out.println(cmd);
@@ -213,15 +220,34 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // Execute the script
         
         Process process = Runtime.getRuntime().exec(cmd);
+       
+        process.waitFor();
         
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        InputStream stdin = process.getErrorStream();
+        InputStreamReader isr = new InputStreamReader(stdin);
+        BufferedReader br = new BufferedReader(isr);
+        String line = null;
+        System.out.println("<OUTPUT>");
+        while ( (line = br.readLine()) != null)
+            System.out.println(line);
+        System.out.println("</OUTPUT>");
+        int exitVal = process.waitFor();            
+        System.out.println("Process exitValue: " + exitVal);
         
-        bw.write("Perlumls2020\n"); 
-        bw.flush();
+        InputStream stdin2 = process.getInputStream();
+        InputStreamReader isr2 = new InputStreamReader(stdin2);
+        BufferedReader br2 = new BufferedReader(isr);
+        String line2 = null;
+        System.out.println("<OUTPUT>");
+        while ( (line2 = br2.readLine()) != null)
+            System.out.println(line2);
+        System.out.println("</OUTPUT>");
+        int exitVal2 = process.waitFor();            
+        System.out.println("Process exitValue: " + exitVal2);
         
         // Wait for the Perl process result
         
-        process.waitFor();
+
         
         System.out.println("Finished the execution of the Perl script");
     }
@@ -233,6 +259,12 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
     @Override
     public void clear()
     {
+        unloadSnomed();
+        
+        // Remove temporal files
+        
+        this.removeFile(m_PerlTempDir + "/tempFile.csv");
+        this.removeFile(m_PerlTempDir + "/tempFileOutput.csv");
     }
 
     /**
@@ -321,6 +353,18 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // We close the file
         
         writer.close();
+    }
+    
+    /**
+     * Remove temporal files 
+     * 
+     * @param filePath 
+     */
+    protected void removeFile(
+            String filePath)
+    {
+        File file = new File(filePath); 
+        file.delete();
     }
 
     /**

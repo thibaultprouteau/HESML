@@ -5,11 +5,16 @@ use Text::CSV;
 
 use UMLS::Interface;
 
+use Cwd qw(cwd);
+my $dir = cwd;
+ 
+
+
 my $measure = $ARGV[0] or die "Unable to read the measure input [path|upath|wup|cmatch|batet|sanchez|pks|closeness|zhong|lch|cdist|nam|vector|res|lin|faith|random|jcn|lesk|o1vector]\n";
 
 # load the csv file with the list of CUIs codes
 
-my $file = "tempFile.csv";
+my $file = "/tmp/tempFile.csv";
 open(my $cuis_csv_codes, '<', $file) or die "Unable to open the file with CUI codes '$file' $!";
 die "Unable to create load CUIS codes." if(!$cuis_csv_codes);
 
@@ -20,15 +25,37 @@ my $meas;
 #  initialize the ic and path options hash tables
 
 my %icoptions = ();
+
+#  set the information content options if defined
+if($measure=~/res|jcn|lin|faith/) 
+{ 
+   my $umls = UMLS::Interface->new({
+	    #"realtime"      => "1",
+	    #"verbose"       => "1",
+	    "config"        => "../UMLS_Similarity_Perl/icmeasures.config",
+	    #"debugpath"     => "file"
+   });
+}
+else
+{
+   my $umls = UMLS::Interface->new({
+	    #"realtime"      => "1",
+	    #"verbose"       => "1",
+	    "config"        => "../UMLS_Similarity_Perl/measure.config",
+	    #"debugpath"     => "file"
+   });
+}
+
 my %pathoptions = ();
 
 # Initialize the options hash
 
+my $start_run_loading = time();
 
 my $umls = UMLS::Interface->new({
     #"realtime"      => "1",
     #"verbose"       => "1",
-    "config"        => "measure.config",
+    "config"        => "icmeasures.config",
     #"debugpath"     => "file"
 });
 die "Unable to create UMLS::Interface object." if(!$umls);
@@ -174,6 +201,9 @@ if($measure eq "random")
 }
 die "Unable to create UMLS::Similarity object." if(!$meas);
 
+my $end_run_loading = time();
+my $run_time_loading = $end_run_loading - $start_run_loading;
+print "Initialized UMLS::Similarity measure in $run_time_loading segs \n";
 
 my $csv = Text::CSV->new({ sep_char => ';' });
 
@@ -181,7 +211,7 @@ my $csv_write = Text::CSV->new({ binary => 1, auto_diag => 1, eol => "\n"})
         or die "Cannot use CSV: " . Text::CSV->error_diag();
 
 # open in append mode
-open my $fh, ">>", "tempFileOutput.csv" or die "Failed to open file: $!";
+open my $fh, ">>", "/tmp/tempFileOutput.csv" or die "Failed to open file: $!";
 
 # Reading the file
 
@@ -196,6 +226,8 @@ while (my $line = <$cuis_csv_codes>)
         my $cui1 = $words[0];
         my $cui2 = $words[1];
 
+	# print "Calculating the similarity between $cui1 and $cui2 \n";
+
         # my $start_run = [gettimeofday()];
 	my $start_run = time();
 
@@ -205,7 +237,7 @@ while (my $line = <$cuis_csv_codes>)
 	my $run_time = $end_run - $start_run;
         # my $run_time = tv_interval($start_run)*1000;
 
-        # print "The similarity between $cui1 and $cui2 is <> $pvalue <> $run_time";
+        print "The similarity between $cui1 and $cui2 is <> $pvalue <>, in $run_time segs. \n";
 
 	$csv_write->print($fh, [ $cui1, $cui2, $pvalue, $run_time ]);
 

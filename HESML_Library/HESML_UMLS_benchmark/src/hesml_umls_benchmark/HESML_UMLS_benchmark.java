@@ -61,10 +61,16 @@ public class HESML_UMLS_benchmark
         
         // We set the UMLS directory
         
-        String strUMLSdir = "../UMLS/SNOMED-CT_March_09_2020";
-        String strSNOMED_conceptFilename = "sct2_Concept_Snapshot_US1000124_20200301.txt";
-        String strSNOMED_relationshipsFilename = "sct2_Relationship_Snapshot_US1000124_20200301.txt";
-        String strSNOMED_descriptionFilename = "sct2_Description_Snapshot-en_US1000124_20200301.txt";
+//        String strUMLSdir = "../UMLS/SNOMED-CT_March_09_2020";
+//        String strSNOMED_conceptFilename = "sct2_Concept_Snapshot_US1000124_20200301.txt";
+//        String strSNOMED_relationshipsFilename = "sct2_Relationship_Snapshot_US1000124_20200301.txt";
+//        String strSNOMED_descriptionFilename = "sct2_Description_Snapshot-en_US1000124_20200301.txt";
+//        String strSNOMED_CUI_mappingfilename = "MRCONSO.RRF";
+        
+        String strUMLSdir = "../UMLS/SNOMED-CT_Sept_1_2019";
+        String strSNOMED_conceptFilename = "sct2_Concept_Snapshot_US1000124_20190901.txt";
+        String strSNOMED_relationshipsFilename = "sct2_Relationship_Snapshot_US1000124_20190901.txt";
+        String strSNOMED_descriptionFilename = "sct2_Description_Snapshot-en_US1000124_20190901.txt";
         String strSNOMED_CUI_mappingfilename = "MRCONSO.RRF";
 
         /**
@@ -72,8 +78,8 @@ public class HESML_UMLS_benchmark
          */
         
         SnomedBasedLibraryType[] libraries = new SnomedBasedLibraryType[]{
-                                                    SnomedBasedLibraryType.HESML,
-                                                    SnomedBasedLibraryType.SML,
+//                                                    SnomedBasedLibraryType.HESML,
+//                                                    SnomedBasedLibraryType.SML,
                                                     SnomedBasedLibraryType.UMLS_SIMILARITY
         };
         
@@ -97,16 +103,16 @@ public class HESML_UMLS_benchmark
          * Learning, Madison, WI, 1998: pp. 296–304.
          */
         
-//        IUMLSBenchmark ICbasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
-//                                    libraries, SimilarityMeasureType.Lin,
-//                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
-//                                    10, strUMLSdir, strSNOMED_conceptFilename,
-//                                    strSNOMED_relationshipsFilename,
-//                                    strSNOMED_descriptionFilename,
-//                                    strSNOMED_CUI_mappingfilename);
-//        
-//        ICbasedBenchmark.run("raw_output_Lin_measure_experiment.csv");
-//        ICbasedBenchmark.clear();
+        IUMLSBenchmark ICbasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
+                                    libraries, SimilarityMeasureType.Lin,
+                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
+                                    10, strUMLSdir, strSNOMED_conceptFilename,
+                                    strSNOMED_relationshipsFilename,
+                                    strSNOMED_descriptionFilename,
+                                    strSNOMED_CUI_mappingfilename);
+        
+        ICbasedBenchmark.run("raw_output_Lin_measure_experiment.csv");
+        ICbasedBenchmark.clear();
         
         /**
          * Experiment 1.2: we compare the performance of the HEMSL, SML and
@@ -118,20 +124,20 @@ public class HESML_UMLS_benchmark
          * IEEE Transactions on Systems, Man, and Cybernetics. 19 (1989) 17–30.
          */
         
-        nRandomSamplesPerLibrary[0] = 250000;
-        nRandomSamplesPerLibrary[1] = 1;
-        nRandomSamplesPerLibrary[2] = 3;
-        
-        IUMLSBenchmark pathBasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
-                                    libraries, SimilarityMeasureType.FastRada,
-                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
-                                    10, strUMLSdir, strSNOMED_conceptFilename,
-                                    strSNOMED_relationshipsFilename,
-                                    strSNOMED_descriptionFilename,
-                                    strSNOMED_CUI_mappingfilename);
-        
-        pathBasedBenchmark.run("raw_output_path_measure_experiment.csv");
-        pathBasedBenchmark.clear();
+//        nRandomSamplesPerLibrary[0] = 250000;
+//        nRandomSamplesPerLibrary[1] = 1;
+//        nRandomSamplesPerLibrary[2] = 3;
+//        
+//        IUMLSBenchmark pathBasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
+//                                    libraries, SimilarityMeasureType.FastRada,
+//                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
+//                                    10, strUMLSdir, strSNOMED_conceptFilename,
+//                                    strSNOMED_relationshipsFilename,
+//                                    strSNOMED_descriptionFilename,
+//                                    strSNOMED_CUI_mappingfilename);
+//        
+//        pathBasedBenchmark.run("raw_output_path_measure_experiment.csv");
+//        pathBasedBenchmark.clear();
         
         // We show the overalll running time
         
