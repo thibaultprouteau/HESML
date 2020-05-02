@@ -1,13 +1,7 @@
 #!/usr/bin/perl
 use Time::HiRes qw[gettimeofday tv_interval];
 use Text::CSV;
-
-
 use UMLS::Interface;
-
-use Cwd qw(cwd);
-my $dir = cwd;
- 
 
 
 my $measure = $ARGV[0] or die "Unable to read the measure input [path|upath|wup|cmatch|batet|sanchez|pks|closeness|zhong|lch|cdist|nam|vector|res|lin|faith|random|jcn|lesk|o1vector]\n";
@@ -26,10 +20,14 @@ my $meas;
 
 my %icoptions = ();
 
+my $start_run_loading = time();
+
+my $umls;
+
 #  set the information content options if defined
 if($measure=~/res|jcn|lin|faith/) 
 { 
-   my $umls = UMLS::Interface->new({
+   $umls = UMLS::Interface->new({
 	    #"realtime"      => "1",
 	    #"verbose"       => "1",
 	    "config"        => "../UMLS_Similarity_Perl/icmeasures.config",
@@ -38,7 +36,7 @@ if($measure=~/res|jcn|lin|faith/)
 }
 else
 {
-   my $umls = UMLS::Interface->new({
+   $umls = UMLS::Interface->new({
 	    #"realtime"      => "1",
 	    #"verbose"       => "1",
 	    "config"        => "../UMLS_Similarity_Perl/measure.config",
@@ -48,19 +46,6 @@ else
 
 my %pathoptions = ();
 
-# Initialize the options hash
-
-my $start_run_loading = time();
-
-my $umls = UMLS::Interface->new({
-    #"realtime"      => "1",
-    #"verbose"       => "1",
-    "config"        => "icmeasures.config",
-    #"debugpath"     => "file"
-});
-die "Unable to create UMLS::Interface object." if(!$umls);
-
-my $sab   = "SNOMEDCT_US";
 #  load the module implementing the Leacock and
 #  Chodorow (1998) measure
 
@@ -129,7 +114,6 @@ if($measure eq "zhong")
 
 if($measure eq "path")
 {
-    $umls->reConfig({"config" => "pathmeasures.config"});
     use UMLS::Similarity::path;
     $meas = UMLS::Similarity::path->new($umls);
 }
@@ -139,7 +123,6 @@ if($measure eq "path")
 
 if($measure eq "upath")
 {
-    $umls->reConfig({"config" => "pathmeasures.config"});
     use UMLS::Similarity::upath;
     $meas = UMLS::Similarity::upath->new($umls, %pathoptions);
 }
