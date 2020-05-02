@@ -116,7 +116,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
 
         // We execute the Perl script
         
-        executePerlScript(measure);
+        executePerlScript(measure, "snomedct_us");
         
         // We read the output from the Perl script.
         // Each row has the following format: CUI1 | CUI2 | similarity | time
@@ -204,7 +204,8 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
      */
     
     private void executePerlScript(
-            String measureType) throws InterruptedException, IOException
+            String      measureType,
+            String      vocabulary) throws InterruptedException, IOException
     {
         // Create the command line for Perl
         
@@ -234,16 +235,16 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         int exitVal = process.waitFor();            
         System.out.println("Process exitValue: " + exitVal);
         
-        InputStream stdin2 = process.getInputStream();
-        InputStreamReader isr2 = new InputStreamReader(stdin2);
-        BufferedReader br2 = new BufferedReader(isr);
-        String line2 = null;
-        System.out.println("<OUTPUT>");
-        while ( (line2 = br2.readLine()) != null)
-            System.out.println(line2);
-        System.out.println("</OUTPUT>");
-        int exitVal2 = process.waitFor();            
-        System.out.println("Process exitValue: " + exitVal2);
+//        InputStream stdin2 = process.getInputStream();
+//        InputStreamReader isr2 = new InputStreamReader(stdin2);
+//        BufferedReader br2 = new BufferedReader(isr);
+//        String line2 = null;
+//        System.out.println("<OUTPUT>");
+//        while ( (line2 = br2.readLine()) != null)
+//            System.out.println(line2);
+//        System.out.println("</OUTPUT>");
+//        int exitVal2 = process.waitFor();            
+//        System.out.println("Process exitValue: " + exitVal2);
         
         // Wait for the Perl process result
         
