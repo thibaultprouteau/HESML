@@ -81,6 +81,11 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         // We obtain the directory for temporary files
         
         m_PerlTempDir = System.getProperty("java.io.tmpdir");
+        
+        // Remove the output file if exists
+        
+        this.removeFile(m_PerlTempDir + "/tempFile.csv");
+        this.removeFile(m_PerlTempDir + "/tempFileOutput.csv");
     }
     
     /**
@@ -116,7 +121,8 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
 
         // We execute the Perl script
         
-        executePerlScript(measure, "snomedct_us");
+//        executePerlScript(measure, "snomedct_us");
+        executePerlScript(measure, "msh");
         
         // We read the output from the Perl script.
         // Each row has the following format: CUI1 | CUI2 | similarity | time
@@ -127,7 +133,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         {
             // We read the next output line and retrieve
             
-            String[] data = csvReader.readLine().split(",");
+            String[] data = csvReader.readLine().split(",");    
             
             // We read the degree of similarity and running time
             
@@ -213,7 +219,7 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
 
         // We build the command to call the evaluation Perl script
         
-        String cmd = perl_path + m_PerlScriptDir + "/umls_similarity_from_cuis.t " + measureType;
+        String cmd = perl_path + m_PerlScriptDir + "/umls_similarity_from_cuis.t " + measureType + " " + vocabulary;
         
         System.out.println("Executing the Perl script for calculating UMLS::Similarity");
         System.out.println(cmd);
@@ -235,16 +241,16 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
         int exitVal = process.waitFor();            
         System.out.println("Process exitValue: " + exitVal);
         
-//        InputStream stdin2 = process.getInputStream();
-//        InputStreamReader isr2 = new InputStreamReader(stdin2);
-//        BufferedReader br2 = new BufferedReader(isr);
-//        String line2 = null;
-//        System.out.println("<OUTPUT>");
-//        while ( (line2 = br2.readLine()) != null)
-//            System.out.println(line2);
-//        System.out.println("</OUTPUT>");
-//        int exitVal2 = process.waitFor();            
-//        System.out.println("Process exitValue: " + exitVal2);
+        InputStream stdin2 = process.getInputStream();
+        InputStreamReader isr2 = new InputStreamReader(stdin2);
+        BufferedReader br2 = new BufferedReader(isr);
+        String line2 = null;
+        System.out.println("<OUTPUT>");
+        while ( (line2 = br2.readLine()) != null)
+            System.out.println(line2);
+        System.out.println("</OUTPUT>");
+        int exitVal2 = process.waitFor();            
+        System.out.println("Process exitValue: " + exitVal2);
         
         // Wait for the Perl process result
         
@@ -261,11 +267,6 @@ public class UMLSSimilarityLibrary extends SnomedSimilarityLibrary
     public void clear()
     {
         unloadSnomed();
-        
-        // Remove temporal files
-        
-        this.removeFile(m_PerlTempDir + "/tempFile.csv");
-        this.removeFile(m_PerlTempDir + "/tempFileOutput.csv");
     }
 
     /**
