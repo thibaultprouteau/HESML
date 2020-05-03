@@ -73,7 +73,7 @@ public class HESML_UMLSclient
      */
     
     private static final String m_strMeSHdir = "../UMLS/MeSH_Nov2019";
-    private static final String m_strMeSHdescriptorFilename = "desc2020.xml";
+    private static final String m_strMeSHdescriptorFilename = "desc2019.xml";
     
     /**
      * Path tof MayoSRS dataset
