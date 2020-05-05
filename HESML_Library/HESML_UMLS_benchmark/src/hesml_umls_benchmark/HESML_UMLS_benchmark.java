@@ -75,9 +75,10 @@ public class HESML_UMLS_benchmark
          */
         
         SnomedBasedLibraryType[] libraries = new SnomedBasedLibraryType[]{
-                                                    SnomedBasedLibraryType.HESML,
-                                                    SnomedBasedLibraryType.SML};
-                                                    //SnomedBasedLibraryType.UMLS_SIMILARITY};
+//                                                    SnomedBasedLibraryType.HESML,
+//                                                    SnomedBasedLibraryType.SML,
+                                                    SnomedBasedLibraryType.UMLS_SIMILARITY
+        };
         
         /**
          * We set the number of random concept pairs evaluated by each library
@@ -87,7 +88,7 @@ public class HESML_UMLS_benchmark
          * experimentation times.
          */
 
-         int[] nRandomSamplesPerLibrary = new int[]{3, 3}; // 1000000
+         int[] nRandomSamplesPerLibrary = new int[]{3, 3, 3}; // 1000000
         
         /**
          * Experiment 1.1: we compare the performance of the HEMSL, SML and
