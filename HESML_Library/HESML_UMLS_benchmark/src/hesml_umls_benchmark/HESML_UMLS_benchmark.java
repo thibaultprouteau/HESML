@@ -57,9 +57,10 @@ public class HESML_UMLS_benchmark
     private static final String m_strSNOMED_relationshipsFilename = "sct2_Relationship_Snapshot_US1000124_20190901.txt";
     private static final String m_strSNOMED_descriptionFilename = "sct2_Description_Snapshot-en_US1000124_20190901.txt";
     private static final String m_strUmlsCuiMappingFilename = "MRCONSO.RRF";
+    private static final String m_strDatasetPath = "../UMLS_Datasets/SentenceSimDatasets/MedStsFullNormalized.tsv";
     
     /**
-     * Main function. This fucntion executes all experiments reported in
+     * Main function. This function executes all experiments reported in
      * the HEMSL-UMLS introductory paper [1].
      * @param args the command line arguments
      */
@@ -75,8 +76,8 @@ public class HESML_UMLS_benchmark
          */
         
         SnomedBasedLibraryType[] libraries = new SnomedBasedLibraryType[]{
-//                                                    SnomedBasedLibraryType.HESML,
-//                                                    SnomedBasedLibraryType.SML,
+                                                    SnomedBasedLibraryType.HESML,
+                                                    SnomedBasedLibraryType.SML,
                                                     SnomedBasedLibraryType.UMLS_SIMILARITY
         };
         
@@ -100,17 +101,17 @@ public class HESML_UMLS_benchmark
          * Learning, Madison, WI, 1998: pp. 296–304.
          */
         
-        IUMLSBenchmark ICbasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
-                                    libraries, SimilarityMeasureType.Lin,
-                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
-                                    10, m_strSnomedDir, m_strSNOMED_conceptFilename,
-                                    m_strSNOMED_relationshipsFilename,
-                                    m_strSNOMED_descriptionFilename,
-                                    m_strUMLSdir,
-                                    m_strUmlsCuiMappingFilename);
-        
-        ICbasedBenchmark.run("raw_output_Lin_measure_experiment.csv");
-        ICbasedBenchmark.clear();
+//        IUMLSBenchmark ICbasedBenchmark = UMLSBenchmarkFactory.createConceptBenchmark(
+//                                    libraries, SimilarityMeasureType.Lin,
+//                                    IntrinsicICModelType.Seco, nRandomSamplesPerLibrary,
+//                                    10, m_strSnomedDir, m_strSNOMED_conceptFilename,
+//                                    m_strSNOMED_relationshipsFilename,
+//                                    m_strSNOMED_descriptionFilename,
+//                                    m_strUMLSdir,
+//                                    m_strUmlsCuiMappingFilename);
+//        
+//        ICbasedBenchmark.run("raw_output_Lin_measure_experiment.csv");
+//        ICbasedBenchmark.clear();
         
         /**
          * Experiment 1.2: we compare the performance of the HEMSL, SML and
@@ -121,7 +122,7 @@ public class HESML_UMLS_benchmark
          * Development and application of a metric on semantic nets,
          * IEEE Transactions on Systems, Man, and Cybernetics. 19 (1989) 17–30.
          */
-        
+         
 //        nRandomSamplesPerLibrary[0] = 250000;
 //        nRandomSamplesPerLibrary[1] = 1;
 //        nRandomSamplesPerLibrary[2] = 3;
@@ -194,6 +195,37 @@ public class HESML_UMLS_benchmark
         weightedBasedBenchmark.run("raw_output_AncSPLLeacockChodorow_quality_exp.csv");
         weightedBasedBenchmark.clear();*/
         
+        
+        /**
+         * Experiment 3.1: we compare the performance of the HEMSL, SML and
+         * UMLS::Similarity libraries in the evaluation of the IC-based
+         * Lib [1] semantic similarity measure by evaluating the degree of
+         * similarity with the UBSM semantic sentence similarity measure [2] 
+         * between a set of sentence pairs from the MedSTS dataset [3].
+         * [1] D. Lin, An information-theoretic definition of similarity,
+         * in: Proceedings of the 15th International Conference on Machine
+         * Learning, Madison, WI, 1998: pp. 296–304.
+         * [2] Sogancioglu, Gizem, Hakime Öztürk, and Arzucan Özgür. 2017. 
+         * “BIOSSES: A Semantic Sentence Similarity Estimation System for the 
+         * Biomedical Domain.” Bioinformatics  33 (14): i49–58.
+         * [3] Wang, Yanshan, Naveed Afzal, Sunyang Fu, Liwei Wang, 
+         * Feichen Shen, Majid Rastegar-Mojarad, and Hongfang Liu. 2018. 
+         * “MedSTS: A Resource for Clinical Semantic Textual Similarity.” 
+         * Language Resources and Evaluation, October. https://doi.org/10.1007/s10579-018-9431-1.
+         */
+        
+        IUMLSBenchmark UBSM_ICbasedBenchmark = UMLSBenchmarkFactory.createSentenceBenchmark(
+                                    libraries, SimilarityMeasureType.Lin,
+                                    IntrinsicICModelType.Seco, m_strDatasetPath, 
+                                    m_strSnomedDir, m_strSNOMED_conceptFilename,
+                                    m_strSNOMED_relationshipsFilename,
+                                    m_strSNOMED_descriptionFilename,
+                                    m_strUMLSdir,
+                                    m_strUmlsCuiMappingFilename);
+        
+        UBSM_ICbasedBenchmark.run("raw_output_UBSM_Lin_measure_experiment.csv");
+        UBSM_ICbasedBenchmark.clear();
+        
         // We show the overalll running time
         
         long stoptime = System.currentTimeMillis();
@@ -202,5 +234,3 @@ public class HESML_UMLS_benchmark
             + ((stoptime - startTime) / 1000.0));
     }
 }
-
-
