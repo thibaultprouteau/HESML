@@ -25,6 +25,7 @@ import hesml.configurators.IntrinsicICModelType;
 import hesml.measures.SimilarityMeasureType;
 import hesml_umls_benchmark.IUMLSBenchmark;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
+import hesml_umls_benchmark.Vocabulary;
 
 /**
  * This function creates all UMLS benchmarks
@@ -112,6 +113,7 @@ public class UMLSBenchmarkFactory
         /**
      * This function creates a random concept evaluation.
      * @param libraries
+     * @param vocabulary
      * @param similarityMeasure
      * @param icModel
      * @param strDatasetPath
@@ -127,6 +129,7 @@ public class UMLSBenchmarkFactory
 
     public static IUMLSBenchmark createSentenceBenchmark(
             SnomedBasedLibraryType[]    libraries,
+            Vocabulary                  vocabulary,
             SimilarityMeasureType       similarityMeasure,
             IntrinsicICModelType        icModel,
             String                      strDatasetPath,
@@ -137,7 +140,7 @@ public class UMLSBenchmarkFactory
             String                      strUmlsDir,
             String                      strSNOMED_CUI_mappingfilename) throws Exception
     {
-        return (new SentencesEvalBenchmark(libraries,
+        return (new SentencesEvalBenchmark(libraries, vocabulary,
                 similarityMeasure, icModel, strDatasetPath, 
                 strSnomedDir, strSnomedDBconceptFileName,
                 strSnomedDBRelationshipsFileName,

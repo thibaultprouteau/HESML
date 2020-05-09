@@ -22,10 +22,7 @@
 package hesml_umls_benchmark.benchmarks;
 
 import bioc.BioCDocument;
-import bioc.BioCSentence;
 import gov.nih.nlm.nls.metamap.document.FreeText;
-import gov.nih.nlm.nls.metamap.lite.BioCSentenceEntityAnnotator;
-import gov.nih.nlm.nls.metamap.lite.BioCSentenceEntityAnnotatorImpl;
 import gov.nih.nlm.nls.metamap.lite.types.Entity;
 import gov.nih.nlm.nls.metamap.lite.types.Ev;
 import gov.nih.nlm.nls.ner.MetaMapLite;
@@ -33,6 +30,7 @@ import hesml.configurators.IntrinsicICModelType;
 import hesml.measures.SimilarityMeasureType;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
+import hesml_umls_benchmark.Vocabulary;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -74,6 +72,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
     
     private SimilarityMeasureType           m_MeasureType;
     private final IntrinsicICModelType      m_icModel;
+    private final Vocabulary                m_vocabulary;
 
     /**
      * Path to the input dataset for evaluating sentences
@@ -106,6 +105,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
 
     SentencesEvalBenchmark(
             SnomedBasedLibraryType[]    libraries,
+            Vocabulary                  vocabulary,
             SimilarityMeasureType       similarityMeasure,
             IntrinsicICModelType        icModel,
             String                      strDatasetPath,
@@ -127,6 +127,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         m_MeasureType = similarityMeasure;
         m_icModel = icModel;
+        m_vocabulary = vocabulary;
         m_strDatasetPath = strDatasetPath;
         m_dataset = null;
         
@@ -150,7 +151,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
     {
         // We create the output data matrix and fill the row headers
         
-        String[][] strOutputDataMatrix = new String[m_dataset.length][m_Libraries.length + 1];
+        String[][] strOutputDataMatrix = new String[m_dataset.length + 1][m_Libraries.length + 1];
         
         // We fill the first row header
         
@@ -314,6 +315,9 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
             throws IOException, 
             InterruptedException, Exception
     {
+        strRawSentence1 = "C0011849 is a C0012634";
+        strRawSentence2 = "C0020538 is similar to C0021641";
+        
         // We initialize the output score
         
         double similarity = 0.0;
@@ -329,8 +333,8 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         // Preprocess the sentences and get the tokens for each sentence
         
-        String[] lstWordsSentence1 = strRawSentence1.split(" ");
-        String[] lstWordsSentence2 = strRawSentence2.split(" ");
+        String[] lstWordsSentence1 = strRawSentence1.replaceAll("\\p{Punct}", "").split(" ");
+        String[] lstWordsSentence2 = strRawSentence2.replaceAll("\\p{Punct}", "").split(" ");
         
         // 1. Construct the joint set of distinct words from S1 and S2 (dictionary)
                 
@@ -696,7 +700,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         myProperties.setProperty("opennlp.en-sent.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-sent.bin");
         myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
         
-        myProperties.setProperty("metamaplite.sourceset", "MSH");
+        myProperties.setProperty("metamaplite.sourceset", m_vocabulary.toString());
 //        myProperties.setProperty("metamaplite.sourceset", "SNOMEDCT_US");
 
              

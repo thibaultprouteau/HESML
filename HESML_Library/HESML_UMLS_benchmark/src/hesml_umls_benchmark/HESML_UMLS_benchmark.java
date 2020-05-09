@@ -215,7 +215,7 @@ public class HESML_UMLS_benchmark
          */
         
         IUMLSBenchmark UBSM_ICbasedBenchmark = UMLSBenchmarkFactory.createSentenceBenchmark(
-                                    libraries, SimilarityMeasureType.Lin,
+                                    libraries, Vocabulary.MSH, SimilarityMeasureType.Lin,
                                     IntrinsicICModelType.Seco, m_strDatasetPath, 
                                     m_strSnomedDir, m_strSNOMED_conceptFilename,
                                     m_strSNOMED_relationshipsFilename,
