@@ -30,7 +30,8 @@ import hesml.configurators.IntrinsicICModelType;
 import hesml.measures.SimilarityMeasureType;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
-import hesml_umls_benchmark.Vocabulary;
+import hesml_umls_benchmark.LibraryType;
+import hesml_umls_benchmark.snomedlibraries.UMLSSimilarityLibrary;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -39,6 +40,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
@@ -59,7 +61,7 @@ import java.util.Set;
 class SentencesEvalBenchmark extends UMLSLibBenchmark
 {
     /**
-     * Column offset for the main attributes extrated from concept and
+     * Column offset for the main attributes extracted from concept and
      * relationship files.
      */
     
@@ -72,7 +74,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
     
     private SimilarityMeasureType           m_MeasureType;
     private final IntrinsicICModelType      m_icModel;
-    private final Vocabulary                m_vocabulary;
+    private final LibraryType                m_vocabulary;
 
     /**
      * Path to the input dataset for evaluating sentences
@@ -87,6 +89,13 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
      */
     
     protected MetaMapLite m_metaMapLiteInst;
+    
+    /**
+     * Precalculated similarities for Pedersen Library
+     */
+    
+    ArrayList<String> m_preCalculatedSimilarities;
+    Iterator<String> m_preCalculatedSimilaritiesIterator;
 
     /**
      * Constructor of the random concept pairs benchmark
@@ -105,7 +114,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
 
     SentencesEvalBenchmark(
             SnomedBasedLibraryType[]    libraries,
-            Vocabulary                  vocabulary,
+            LibraryType                  vocabulary,
             SimilarityMeasureType       similarityMeasure,
             IntrinsicICModelType        icModel,
             String                      strDatasetPath,
@@ -130,6 +139,8 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         m_vocabulary = vocabulary;
         m_strDatasetPath = strDatasetPath;
         m_dataset = null;
+        m_preCalculatedSimilarities = new ArrayList<>();
+        m_preCalculatedSimilaritiesIterator = null;
         
         System.out.println("Loading the sentence similarity dataset from path: " + m_strDatasetPath);
         this.loadDatasetBenchmark();
@@ -233,27 +244,58 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         double[] runningTimes = new double[m_dataset.length];
         double accumulatedTime = 0.0;
         
+        // We initialize the calculation time for Perl script
+            
+        double accumulatedTimePerl = 0.0;
+        double totalPerlCalculations = 0.0;
+        
         // UMLS_SIMILARITY library gets all the iterations at one time
         // The rest of the libraries execute the benchmark n times
         
         if (library.getLibraryType() == SnomedBasedLibraryType.UMLS_SIMILARITY)
         {
-//            // We make a casting to the UMLS::Similarity library
-//            
-//            UMLSSimilarityLibrary pedersenLib = (UMLSSimilarityLibrary) library;
-//            
-//            // We evaluate the similarity of a list of pairs of concepts at once.
-//            // The function also returns the running times for each run
-//            // similarityWithRunningTimes[similarity_i][runningTime_ị]
-//            
-//            double[][] similarityWithRunningTimes = pedersenLib.getSimilaritiesAndRunningTimes(dataset);
-//            
-//            // Calculate the accumulated time for each iteration
-//
-//            for (int i = 0; i < similarityWithRunningTimes.length; i++)
-//            {
-//                accumulatedTime += similarityWithRunningTimes[i][1];
-//            }
+            // We make a casting to the UMLS::Similarity library
+            
+            UMLSSimilarityLibrary pedersenLib = (UMLSSimilarityLibrary) library;
+            
+            // We extract the candidates for concept-pair similarity calculations and execute the Perl script
+
+            this.precalculateWithPerl(pedersenLib);
+            
+            // We execute multiple times the benchmark to calculate all the sentences
+
+            for (int iRun = 0; iRun < m_dataset.length; iRun++)
+            {
+                // We initializa the stopwatch
+
+                long startTime = System.currentTimeMillis();
+
+                // We evaluate the random concept pairs
+
+                for (int i = 0; i < m_dataset.length; i++)
+                {
+                    double similarity = getSimilarityValuesWithPedersen(m_dataset[i][0], m_dataset[i][1]);
+                }
+                
+                // We compute the elapsed time in seconds
+
+                runningTimes[iRun] = (System.currentTimeMillis() - startTime) / 1000.0;
+                
+                accumulatedTime += runningTimes[iRun];
+                
+                // We calculate the average running time for precalculate Pedersen similarities
+                
+                // Calculate the accumulated time for each iteration
+                
+                for(String cuisSimilarityAndRunningTime : m_preCalculatedSimilarities)
+                {
+                    String[] cuisSimilarityAndRunningTimeList = cuisSimilarityAndRunningTime.split(",");
+                    
+                    accumulatedTimePerl += Double.valueOf(cuisSimilarityAndRunningTimeList[3]);
+                }
+                
+                totalPerlCalculations = m_preCalculatedSimilarities.size();
+            }
         }
         else
         {
@@ -283,22 +325,225 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // We compute the averga running time
         
         double averageRuntime = accumulatedTime / m_dataset.length;
+        double averageRuntimePerl = accumulatedTimePerl / m_dataset.length;
         
         // We print the average results
         
-        System.out.println("# UMLS oncept pairs evaluated = " + m_dataset.length);
+        System.out.println("# UMLS concept pairs evaluated = " + m_dataset.length);
         System.out.println(library.getLibraryType() + " Average time (secs) = "
                 + averageRuntime);
-        
         System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
                 + ((double)m_dataset.length) / averageRuntime);
+        
+        if(accumulatedTimePerl > 0.0)
+        {
+            System.out.println(library.getLibraryType() + " Average time (secs) = "
+                + averageRuntimePerl + averageRuntime);
+            System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
+                + ((double)m_dataset.length) / (averageRuntimePerl + averageRuntime));
+        }
+        
+        
         
         // We return the results
         
         return (runningTimes);
     }
     
-     /**
+    /**
+     * The method returns the similarity value between two sentences 
+     * using the WBSM measure.
+     * 
+     * @param strRawSentence1
+     * @param strRawSentence2
+     * @return double similarity value
+     * @throws IOException 
+     */
+    
+    public double getSimilarityValuesWithPedersen(
+            String                      strRawSentence1, 
+            String                      strRawSentence2) 
+            throws IOException, 
+            InterruptedException, Exception
+    {
+        // We initialize the output score
+        
+        double similarity = 0.0;
+        
+        // We initialize the semantic vectors
+        
+        double[] semanticVector1 = null;
+        double[] semanticVector2 = null;
+        
+        // We initialize the dictionary vector
+        
+        ArrayList<String> dictionary = null;
+        
+        // Preprocess the sentences and get the tokens for each sentence
+        
+        String[] lstWordsSentence1 = strRawSentence1.replaceAll("\\p{Punct}", "").split(" ");
+        String[] lstWordsSentence2 = strRawSentence2.replaceAll("\\p{Punct}", "").split(" ");
+        
+        // 1. Construct the joint set of distinct words from S1 and S2 (dictionary)
+                
+        dictionary = constructDictionaryList(lstWordsSentence1, lstWordsSentence2);
+        
+        // 2. Initialize the semantic vectors.
+        
+        semanticVector1 = constructSemanticVector(dictionary, lstWordsSentence1);
+        semanticVector2 = constructSemanticVector(dictionary, lstWordsSentence2);
+        
+        // 3. Use WordNet to construct the semantic vector
+        
+        semanticVector1 = computeSemanticVectorForPedersen(semanticVector1, dictionary);
+        semanticVector1 = computeSemanticVectorForPedersen(semanticVector2, dictionary);
+        
+        // 4. Compute the cosine similarity between the semantic vectors
+        
+        similarity = computeCosineSimilarity(semanticVector1, semanticVector2);
+
+        // Return the similarity value
+        
+        return (similarity);
+    }
+    
+    
+    /**
+     * This function gets all the future calculations for the Perl script.
+     * 
+     * * The order of the calculations will be the same after executing Perl script.
+     */
+    
+    private void precalculateWithPerl(
+                UMLSSimilarityLibrary pedersenLib) throws Exception
+    {
+        // Initialize the result
+        
+        ArrayList<String> cuiCodePairsCalculations = new ArrayList<>();
+        
+        // We execute iterate the dataset and get all the future similarity calculations in a vector.
+
+        for (int i = 0; i < m_dataset.length; i++)
+        {
+            // We initialize the semantic vectors
+
+            double[] semanticVector1 = null;
+            double[] semanticVector2 = null;
+            
+            // We get the raw sentences
+            
+            String strRawSentence1 = m_dataset[i][0];
+            String strRawSentence2 = m_dataset[i][1];
+
+            // We initialize the dictionary vector
+
+            ArrayList<String> dictionary = null;
+
+            // Preprocess the sentences and get the tokens for each sentence
+
+            String[] lstWordsSentence1 = strRawSentence1.replaceAll("\\p{Punct}", "").split(" ");
+            String[] lstWordsSentence2 = strRawSentence2.replaceAll("\\p{Punct}", "").split(" ");
+
+            // 1. Construct the joint set of distinct words from S1 and S2 (dictionary)
+
+            dictionary = constructDictionaryList(lstWordsSentence1, lstWordsSentence2);
+
+            // 2. Initialize the semantic vectors.
+
+            semanticVector1 = constructSemanticVector(dictionary, lstWordsSentence1);
+            semanticVector2 = constructSemanticVector(dictionary, lstWordsSentence2);
+            
+            // 3. Extract all the future calculations and add them to the list.
+            
+            // Merge both lists into the final list
+            
+            cuiCodePairsCalculations.addAll(addCandidatesForCalculateWordSimilarity(semanticVector1, dictionary));
+            cuiCodePairsCalculations.addAll(addCandidatesForCalculateWordSimilarity(semanticVector2, dictionary));                 
+        }
+        
+        // Iterate the arraylist and create the matrix
+        
+        String[][] cuiPairList = new String[cuiCodePairsCalculations.size()][2];
+                
+        for(int i=0; i<cuiCodePairsCalculations.size(); i++)
+        {
+            String[] cuiPair = cuiCodePairsCalculations.get(i).split(",");
+            
+            cuiPairList[i][0] = cuiPair[0];
+            cuiPairList[i][1] = cuiPair[1];
+        }
+        
+        // Execute the Perl script
+        
+        m_preCalculatedSimilarities = pedersenLib.getCUIsSimilaritiesAndRunningTimes(cuiPairList, LibraryType.MSH);
+        
+        // Initialize the iterator with the data
+        
+        m_preCalculatedSimilaritiesIterator = m_preCalculatedSimilarities.iterator();
+    }
+    
+    /**
+     * This function add all the possible candidates for calculate word similarity 
+     * before execute the Perl script from a semantic vector
+     * 
+     * For each vector position, check if the value is zero.
+     * 
+     * @param semanticVector
+     * @return 
+     */
+    
+    private ArrayList<String> addCandidatesForCalculateWordSimilarity(
+            double[]                    semanticVector,
+            ArrayList<String>           dictionary) throws Exception
+    {
+        // Initialize the result
+        
+        ArrayList<String> listCandidates = new ArrayList<>();
+        
+        // Compute the semantic vector value in each position
+        
+        for (int i = 0; i < semanticVector.length; i++)
+        {
+            if((semanticVector[i] != 1.0) && isCuiCode(dictionary.get(i)))
+            {
+                for (Iterator<String> it = dictionary.iterator(); it.hasNext();) {
+                    String wordDict = it.next();
+                    // If it is a CUI code, add to the list
+                   
+                    if(isCuiCode(wordDict) == true)
+                    {
+                        listCandidates.add(dictionary.get(i) + "," + wordDict);
+                    }
+                }
+            }
+        }
+
+        // Return the result
+      
+        return (listCandidates);
+    }
+    
+    /**
+     * Filter if a String is or not a CUI code
+     */
+    
+    private boolean isCuiCode(String word)
+    {
+        //Initialize the result
+        
+        boolean isCui = false;
+        
+        
+        if(word.matches("C\\d\\d\\d\\d\\d\\d\\d"))
+        {
+            isCui = true;
+        }
+        
+        // Return the result
+        return (isCui);
+    }
+    
+    /**
      * The method returns the similarity value between two sentences 
      * using the WBSM measure.
      * 
@@ -315,9 +560,6 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
             throws IOException, 
             InterruptedException, Exception
     {
-        strRawSentence1 = "C0011849 is a C0012634";
-        strRawSentence2 = "C0020538 is similar to C0021641";
-        
         // We initialize the output score
         
         double similarity = 0.0;
@@ -509,6 +751,67 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
      * @return 
      */
     
+    private double[] computeSemanticVectorForPedersen(
+            double[]                    semanticVector,
+            ArrayList<String>           dictionary) throws Exception
+    {
+        // Initialize the result m_preCalculatedSimilarities
+        
+        double[] semanticVectorComputed = new double[semanticVector.length];
+        
+        // Compute the semantic vector value in each position
+        
+        for (int i = 0; i < semanticVector.length; i++)
+        {
+            String word = dictionary.get(i);
+            
+            if((semanticVector[i] != 1.0) && isCuiCode(dictionary.get(i)))
+            {
+                double maxValue = 0.0;
+                
+                for (String wordDict : dictionary)
+                {
+                    // If it is a CUI code, add to the list
+
+                    if(isCuiCode(dictionary.get(i)) == true)
+                    {
+                        String data = m_preCalculatedSimilaritiesIterator.next();
+                        String[] calculationResult = data.split(",");
+                        
+                        // Get the similarity between the words
+                        
+                        double similarityScore = Double.valueOf(calculationResult[2]);
+
+                        // If the returned value is greater, set the new similarity value
+
+                        maxValue = maxValue < similarityScore ? similarityScore : maxValue;
+                    }
+                }
+                
+                semanticVectorComputed[i] = maxValue;
+            }
+            else
+            {
+                semanticVectorComputed[i] = semanticVector[i];
+            }
+        }
+
+        // Return the result
+        
+        return (semanticVectorComputed);
+    }
+    
+    /**
+     * Compute the values from the semantic vector in the positions with zeros.
+     * 
+     * For each vector position, check if the value is zero.
+     * If the value is zero, compute the word similarity with the dictionary
+     * using word similarity measures and get the maximum value.
+     * 
+     * @param semanticVector
+     * @return 
+     */
+    
     private double[] computeSemanticVector(
             double[]                    semanticVector,
             ArrayList<String>           dictionary,
@@ -517,6 +820,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // Initialize the result
         
         double[] semanticVectorComputed = new double[semanticVector.length];
+        
         
         // Compute the semantic vector value in each position
         
@@ -694,13 +998,18 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // Initialization Section
         
         Properties myProperties = new Properties();
-        myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2020AA/USAbase/");
+//        myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2020AA/USAbase/");
+//        myProperties.setProperty("opennlp.models.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/models/");
+//        myProperties.setProperty("opennlp.en-pos.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-pos-maxent.bin");
+//        myProperties.setProperty("opennlp.en-sent.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-sent.bin");
+//        myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
+        myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2018ABascii/USAbase/");
         myProperties.setProperty("opennlp.models.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/models/");
         myProperties.setProperty("opennlp.en-pos.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-pos-maxent.bin");
         myProperties.setProperty("opennlp.en-sent.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-sent.bin");
         myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
         
-        myProperties.setProperty("metamaplite.sourceset", m_vocabulary.toString());
+        myProperties.setProperty("metamaplite.sourceset", "MSH");
 //        myProperties.setProperty("metamaplite.sourceset", "SNOMEDCT_US");
 
              

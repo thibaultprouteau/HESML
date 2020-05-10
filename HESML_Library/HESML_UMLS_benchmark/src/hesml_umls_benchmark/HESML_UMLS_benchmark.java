@@ -57,12 +57,14 @@ public class HESML_UMLS_benchmark
     private static final String m_strSNOMED_relationshipsFilename = "sct2_Relationship_Snapshot_US1000124_20190901.txt";
     private static final String m_strSNOMED_descriptionFilename = "sct2_Description_Snapshot-en_US1000124_20190901.txt";
     private static final String m_strUmlsCuiMappingFilename = "MRCONSO.RRF";
-    private static final String m_strDatasetPath = "../UMLS_Datasets/SentenceSimDatasets/MedStsFullNormalized.tsv";
+//    private static final String m_strDatasetPath = "../UMLS_Datasets/SentenceSimDatasets/MedStsFullNormalized.tsv";
+    private static final String m_strDatasetPath = "../UMLS_Datasets/SentenceSimDatasets/MedStsFullNormalized_2pairs.tsv";
     
     /**
      * Main function. This function executes all experiments reported in
      * the HEMSL-UMLS introductory paper [1].
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     
     public static void main(String[] args) throws Exception
@@ -77,7 +79,7 @@ public class HESML_UMLS_benchmark
         
         SnomedBasedLibraryType[] libraries = new SnomedBasedLibraryType[]{
                                                     SnomedBasedLibraryType.HESML,
-                                                    SnomedBasedLibraryType.SML,
+//                                                    SnomedBasedLibraryType.SML,
                                                     SnomedBasedLibraryType.UMLS_SIMILARITY
         };
         
@@ -215,7 +217,7 @@ public class HESML_UMLS_benchmark
          */
         
         IUMLSBenchmark UBSM_ICbasedBenchmark = UMLSBenchmarkFactory.createSentenceBenchmark(
-                                    libraries, Vocabulary.MSH, SimilarityMeasureType.Lin,
+                                    libraries, LibraryType.MSH, SimilarityMeasureType.Lin,
                                     IntrinsicICModelType.Seco, m_strDatasetPath, 
                                     m_strSnomedDir, m_strSNOMED_conceptFilename,
                                     m_strSNOMED_relationshipsFilename,
