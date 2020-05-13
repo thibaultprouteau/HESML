@@ -272,30 +272,29 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
 
                 // We evaluate the random concept pairs
 
-                for (int i = 0; i < m_dataset.length; i++)
-                {
-                    double similarity = getSimilarityValuesWithPedersen(m_dataset[i][0], m_dataset[i][1]);
-                }
+                
+                double similarity = getSimilarityValuesWithPedersen(m_dataset[iRun][0], m_dataset[iRun][1]);
+                
                 
                 // We compute the elapsed time in seconds
 
                 runningTimes[iRun] = (System.currentTimeMillis() - startTime) / 1000.0;
                 
                 accumulatedTime += runningTimes[iRun];
-                
-                // We calculate the average running time for precalculate Pedersen similarities
-                
-                // Calculate the accumulated time for each iteration
-                
-                for(String cuisSimilarityAndRunningTime : m_preCalculatedSimilarities)
-                {
-                    String[] cuisSimilarityAndRunningTimeList = cuisSimilarityAndRunningTime.split(",");
-                    
-                    accumulatedTimePerl += Double.valueOf(cuisSimilarityAndRunningTimeList[3]);
-                }
-                
-                totalPerlCalculations = m_preCalculatedSimilarities.size();
             }
+            
+            // We calculate the average running time for precalculate Pedersen similarities
+            
+            // Calculate the accumulated time for each iteration
+                
+            for(String cuisSimilarityAndRunningTime : m_preCalculatedSimilarities)
+            {
+                String[] cuisSimilarityAndRunningTimeList = cuisSimilarityAndRunningTime.split(",");
+                
+                accumulatedTimePerl += Double.valueOf(cuisSimilarityAndRunningTimeList[3]);
+            }
+
+            totalPerlCalculations = m_preCalculatedSimilarities.size();
         }
         else
         {
@@ -325,22 +324,35 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // We compute the averga running time
         
         double averageRuntime = accumulatedTime / m_dataset.length;
-        double averageRuntimePerl = accumulatedTimePerl / m_dataset.length;
         
         // We print the average results
         
-        System.out.println("# UMLS concept pairs evaluated = " + m_dataset.length);
-        System.out.println(library.getLibraryType() + " Average time (secs) = "
-                + averageRuntime);
-        System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
-                + ((double)m_dataset.length) / averageRuntime);
+        System.out.println("# UMLS sentence pairs evaluated = " + m_dataset.length);
         
-        if(accumulatedTimePerl > 0.0)
+        System.out.println(library.getLibraryType() + " Average time for Java script (secs) = "
+                + averageRuntime);
+        
+        if (library.getLibraryType() == SnomedBasedLibraryType.UMLS_SIMILARITY)
         {
-            System.out.println(library.getLibraryType() + " Average time (secs) = "
-                + averageRuntimePerl + averageRuntime);
+            double averageRuntimePerlPerConceptPair = accumulatedTimePerl / totalPerlCalculations;
+            double averageRuntimePerlPerSentencePair = accumulatedTimePerl / m_dataset.length;
+            
+            System.out.println(library.getLibraryType() + " Total accumulated time for Perl script (secs) = "
+                    + accumulatedTimePerl);
+            
+            System.out.println(library.getLibraryType() + " Average time for Perl script per concept pair (secs) = "
+                    + averageRuntimePerlPerConceptPair);
+            
+            System.out.println(library.getLibraryType() + " Average time for Perl script values per sentence pair (secs) = "
+                    + averageRuntimePerlPerSentencePair);
+
             System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
-                + ((double)m_dataset.length) / (averageRuntimePerl + averageRuntime));
+                + ((double)m_dataset.length) / (averageRuntime + averageRuntimePerlPerSentencePair));
+        }
+        else
+        {
+            System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
+                + ((double)m_dataset.length) / averageRuntime);
         }
         
         
@@ -504,7 +516,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         for (int i = 0; i < semanticVector.length; i++)
         {
-            if((semanticVector[i] != 1.0) && isCuiCode(dictionary.get(i)))
+            if((semanticVector[i] != 1.0) && (isCuiCode(dictionary.get(i)) == true))
             {
                 for (Iterator<String> it = dictionary.iterator(); it.hasNext();) {
                     String wordDict = it.next();
@@ -765,7 +777,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         {
             String word = dictionary.get(i);
             
-            if((semanticVector[i] != 1.0) && isCuiCode(dictionary.get(i)))
+            if((semanticVector[i] != 1.0) && (isCuiCode(dictionary.get(i)) == true))
             {
                 double maxValue = 0.0;
                 
@@ -773,9 +785,10 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
                 {
                     // If it is a CUI code, add to the list
 
-                    if(isCuiCode(dictionary.get(i)) == true)
-                    {
+                    if(isCuiCode(wordDict) == true)
+                    {   
                         String data = m_preCalculatedSimilaritiesIterator.next();
+                        
                         String[] calculationResult = data.split(",");
                         
                         // Get the similarity between the words

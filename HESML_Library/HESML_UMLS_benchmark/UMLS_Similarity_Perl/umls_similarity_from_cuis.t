@@ -251,7 +251,7 @@ while (my $line = <$cuis_csv_codes>)
 	
 	my $run_time = $stop_time - $start_time;
 
-        print "The similarity between $cui1 and $cui2 is <> $pvalue <>, in $run_time segs. \n";
+        # print "The similarity between $cui1 and $cui2 is <> $pvalue <>, in $run_time segs. \n";
 
 	$csv_write->print($fh, [ $cui1, $cui2, $pvalue, $run_time ]);
 
