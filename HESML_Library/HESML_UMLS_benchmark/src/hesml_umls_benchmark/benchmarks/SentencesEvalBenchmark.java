@@ -74,7 +74,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
     
     private SimilarityMeasureType           m_MeasureType;
     private final IntrinsicICModelType      m_icModel;
-    private final LibraryType                m_vocabulary;
+    private final LibraryType               m_vocabulary;
 
     /**
      * Path to the input dataset for evaluating sentences
@@ -114,7 +114,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
 
     SentencesEvalBenchmark(
             SnomedBasedLibraryType[]    libraries,
-            LibraryType                  vocabulary,
+            LibraryType                 vocabulary,
             SimilarityMeasureType       similarityMeasure,
             IntrinsicICModelType        icModel,
             String                      strDatasetPath,
@@ -272,9 +272,7 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
 
                 // We evaluate the random concept pairs
 
-                
                 double similarity = getSimilarityValuesWithPedersen(m_dataset[iRun][0], m_dataset[iRun][1]);
-                
                 
                 // We compute the elapsed time in seconds
 
@@ -332,6 +330,10 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         System.out.println(library.getLibraryType() + " Average time for Java script (secs) = "
                 + averageRuntime);
         
+        // The UMLS similarity library measure the performance in two steps
+        // (a) the running time in HESML for iterating one time the dataset and getting the results from a preloaded arraylist
+        // (b) the running time in the Perl model for calculating the similarity between each pair of concepts.
+        
         if (library.getLibraryType() == SnomedBasedLibraryType.UMLS_SIMILARITY)
         {
             double averageRuntimePerlPerConceptPair = accumulatedTimePerl / totalPerlCalculations;
@@ -354,8 +356,6 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
             System.out.println(library.getLibraryType() + " Average evaluation speed (#evaluation/second) = "
                 + ((double)m_dataset.length) / averageRuntime);
         }
-        
-        
         
         // We return the results
         
@@ -533,26 +533,6 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // Return the result
       
         return (listCandidates);
-    }
-    
-    /**
-     * Filter if a String is or not a CUI code
-     */
-    
-    private boolean isCuiCode(String word)
-    {
-        //Initialize the result
-        
-        boolean isCui = false;
-        
-        
-        if(word.matches("C\\d\\d\\d\\d\\d\\d\\d"))
-        {
-            isCui = true;
-        }
-        
-        // Return the result
-        return (isCui);
     }
     
     /**
@@ -907,8 +887,12 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         String row;
         
+        // Initialize the sentences
+        
         ArrayList<String> first_sentences = new ArrayList<>();
         ArrayList<String> second_sentences = new ArrayList<>();
+        
+        // Read the benchmark CSV 
         
         BufferedReader csvReader = new BufferedReader(new FileReader(m_strDatasetPath));
         while ((row = csvReader.readLine()) != null) 
@@ -949,11 +933,17 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         for (int i = 0; i < m_dataset.length; i++)
         {
+            // Select the sentences
+            
             String first_sentence = m_dataset[i][0];
             String second_sentence = m_dataset[i][1];
             
+            // Annotate the sentences
+            
             String annotated_first_sentence = this.annotateSentence(first_sentence);
             String annotated_second_sentence = this.annotateSentence(second_sentence);
+            
+            // And assign the annotated sentences to the auxiliary matrix
             
             dataset[i][0] = annotated_first_sentence;
             dataset[i][1] = annotated_second_sentence;
@@ -985,12 +975,18 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         BioCDocument document = FreeText.instantiateBioCDocument(sentence);
         
+        // Proccess the document with Metamap
+        
         List<Entity> entityList = m_metaMapLiteInst.processDocument(document);
 
+        // For each keyphrase, select the first CUI candidate and replace in text.
+        
         for (Entity entity: entityList) 
         {
             for (Ev ev: entity.getEvSet()) 
             {
+                // Replace in text
+                
                 annotatedSentence = annotatedSentence.replaceAll(entity.getMatchedText(), ev.getConceptInfo().getCUI());
             }
         }
@@ -1011,11 +1007,18 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         // Initialization Section
         
         Properties myProperties = new Properties();
+        
+        // Select the 2020AA database
+        
 //        myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2020AA/USAbase/");
 //        myProperties.setProperty("opennlp.models.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/models/");
 //        myProperties.setProperty("opennlp.en-pos.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-pos-maxent.bin");
 //        myProperties.setProperty("opennlp.en-sent.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-sent.bin");
 //        myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
+
+        
+        // Select the 2018AB database
+        
         myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2018ABascii/USAbase/");
         myProperties.setProperty("opennlp.models.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/models/");
         myProperties.setProperty("opennlp.en-pos.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-pos-maxent.bin");
@@ -1023,9 +1026,27 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
         
         myProperties.setProperty("metamaplite.sourceset", "MSH");
-//        myProperties.setProperty("metamaplite.sourceset", "SNOMEDCT_US");
 
-             
         m_metaMapLiteInst = new MetaMapLite(myProperties);
+    }
+    
+    /**
+     * Filter if a String is or not a CUI code
+     */
+    
+    private boolean isCuiCode(String word)
+    {
+        //Initialize the result
+        
+        boolean isCui = false;
+        
+        
+        if(word.matches("C\\d\\d\\d\\d\\d\\d\\d"))
+        {
+            isCui = true;
+        }
+        
+        // Return the result
+        return (isCui);
     }
 }
