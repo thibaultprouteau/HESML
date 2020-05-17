@@ -1008,15 +1008,6 @@ class SentencesEvalBenchmark extends UMLSLibBenchmark
         
         Properties myProperties = new Properties();
         
-        // Select the 2020AA database
-        
-//        myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2020AA/USAbase/");
-//        myProperties.setProperty("opennlp.models.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/models/");
-//        myProperties.setProperty("opennlp.en-pos.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-pos-maxent.bin");
-//        myProperties.setProperty("opennlp.en-sent.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-sent.bin");
-//        myProperties.setProperty("opennlp.en-token.bin.path", "../HESML_UMLS_benchmark/public_mm_lite/data/models/en-token.bin");
-
-        
         // Select the 2018AB database
         
         myProperties.setProperty("metamaplite.index.directory", "../HESML_UMLS_benchmark/public_mm_lite/data/ivf/2018ABascii/USAbase/");

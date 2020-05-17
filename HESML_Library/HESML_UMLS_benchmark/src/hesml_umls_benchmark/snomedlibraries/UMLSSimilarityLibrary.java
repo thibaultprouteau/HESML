@@ -22,11 +22,7 @@
 package hesml_umls_benchmark.snomedlibraries;
 
 import hesml.configurators.IntrinsicICModelType;
-import hesml.measures.ISimilarityMeasure;
 import hesml.measures.SimilarityMeasureType;
-import hesml.taxonomy.IVertexList;
-import hesml.taxonomyreaders.snomed.ISnomedCtOntology;
-import hesml.taxonomyreaders.snomed.impl.SnomedCtFactory;
 import hesml_umls_benchmark.ISnomedSimilarityLibrary;
 import hesml_umls_benchmark.SnomedBasedLibraryType;
 import hesml_umls_benchmark.LibraryType;
@@ -39,7 +35,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
